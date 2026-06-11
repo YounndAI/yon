@@ -1,0 +1,71 @@
+{
+  "name": "@younndai/yon",
+  "description": "The YON™ toolchain in one install — parser, generator, runner, converter, domain schemas, AI relay, examples, and benchmarks for the stream-first, token-efficient YON data format. By YounndAI.",
+  "version": "2.0.0",
+  "author": {
+    "name": "MARLINK TRADING SRL (YounndAI)",
+    "url": "https://younndai.com"
+  },
+  "contributors": [
+    {
+      "name": "Alexandru Mareș",
+      "url": "https://allemaar.com"
+    }
+  ],
+  "dependencies": {
+    "@younndai/ai-relay": "^3.0.0",
+    "@younndai/domains": "^2.0.0",
+    "@younndai/yon-benchmarks": "^2.0.0",
+    "@younndai/yon-converter": "^2.0.0",
+    "@younndai/yon-examples": "^2.0.0",
+    "@younndai/yon-generator": "^2.0.0",
+    "@younndai/yon-parser": "^2.0.0",
+    "@younndai/yon-runner": "^2.0.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js"
+    }
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "NOTICE",
+    "TRADEMARK.md",
+    "package.json"
+  ],
+  "homepage": "https://yon.younndai.com",
+  "keywords": [
+    "yon",
+    "younndai",
+    "toolchain",
+    "parser",
+    "generator",
+    "runner",
+    "converter",
+    "data-format",
+    "ai-agents",
+    "agents",
+    "llm",
+    "agentic-ai",
+    "serialization",
+    "structured-data",
+    "token-efficient"
+  ],
+  "license": "Apache-2.0",
+  "main": "./index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YounndAI/yon.git",
+    "directory": "packages/yon-meta"
+  },
+  "type": "module",
+  "types": "./index.d.ts"
+}
