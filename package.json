@@ -18,9 +18,6 @@
     "test": "npm run test --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present"
   },
-  "overrides": {
-    "@younndai/yon-spec": "file:../yon-spec"
-  },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
     "@types/node": "^25.9.1",

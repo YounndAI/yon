@@ -6,9 +6,9 @@ on:
   pull_request:
     branches: [main]
 
-# Note: the toolchain depends on @younndai/yon-spec. Once yon-spec is published
-# to npm this CI runs as-is. For pre-publish development the repo root carries a
-# `file:../yon-spec` override expecting yon-spec checked out as a sibling repo.
+# Note: the toolchain depends on @younndai/yon-spec, resolved from npm. CI runs
+# green once yon-spec is published; before that, `npm install` fails on the
+# unpublished dependency (expected pre-launch).
 
 jobs:
   build-and-test:
@@ -18,7 +18,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
       - run: npm install
       - run: npm run build
       - run: npm test
