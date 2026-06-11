@@ -2,7 +2,7 @@ node_modules
 dist
 .turbo
 *.tsbuildinfo
-reports
+/reports
 coverage
 .env
 .env.local
