@@ -1,0 +1,51 @@
+@DOC ver=2.0 | kind=data | id=optimization-ladder | title="Optimization Ladder Test" | profile=exec | fmt=canon
+
+@SEC name="Application Config"
+
+@CFG key=app_name | val="OptLadder"
+@CFG key=version | val="3.0.0"
+@CFG key=environment | val="production"
+@CFG key=debug | val:bool=false
+@CFG key=max_connections | val:int=100
+@CFG key=timeout_ms | val:int=30000
+
+@SEC name="Security"
+
+@RULE lvl=MUST | when="handling user input" | then="sanitize all strings before database insertion"
+@RULE lvl=MUST | when="API authentication" | then="validate Bearer token on every request"
+@RULE lvl=MUST_NOT | when="logging" | then="include raw passwords or tokens in log output"
+@RULE lvl=SHOULD | when="session expires" | then="redirect to login with return URL preserved"
+
+@SEC name="Feature Flags"
+
+@MAP id=FeatureFlags | pairs=["dark_mode"->"enabled","beta_api"->"disabled","new_dashboard"->"canary","analytics"->"enabled"]
+
+@SEC name="Error Codes"
+
+@MAP id=ErrorCodes | pairs=["E001"->"Validation failed","E002"->"Timeout exceeded","E003"->"Permission denied","E004"->"Resource not found","E005"->"Rate limit exceeded"]
+
+@SEC name="Deployment Steps"
+
+@STEP rid=step:lint | n:int=1 | op=lint | desc="Run ESLint and type-check"
+@STEP rid=step:test | n:int=2 | op=test | desc="Execute unit and integration tests"
+@STEP rid=step:build | n:int=3 | op=build | desc="Compile TypeScript to JavaScript"
+@STEP rid=step:package | n:int=4 | op=package | desc="Build Docker container image"
+@STEP rid=step:deploy | n:int=5 | op=deploy | desc="Push to container registry and update service"
+
+@SEC name="Infrastructure"
+
+@NOTE text="Database connection pooling uses pg-pool with automatic reconnection."
+@NOTE text="Cache layer uses Redis with 60-second TTL for API responses."
+
+@BEGIN lang=json | id=pool-config
+{
+  "host": "db.example.com",
+  "port": 5432,
+  "database": "optladder",
+  "max": 20,
+  "idleTimeoutMillis": 30000,
+  "connectionTimeoutMillis": 2000
+}
+@END
+
+@STAMP ts:ts=2026-02-12T23:00:00Z | src=benchmark-gen | label="Generated for fidelity/optimization-ladder benchmark vector"

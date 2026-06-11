@@ -1,0 +1,220 @@
+so we're building the billing API for the new SaaS platform. this is the full spec — i want everything documented so the frontend team can start integrating while we build.
+
+authentication:
+- all endpoints require Bearer token in Authorization header
+- tokens come from our oauth2 /token endpoint
+- tokens expire after 1 hour, refresh tokens last 30 days
+- rate limits: 500 requests/minute per token, 10000/hour per organization
+- if rate limited, return 429 with Retry-After header
+- admin-scoped tokens can access all orgs, user-scoped tokens only their own org
+
+base URL: https://api.acmebilling.io/v2
+
+general conventions:
+- all responses wrapped in { "data": ..., "meta": { "request_id": "...", "timestamp": "..." } }
+- errors use { "error": { "code": "ERR_XXX", "message": "...", "details": [...] } }
+- pagination: cursor-based using ?cursor=xxx&limit=N (max 100, default 25)
+- all timestamps are ISO 8601 UTC
+- money amounts in smallest unit (cents) as integers, with currency code
+- idempotency: POST/PUT requests accept Idempotency-Key header, valid for 24 hours
+
+ok so here are the actual endpoints:
+
+--- CUSTOMERS ---
+
+POST /customers
+- creates a new customer
+- body: { name (required), email (required, unique per org), phone (optional), tax_id (optional), address: { line1, line2, city, state, postal_code, country (ISO 3166-1 alpha-2) }, metadata (optional, max 20 keys, values must be strings, max 500 chars each) }
+- returns 201 with full customer object
+- if email already exists returns 409 Conflict
+
+GET /customers
+- list all customers for the org
+- supports filters: ?email=X, ?created_after=ISO, ?created_before=ISO
+- supports sorting: ?sort=created_at&order=desc (default) or asc
+- returns paginated list
+
+GET /customers/:id
+- returns single customer
+- 404 if not found
+
+PATCH /customers/:id
+- partial update, any field from create except email (email changes require verification flow)
+- returns updated customer
+- 404 if not found
+
+DELETE /customers/:id
+- soft delete — marks status as "archived"
+- archived customers can't create new subscriptions
+- existing active subscriptions continue until cancelled
+- returns 200 with { archived_at: "..." }
+- already archived returns 410 Gone
+
+--- PRODUCTS ---
+
+POST /products
+- creates a product (represents what you sell)
+- body: { name (required, max 255 chars), description (optional, max 2000 chars), active (boolean, default true), metadata }
+- each product must have at least one price before it can be used in subscriptions
+- returns 201
+
+GET /products
+- list all, filterable by ?active=true|false
+- includes price count but NOT full price objects (use /products/:id/prices for that)
+
+GET /products/:id
+- full product with embedded prices array
+
+PATCH /products/:id
+- can update name, description, active, metadata
+- setting active=false prevents new subscriptions but doesn't affect existing ones
+
+--- PRICES ---
+
+POST /products/:product_id/prices
+- creates a price for a product
+- body: {
+    amount (required, integer, cents),
+    currency (required, ISO 4217, we support: USD, EUR, GBP, CAD, AUD, JPY),
+    interval (required for recurring: "month", "quarter", "year"),
+    interval_count (optional, default 1 — e.g. interval="month" + interval_count=3 = quarterly),
+    type: "recurring" or "one_time" (required),
+    nickname (optional, for internal use like "Pro Monthly"),
+    active (boolean, default true),
+    tiers (optional, for volume pricing): [
+      { up_to: 10, unit_amount: 1000, flat_amount: 0 },
+      { up_to: 100, unit_amount: 800, flat_amount: 0 },
+      { up_to: "inf", unit_amount: 500, flat_amount: 0 }
+    ],
+    billing_scheme: "per_unit" (default) or "tiered"
+  }
+- prices are immutable after creation — to change a price, create a new one and deactivate the old
+- returns 201
+
+GET /products/:product_id/prices
+- list all prices for a product
+- filter: ?active=true|false, ?type=recurring|one_time
+
+--- SUBSCRIPTIONS ---
+
+this is the most complex part, so pay attention
+
+POST /subscriptions
+- creates a subscription for a customer
+- body: {
+    customer_id (required),
+    items (required, array): [
+      { price_id: "...", quantity: 1 }
+    ],
+    trial_period_days (optional, 0-365),
+    payment_method_id (required unless trial),
+    billing_cycle_anchor (optional, ISO date — what day of month billing happens),
+    proration_behavior: "create_prorations" (default), "none", "always_invoice",
+    cancel_at (optional, ISO — schedule future cancellation),
+    metadata
+  }
+- subscription starts immediately or after trial
+- first invoice created automatically (unless trial)
+- status flow: "trialing" → "active" → "past_due" → "canceled" or "active" → "canceled"
+- returns 201 with subscription + latest invoice
+
+GET /subscriptions
+- list for org, filterable by ?customer_id=X, ?status=active|trialing|past_due|canceled
+- default excludes canceled unless explicitly requested
+
+GET /subscriptions/:id
+- full subscription with current period, items, latest invoice
+
+PATCH /subscriptions/:id
+- can update: items (change quantities, add/remove products), payment_method_id, metadata, cancel_at
+- changing items mid-cycle creates prorations based on proration_behavior
+- returns updated subscription
+
+DELETE /subscriptions/:id
+- cancels the subscription
+- query param: ?at=period_end (cancel at end of current period, default) or ?at=now (immediate)
+- immediate cancellation can trigger partial refund based on proration
+- returns subscription with status="canceled" and canceled_at timestamp
+
+POST /subscriptions/:id/resume
+- only works if status is "canceled" and cancel_at is in the future (scheduled cancellation)
+- resumes the subscription, clears cancel_at
+- returns subscription with status="active"
+
+--- INVOICES ---
+
+GET /invoices
+- list invoices, filterable by ?customer_id, ?subscription_id, ?status=draft|open|paid|void|uncollectible
+- returns paginated list
+
+GET /invoices/:id
+- full invoice with line items, tax amounts, payment attempts
+
+POST /invoices/:id/pay
+- attempts to pay an open invoice using the customer's default payment method
+- returns 200 with updated invoice (status=paid) or 402 if payment failed
+- if payment fails, invoice remains "open" and a payment_failed event is emitted
+
+POST /invoices/:id/void
+- voids an open invoice — no charge, no refund
+- only works on open invoices, not paid ones
+- returns 200 with status=void
+
+--- WEBHOOKS & EVENTS ---
+
+we use the same webhook system from the other spec but here are the specific events:
+
+events we emit:
+- customer.created, customer.updated, customer.archived
+- product.created, product.updated
+- price.created, price.deactivated
+- subscription.created, subscription.updated, subscription.canceled, subscription.trial_ending (3 days before)
+- invoice.created, invoice.paid, invoice.payment_failed, invoice.voided
+- payment_method.attached, payment_method.detached, payment_method.expiring (30 days before)
+
+webhook payload format:
+{
+  "id": "evt_abc123",
+  "type": "subscription.trial_ending",
+  "created_at": "2024-01-15T10:30:00Z",
+  "data": {
+    "object": { ... full object ... },
+    "previous_attributes": { ... only for .updated events ... }
+  },
+  "api_version": "2024-01-01"
+}
+
+--- ERROR CODES ---
+
+we need a consistent error code system:
+- ERR_AUTHENTICATION: invalid or expired token
+- ERR_AUTHORIZATION: valid token but insufficient permissions
+- ERR_NOT_FOUND: resource doesn't exist
+- ERR_VALIDATION: request body validation failed (details array has field-level errors)
+- ERR_CONFLICT: duplicate resource (e.g. same email)
+- ERR_RATE_LIMIT: too many requests
+- ERR_PAYMENT_FAILED: payment processing error (details include payment processor error code)
+- ERR_SUBSCRIPTION_INACTIVE: trying to modify a canceled subscription
+- ERR_PRICE_IMMUTABLE: trying to update an immutable price
+- ERR_IDEMPOTENCY_MISMATCH: same idempotency key used with different parameters
+
+--- VERSIONING ---
+
+api versioning policy:
+- versions are date-based: "2024-01-01", "2024-06-01", etc
+- clients send version via X-API-Version header
+- if no header sent, we use the version that was current when their API key was created
+- breaking changes only in new versions
+- deprecated fields get "deprecated_at" in response for 6 months before removal
+- migration guide published with each version
+
+sdk support:
+- official SDKs in: JavaScript/TypeScript (npm @acme/billing-sdk), Python (pip acme-billing), Ruby (gem acme-billing), Go (go.acme.io/billing)
+- SDKs auto-generate from OpenAPI spec
+- webhook verification helpers included in all SDKs
+
+oh by the way - for testing, we provide a sandbox environment at https://sandbox.api.acmebilling.io/v2
+- sandbox uses test API keys (prefix "sk_test_")
+- special test payment methods: pm_test_success (always succeeds), pm_test_decline (always fails), pm_test_insufficient (fails with insufficient funds)
+- sandbox data resets every 24 hours
+- sandbox rate limits are lower: 100 requests/minute

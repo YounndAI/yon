@@ -1,0 +1,17 @@
+@DOC ver=2.0 | id=novabyte-landing | title="NovaByte Landing Page" | kind=rule | profile=exec | fmt=min
+@INTENT goal="Landing page for NovaByte (AI code review tool)"
+@SEC name=Hero
+@NOTE text="Dark bg, purple→blue gradient, headline: Ship better code faster, CTA: Start Free Trial"
+@SEC name=Features
+@MAP id=features | pairs=["AI-Powered Analysis"->"PR bug scanning","Team Insights"->"Review metrics + bottlenecks","Smart Suggestions"->"Contextual fix suggestions"]
+@SEC name=Pricing
+@MAP id=free | tier=Free | users:int=5 | reviews="100/mo" | features="basic"
+@MAP id=pro | tier=Pro | price="$29/user/mo" | reviews=unlimited | features="full AI, metrics, priority support"
+@MAP id=enterprise | tier=Enterprise | price=custom | features="SSO, audit logs, AM, SLA"
+@SEC name=Testimonials
+@NOTE text="3 realistic quotes"
+@SEC name=Footer
+@MAP id=footer | pairs=["docs","blog","twitter","github"] | copyright="2026 NovaByte Inc."
+@SEC name=Nav
+@NOTE text="Floating navbar: logo left, links center, CTA right"
+@RULE lvl=MUST | when="any viewport" | then="fully responsive"

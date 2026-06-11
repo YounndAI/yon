@@ -1,0 +1,9 @@
+Describe a medical appointment scheduling schema with 3 tables and naming rules:
+
+Table 1: "patients" — columns: patient_id (uuid, primary key), first_name (varchar 100, not null), last_name (varchar 100, not null), date_of_birth (date, not null), email (varchar 255, unique), phone (varchar 20), insurance_provider (varchar 100), insurance_policy_number (varchar 50), created_at (timestamp, default now())
+
+Table 2: "providers" — columns: provider_id (uuid, primary key), full_name (varchar 200, not null), specialty (varchar 100, not null, one of: 'general', 'cardiology', 'dermatology', 'orthopedics', 'pediatrics'), license_number (varchar 50, unique, not null), available_days (text array, e.g. ['monday', 'wednesday', 'friday']), consultation_fee_cents (integer, not null), created_at (timestamp, default now())
+
+Table 3: "appointments" — columns: appointment_id (uuid, primary key), patient_id (uuid, foreign key to patients), provider_id (uuid, foreign key to providers), scheduled_at (timestamp, not null), duration_minutes (integer, default 30), status (varchar 20, one of: 'scheduled', 'confirmed', 'completed', 'cancelled', 'no_show'), reason (text), notes (text), created_at (timestamp, default now())
+
+Naming rules: all table names must be lowercase plural nouns. All column names must be snake_case. Primary keys must be named {table_singular}_id. Foreign keys must reference the primary key name of the related table. Timestamps must use the suffix _at.

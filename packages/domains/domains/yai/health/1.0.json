@@ -1,0 +1,915 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.health",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Clinical decision support, medical coding, patient data exchange, and AI-powered healthcare workflows with HIPAA-aware audit trails",
+  "defaultMode": "struct",
+  "defaultProfile": "audit",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "VITALS",
+      "description": "Patient vital signs — structured observation set for triage, monitoring, and clinical consultations",
+      "fields": [
+        {
+          "name": "bp",
+          "type": "string",
+          "required": true,
+          "pattern": "\\d+/\\d+",
+          "description": "Blood Pressure in mmHg in systolic/diastolic format",
+          "unit": "mmHg",
+          "example": "120/80"
+        },
+        {
+          "name": "hr",
+          "type": "int",
+          "required": false,
+          "range": [
+            30,
+            250
+          ],
+          "description": "Heart Rate in bpm (30–250)",
+          "unit": "bpm",
+          "example": "72"
+        },
+        {
+          "name": "temp_c",
+          "type": "float",
+          "required": false,
+          "range": [
+            30,
+            45
+          ],
+          "description": "Temperature (Celsius) in °C (30–45)",
+          "unit": "°C",
+          "example": "37.0"
+        },
+        {
+          "name": "spo2",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Oxygen Saturation in % (0–100)",
+          "unit": "%",
+          "example": "98.0"
+        },
+        {
+          "name": "rr",
+          "type": "int",
+          "required": false,
+          "range": [
+            4,
+            60
+          ],
+          "description": "Respiratory Rate in breaths/min (4–60)",
+          "unit": "breaths/min",
+          "example": "16"
+        },
+        {
+          "name": "weight",
+          "type": "float",
+          "required": false,
+          "description": "Body Weight in kg",
+          "unit": "kg",
+          "example": "75kg"
+        },
+        {
+          "name": "height",
+          "type": "float",
+          "required": false,
+          "description": "Height",
+          "example": "175cm"
+        }
+      ]
+    },
+    {
+      "tag": "VITAL",
+      "description": "Individual vital measurement with reference ranges and alert status",
+      "fields": [
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "description": "Vital Type",
+          "example": "heart_rate"
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "required": false,
+          "description": "Measured Value",
+          "example": "72"
+        },
+        {
+          "name": "unit",
+          "type": "string",
+          "required": false,
+          "description": "Unit of Measure",
+          "example": "bpm"
+        },
+        {
+          "name": "low_limit",
+          "type": "float",
+          "required": false,
+          "description": "Low Reference Limit",
+          "example": "60"
+        },
+        {
+          "name": "high_limit",
+          "type": "float",
+          "required": false,
+          "description": "High Reference Limit",
+          "example": "100"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "normal",
+            "low",
+            "high",
+            "critical"
+          ],
+          "description": "Alert Status: normal, low, high, critical",
+          "example": "normal"
+        }
+      ]
+    },
+    {
+      "tag": "PATIENT",
+      "description": "Patient demographic record — FHIR Patient aligned, privacy-aware with encrypted identifiers",
+      "fields": [
+        {
+          "name": "mrn",
+          "type": "string",
+          "required": false,
+          "description": "Medical Record Number",
+          "example": "MH-2847"
+        },
+        {
+          "name": "name_encrypted",
+          "type": "string",
+          "required": false,
+          "description": "Encrypted Patient Name",
+          "example": "enc:aes256:..."
+        },
+        {
+          "name": "birth_date",
+          "type": "string",
+          "required": false,
+          "description": "Date of Birth",
+          "example": "1985-03-15"
+        },
+        {
+          "name": "gender",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "male",
+            "female",
+            "other",
+            "unknown"
+          ],
+          "description": "Administrative Gender: male, female, other, unknown",
+          "example": "female"
+        },
+        {
+          "name": "active",
+          "type": "bool",
+          "required": false,
+          "description": "Active Record indicator",
+          "example": "true"
+        },
+        {
+          "name": "weight_kg",
+          "type": "float",
+          "required": false,
+          "description": "Body Weight in kg",
+          "unit": "kg",
+          "example": "68.5"
+        },
+        {
+          "name": "diagnosis",
+          "type": "string",
+          "required": false,
+          "description": "Primary Diagnosis",
+          "example": "Type 2 Diabetes"
+        }
+      ]
+    },
+    {
+      "tag": "DX",
+      "description": "Diagnosis entry — FHIR Condition aligned, supports ICD-10, SNOMED-CT coding with clinical and verification status",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": false,
+          "description": "Diagnosis Code",
+          "example": "J20.9"
+        },
+        {
+          "name": "system",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "ICD-10",
+            "SNOMED-CT",
+            "ICD-11",
+            "custom"
+          ],
+          "description": "Coding System: ICD-10, SNOMED-CT, ICD-11, custom",
+          "example": "ICD-10"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Clinical Description",
+          "example": "Acute bronchitis, unspecified"
+        },
+        {
+          "name": "clinical_status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "active",
+            "recurrence",
+            "relapse",
+            "inactive",
+            "remission",
+            "resolved"
+          ],
+          "description": "Clinical Status (6 allowed values)",
+          "example": "active"
+        },
+        {
+          "name": "verification_status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "unconfirmed",
+            "provisional",
+            "differential",
+            "confirmed",
+            "refuted",
+            "entered-in-error"
+          ],
+          "description": "Verification Status (6 allowed values)",
+          "example": "confirmed"
+        },
+        {
+          "name": "severity",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "mild",
+            "moderate",
+            "severe"
+          ],
+          "description": "Severity: mild, moderate, severe",
+          "example": "moderate"
+        },
+        {
+          "name": "onset",
+          "type": "ts",
+          "required": false,
+          "description": "Onset Date as ISO 8601 timestamp",
+          "example": "2026-02-20T08:00:00Z"
+        },
+        {
+          "name": "confidence",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            1
+          ],
+          "description": "AI Confidence Score (0–1)",
+          "example": "0.92"
+        },
+        {
+          "name": "ruled_out",
+          "type": "bool",
+          "required": false,
+          "description": "Ruled Out indicator",
+          "example": "false"
+        }
+      ]
+    },
+    {
+      "tag": "RX",
+      "description": "Prescription record — FHIR MedicationRequest aligned, medication orders with dosage, frequency, route, and lifecycle status",
+      "fields": [
+        {
+          "name": "drug",
+          "type": "string",
+          "required": false,
+          "description": "Drug Name",
+          "example": "Amoxicillin"
+        },
+        {
+          "name": "dosage",
+          "type": "string",
+          "required": false,
+          "description": "Dosage",
+          "example": "500mg"
+        },
+        {
+          "name": "frequency",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "once-daily",
+            "twice-daily",
+            "three-daily",
+            "four-daily",
+            "as-needed",
+            "weekly",
+            "monthly",
+            "stat"
+          ],
+          "description": "Frequency (8 allowed values)",
+          "example": "3x/day"
+        },
+        {
+          "name": "duration",
+          "type": "string",
+          "required": false,
+          "description": "Duration",
+          "example": "7 days"
+        },
+        {
+          "name": "route",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "oral",
+            "iv",
+            "im",
+            "sc",
+            "topical",
+            "inhaled",
+            "rectal"
+          ],
+          "description": "Administration Route (7 allowed values)",
+          "example": "oral"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "active",
+            "on-hold",
+            "cancelled",
+            "completed",
+            "stopped",
+            "draft"
+          ],
+          "description": "Prescription Status (6 allowed values)",
+          "example": "active"
+        },
+        {
+          "name": "instructions",
+          "type": "string",
+          "required": false,
+          "description": "Patient Instructions",
+          "example": "Take with food"
+        }
+      ]
+    },
+    {
+      "tag": "LAB",
+      "description": "Laboratory result — FHIR Observation aligned, LOINC-coded test values with reference ranges, interpretation, and result status",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Test Name",
+          "example": "Hemoglobin A1c"
+        },
+        {
+          "name": "loinc_code",
+          "type": "string",
+          "required": false,
+          "description": "LOINC Code",
+          "example": "4548-4"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "laboratory",
+            "vital-signs",
+            "imaging",
+            "procedure",
+            "survey",
+            "social-history"
+          ],
+          "description": "Observation Category (6 allowed values)",
+          "example": "laboratory"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "registered",
+            "preliminary",
+            "final",
+            "amended",
+            "corrected",
+            "cancelled"
+          ],
+          "description": "Result Status (6 allowed values)",
+          "example": "final"
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "required": false,
+          "description": "Result Value",
+          "example": "6.5"
+        },
+        {
+          "name": "unit",
+          "type": "string",
+          "required": false,
+          "description": "Unit of Measure",
+          "example": "%"
+        },
+        {
+          "name": "interpretation",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "normal",
+            "low",
+            "high",
+            "critical-low",
+            "critical-high",
+            "abnormal"
+          ],
+          "description": "Interpretation Flag (6 allowed values)",
+          "example": "high"
+        },
+        {
+          "name": "reference_range",
+          "type": "string",
+          "required": false,
+          "description": "Reference Range",
+          "example": "4.0-5.6"
+        },
+        {
+          "name": "effective_ts",
+          "type": "ts",
+          "required": false,
+          "description": "Effective Timestamp as ISO 8601 timestamp",
+          "example": "2026-02-20T14:30:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "PROCEDURE",
+      "description": "Clinical procedure — CPT-coded medical interventions",
+      "fields": [
+        {
+          "name": "cpt",
+          "type": "string",
+          "required": false,
+          "description": "CPT Code",
+          "example": "99213"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Procedure Description",
+          "example": "Office visit, established patient"
+        },
+        {
+          "name": "modifiers",
+          "type": "string",
+          "required": false,
+          "description": "CPT Modifiers",
+          "example": "25"
+        },
+        {
+          "name": "units",
+          "type": "int",
+          "required": false,
+          "description": "Billable Units",
+          "example": "1"
+        }
+      ]
+    },
+    {
+      "tag": "ALLERGY",
+      "description": "Patient allergy — adverse reaction tracking with severity classification",
+      "fields": [
+        {
+          "name": "agent",
+          "type": "string",
+          "required": false,
+          "description": "Allergenic Agent",
+          "example": "Penicillin"
+        },
+        {
+          "name": "severity",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "mild",
+            "moderate",
+            "severe",
+            "life-threatening"
+          ],
+          "description": "Reaction Severity: mild, moderate, severe, life-threatening",
+          "example": "severe"
+        },
+        {
+          "name": "reaction",
+          "type": "string",
+          "required": false,
+          "description": "Reaction Description",
+          "example": "Anaphylaxis"
+        },
+        {
+          "name": "verified",
+          "type": "bool",
+          "required": false,
+          "description": "Clinically Verified indicator",
+          "example": "true"
+        }
+      ]
+    },
+    {
+      "tag": "SYMPTOM",
+      "description": "Patient-reported symptom — onset, severity, and duration tracking",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Symptom Name",
+          "example": "Persistent cough"
+        },
+        {
+          "name": "onset",
+          "type": "ts",
+          "required": false,
+          "description": "Symptom Onset as ISO 8601 timestamp",
+          "example": "2026-02-18T00:00:00Z"
+        },
+        {
+          "name": "severity",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "mild",
+            "moderate",
+            "severe"
+          ],
+          "description": "Severity: mild, moderate, severe",
+          "example": "moderate"
+        },
+        {
+          "name": "duration",
+          "type": "string",
+          "required": false,
+          "description": "Duration",
+          "example": "3 days"
+        }
+      ]
+    },
+    {
+      "tag": "DIFFERENTIAL",
+      "description": "Differential diagnosis — ranked conditions with supporting evidence",
+      "fields": [
+        {
+          "name": "condition",
+          "type": "string",
+          "required": false,
+          "description": "Candidate Condition",
+          "example": "Community-acquired pneumonia"
+        },
+        {
+          "name": "probability",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            1
+          ],
+          "description": "Probability Score (0–1)",
+          "example": "0.73"
+        },
+        {
+          "name": "supporting_evidence",
+          "type": "string",
+          "required": false,
+          "description": "Supporting Evidence",
+          "example": "Productive cough, fever, bilateral crackles"
+        }
+      ]
+    },
+    {
+      "tag": "CODE_SUGGESTION",
+      "description": "AI-generated medical code suggestion with confidence scoring for coder review",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": false,
+          "description": "Suggested Code",
+          "example": "J18.9"
+        },
+        {
+          "name": "system",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "ICD-10",
+            "CPT",
+            "SNOMED-CT",
+            "LOINC",
+            "HCPCS"
+          ],
+          "description": "Coding System: ICD-10, CPT, SNOMED-CT, LOINC, HCPCS",
+          "example": "ICD-10"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Code Description",
+          "example": "Pneumonia, unspecified organism"
+        },
+        {
+          "name": "confidence",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            1
+          ],
+          "description": "AI Confidence (0–1)",
+          "example": "0.92"
+        }
+      ]
+    },
+    {
+      "tag": "ENCOUNTER_SUMMARY",
+      "description": "Clinical encounter summary — aggregated visit data for continuity of care",
+      "fields": [
+        {
+          "name": "procedure",
+          "type": "string",
+          "required": false,
+          "description": "Procedure Performed",
+          "example": "Chest X-ray"
+        },
+        {
+          "name": "diagnosis",
+          "type": "string",
+          "required": false,
+          "description": "Final Diagnosis",
+          "example": "Acute bronchitis"
+        },
+        {
+          "name": "provider",
+          "type": "string",
+          "required": false,
+          "description": "Attending Provider",
+          "example": "Dr. Smith"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Clinical decision support for AI-powered healthcare",
+    "highlights": [
+      "VITALS",
+      "DX",
+      "RX"
+    ],
+    "use_cases": [
+      {
+        "id": "triage",
+        "title": "Emergency Triage Assessment",
+        "steps": [
+          "Receive patient vitals via @VITALS",
+          "Run differential diagnosis via @DX",
+          "Generate treatment recommendation"
+        ],
+        "example": "@VITALS rid=vs:1 | hr:int=120 | bp=\"90/60\" | spo2:int=88",
+        "tags_used": [
+          "VITALS",
+          "DX",
+          "DIFFERENTIAL"
+        ],
+        "description": "Capture patient vitals, lab results, and allergy data at point of care. Apply ESI triage algorithms and generate structured handoff notes for care transitions.",
+        "tags": [
+          "PATIENT",
+          "VITALS",
+          "LAB",
+          "ALLERGY",
+          "NOTE"
+        ]
+      },
+      {
+        "id": "coding",
+        "title": "AI-Assisted Medical Coding",
+        "steps": [
+          "Parse clinical notes into @ENCOUNTER_SUMMARY",
+          "Generate @CODE_SUGGESTION with ICD-10 and CPT codes",
+          "Review confidence scores and finalize billing"
+        ],
+        "example": "@CODE_SUGGESTION code=\"J18.9\" | system=\"ICD-10\" | confidence:float=0.92",
+        "tags_used": [
+          "ENCOUNTER_SUMMARY",
+          "CODE_SUGGESTION",
+          "PROCEDURE"
+        ],
+        "description": "Extract diagnoses, procedures, and medications from clinical notes. Map to ICD-10, CPT, and LOINC codes for automated claims generation with confidence scoring.",
+        "tags": [
+          "ENCOUNTER",
+          "RX",
+          "LAB",
+          "NOTE",
+          "IMAGING"
+        ]
+      }
+    ],
+    "tag_context": {
+      "VITALS": {
+        "purpose": "Composite vital signs observation set for triage and clinical monitoring",
+        "when_to_use": "ED triage, ward rounds, pre-operative assessment, telehealth consultations",
+        "related_standards": [
+          "HL7 FHIR Observation",
+          "IEEE 11073",
+          "NEWS2"
+        ]
+      },
+      "VITAL": {
+        "purpose": "Individual vital measurement with reference range and alert classification",
+        "when_to_use": "Continuous monitoring, threshold alerting, trend analysis, charting",
+        "related_standards": [
+          "HL7 FHIR Observation",
+          "LOINC vital signs panel"
+        ]
+      },
+      "PATIENT": {
+        "purpose": "FHIR-aligned patient demographic record with privacy-aware encrypted identifiers",
+        "when_to_use": "Patient registration, demographic lookup, care coordination, consent management",
+        "related_standards": [
+          "HL7 FHIR Patient",
+          "IHE PIX/PDQ",
+          "HIPAA Safe Harbor"
+        ]
+      },
+      "DX": {
+        "purpose": "Diagnosis entry with ICD-10/SNOMED-CT coding, clinical status, and AI confidence scoring",
+        "when_to_use": "Clinical documentation, differential diagnosis, billing coding, clinical decision support",
+        "related_standards": [
+          "HL7 FHIR Condition",
+          "ICD-10-CM",
+          "SNOMED CT"
+        ]
+      },
+      "RX": {
+        "purpose": "Medication order with dosage, route, frequency, and prescription lifecycle",
+        "when_to_use": "e-Prescribing, medication reconciliation, pharmacy dispensing, drug interaction checks",
+        "related_standards": [
+          "HL7 FHIR MedicationRequest",
+          "NCPDP SCRIPT",
+          "RxNorm"
+        ]
+      },
+      "LAB": {
+        "purpose": "LOINC-coded laboratory result with reference ranges and interpretive flags",
+        "when_to_use": "Lab result reporting, critical value alerting, trend analysis, clinical trials",
+        "related_standards": [
+          "HL7 FHIR Observation",
+          "LOINC",
+          "IHE LAB"
+        ]
+      },
+      "PROCEDURE": {
+        "purpose": "CPT-coded clinical procedure record with outcome and performer attribution",
+        "when_to_use": "Surgical documentation, procedure scheduling, billing, outcome tracking",
+        "related_standards": [
+          "HL7 FHIR Procedure",
+          "CPT",
+          "ICD-10-PCS"
+        ]
+      },
+      "ALLERGY": {
+        "purpose": "Allergy or adverse reaction record with substance, severity, and verification status",
+        "when_to_use": "Allergy documentation, drug interaction screening, anesthesia safety, care planning",
+        "related_standards": [
+          "HL7 FHIR AllergyIntolerance",
+          "SNOMED CT",
+          "NDF-RT"
+        ]
+      },
+      "SYMPTOM": {
+        "purpose": "Patient-reported symptom with onset, severity, body site, and AI confidence",
+        "when_to_use": "Symptom triage, chatbot intake, remote monitoring, clinical decision support",
+        "related_standards": [
+          "HL7 FHIR Condition",
+          "SNOMED CT Clinical Finding",
+          "MedDRA"
+        ]
+      },
+      "DIFFERENTIAL": {
+        "purpose": "AI-generated differential diagnosis list ranked by probability",
+        "when_to_use": "Clinical decision support, triage, diagnostic reasoning, medical education",
+        "related_standards": [
+          "HL7 FHIR ClinicalImpression",
+          "DxPlain"
+        ]
+      },
+      "CODE_SUGGESTION": {
+        "purpose": "AI-suggested medical billing code with confidence and rationale",
+        "when_to_use": "Medical coding assistance, claim submission, revenue cycle management",
+        "related_standards": [
+          "ICD-10-CM",
+          "CPT",
+          "HCPCS"
+        ]
+      },
+      "ENCOUNTER_SUMMARY": {
+        "purpose": "AI-generated clinical encounter summary with key findings and plan",
+        "when_to_use": "Discharge summaries, shift handoff, clinical documentation improvement",
+        "related_standards": [
+          "HL7 FHIR Composition",
+          "CDA R2"
+        ]
+      }
+    },
+    "links": [
+      {
+        "label": "HL7 FHIR",
+        "url": "https://hl7.org/fhir/",
+        "type": "standard"
+      },
+      {
+        "label": "ICD-10",
+        "url": "https://icd.who.int/",
+        "type": "reference"
+      },
+      {
+        "label": "SNOMED-CT",
+        "url": "https://www.snomed.org/",
+        "type": "standard"
+      },
+      {
+        "label": "LOINC",
+        "url": "https://loinc.org/",
+        "type": "standard"
+      },
+      {
+        "label": "CPT Codes",
+        "url": "https://www.ama-assn.org/amaone/cpt-current-procedural-terminology",
+        "type": "reference"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.insurance",
+        "relationship": "often paired",
+        "reason": "Claims reference clinical data"
+      },
+      {
+        "domain": "yai.compliance",
+        "relationship": "regulatory overlap",
+        "reason": "HIPAA audit trails"
+      },
+      {
+        "domain": "yai.research",
+        "relationship": "data source",
+        "reason": "Clinical trials and research datasets"
+      }
+    ],
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

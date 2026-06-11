@@ -1,0 +1,597 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.legal",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Contract analysis, e-discovery workflows, privilege detection, and AI-assisted legal review with redaction support",
+  "defaultMode": "struct",
+  "defaultProfile": "audit",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "CLAUSE",
+      "description": "Contract clause — section-level analysis with risk scoring and template deviation tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "cls:MSA-7.2"
+        },
+        {
+          "name": "section",
+          "type": "string",
+          "required": false,
+          "description": "Section Reference",
+          "example": "7.2 Limitation of Liability"
+        },
+        {
+          "name": "risk_level",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ],
+          "description": "Risk Level: low, medium, high, critical",
+          "example": "high"
+        },
+        {
+          "name": "our_template_version",
+          "type": "string",
+          "required": false,
+          "description": "Our Template Version",
+          "example": "v3.1"
+        },
+        {
+          "name": "this_contract_version",
+          "type": "string",
+          "required": false,
+          "description": "Contract Version",
+          "example": "Counterparty redline v2"
+        }
+      ]
+    },
+    {
+      "tag": "PRIVILEGE",
+      "description": "Privilege detection — attorney-client and work-product privilege classification",
+      "fields": [
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "attorney-client",
+            "work-product",
+            "joint-defense",
+            "common-interest",
+            "none"
+          ],
+          "description": "Privilege Type: attorney-client, work-product, joint-defense, common-interest, none",
+          "example": "attorney-client"
+        },
+        {
+          "name": "confidence",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            1
+          ],
+          "description": "Detection Confidence (0–1)",
+          "example": "0.94"
+        },
+        {
+          "name": "routing",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "privilege-log",
+            "second-review",
+            "release",
+            "redact"
+          ],
+          "description": "Routing Decision: privilege-log, second-review, release, redact",
+          "example": "privilege-log"
+        }
+      ]
+    },
+    {
+      "tag": "CITATION",
+      "description": "Legal citation — case law and statutory references with relevance scoring",
+      "fields": [
+        {
+          "name": "case",
+          "type": "string",
+          "required": false,
+          "description": "Case Citation",
+          "example": "Smith v. Jones, 456 U.S. 789 (2024)"
+        },
+        {
+          "name": "statute",
+          "type": "string",
+          "required": false,
+          "description": "Statute Reference",
+          "example": "15 U.S.C. § 78u-6"
+        },
+        {
+          "name": "relevance",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            1
+          ],
+          "description": "Relevance Score (0–1)",
+          "example": "0.87"
+        }
+      ]
+    },
+    {
+      "tag": "REDACTION",
+      "description": "Redaction marker — byte-offset redaction for PII, privilege, or regulatory compliance",
+      "fields": [
+        {
+          "name": "start",
+          "type": "int",
+          "required": false,
+          "description": "Start Offset in bytes",
+          "unit": "bytes",
+          "example": "1024"
+        },
+        {
+          "name": "end",
+          "type": "int",
+          "required": false,
+          "description": "End Offset in bytes",
+          "unit": "bytes",
+          "example": "1156"
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "pii",
+            "privilege",
+            "trade-secret",
+            "regulatory",
+            "confidential"
+          ],
+          "description": "Redaction Reason: pii, privilege, trade-secret, regulatory, confidential",
+          "example": "pii"
+        }
+      ]
+    },
+    {
+      "tag": "DEVIATION",
+      "description": "Template deviation — identifies where contract language diverges from standard templates",
+      "fields": [
+        {
+          "name": "severity",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "minor",
+            "moderate",
+            "major",
+            "critical"
+          ],
+          "description": "Deviation Severity: minor, moderate, major, critical",
+          "example": "major"
+        },
+        {
+          "name": "template",
+          "type": "string",
+          "required": false,
+          "description": "Template Reference",
+          "example": "MSA-Standard-v3.1"
+        },
+        {
+          "name": "finding",
+          "type": "string",
+          "required": false,
+          "description": "Finding Description",
+          "example": "Unlimited liability clause added by counterparty"
+        }
+      ]
+    },
+    {
+      "tag": "BATCH_STATS",
+      "description": "E-discovery batch statistics — aggregate processing results across document populations",
+      "fields": [
+        {
+          "name": "total_documents",
+          "type": "int",
+          "required": false,
+          "description": "Total Documents",
+          "example": "15420"
+        },
+        {
+          "name": "processed",
+          "type": "int",
+          "required": false,
+          "description": "Processed Count",
+          "example": "14800"
+        },
+        {
+          "name": "privileged",
+          "type": "int",
+          "required": false,
+          "description": "Privileged Count",
+          "example": "342"
+        },
+        {
+          "name": "responsive",
+          "type": "int",
+          "required": false,
+          "description": "Responsive Count",
+          "example": "8750"
+        },
+        {
+          "name": "non_responsive",
+          "type": "int",
+          "required": false,
+          "description": "Non-Responsive Count",
+          "example": "5708"
+        }
+      ]
+    },
+    {
+      "tag": "DOC_RESULT",
+      "description": "Document processing result — per-document classification with privilege and relevance scoring",
+      "fields": [
+        {
+          "name": "doc_id",
+          "type": "string",
+          "required": false,
+          "description": "Document ID",
+          "example": "DOC-2026-00142"
+        },
+        {
+          "name": "privilege_detected",
+          "type": "bool",
+          "required": false,
+          "description": "Privilege Detected indicator",
+          "example": "true"
+        },
+        {
+          "name": "privilege_type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "attorney-client",
+            "work-product",
+            "joint-defense",
+            "common-interest",
+            "none"
+          ],
+          "description": "Privilege Type: attorney-client, work-product, joint-defense, common-interest, none",
+          "example": "attorney-client"
+        },
+        {
+          "name": "confidence",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            1
+          ],
+          "description": "Classification Confidence (0–1)",
+          "example": "0.91"
+        },
+        {
+          "name": "routing",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "privilege-log",
+            "responsive",
+            "non-responsive",
+            "further-review",
+            "redact-produce"
+          ],
+          "description": "Routing Decision: privilege-log, responsive, non-responsive, further-review, redact-produce",
+          "example": "second-review"
+        },
+        {
+          "name": "responsive",
+          "type": "bool",
+          "required": false,
+          "description": "Responsive indicator",
+          "example": "true"
+        },
+        {
+          "name": "relevance_score",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            1
+          ],
+          "description": "Relevance Score (0–1)",
+          "example": "0.78"
+        },
+        {
+          "name": "key_terms",
+          "type": "string",
+          "required": false,
+          "description": "Key Terms",
+          "example": "indemnification, breach, damages"
+        }
+      ]
+    },
+    {
+      "tag": "RECOMMENDATION",
+      "description": "Action recommendation — prioritized legal actions tied to specific clause findings",
+      "fields": [
+        {
+          "name": "priority",
+          "type": "int",
+          "required": false,
+          "range": [
+            1,
+            5
+          ],
+          "description": "Priority Rank (1–5)",
+          "example": "1"
+        },
+        {
+          "name": "action",
+          "type": "string",
+          "required": false,
+          "description": "Recommended Action",
+          "example": "Negotiate cap on liability to 2x contract value"
+        },
+        {
+          "name": "clause_ref",
+          "type": "string",
+          "required": false,
+          "description": "Clause Reference",
+          "example": "cls:MSA-7.2"
+        },
+        {
+          "name": "legal_review_required",
+          "type": "bool",
+          "required": false,
+          "description": "Legal Review Required indicator",
+          "example": "true"
+        }
+      ]
+    },
+    {
+      "tag": "CONTRACT_SUMMARY",
+      "description": "Contract risk summary — aggregated clause-level risk analysis with overall assessment",
+      "fields": [
+        {
+          "name": "high_risk_clauses",
+          "type": "int",
+          "required": false,
+          "description": "High-Risk Clauses",
+          "example": "3"
+        },
+        {
+          "name": "medium_risk_clauses",
+          "type": "int",
+          "required": false,
+          "description": "Medium-Risk Clauses",
+          "example": "7"
+        },
+        {
+          "name": "low_risk_clauses",
+          "type": "int",
+          "required": false,
+          "description": "Low-Risk Clauses",
+          "example": "12"
+        },
+        {
+          "name": "overall_risk",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ],
+          "description": "Overall Risk Assessment: low, medium, high, critical",
+          "example": "high"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "AI-powered contract analysis and e-discovery workflows",
+    "highlights": [
+      "CLAUSE",
+      "PRIVILEGE",
+      "DOC_RESULT"
+    ],
+    "use_cases": [
+      {
+        "id": "contract-lifecycle",
+        "title": "AI-Assisted Contract Lifecycle Management",
+        "steps": [
+          "Draft @CONTRACT from template with @CLAUSE library",
+          "Identify @PARTY entities and validate via LEI lookup",
+          "AI-review @CLAUSE for risk scoring and negotiation flags",
+          "Execute @CONTRACT with digital signatures",
+          "Monitor @CONTRACT obligations and key dates"
+        ],
+        "example": "@CONTRACT rid=ctr:1 | type=\"MSA\" | status=\"executed\" | effective_date=\"2026-02-01\" | expiry_date=\"2028-01-31\" | value:float=1200000.0",
+        "tags_used": [
+          "CLAUSE"
+        ],
+        "description": "Manage contracts from drafting through execution and renewal. Use AI to extract clauses, score risk levels, and track obligation deadlines across the portfolio.",
+        "tags": [
+          "CONTRACT",
+          "CLAUSE",
+          "MATTER",
+          "DOC_RESULT"
+        ],
+        "tags_planned": [
+          "CONTRACT",
+          "PARTY"
+        ]
+      },
+      {
+        "id": "litigation-management",
+        "title": "Litigation and eDiscovery Management",
+        "steps": [
+          "Open @MATTER with case details and assigned counsel",
+          "Collect and process @EVIDENCE via @DISCOVERY workflow",
+          "Prepare @FILING documents for court submission",
+          "Track @BILLING time entries and expenses per @MATTER",
+          "Generate case timeline from @FILING and @EVIDENCE dates"
+        ],
+        "example": "@MATTER rid=mat:1 | type=\"litigation\" | court=\"SDNY\" | status=\"active\" | opposing_party=\"Acme Corp\" | risk_level=\"high\"",
+        "tags_used": [],
+        "description": "Organize case matters, process document review with privilege detection, track billable hours, and manage court deadlines with conflict-of-interest checking.",
+        "tags": [
+          "MATTER",
+          "DOC_RESULT",
+          "BILLING",
+          "CONFLICT",
+          "CONTRACT"
+        ],
+        "tags_planned": [
+          "MATTER",
+          "EVIDENCE",
+          "DISCOVERY",
+          "FILING",
+          "BILLING"
+        ]
+      }
+    ],
+    "tag_context": {
+      "CLAUSE": {
+        "purpose": "Section-level contract clause with risk scoring and template deviation tracking",
+        "when_to_use": "Automated contract review, playbook-driven negotiation, risk classification, clause library management",
+        "related_standards": [
+          "SALI Clause Types",
+          "CommonAccord",
+          "ContractStandards.com"
+        ]
+      },
+      "PRIVILEGE": {
+        "purpose": "Attorney-client and work-product privilege detection for e-discovery classification",
+        "when_to_use": "Document review, privilege log generation, TAR workflows, clawback processing",
+        "related_standards": [
+          "EDRM Model",
+          "Federal Rules of Civil Procedure (FRCP)"
+        ]
+      },
+      "CITATION": {
+        "purpose": "Case law and statutory reference with relevance scoring for legal research",
+        "when_to_use": "Legal brief drafting, precedent research, regulatory mapping, judicial analytics",
+        "related_standards": [
+          "Bluebook (US)",
+          "OSCOLA (UK)",
+          "ECLI (EU)"
+        ]
+      },
+      "REDACTION": {
+        "purpose": "Byte-offset redaction marker for PII, privilege, trade secret, or regulatory compliance",
+        "when_to_use": "Document production, FOIA responses, GDPR erasure, public records requests",
+        "related_standards": [
+          "FOIA Exemptions",
+          "GDPR Art. 17",
+          "Federal Rules Civ Pro Rule 26"
+        ]
+      },
+      "DEVIATION": {
+        "purpose": "Template deviation identifying where contract language diverges from standard playbook",
+        "when_to_use": "Contract comparison, playbook enforcement, negotiation prioritization, approval escalation",
+        "related_standards": [
+          "ISO 9001 Nonconformity",
+          "Six Sigma DMAIC",
+          "CAPA (FDA)"
+        ]
+      },
+      "BATCH_STATS": {
+        "purpose": "Aggregate e-discovery processing statistics across document populations",
+        "when_to_use": "Review progress reporting, TAR validation, production tracking, project budgeting",
+        "related_standards": [
+          "EDRM Processing",
+          "TAR (Predictive Coding)",
+          "Sedona Conference"
+        ]
+      },
+      "DOC_RESULT": {
+        "purpose": "Per-document classification result with privilege detection, relevance scoring, and routing",
+        "when_to_use": "First-pass review, predictive coding validation, quality control sampling, production decisions",
+        "related_standards": [
+          "EDRM Review",
+          "TAR Metrics",
+          "ISO 27037 Digital Evidence"
+        ]
+      },
+      "RECOMMENDATION": {
+        "purpose": "Prioritized legal action recommendation tied to specific clause-level findings",
+        "when_to_use": "Contract negotiation strategy, risk mitigation planning, legal team task assignment",
+        "related_standards": [
+          "ISO 9001 Corrective Action",
+          "AICPA AU-C 265",
+          "PCAOB AS 2201"
+        ]
+      },
+      "CONTRACT_SUMMARY": {
+        "purpose": "Aggregated contract risk summary with clause-level breakdown and overall assessment",
+        "when_to_use": "Executive briefing, deal go/no-go decisions, portfolio risk analysis, board reporting",
+        "related_standards": [
+          "SALI LMSS",
+          "CommonAccord",
+          "OASIS LegalDocML"
+        ]
+      }
+    },
+    "links": [
+      {
+        "label": "EDRM Reference Model",
+        "url": "https://edrm.net/",
+        "type": "standard"
+      },
+      {
+        "label": "SALI Legal Matter Standard",
+        "url": "https://www.sali.org/",
+        "type": "standard"
+      },
+      {
+        "label": "Akoma Ntoso",
+        "url": "http://www.akomantoso.org/",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.compliance",
+        "relationship": "regulatory overlap",
+        "reason": "Regulatory filing and audit trail requirements"
+      },
+      {
+        "domain": "yai.fintech",
+        "relationship": "often paired",
+        "reason": "Financial contract terms and regulatory filings"
+      },
+      {
+        "domain": "yai.health",
+        "relationship": "data overlap",
+        "reason": "HIPAA compliance and medical record redaction"
+      }
+    ],
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

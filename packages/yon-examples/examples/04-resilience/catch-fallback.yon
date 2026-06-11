@@ -1,0 +1,13 @@
+@DOC ver=2.0 | id=catch-fallback | title="Catch Fallback" | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Primary step with a fallback on failure. Demonstrates @CATCH for error recovery."
+
+@SEC name="Resilience Patterns"
+@STEP n:int=1 | rid=primary | op=std:http.get@v1 | args=[url="https://api.example.com/data"] | out=[ref:data] | timeout_ms:int=10000
+@CATCH target=rid:primary | on=error | do=rid:use-cache
+
+@STEP n:int=2 | rid=use-cache | op=std:cache.get@v1 | args=[key=fallback-data] | out=[ref:data]
+
+@CHECK rid=gate:data | assert="ref:data != null" | fail=ABORT | msg="No data from primary or cache"
+
+@STEP n:int=3 | rid=process | op=std:data.map@v1 | in=[ref:data] | out=[ref:result]

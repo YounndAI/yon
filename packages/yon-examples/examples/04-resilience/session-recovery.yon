@@ -1,0 +1,16 @@
+@DOC ver=2.0 | id=session-recovery | title="Session Recovery" | kind=workflow | profile=exec | features=[workflow,sessions] | fmt=canon
+
+@NOTE text="Demonstrate session durability with checkpointing and recovery after failure."
+
+@SESSION rid=sess:pipeline | durability=persistent | ttl_hours:int=24
+
+@STEP n:int=1 | rid=ingest | op=std:data.read@v1 | args=[source="s3://raw-data/batch-042"] | out=[ref:raw]
+@CHECKPOINT rid=cp:after-ingest | label="After ingestion" | session=rid:sess:pipeline | includes=[ref:raw]
+
+@STEP n:int=2 | rid=transform | op=std:data.map@v1 | in=[ref:raw] | args=[schema=normalized] | out=[ref:clean]
+@CHECKPOINT rid=cp:after-transform | label="After transformation" | session=rid:sess:pipeline | includes=[ref:clean]
+
+@STEP n:int=3 | rid=load | op=std:db.write@v1 | in=[ref:clean] | args=[table=warehouse]
+
+@ERROR code=E_TRANSFORM_FAIL | msg="Transformation failed — schema mismatch" | severity=critical | source=rid:transform
+@RECOVER rid=rec:resume | from=rid:cp:after-ingest | reason="Resume from last checkpoint after transform failure"

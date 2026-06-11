@@ -1,0 +1,72 @@
+@DOC ver=2.0 | kind=spec | id=adr-0047 | title="ADR-0047: Event-Driven Order Pipeline" | profile=decl | fmt=MIN
+
+@STAMP ts:ts=2024-11-15T00:00:00Z | src=human | label=Accepted
+@NOTE text="Supersedes ADR-0031. Related: ADR-0039, ADR-0042. Makers: Platform Team (Jamie Chen), Backend Guild."
+
+@SEC name="Context"
+@NOTE text="Sync pipeline: 2,400 orders/hr normal, 8,000/hr peak. Q3 2024 critical issues below."
+@MAP id=issues | pairs=["cascading_failures"->"inventory p99>2s → 23% user timeouts, 1,840 failed orders (Oct flash sale)","tight_coupling"->"7 downstream svcs, loyalty addition cost 3 dev-days","inconsistent_state"->"payment ok + shipping fail → manual reconciliation 6hrs/week","scaling"->"sync pipeline forces co-scaling (fraud is CPU-intensive, bursty)","observability"->"45min mean diagnosis across 7 log groups"]
+
+@SEC name="Drivers"
+@RULE lvl=MUST | when="Q2 2025" | then="15,000 orders/hr"
+@RULE lvl=MUST | when="peak" | then="<1% failure (currently 3.2%)"
+@RULE lvl=MUST | when="new consumer" | then="no order service modification"
+@RULE lvl=MUST | when="diagnosis" | then="<5min mean time"
+@RULE lvl=MUST | when="cost" | then="infra increase <40%"
+
+@SEC name="Alt A: Kafka Choreography"
+@MAP id=a_pros | pairs=["decoupling"->"services unaware of each other","scaling"->"partition parallelism","audit"->"event log + replay"]
+@MAP id=a_cons | pairs=["visibility"->"logic distributed","debugging"->"multi-topic tracing","saga"->"not built-in","ops"->"cluster + topics + consumer groups","risk"->"event storms"]
+
+@SEC name="Alt B: Temporal Orchestration"
+@MAP id=b_pros | pairs=["readability"->"workflow in one place","saga"->"built-in compensation","retries"->"per-activity exponential backoff","observability"->"queryable execution history"]
+@MAP id=b_cons | pairs=["coordination"->"central (though distributed)","vendor"->"Temporal SDK lock-in","learning"->"2-3 sprint onboarding"]
+
+@SEC name="Alt C: Hybrid (Temporal + Kafka)"
+@NOTE text="Temporal orchestrates core flow. Kafka handles non-critical consumers (loyalty, analytics, email, audit)."
+
+@SEC name="Decision"
+@NOTE text="Alternative C. Temporal for saga reliability + independent scaling. Kafka for analytics firehose."
+
+@SEC name="Cost"
+@MAP id=cost | pairs=["temporal"->"76.6M actions/mo → $1,900/mo","kafka"->"$800/mo","total"->"$2,700/mo (within 40% budget)"]
+
+@SEC name="Workflow Steps"
+@CFG key=name | value=ProcessOrderWorkflow
+@CFG key=lang | value=Go
+@CFG key=namespace | value=orders-production
+@STEP rid=step:validate-order | n:int=1 | op=validate_order | note="Availability + eligibility (5s, read-only)"
+@STEP rid=step:calc-pricing | n:int=2 | op=calculate_pricing | note="Coupons, discounts, tax (10s, read-only)"
+@STEP rid=step:fraud-check | n:int=3 | op=run_fraud_check | note="ML fraud detection (30s, retry 2x, manual review if flagged)"
+@STEP rid=step:reserve-inv | n:int=4 | op=reserve_inventory | note="15min TTL reservation (10s, retry 3x, compensate: release)"
+@STEP rid=step:process-pay | n:int=5 | op=process_payment | note="Stripe capture (30s, retry 2x, compensate: refund)"
+@STEP rid=step:create-ship | n:int=6 | op=create_shipment | note="Tracking number (15s, retry 3x, compensate: cancel)"
+@STEP rid=step:finalize | n:int=7 | op=finalize_order | note="Status update + Kafka publish + notification (5s, idempotent)"
+
+@SEC name="Kafka"
+@MAP id=topics | pairs=["orders.completed"->"by customer_id","orders.failed"->"by order_id"]
+@CFG key=schema | value=Avro
+@CFG key=retention_days:int | value:int=30
+@MAP id=consumers | pairs=["loyalty"->"points","analytics"->"warehouse","email"->"transactional","audit"->"compliance"]
+
+@SEC name="Compensation"
+@NOTE text="Reverse order after ReserveInventory: RefundPayment → ReleaseInventory → fail status → OrderFailed event → notify."
+
+@SEC name="Defaults"
+@MAP id=retry | pairs=["start_to_close"->"10s","schedule_to_close"->"60s","attempts:int"->"3","backoff"->"1s initial, 30s max, 2.0x"]
+
+@SEC name="Alerts"
+@RULE lvl=MUST | when="failure >2% / 15min" | then="PagerDuty"
+@RULE lvl=MUST | when="duration >45s mean" | then="Slack"
+@RULE lvl=MUST | when="compensation >5%" | then="PagerDuty"
+@RULE lvl=MUST | when="Kafka lag >10k" | then="Slack"
+
+@SEC name="Migration"
+@MAP id=phases | pairs=["Sprint 67-68"->"shadow mode (both pipelines, compare)","Sprint 69"->"canary 10%→50% if green 1 week","Sprint 70"->"100%, decommission old, retain rollback 2 sprints"]
+
+@SEC name="Risks"
+@MAP id=risks | pairs=["Temporal outage"->"fallback to sync (2 sprints)","Kafka lag"->"alert 10k, auto-scale","unfamiliarity"->"2-sprint onboarding + pairing","schema breaks"->"backward-compat Avro + registry","payment dupes"->"idempotency keys, 2-retry limit"]
+
+@SEC name="Consequences"
+@MAP id=pos | pairs=["traceability"->"Temporal UI end-to-end","reconciliation"->"auto compensation (−6hrs/week)","scaling"->"independent workers","extensibility"->"Kafka sub without code"]
+@MAP id=neg | pairs=["learning"->"Temporal SDK 2-3 sprints","infrastructure"->"two systems","consistency"->"eventual for analytics/loyalty"]

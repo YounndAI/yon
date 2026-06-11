@@ -1,0 +1,199 @@
+Architecture Decision Record — ADR-0047: Event-Driven Order Processing Pipeline
+
+Status: Accepted
+Date: 2024-11-15
+Decision Makers: Platform Team (Jamie Chen, Lead), Backend Guild
+Supersedes: ADR-0031 (Synchronous Order Pipeline)
+Related: ADR-0039 (Message Broker Selection), ADR-0042 (Saga Pattern for Payments)
+
+Context and Problem:
+
+The current synchronous order processing pipeline handles approximately 2,400 orders per hour during normal load and peaks at 8,000/hour during flash sales. We've observed the following critical issues in Q3 2024:
+
+1. Cascading failures: When the inventory service is slow (p99 > 2s), the entire checkout flow degrades because each step waits for the previous one synchronously. During the October flash sale, a 3-second inventory lock delay caused checkout timeouts for 23% of users (approximately 1,840 failed orders over 2 hours).
+
+2. Tight coupling: The order service directly calls 7 downstream services (inventory, pricing, tax, fraud, payment, shipping, notification). Adding the loyalty points service required modifying the order service, which triggered a full regression test cycle — 3 developer-days for what should have been a 4-hour task.
+
+3. Inconsistent state: When the payment service succeeds but the shipping service fails, we end up with charged customers who never receive shipping confirmation. We handle this with manual reconciliation today — the ops team spends approximately 6 hours per week on this.
+
+4. Scaling limitations: The synchronous pipeline means every service must scale together. We can't independently scale the fraud detection service (which is CPU-intensive and has bursty traffic) without also scaling the entire order service cluster.
+
+5. Observability gaps: Because services call each other directly, tracing a single order through all 7 services requires correlating logs across different log groups. Mean time to diagnose an order issue is 45 minutes.
+
+Decision Drivers:
+- Must handle 15,000 orders/hour by Q2 2025 (6x current normal load)
+- Must achieve < 1% failure rate during peak events (currently 3.2%)
+- Must support adding new downstream consumers without modifying the order service
+- Must provide end-to-end order traceability with < 5-minute diagnosis time
+- Must maintain data consistency across all services (no orphaned payments)
+- Budget constraint: infrastructure cost increase must stay under 40%
+
+Considered Alternatives:
+
+Alternative A: Choreography-based event streaming (Apache Kafka)
+Each service publishes domain events, and other services subscribe to events they care about. There's no central coordinator — each service knows what events it needs and reacts accordingly.
+
+Pros:
+- True decoupling — services don't know about each other
+- Naturally scales horizontally with partition-based parallelism
+- Built-in event log provides audit trail and replay capability
+- Kafka ecosystem is mature with good monitoring tools
+
+Cons:
+- Hard to understand overall flow — business logic is distributed across all services
+- Debugging failures requires tracing events through multiple topics
+- Event schema evolution is complex (need schema registry, compatibility policies)
+- No built-in saga support — compensation logic must be implemented per service
+- Increased operational burden: Kafka cluster management, topic management, consumer group management
+- Risk of event storms if services react to each other's events in loops
+
+Alternative B: Orchestration-based workflow engine (Temporal)
+A central workflow engine coordinates the order processing steps. Each step is a Temporal activity that calls the appropriate service. The workflow defines the sequence, parallelism, retries, and compensation logic explicitly.
+
+Pros:
+- Clear, readable workflow definition — business logic in one place
+- Built-in saga support with compensation activities
+- Built-in retry policies with exponential backoff per activity
+- Full execution history and queryable workflow state
+- Supports long-running workflows (e.g., pre-orders, backorders)
+- Single dashboard for monitoring all order processing
+
+Cons:
+- Central point of coordination (though Temporal itself is distributed)
+- Vendor coupling to Temporal's SDK and runtime
+- Learning curve for the team (estimated 2-3 sprint onboarding)
+- Services still need to expose APIs for activities to call
+- Workflow versioning requires careful migration strategy
+
+Alternative C: Hybrid approach — Temporal for orchestration + Kafka for analytics and non-critical consumers
+Use Temporal to orchestrate the core order flow (inventory → pricing → tax → fraud → payment → shipping) and publish completed events to Kafka for non-critical consumers (loyalty, analytics, email, audit log).
+
+The Decision:
+
+We are going with Alternative C — the hybrid approach.
+
+Rationale:
+
+1. Core flow reliability: Temporal gives us explicit saga management. When payment succeeds but shipping fails, the workflow automatically triggers payment reversal. No more manual reconciliation.
+
+2. Scaling the core flow: Temporal workers scale independently. We can run 3 fraud-checking workers and 10 payment workers. Kafka handles the analytics firehose separately.
+
+3. Extensibility: New non-critical consumers (loyalty, analytics) subscribe to Kafka events without touching the core workflow. The order service publishes a single "OrderCompleted" event.
+
+4. Observability: Temporal's built-in UI shows every workflow execution, every activity attempt, every retry. Mean diagnosis time drops from 45 minutes to < 5 minutes.
+
+5. Cost: Temporal Cloud pricing is based on actions ($25/million). At 15,000 orders/hour × 7 activities = 105,000 actions/hour = 76.6M actions/month ≈ $1,900/month. Kafka managed service for analytics adds ~$800/month. Total: $2,700/month, well within the 40% infrastructure increase budget.
+
+Technical Architecture:
+
+Core Order Workflow (Temporal):
+- Workflow name: ProcessOrderWorkflow
+- Language: Go (matches existing backend stack)
+- Namespace: orders-production
+- Task queue: order-processing
+
+Step 1: ValidateOrder (activity, timeout 5s)
+  - Input: order request with customer_id, items, shipping_address
+  - Validates item availability (calls inventory service)
+  - Validates customer eligibility (calls customer service)
+  - Compensation: none (read-only step)
+
+Step 2: CalculatePricing (activity, timeout 10s)
+  - Calls pricing service with items
+  - Applies coupons, volume discounts
+  - Calculates subtotal, tax (calls tax service), total
+  - Compensation: none (read-only step)
+
+Step 3: RunFraudCheck (activity, timeout 30s, retry 2x)
+  - Calls fraud detection service
+  - If flagged: workflow transitions to manual review (human-in-the-loop signal)
+  - If approved: continues to payment
+  - Compensation: none (read-only step)
+
+Step 4: ReserveInventory (activity, timeout 10s, retry 3x)
+  - Calls inventory service to reserve items
+  - Reservation TTL: 15 minutes
+  - Compensation: ReleaseInventoryReservation (releases hold)
+
+Step 5: ProcessPayment (activity, timeout 30s, retry 2x)
+  - Calls payment gateway (Stripe)
+  - Captures the full amount
+  - Compensation: RefundPayment (issues full refund)
+
+Step 6: CreateShipment (activity, timeout 15s, retry 3x)
+  - Calls shipping service
+  - Generates tracking number
+  - Compensation: CancelShipment (cancels label)
+
+Step 7: FinalizeOrder (activity, timeout 5s)
+  - Updates order status to "completed"
+  - Publishes OrderCompleted event to Kafka
+  - Sends confirmation notification
+  - Compensation: none (idempotent, can retry)
+
+Kafka Event Publishing (Non-Critical):
+- Topic: orders.completed (partition by customer_id)
+- Topic: orders.failed (partition by order_id)
+- Schema: Avro with schema registry
+- Retention: 30 days
+- Consumers: loyalty-points-service, analytics-ingest, email-service, audit-log
+
+Saga Compensation Policy:
+If any step after ReserveInventory fails, compensation runs in reverse order. For example, if CreateShipment fails after payment:
+1. RefundPayment → refund Stripe charge
+2. ReleaseInventoryReservation → free reserved items
+3. Update order status to "failed" with reason
+4. Publish OrderFailed event to Kafka
+5. Send failure notification to customer
+
+Retry and Timeout Policies:
+- Default activity timeout: 10s start-to-close, 60s schedule-to-close
+- Default retry: 3 attempts, exponential backoff (initial 1s, max 30s, coefficient 2.0)
+- Fraud check: higher timeout (30s) due to ML model inference
+- Payment: 2 retries only (to prevent duplicate charges with non-idempotent gateways)
+
+Monitoring and Alerting:
+- Temporal dashboard for workflow execution visibility
+- Custom metrics exposed via Prometheus:
+  - order_workflow_duration_seconds (histogram)
+  - order_workflow_status (counter: completed, failed, compensated, timed_out)
+  - activity_duration_seconds (histogram, labeled by activity name)
+  - compensation_triggered_total (counter, labeled by failing step)
+- Alert thresholds:
+  - workflow failure rate > 2% over 15 minutes → PagerDuty
+  - mean workflow duration > 45 seconds → Slack
+  - compensation rate > 5% → PagerDuty
+  - Kafka consumer lag > 10,000 messages → Slack
+
+Migration Plan:
+Phase 1 (Sprint 67-68): Shadow mode
+- Deploy Temporal workflow alongside existing pipeline
+- Both process the same orders
+- Compare results, log discrepancies
+- No customer impact
+
+Phase 2 (Sprint 69): Canary rollout
+- Route 10% of orders through Temporal
+- Monitor error rates, latency, compensation frequency
+- Expand to 50% if metrics are green for 1 week
+
+Phase 3 (Sprint 70): Full migration
+- Route 100% through Temporal
+- Decommission old synchronous pipeline
+- Retain old code for 2 sprints as rollback option
+
+Risks and Mitigations:
+- Risk: Temporal Cloud outage → Mitigation: fallback to synchronous pipeline (retained for 2 sprints)
+- Risk: Kafka consumer lag causes stale analytics → Mitigation: alert at 10k lag, auto-scale consumers
+- Risk: team unfamiliarity with Temporal → Mitigation: 2-sprint onboarding with pair programming, Temporal's official training
+- Risk: schema evolution breaks consumers → Mitigation: backward-compatible Avro schemas, schema registry with compatibility checks
+- Risk: payment retries cause double charges → Mitigation: idempotency keys on all payment requests, 2-retry limit
+
+Decision Consequences:
+- Positive: end-to-end order traceability via Temporal UI
+- Positive: automatic compensation eliminates 6 hrs/week manual reconciliation
+- Positive: independent scaling of fraud, payment, shipping workers
+- Positive: new consumers added via Kafka subscription without code changes
+- Negative: team needs to learn Temporal SDK (estimated 2-3 sprint ramp-up)
+- Negative: two infrastructure systems to operate (Temporal + Kafka)
+- Negative: Kafka-based consumers have eventual consistency (acceptable for analytics/loyalty)

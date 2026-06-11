@@ -1,0 +1,3 @@
+@DOC ver=2.0 | id=hedging-cat7-hero-design | title="Hero Section Design" | kind=rule | profile=decl | fmt=ultra
+@MAP id=HeroSection | pairs=["background"->"some kind of animated, maybe AI or whatever looks professional"]
+@MAP id=BelowFold | pairs=["content"->"could add testimonials or something like that"]

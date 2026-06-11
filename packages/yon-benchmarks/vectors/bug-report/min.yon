@@ -1,0 +1,14 @@
+@DOC ver=2.0 | id=inc-20260212 | title="Checkout Failure — Prod Incident" | kind=rule | fmt=min
+@INTENT goal="Resolve payment proxy timeout in production"
+@SEC name=Incident
+@MAP id=incident | severity=critical | started="2026-02-12T14:47Z" | trigger="deploy #4521" | env=production
+@NOTE text="Connection timeout 30s to stripe-api.internal.prod:443"
+@SEC name=Impact
+@MAP id=impact | failed:int=340 | revenue="$47k" | affected="all payment methods"
+@SEC name=Diagnosis
+@MAP id=health | general=200 | payment=503
+@NOTE text="Direct Stripe bypass works, proxy is the bottleneck. Root cause: payment proxy broken since deploy #4521."
+@SEC name=Actions
+@RULE lvl=MUST | then="@sarah: inspect proxy config"
+@RULE lvl=MUST | then="@mike: check network policies from deploy"
+@NOTE text="Rollback risky (DB migration), considering maintenance page"

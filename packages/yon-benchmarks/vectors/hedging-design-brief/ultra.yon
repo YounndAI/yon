@@ -1,0 +1,7 @@
+@DOC ver=2.0 | id=analytics-dashboard-design | title="Analytics Dashboard Design" | kind=rule | profile=decl | fmt=ultra
+@MAP id=DashboardLayout | pairs=["theme"->"Dark theme, left sidebar","kpi_cards"->"4 KPI cards: revenue, users, churn, MRR","updates"->"Real-time updates","charts"->"Line chart: revenue, Pie chart: traffic","chart_lib"->"d3 or Recharts for charts"]
+@MAP id=DataTable | pairs=["table"->"Sortable, 10 rows/page","columns"->"Columns: name, email, signup, plan, active"]
+@MAP id=SidebarNavigation | pairs=["sidebar"->"Clean, minimal, collapsible","nav_items"->"Nav items: Dashboard, Analytics, Users, Settings, Billing"]
+@MAP id=AuthenticationAndAccess | pairs=["auth"->"OAuth: Google, GitHub","roles"->"Role-based: admin, viewer"]
+@MAP id=DesignAndPerformance | pairs=["colors"->"Dark gray, blue/purple/teal accents","performance"->"Load <2s, 3s slow connections","charts_render"->"Non-blocking charts"]
+@MAP id=ExportFunctionality | pairs=["export"->"Export: CSV, PDF, Excel later"]

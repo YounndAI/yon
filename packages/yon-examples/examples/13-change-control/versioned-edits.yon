@@ -1,0 +1,24 @@
+@DOC ver=2.0 | id=versioned-edits | title="Versioned Edits" | kind=spec | profile=decl | features=[delta,refs] | fmt=canon
+
+@NOTE text="Demonstrate change control with @PATCH/@VOID mutations, alias definitions, external references, and metadata."
+
+@SEC name="Aliases"
+
+@DEF $api_base=https://api.example.com/v2
+@DEF $team=platform-engineering
+
+@SEC name="External References"
+
+@REF name=api-spec | href=$api_base/openapi.json | rel=specification
+@REF name=runbook | href=https://docs.internal/runbooks/deployment.md | rel=documentation
+
+@SEC name="Metadata"
+
+@META author=$team | version=2.1.0 | reviewed_by=security-team | review_date=2026-02-28
+
+@SEC name="Change History"
+
+@PATCH ts=2026-03-01T10:00:00Z | target=field:timeout_ms | set:int=5000 | by=$team | reason="Increase timeout for slow upstream"
+@PATCH ts=2026-03-02T14:30:00Z | target=field:max_retries | set:int=5 | by=$team | reason="Add retries for transient failures"
+
+@VOID ts=2026-03-03T09:00:00Z | target=field:legacy_endpoint | because="Deprecated endpoint removed in API v2"

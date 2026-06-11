@@ -1,0 +1,17 @@
+@DOC ver=2.0 | id=mesh:0190abcd-1234-7000-8abc-def012345678 | title="personal" | domain=yai.lyt@1.0 | kind=cfg | profile=agent
+
+@MESH rid=mesh:0190abcd-1234-7000-8abc-def012345678
+  | name="personal"
+  | push_target="allemaar"
+  | push_kind=handle
+  | main_vault_rid=vault:0190abcd-1234-7000-8abc-def012345679
+  | created_at:ts=2026-05-28T12:00:00Z
+
+@MESH_HOME mesh_rid=mesh:0190abcd-1234-7000-8abc-def012345678
+  | vault_rid=vault:0190abcd-1234-7000-8abc-def012345679
+  | vault_name="main"
+
+@MESH_SUBSCRIPTION mesh_rid=mesh:0190abcd-1234-7000-8abc-def012345678
+  | external_vault_rid=vault:0190abcd-1234-7000-8abc-defabc01234a
+  | external_mesh_rid=mesh:0190abcd-1234-7000-8abc-defabc01234b
+  | external_mesh_name="acme"

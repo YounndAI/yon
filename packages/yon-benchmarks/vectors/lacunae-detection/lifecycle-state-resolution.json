@@ -1,0 +1,69 @@
+{
+  "id": "retry-policy",
+  "title": "Service Retry Policy",
+  "rules": [
+    {
+      "id": "rule:max-retries",
+      "level": "MUST",
+      "when": "any service call fails",
+      "requirement": "retry at most 3 times",
+      "status": "active"
+    },
+    {
+      "id": "rule:backoff",
+      "level": "SHOULD",
+      "when": "retry triggered",
+      "requirement": "use exponential backoff starting at 100ms",
+      "status": "voided",
+      "voided_reason": "Switched to circuit breaker pattern — backoff replaced by half-open state detection"
+    },
+    {
+      "id": "rule:timeout",
+      "level": "MUST",
+      "when": "any service call",
+      "requirement": "timeout after 30 seconds",
+      "status": "active"
+    },
+    {
+      "id": "rule:circuit-breaker",
+      "level": "MUST",
+      "when": "service failure count exceeds 5 within 60 seconds",
+      "requirement": "open circuit breaker for 30 seconds",
+      "status": "active"
+    },
+    {
+      "id": "rule:fallback",
+      "level": "SHOULD",
+      "when": "circuit breaker is open",
+      "requirement": "return cached response with stale-while-revalidate header",
+      "status": "active"
+    }
+  ],
+  "change_history": [
+    {
+      "timestamp": "2026-01-15T10:00:00Z",
+      "type": "initial",
+      "source": "manual"
+    },
+    {
+      "timestamp": "2026-02-01T09:00:00Z",
+      "type": "patch",
+      "target": "rule:max-retries",
+      "change": "retry at most 5 times",
+      "note": "Increased retry count after payment gateway intermittent failures"
+    },
+    {
+      "timestamp": "2026-03-01T09:00:00Z",
+      "type": "patch",
+      "target": "rule:max-retries",
+      "change": "retry at most 10 times",
+      "note": "Further increase — cascading timeouts in peak hours"
+    },
+    {
+      "timestamp": "2026-03-15T09:00:00Z",
+      "type": "void",
+      "target": "rule:backoff",
+      "reason": "Switched to circuit breaker pattern — backoff replaced by half-open state detection"
+    }
+  ]
+}

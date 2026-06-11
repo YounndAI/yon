@@ -1,0 +1,219 @@
+@DOC ver=2.0 | id=chunk-1-4 | title="API and Endpoint Rules" | domain=technical | kind=rule | profile=exec | fmt=canon
+
+@INTENT goal="Define observability and service architecture" | audience="system architects"
+
+@SEC name=Authentication
+@RULE lvl=must | when="API requests" | then="All API requests must include the Authorization header with a valid bearer token."
+@RULE lvl=must | when="rate limited" | then="When rate limited, return 429 with Retry-After header."
+@RULE lvl=must | when="refresh tokens used" | then="Refresh tokens can be used once and are invalidated after use."
+
+@SEC name="Users Endpoint"
+@RULE lvl=must | when="POST /users" | then="The users endpoint at POST /users creates a new user. Required fields are name, email, and role."
+@RULE lvl=must | when="GET /users" | then="GET /users returns a paginated list with cursor-based pagination. Default limit is 25, max is 100."
+@RULE lvl=must | when="DELETE /users/:id" | then="DELETE /users/:id soft-deletes by setting status to archived. Archived users cannot log in."
+
+@SEC name="Orders Endpoint"
+@RULE lvl=must | when="POST /orders" | then="The orders endpoint at POST /orders creates a new order. Required fields are customer_id, items, total, and currency."
+@RULE lvl=must | when="PATCH /orders/:id" | then="PATCH /orders/:id allows updating items only in draft status."
+@RULE lvl=must | when="POST /orders/:id/confirm" | then="POST /orders/:id/confirm moves from draft to confirmed and triggers payment authorization."
+
+@SEC name="Error Codes"
+@MAP id=Error Codes name="Error Codes" | pairs=["ERR_AUTH"->"invalid or expired token","ERR_NOT_FOUND"->"requested resource does not exist","ERR_VALIDATION"->"request body failed schema validation","ERR_CONFLICT"->"duplicate resource detected","ERR_RATE_LIMIT"->"too many requests","ERR_PAYMENT_FAILED"->"payment provider rejected transaction","ERR_INSUFFICIENT_FUNDS"->"account balance too low","ERR_PERMISSION_DENIED"->"token does not have required scope","ERR_RESOURCE_LOCKED"->"resource being modified by another process"]
+
+@SEC name="Products Endpoint"
+@RULE lvl=must | when="POST /products" | then="The products endpoint at POST /products creates a new product. Required fields are name, description, price, category, and active status."
+@RULE lvl=must | when="PATCH /products/:id" | then="PATCH /products/:id can update any field. Setting active to false prevents new orders but does not affect existing ones."
+
+@SEC name="Invoices Endpoint"
+@RULE lvl=must | when="POST /invoices" | then="POST /invoices creates an invoice from an order or subscription. Required fields are customer_id, items, due_date, and payment_terms."
+@RULE lvl=must | when="POST /invoices/:id/pay" | then="POST /invoices/:id/pay attempts payment with the default payment method. Returns 402 on failure."
+
+@SEC name="Input Validation"
+@RULE lvl=must | when="Email fields" | then="Email fields must validate against RFC 5322 format."
+@RULE lvl=must | when="Phone fields" | then="Phone fields must validate E.164 format (e.g., +1234567890)."
+
+@SEC name=Webhooks
+@RULE lvl=must | when="webhook payloads" | then="All webhook payloads are signed with HMAC-SHA256 using the webhook secret."
+@RULE lvl=must | when="webhook endpoint does not respond" | then="If the endpoint does not respond, the delivery is marked as failed."
+
+@SEC name="Subscriptions Endpoint"
+@RULE lvl=must | when="POST /subscriptions" | then="POST /subscriptions creates a new subscription"
+@MAP id=Required Fields name="Required Fields" | pairs=["customer_id"->"required","plan_id"->"required","trial_days"->"0-365","payment_method_id"->"required unless trial"]
+@RULE lvl=must | then="Subscriptions start immediately or after the trial period"
+@RULE lvl=must | then="The first invoice is created automatically unless in trial"
+@RULE lvl=must | then="Billing cycle anchor can be set to a specific date"
+@MAP id=Proration Behavior name="Proration Behavior" | pairs=["create_prorations"->"default","none"->"option","always_invoice"->"option"]
+@RULE lvl=must | then="Status flow is trialing → active → past_due → canceled"
+@RULE lvl=must | when="PATCH /subscriptions/:id" | then="PATCH /subscriptions/:id can update items, payment method, and metadata"
+@RULE lvl=must | when="DELETE /subscriptions/:id" | then="DELETE /subscriptions/:id cancels the subscription"
+
+@SEC name="Payments Endpoint"
+@RULE lvl=must | when="POST /payments" | then="POST /payments creates a payment"
+@MAP id=Required Fields name="Required Fields" | pairs=["amount"->"integer cents","currency"->"ISO 4217","method_id"->"required","description"->"required"]
+@RULE lvl=must | then="Payments are processed synchronously"
+@RULE lvl=must | then="Success returns 200 with transaction_id"
+@RULE lvl=must | then="Failure returns 402 with error details"
+@RULE lvl=must | then="3D Secure is triggered when required"
+@RULE lvl=must | when="POST /payments/:id/refund" | then="Refunds are created via POST /payments/:id/refund"
+
+@SEC name="GDPR Compliance"
+@RULE lvl=must | then="Encrypt all PII at rest using AES-256 and in transit using TLS 1.3"
+@RULE lvl=must | then="Right to erasure must be implemented and completed within 30 days"
+@RULE lvl=must | then="Data processing records must be maintained and available for audit"
+@RULE lvl=must | then="Data breaches must be reported to the supervisory authority within 72 hours"
+@RULE lvl=must | then="Data protection impact assessments must be conducted annually"
+@RULE lvl=must | then="A data protection officer must be appointed"
+@RULE lvl=must | then="Explicit consent must be obtained before processing personal data"
+@RULE lvl=must | then="Data portability requests must be fulfilled in a machine-readable format (JSON or CSV) within 30 days"
+
+@SEC name="SOC 2 Type II Compliance"
+@RULE lvl=must | then="Access controls must follow the principle of least privilege"
+@RULE lvl=must | then="Audit logs must record all data access events"
+@RULE lvl=must | then="Vulnerability scans must be conducted monthly"
+@RULE lvl=must | then="Penetration testing must be performed annually"
+@RULE lvl=must | then="Incident response procedures must include detection, triage, containment, eradication, and post-mortem phases"
+@RULE lvl=must | then="Business continuity plans must be tested semi-annually"
+@RULE lvl=must | then="Backups must be encrypted at rest and tested for recoverability quarterly"
+@RULE lvl=must | then="Multi-factor authentication is required for all administrative access"
+@RULE lvl=must | then="Employee background checks must be completed before granting system access"
+@RULE lvl=must | then="Vendor security assessments must be conducted annually"
+
+@SEC name="PCI-DSS Level 1 Compliance"
+@RULE lvl=must | then="Full card numbers must never be stored after authorization"
+@RULE lvl=must | then="Payment data must be tokenized before storage"
+@RULE lvl=must | then="The payment processing network must be segmented from other internal networks with firewall rules"
+@RULE lvl=must | then="Intrusion detection systems must monitor all network traffic in the payment segment in real-time"
+@RULE lvl=must | then="Encryption keys must be rotated annually"
+@RULE lvl=must | then="Physical access to servers processing cardholder data must be restricted to authorized personnel only"
+@RULE lvl=must | then="All payment processing code must undergo security review before deployment"
+@RULE lvl=must | then="Quarterly ASV scans must be conducted by an approved scanning vendor"
+
+@SEC name="Rate Limiting"
+@MAP id=Rate Limits name="Rate Limits" | pairs=["global"->"1000 requests per minute","per-user"->"100 requests per minute","burst"->"50 requests in 1-second window"]
+@RULE lvl=must | then="The throttle strategy is sliding window"
+@RULE lvl=must | then="Rate limit headers are included in all responses"
+@RULE lvl=must | then="When rate limited, the Retry-After header specifies the number of seconds to wait"
+@RULE lvl=must | then="Authenticated requests have higher limits than anonymous requests"
+@RULE lvl=must | then="Webhook deliveries do not count against rate limits"
+@RULE lvl=must | then="Batch endpoints have separate rate limits calculated per item, not per request"
+
+@SEC name="Shipping Module"
+@RULE lvl=must | when="POST /shipping" | then="POST /shipping creates a shipment for an order"
+@MAP id=Required Fields name="Required Fields" | pairs=["order_id"->"required","carrier"->"required","tracking_number"->"required","estimated_delivery"->"required"]
+@MAP id=Supported Carriers name="Supported Carriers" | pairs=["ups"->"supported","fedex"->"supported","dhl"->"supported","usps"->"supported","custom"->"requires tracking URL template"]
+@RULE lvl=must | then="Status updates come from carrier webhooks"
+@RULE lvl=must | then="Shipping costs are calculated based on weight, dimensions, origin, and destination"
+@RULE lvl=must | then="International shipments require customs declaration data including HS codes and declared values"
+@RULE lvl=must | when="POST /shipping/:id/label" | then="Shipping labels can be generated via POST /shipping/:id/label in PDF or ZPL format"
+
+@SEC name="Inventory Module"
+@NOTE text="The inventory module tracks stock levels across warehouses. Each product can exist in multiple locations."
+@NOTE text="Stock levels are tracked as available, reserved, and damaged quantities."
+@NOTE text="POST /inventory/adjust creates an inventory adjustment with reason, quantity change, and reference ID."
+@RULE lvl=must | when="Zero adjustments" | then="Zero adjustments are rejected."
+@NOTE text="Reservation occurs when an order is confirmed. Reserved stock cannot be sold to other customers."
+@NOTE text="Low-stock alerts fire when available quantity drops below the reorder point configured per product per warehouse."
+@NOTE text="Inventory transfers between warehouses are tracked as paired adjustments with a transfer ID."
+@NOTE text="Cycle counts can be initiated via POST /inventory/count to verify physical stock matches system records."
+@RULE lvl=must | when="Discrepancies from cycle counts" | then="Discrepancies from cycle counts are logged and require manager approval before adjustment."
+
+@SEC name="Notification System"
+@NOTE text="The notification system supports email, SMS, push, and in-app channels."
+@NOTE text="Notification templates use Handlebars syntax with variable substitution. Templates are versioned."
+@NOTE text="Each notification has a priority level: critical, high, normal, low. Critical notifications bypass quiet hours."
+@NOTE text="Quiet hours are configurable per user from 10 PM to 7 AM local time by default."
+@NOTE text="Email notifications use the transactional email provider. Delivery status is tracked via webhooks."
+@NOTE text="SMS notifications are sent via the SMS gateway. International SMS requires country-specific sender IDs."
+@NOTE text="Push notifications target specific devices. Users can have multiple devices registered."
+@NOTE text="In-app notifications are persisted and shown in the notification center with read/unread status."
+@NOTE text="Notification preferences allow users to opt out of specific notification types per channel."
+@NOTE text="Bulk notifications are queued and processed at a rate of 1000 per minute to prevent provider throttling."
+
+@SEC name="Analytics Module"
+@NOTE text="The analytics module provides real-time and historical data about system usage."
+@NOTE text="Events are collected via a client SDK and server-side API. All events include timestamp, user_id, and session_id."
+@NOTE text="Real-time dashboards update every 5 seconds for the last 15 minutes of data."
+@NOTE text="Historical queries support aggregation by minute, hour, day, week, and month."
+@NOTE text="Custom events can be defined with up to 10 properties each. Property names must be alphanumeric with underscores."
+@NOTE text="Funnels track user progression through defined step sequences. Drop-off rates are calculated automatically."
+@NOTE text="Cohort analysis groups users by first event date and tracks retention over time."
+@NOTE text="Data retention is 13 months for detailed events and unlimited for aggregated metrics."
+@NOTE text="Analytics data can be exported via GET /analytics/export in CSV or Parquet format."
+@NOTE text="Query performance is optimized using column-oriented storage with automatic partitioning by date."
+
+@SEC name="Reporting Module"
+@NOTE text="The reporting module generates scheduled and on-demand business reports."
+@NOTE text="Standard reports include revenue, orders, customers, inventory, and churn metrics."
+@NOTE text="Custom reports can be defined using a SQL-like query language against the analytics data warehouse."
+@NOTE text="Reports can be scheduled daily, weekly, or monthly with email delivery to distribution lists."
+@NOTE text="Report formats supported are PDF, CSV, Excel, and JSON. Each format has different configuration options."
+@NOTE text="Dashboards aggregate multiple reports into a single view. Up to 12 widgets per dashboard."
+@NOTE text="Drill-down is supported on all standard reports. Clicking a metric opens the detailed view."
+@NOTE text="Report caching prevents redundant computation. Cache TTL depends on data freshness requirements."
+@NOTE text="Access control limits report visibility by role. Financial reports require finance or admin role."
+@NOTE text="Report generation for large date ranges is queued and processed asynchronously."
+@NOTE text="A notification is sent when the report is ready for download."
+
+@SEC name="HIPAA Compliance"
+@RULE lvl=must | when="Handling PHI" | then="HIPAA compliance requirements are mandatory for all protected health information (PHI) handling."
+@RULE lvl=must | when="Accessing PHI" | then="Access controls must enforce role-based access to PHI with the minimum necessary standard."
+@RULE lvl=must | when="Accessing PHI" | then="All PHI access must be logged in tamper-proof audit trails retained for 6 years."
+@RULE lvl=must | when="PHI at rest" | then="PHI must be encrypted at rest using AES-256 and in transit using TLS 1.3."
+@RULE lvl=must | when="Breach occurs" | then="Breach notification procedures must be in place. Affected individuals must be notified within 60 days."
+@RULE lvl=must | when=Annually | then="Risk assessments must be conducted annually and documented with remediation plans."
+@RULE lvl=must | when="PHI access" | then="All workforce members with PHI access must complete HIPAA training annually."
+@RULE lvl=must | when="Third parties access PHI" | then="Business associate agreements must be signed with all third parties that access PHI."
+@RULE lvl=must | when="System outages" | then="Emergency access procedures must allow authorized personnel to access PHI during system outages."
+@RULE lvl=must | when=Annually | then="Policies and procedures must be documented, reviewed annually, and updated as needed."
+@RULE lvl=must | when="Physical safeguards" | then="Physical safeguards include facility access controls and workstation security."
+@RULE lvl=must | when="Technical safeguards" | then="Technical safeguards include unique user identification, automatic logoff, and audit controls."
+
+@SEC name="Caching Layer"
+@NOTE text="The caching layer sits between the API and database for frequently accessed resources."
+@NOTE text="Default cache TTL is 300 seconds (5 minutes). Maximum TTL is 86400 seconds (24 hours)."
+@NOTE text="Cache strategy is stale-while-revalidate: serve stale content while fetching fresh data in the background."
+@NOTE text="Cache invalidation is event-driven. Database writes trigger cache key invalidation via the event bus."
+@NOTE text="The cache backend is Redis 7.x running in cluster mode with 3 primary and 3 replica nodes."
+@NOTE text="Cache keys follow the pattern: {service}:{resource}:{id}:{version}. Version is incremented on each write."
+@NOTE text="Cache hit rates are monitored. Target is 95% for read-heavy endpoints."
+@NOTE text="Large objects (>1MB) are compressed with LZ4 before caching. Decompression is transparent to consumers."
+@NOTE text="Cache warming runs during deployment to prevent cold-start latency spikes."
+@NOTE text="Per-tenant cache isolation prevents noisy neighbors in multi-tenant deployments."
+
+@SEC name=Observability
+@NOTE text="Observability is built on three pillars: tracing, metrics, and logging."
+@NOTE text="Distributed tracing uses OpenTelemetry with W3C Trace Context propagation. All services are instrumented."
+@NOTE text="Metrics are exported in Prometheus format. Custom metrics use the standard naming convention: {service}_{metric}_{unit}."
+@NOTE text="Logging uses structured JSON format. Every log line includes correlation_id, service, level, and timestamp."
+@NOTE text="Default log level is info. Debug logging can be enabled per-service without restart via runtime configuration."
+@NOTE text="Sampling rate for traces is 10% in production and 100% in staging."
+@NOTE text="Log retention is 90 days in the search index and 1 year in cold storage."
+@NOTE text="Alerts are defined as code using Terraform. Each alert specifies threshold, duration, severity, and runbook link."
+@NOTE text="Dashboards follow the RED method: Rate, Errors, Duration for every service."
+@NOTE text="SLO tracking monitors error budget consumption. Pages are triggered at 50% budget burn in a 1-hour window."
+
+@SEC name="Service Communication"
+@NOTE text="All services communicate via gRPC for internal calls and REST for external-facing APIs."
+@NOTE text="Event sourcing is used for order and payment domains to maintain a complete audit history of all state changes."
+@NOTE text="CQRS pattern separates read and write models for high-throughput reporting without impacting write performance."
+@NOTE text="Each service owns its database. Cross-service data access goes through well-defined API boundaries."
+@NOTE text="The event bus uses Apache Kafka with guaranteed at-least-once delivery. Consumers must be idempotent."
+@NOTE text="Circuit breaker pattern is mandatory for all external service calls. Trips after 5 consecutive failures."
+@NOTE text="Saga pattern is used for distributed transactions spanning multiple services with compensating transactions."
+@NOTE text="API gateway handles cross-cutting concerns: authentication, rate limiting, request logging, and CORS."
+@NOTE text="Service mesh provides mutual TLS, observability, and fine-grained traffic management between services."
+@NOTE text="Blue-green deployments ensure zero-downtime releases. Canary releases route 5% of traffic to new versions."
+@NOTE text=order.created
+@NOTE text=order.updated
+@NOTE text=order.completed
+@NOTE text=payment.succeeded
+@NOTE text=payment.failed
+@NOTE text=invoice.paid
+@NOTE text=410
+@NOTE text=3600
+@NOTE text=2000
+@NOTE text=8601
+@NOTE text=2026
+@NOTE text=RateLimit
+@NOTE text="Standard Contractual Clauses"
+@NOTE text=UTC

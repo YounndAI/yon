@@ -1,0 +1,24 @@
+@DOC ver=2.0 | id=invoiceflow-monitoring | title="InvoiceFlow Monitoring & Alerts" | kind=config | profile=exec | fmt=canon
+
+@SEC name="SLOs"
+@MAP id=slo-post-invoices | endpoint="POST /invoices" | availability="99.9%" | p99_latency="500ms" | error_rate="< 1%"
+@MAP id=slo-get-invoices | endpoint="GET /invoices" | availability="99.95%" | p99_latency="200ms" | error_rate="< 0.5%"
+@MAP id=slo-get-invoice | endpoint="GET /invoices/:id" | availability="99.95%" | p99_latency="200ms" | error_rate="< 0.5%"
+@MAP id=slo-put-invoice | endpoint="PUT /invoices/:id" | availability="99.9%" | p99_latency="500ms" | error_rate="< 1%"
+@MAP id=slo-send-invoice | endpoint="POST /invoices/:id/send" | availability="99.5%" | p99_latency="2000ms" | error_rate="< 2%"
+@MAP id=slo-post-payments | endpoint="POST /payments" | availability="99.99%" | p99_latency="300ms" | error_rate="< 0.1%"
+@MAP id=slo-get-payments | endpoint="GET /payments" | availability="99.95%" | p99_latency="200ms" | error_rate="< 0.5%"
+@MAP id=slo-health | endpoint="GET /health" | availability="99.99%" | p99_latency="50ms" | error_rate="0%"
+
+@SEC name="Alert Thresholds"
+@MAP id=alert-error | metric="Error rate (any endpoint)" | warning="> 2% over 5min" | critical="> 5% over 5min" | channel="Slack #alerts"
+@MAP id=alert-latency | metric="P99 latency (any endpoint)" | warning="> 2x SLO" | critical="> 5x SLO" | channel="Slack #alerts + PagerDuty"
+@MAP id=alert-payments | metric="/payments error rate" | warning="> 0.1% over 1min" | critical="> 0.5% over 1min" | channel="PagerDuty immediate"
+@MAP id=alert-db-pool | metric="Database connection pool" | warning="> 80% utilized" | critical="> 95% utilized" | channel="Slack #infra"
+@MAP id=alert-disk | metric="Disk usage" | warning="> 80%" | critical="> 95%" | channel="Slack #infra + PagerDuty"
+
+@SEC name="Incident Severity"
+@MAP id=sev-p1 | severity=P1 | def="Payment processing down or data loss risk" | response="15 min" | paged="On-call lead of owning team + platform lead"
+@MAP id=sev-p2 | severity=P2 | def="Core functionality degraded (invoices or payments)" | response="1 hour" | paged="On-call lead of owning team"
+@MAP id=sev-p3 | severity=P3 | def="Non-critical feature degraded (e.g. email notifications)" | response="4 hours" | paged="Owning team Slack channel"
+@MAP id=sev-p4 | severity=P4 | def="Cosmetic or non-user-facing issue" | response="Next business day" | paged="Ticket auto-created"

@@ -1,0 +1,678 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.telecom",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Network operations, subscriber management, billing, and telecommunications infrastructure",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "SUBSCRIBER",
+      "description": "Subscriber record — mobile or fixed-line customer with plan and device data",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "sub:42"
+        },
+        {
+          "name": "msisdn",
+          "type": "string",
+          "required": false,
+          "description": "MSISDN",
+          "example": "+491711234567"
+        },
+        {
+          "name": "imsi",
+          "type": "string",
+          "required": false,
+          "description": "IMSI",
+          "example": "262011234567890"
+        },
+        {
+          "name": "plan",
+          "type": "string",
+          "required": false,
+          "description": "Service Plan",
+          "example": "Unlimited-5G-Pro"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "active",
+            "suspended",
+            "terminated",
+            "porting"
+          ],
+          "description": "Subscriber Status: active, suspended, terminated, porting",
+          "example": "active"
+        },
+        {
+          "name": "data_usage_gb",
+          "type": "float",
+          "required": false,
+          "description": "Data Usage in GB",
+          "unit": "GB",
+          "example": "42.7"
+        },
+        {
+          "name": "account_id",
+          "type": "string",
+          "required": false,
+          "description": "Account ID",
+          "example": "ACC-2026-00042"
+        },
+        {
+          "name": "activated",
+          "type": "ts",
+          "required": false,
+          "description": "Activation Date as ISO 8601 timestamp",
+          "example": "2024-06-15T00:00:00Z"
+        },
+        {
+          "name": "sim_iccid",
+          "type": "string",
+          "required": false,
+          "description": "SIM ICCID",
+          "example": "8949010012345678901"
+        },
+        {
+          "name": "device",
+          "type": "string",
+          "required": false,
+          "description": "Device",
+          "example": "iPhone 17 Pro"
+        }
+      ]
+    },
+    {
+      "tag": "CIRCUIT",
+      "description": "Network circuit — point-to-point connectivity with capacity and SLA parameters",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "cir:FRA-BER-001"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "fiber",
+            "copper",
+            "microwave",
+            "satellite",
+            "mpls",
+            "ethernet"
+          ],
+          "description": "Circuit Type (6 allowed values)",
+          "example": "fiber"
+        },
+        {
+          "name": "capacity_mbps",
+          "type": "float",
+          "required": false,
+          "description": "Capacity in Mbps",
+          "unit": "Mbps",
+          "example": "10000.0"
+        },
+        {
+          "name": "latency_ms",
+          "type": "float",
+          "required": false,
+          "description": "Latency in ms",
+          "unit": "ms",
+          "example": "4.2"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "active",
+            "provisioning",
+            "down",
+            "maintenance",
+            "decommissioned"
+          ],
+          "description": "Circuit Status: active, provisioning, down, maintenance, decommissioned",
+          "example": "active"
+        },
+        {
+          "name": "a_end",
+          "type": "string",
+          "required": false,
+          "description": "A-End",
+          "example": "Frankfurt-DC1"
+        },
+        {
+          "name": "z_end",
+          "type": "string",
+          "required": false,
+          "description": "Z-End",
+          "example": "Berlin-DC2"
+        },
+        {
+          "name": "provider",
+          "type": "string",
+          "required": false,
+          "description": "Provider",
+          "example": "Deutsche Telekom"
+        },
+        {
+          "name": "sla",
+          "type": "string",
+          "required": false,
+          "description": "SLA Tier",
+          "example": "99.99%"
+        }
+      ]
+    },
+    {
+      "tag": "TROUBLE_TICKET",
+      "description": "Trouble ticket — customer or network issue with SLA target tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "tt:2026-08421"
+        },
+        {
+          "name": "subscriber_ref",
+          "type": "string",
+          "required": false,
+          "description": "Subscriber Reference",
+          "example": "sub:42"
+        },
+        {
+          "name": "circuit_ref",
+          "type": "string",
+          "required": false,
+          "description": "Circuit Reference",
+          "example": "cir:FRA-BER-001"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "service",
+            "billing",
+            "provisioning",
+            "fault",
+            "quality"
+          ],
+          "description": "Category: service, billing, provisioning, fault, quality",
+          "example": "fault"
+        },
+        {
+          "name": "priority",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ],
+          "description": "Priority: low, medium, high, critical",
+          "example": "high"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "open",
+            "assigned",
+            "in-progress",
+            "pending-customer",
+            "resolved",
+            "closed"
+          ],
+          "description": "Ticket Status (6 allowed values)",
+          "example": "in-progress"
+        },
+        {
+          "name": "sla_target",
+          "type": "string",
+          "required": false,
+          "description": "SLA Target",
+          "example": "4h resolution"
+        },
+        {
+          "name": "created",
+          "type": "ts",
+          "required": false,
+          "description": "Created At as ISO 8601 timestamp",
+          "example": "2026-03-15T08:00:00Z"
+        },
+        {
+          "name": "resolved",
+          "type": "ts",
+          "required": false,
+          "description": "Resolved At as ISO 8601 timestamp",
+          "example": "2026-03-15T11:30:00Z"
+        },
+        {
+          "name": "technician",
+          "type": "string",
+          "required": false,
+          "description": "Assigned Technician",
+          "example": "K. Weber"
+        }
+      ]
+    },
+    {
+      "tag": "TOWER",
+      "description": "Cell site or tower — geographic coverage with technology and sector configuration",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "twr:BER-042"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Site Name",
+          "example": "Berlin-Mitte-042"
+        },
+        {
+          "name": "lat",
+          "type": "float",
+          "required": false,
+          "range": [
+            -90,
+            90
+          ],
+          "description": "Latitude in ° (-90–90)",
+          "unit": "°",
+          "example": "52.5200"
+        },
+        {
+          "name": "lon",
+          "type": "float",
+          "required": false,
+          "range": [
+            -180,
+            180
+          ],
+          "description": "Longitude in ° (-180–180)",
+          "unit": "°",
+          "example": "13.4050"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "macro",
+            "micro",
+            "pico",
+            "femto",
+            "small-cell",
+            "das"
+          ],
+          "description": "Tower Type (6 allowed values)",
+          "example": "macro"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "active",
+            "planned",
+            "construction",
+            "decommissioned"
+          ],
+          "description": "Site Status: active, planned, construction, decommissioned",
+          "example": "active"
+        },
+        {
+          "name": "height_m",
+          "type": "float",
+          "required": false,
+          "description": "Tower Height in m",
+          "unit": "m",
+          "example": "45.0"
+        },
+        {
+          "name": "coverage_km",
+          "type": "float",
+          "required": false,
+          "description": "Coverage Radius in km",
+          "unit": "km",
+          "example": "2.5"
+        },
+        {
+          "name": "technology",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "2G",
+            "3G",
+            "4G-LTE",
+            "5G-NR",
+            "5G-mmWave"
+          ],
+          "description": "Technology: 2G, 3G, 4G-LTE, 5G-NR, 5G-mmWave",
+          "example": "5G-NR"
+        },
+        {
+          "name": "sectors",
+          "type": "int",
+          "required": false,
+          "description": "Sectors",
+          "example": "3"
+        }
+      ]
+    },
+    {
+      "tag": "OUTAGE",
+      "description": "Service outage — network disruption with impact scope and MTTR tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "out:2026-001"
+        },
+        {
+          "name": "affected_circuits",
+          "type": "string",
+          "required": false,
+          "description": "Affected Circuits",
+          "example": "cir:FRA-BER-001, cir:FRA-MUC-003"
+        },
+        {
+          "name": "affected_subscribers",
+          "type": "int",
+          "required": false,
+          "description": "Affected Subscribers",
+          "example": "12500"
+        },
+        {
+          "name": "start_ts",
+          "type": "ts",
+          "required": false,
+          "description": "Outage Start as ISO 8601 timestamp",
+          "example": "2026-03-15T02:00:00Z"
+        },
+        {
+          "name": "end_ts",
+          "type": "ts",
+          "required": false,
+          "description": "Outage End as ISO 8601 timestamp",
+          "example": "2026-03-15T05:30:00Z"
+        },
+        {
+          "name": "root_cause",
+          "type": "string",
+          "required": false,
+          "description": "Root Cause",
+          "example": "Fiber cut on A1 highway section"
+        },
+        {
+          "name": "severity",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "minor",
+            "major",
+            "critical"
+          ],
+          "description": "Severity: minor, major, critical",
+          "example": "major"
+        },
+        {
+          "name": "mttr_min",
+          "type": "int",
+          "required": false,
+          "description": "Mean Time to Repair",
+          "unit": "minutes",
+          "example": "210"
+        }
+      ]
+    },
+    {
+      "tag": "USAGE",
+      "description": "Usage record — periodic consumption data for billing and analytics",
+      "fields": [
+        {
+          "name": "subscriber_ref",
+          "type": "string",
+          "required": false,
+          "description": "Subscriber Reference",
+          "example": "sub:42"
+        },
+        {
+          "name": "period",
+          "type": "string",
+          "required": true,
+          "description": "Billing Period",
+          "example": "2026-03"
+        },
+        {
+          "name": "data_gb",
+          "type": "float",
+          "required": false,
+          "description": "Data Usage in GB",
+          "unit": "GB",
+          "example": "42.7"
+        },
+        {
+          "name": "voice_min",
+          "type": "int",
+          "required": false,
+          "description": "Voice Minutes",
+          "unit": "minutes",
+          "example": "180"
+        },
+        {
+          "name": "sms",
+          "type": "int",
+          "required": false,
+          "description": "SMS Count",
+          "example": "45"
+        },
+        {
+          "name": "roaming",
+          "type": "bool",
+          "required": false,
+          "description": "Roaming indicator",
+          "example": "false"
+        },
+        {
+          "name": "charges",
+          "type": "float",
+          "required": false,
+          "description": "Charges in EUR",
+          "unit": "EUR",
+          "example": "49.99"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Telecom network operations and subscriber management AI",
+    "highlights": [
+      "SUBSCRIBER",
+      "TOWER",
+      "OUTAGE"
+    ],
+    "use_cases": [
+      {
+        "id": "network-assurance",
+        "title": "Network Service Assurance",
+        "steps": [
+          "Monitor @CIRCUIT health metrics (latency, jitter, loss)",
+          "Correlate @CDR patterns with @CIRCUIT degradation",
+          "Auto-create @TICKET when @SLA thresholds breached",
+          "Dispatch field repair using @TICKET priority routing",
+          "Validate @SLA compliance after @CIRCUIT restoration"
+        ],
+        "example": "@SLA rid=sla:1 | subscriber_ref=\"sub:42\" | metric=\"latency\" | target_ms:float=15.0 | actual_ms:float=22.3 | status=\"breached\"",
+        "tags_used": [
+          "CIRCUIT"
+        ],
+        "description": "Monitor subscriber connections, track service tickets from fault detection through resolution, and correlate network alarms with service impact using SLA thresholds.",
+        "tags": [
+          "SUBSCRIBER",
+          "TICKET",
+          "CDR",
+          "ALARM",
+          "USAGE"
+        ],
+        "tags_planned": [
+          "CDR",
+          "TICKET",
+          "SLA"
+        ]
+      },
+      {
+        "id": "spectrum-management",
+        "title": "Dynamic Spectrum Management",
+        "steps": [
+          "Inventory @SPECTRUM allocations across frequency bands",
+          "Monitor @SPECTRUM utilization per cell site",
+          "Optimize @SPECTRUM assignment based on @CDR traffic patterns",
+          "Forecast capacity needs per @SUBSCRIBER growth projections",
+          "File regulatory reports on @SPECTRUM usage compliance"
+        ],
+        "example": "@SPECTRUM rid=sp:1 | band=\"n78\" | frequency_mhz:float=3500.0 | bandwidth_mhz:float=100.0 | utilization:float=0.67",
+        "tags_used": [
+          "SUBSCRIBER"
+        ],
+        "description": "Manage spectrum allocations, monitor RF interference patterns, and optimize cell tower configurations based on usage patterns, coverage gaps, and regulatory constraints.",
+        "tags": [
+          "NETWORK",
+          "ALARM",
+          "USAGE",
+          "CDR"
+        ],
+        "tags_planned": [
+          "SPECTRUM",
+          "CDR"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "TMF SID",
+        "url": "https://www.tmforum.org/",
+        "type": "standard"
+      },
+      {
+        "label": "3GPP",
+        "url": "https://www.3gpp.org/",
+        "type": "standard"
+      },
+      {
+        "label": "MEF",
+        "url": "https://www.mef.net/",
+        "type": "standard"
+      },
+      {
+        "label": "ITIL",
+        "url": "https://www.axelos.com/best-practice-solutions/itil",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.infrastructure",
+        "relationship": "often paired",
+        "reason": "Critical infrastructure"
+      },
+      {
+        "domain": "yai.devops",
+        "relationship": "data overlap",
+        "reason": "Incident management"
+      }
+    ],
+    "tag_context": {
+      "SUBSCRIBER": {
+        "purpose": "Mobile or fixed-line customer record with plan, SIM, device, and usage data",
+        "when_to_use": "Customer onboarding, plan management, SIM provisioning, churn analysis, number portability",
+        "related_standards": [
+          "TM Forum SID Customer",
+          "3GPP TS 23.003 IMSI",
+          "ITU-T E.164"
+        ]
+      },
+      "CIRCUIT": {
+        "purpose": "Point-to-point network circuit with capacity, latency, and SLA performance tracking",
+        "when_to_use": "Circuit provisioning, capacity planning, SLA monitoring, network topology mapping, decommissioning",
+        "related_standards": [
+          "ITU-T G.709 OTN",
+          "MEF CE 2.0",
+          "IEEE 802.3"
+        ]
+      },
+      "TROUBLE_TICKET": {
+        "purpose": "Customer or network fault ticket with SLA target, priority escalation, and resolution tracking",
+        "when_to_use": "Fault reporting, SLA compliance tracking, field dispatch, customer issue resolution, NOC operations",
+        "related_standards": [
+          "TM Forum TMF621",
+          "ITIL Incident",
+          "IEEE 830"
+        ]
+      },
+      "TOWER": {
+        "purpose": "Cell site with geographic coordinates, technology generation, and coverage parameters",
+        "when_to_use": "Cell site planning, coverage modeling, SON optimization, spectrum allocation, tower colocation",
+        "related_standards": [
+          "3GPP TS 32.422 SON",
+          "ITU-T Q.821",
+          "TowerCo Standards"
+        ]
+      },
+      "OUTAGE": {
+        "purpose": "Network service outage with subscriber impact, root cause analysis, and MTTR tracking",
+        "when_to_use": "Outage declaration, impact assessment, root cause documentation, SLA penalty calculation, post-incident review",
+        "related_standards": [
+          "TM Forum TMF656",
+          "IEEE 1366 SAIDI/SAIFI",
+          "NERC EOP"
+        ]
+      },
+      "USAGE": {
+        "purpose": "Periodic subscriber consumption record for billing, analytics, and fair-use monitoring",
+        "when_to_use": "Billing cycle aggregation, usage alerting, fair-use enforcement, roaming settlement, revenue assurance",
+        "related_standards": [
+          "3GPP TS 32.251 CDR",
+          "TMF635 Usage Mgmt",
+          "TAP3 (GSMA)"
+        ]
+      }
+    },
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

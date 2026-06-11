@@ -1,0 +1,14 @@
+@DOC ver=2.0 | id=parallel-execution | title="Parallel Execution" | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Run independent steps in parallel, then merge results."
+
+@SEC name="Parallel Fetch"
+@STEP n:int=1 | rid=fetch-users | op=std:http.get@v1 | out=[ref:users]
+@STEP n:int=2 | rid=fetch-orders | op=std:http.get@v1 | out=[ref:orders]
+@STEP n:int=3 | rid=fetch-metrics | op=std:http.get@v1 | out=[ref:metrics]
+
+@SEC name="Merge"
+@STEP n:int=4 | rid=merge | op=std:data.merge@v1 | in=[ref:users, ref:orders, ref:metrics] | out=[ref:dashboard]
+
+@SEC name="Output"
+@STEP n:int=5 | rid=render | op=std:io.print@v1 | in=[ref:dashboard]

@@ -1,0 +1,27 @@
+@DOC ver=2.0 | id=api-rules | title="API Rules and Endpoints" | kind=rule | profile=exec | fmt=canon
+
+@SEC name=Authentication
+@RULE lvl=must | when="making API requests" | then="All API requests must include the Authorization header with a valid bearer token."
+@RULE lvl=must | when="rate limited" | then="When rate limited, return 429 with Retry-After header."
+@NOTE text="Authentication uses Bearer token OAuth2 with a 3600 second TTL and 30-day refresh."
+@NOTE text="Tokens are issued by the /auth/token endpoint using client credentials or authorization code flow."
+@NOTE text="Refresh tokens can be used once and are invalidated after use. A new refresh token is issued with each access token."
+
+@SEC name="User Management"
+@RULE lvl=must | when="creating a user" | then="The users endpoint at POST /users creates a new user. Required fields are name, email, and role."
+@RULE lvl=must | when="email is provided" | then="Email must be unique per organization."
+@NOTE text="Roles are admin, member, or viewer. Default role is member."
+@NOTE text="GET /users returns a paginated list with cursor-based pagination. Default limit is 25, max is 100."
+@RULE lvl=must | when="user not found" | then="GET /users/:id returns a single user or 404 if not found."
+@NOTE text="PATCH /users/:id does a partial update with merge semantics. Cannot change email without verification."
+@RULE lvl=must | when="user is already archived" | then="If the user is already archived, return 410 Gone."
+
+@SEC name="Order Management"
+@RULE lvl=must | when="creating an order" | then="The orders endpoint at POST /orders creates a new order. Required fields are customer_id, items, total, and currency."
+@RULE lvl=must | when="total is calculated" | then="Total must equal sum of (quantity * unit_price)."
+@RULE lvl=must | when="currency is provided" | then="Currency must be ISO 4217 (USD, EUR, GBP, CAD, AUD, JPY)."
+@NOTE text="Orders go through a lifecycle: draft → confirmed → processing → shipped → delivered. Can be canceled before shipped."
+@RULE lvl=must | when="order is canceled" | then="POST /orders/:id/cancel marks as canceled and triggers refund if payment was captured."
+
+@SEC name="Error Codes"
+@MAP id=Error Codes name="Error Codes" | pairs=["ERR_AUTH"->"invalid or expired token","ERR_NOT_FOUND"->"requested resource does not exist","ERR_VALIDATION"->"request body failed schema validation","ERR_CONFLICT"->"duplicate resource detected","ERR_RATE_LIMIT"->"too many requests","ERR_PAYMENT_FAILED"->"payment provider rejected transaction","ERR_INSUFFICIENT_FUNDS"->"account balance too low","ERR_PERMISSION_DENIED"->"token lacks required scope","ERR_RESOURCE_LOCKED"->"resource being modified by another process"]

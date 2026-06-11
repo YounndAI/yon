@@ -1,0 +1,30 @@
+@DOC ver=2.0 | id=api-rules | title="API Rules and Guidelines" | kind=rule | profile=exec | fmt=ultra
+@INTENT goal="Define API rules and guidelines"
+@SEC name=Authentication
+@RULE lvl=must | when="All API requests" | then="Include Authorization header"
+@RULE lvl=must | when="Tokens are issued" | then="Issue tokens via /auth/token"
+@RULE lvl=must | when="Using refresh tokens" | then="Invalidate refresh tokens after use"
+@SEC name="Rate Limiting"
+@RULE lvl=must | when="Rate limited" | then="Return 429 on rate limit"
+@SEC name="Users Endpoint"
+@RULE lvl=must | when="POST /users" | then="Create user with name, email, role"
+@RULE lvl=must | when="GET /users/:id" | then="Return user or 404"
+@RULE lvl=must | when="DELETE /users/:id" | then="Soft-delete user"
+@SEC name="Orders Endpoint"
+@RULE lvl=must | when="POST /orders" | then="Create order with customer_id, items, total, currency"
+@RULE lvl=must | when=Currency | then="Currency ISO 4217"
+@RULE lvl=must | when="POST /orders/:id/confirm" | then="Confirm order and authorize payment"
+@SEC name="Products Endpoint"
+@RULE lvl=must | when="POST /products" | then="Create product with name, description, price, category, active"
+@RULE lvl=must | when=Name | then="Name max 255 chars"
+@SEC name="Invoices Endpoint"
+@RULE lvl=must | when="POST /invoices" | then="Create invoice with customer_id, items, due_date, payment_terms"
+@RULE lvl=must | when="POST /invoices/:id/pay" | then="Pay invoice, return 402 on failure"
+@SEC name="Input Validation"
+@RULE lvl=must | when="Email fields" | then="Email RFC 5322"
+@RULE lvl=must | when="Phone fields" | then="Phone E.164 [1234567890]"
+@SEC name=Webhooks
+@RULE lvl=must | when="Webhook payloads" | then="Sign payloads with HMAC-SHA256"
+@RULE lvl=must | when="Failed deliveries" | then="Retry failed deliveries"
+@MAP id=ErrorCodes | pairs=["ERR_NOT_FOUND"->"requested resource does not exist","ERR_RATE_LIMIT"->"too many requests","ERR_PAYMENT_FAILED"->"payment provider rejected transaction","ERR_INSUFFICIENT_FUNDS"->"account balance too low","ERR_PERMISSION_DENIED"->"token does not have required scope","ERR_RESOURCE_LOCKED"->"resource is being modified by another process"]
+@MAP id=Webhooks | pairs=["note"->"order.created","note"->"order.updated","note"->"order.completed","note"->"payment.succeeded","note"->"payment.failed","note"->"invoice.paid","note"->"410","note"->"3600","note"->"2000","note"->"8601","note"->"2026","note"->"UTC"]

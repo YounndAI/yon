@@ -1,0 +1,7 @@
+@DOC ver=2.0 | id=hedging-cat5-perf-status | title="Performance Status" | kind=rule | profile=decl | fmt=canon
+
+@SEC name="Performance"
+@NOTE text="The current performance is somewhat acceptable for staging but not entirely stable under load."
+
+@SEC name="Migration"
+@NOTE text="The migration script is fairly complete, mostly working except for edge cases with nullable columns."

@@ -1,0 +1,32 @@
+@DOC ver=2.0 | kind=benchmark | id=typed-fields | title="Type System Exercise" | profile=exec | fmt=canon
+
+@SEC name="String Types"
+@NOTE text="Plain string — no suffix required."
+@CFG key=name | val="YounndAI Benchmark Suite"
+@CFG key=empty_string | val=""
+@CFG key=special_chars | val="pipe | and equals = and quotes \" inside"
+
+@SEC name="Integer Types"
+@CFG key=zero | val:int=0
+@CFG key=positive | val:int=42
+@CFG key=negative | val:int=-17
+@CFG key=large | val:int=2147483647
+
+@SEC name="Float Types"
+@CFG key=pi | val:float=3.14159
+@CFG key=zero_float | val:float=0.0
+@CFG key=negative_float | val:float=-273.15
+@CFG key=scientific | val:float=6.022e23
+
+@SEC name="Boolean Types"
+@CFG key=flag_true | val:bool=true
+@CFG key=flag_false | val:bool=false
+
+@SEC name="Timestamp Types"
+@CFG key=iso_full | val:ts=2026-02-12T19:00:00Z
+@CFG key=iso_offset | val:ts=2026-02-12T21:00:00+02:00
+
+@SEC name="Map with Typed Values"
+@MAP id=TypedMap | pairs=["count:int"->"100","ratio:float"->"0.75","enabled:bool"->"true","label"->"benchmark"]
+
+@STAMP ts:ts=2026-02-12T19:00:00Z | src=benchmarks | label="Full type system exercise vector"

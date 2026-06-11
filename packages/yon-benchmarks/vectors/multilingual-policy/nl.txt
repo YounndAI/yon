@@ -1,0 +1,105 @@
+Employee Data Privacy Policy — Multi-Region Compliance Requirements
+
+This document covers data protection requirements across our European offices. Each region has specific legal requirements that must be followed alongside GDPR.
+
+--- GERMANY (Bundesdatenschutzgesetz - BDSG) ---
+
+Betriebsrat (Works Council) Requirements:
+- Der Betriebsrat muss vor der Einführung von Systemen zur Mitarbeiterüberwachung konsultiert werden.
+- The works council must be consulted before introducing employee monitoring systems.
+- Employee monitoring includes: email scanning, web usage tracking, GPS tracking, video surveillance in workspaces.
+- Betriebsvereinbarung (works agreement) required before deployment.
+- Penalty for non-compliance: up to €300,000 per violation.
+
+Data Retention (Aufbewahrungsfristen):
+- Personnel files: 3 years after employment ends (§195 BGB)
+- Payroll records: 6 years (§257 HGB, Handelsgesetzbuch)
+- Tax-relevant documents: 10 years (§147 AO, Abgabenordnung)
+- Application documents (rejected candidates): maximum 6 months, then mandatory deletion
+- Krankheitstage (sick days): delete from active records after 12 months, retain in payroll for 6 years
+
+Data Processing Officer:
+- Datenschutzbeauftragter (DPO) mandatory if >20 employees regularly process personal data
+- DPO must be reported to Landesbeauftragter für Datenschutz (state data protection authority)
+- DPO cannot be terminated or disadvantaged for performing duties (§38 BDSG)
+- Internal or external DPO acceptable
+
+--- FRANCE (Loi Informatique et Libertés / CNIL) ---
+
+Droit à la Déconnexion (Right to Disconnect):
+- Les entreprises de plus de 50 salariés doivent négocier les modalités du droit à la déconnexion.
+- Companies with >50 employees must negotiate terms for disconnection rights.
+- Applies to: email, messaging apps, work platforms, phone calls outside working hours.
+- Must be included in internal regulations (Règlement Intérieur).
+- CNIL recommendation: no mandatory response to emails between 20:00 and 08:00.
+
+Employee Monitoring (Surveillance des Salariés):
+- Comité Social et Économique (CSE, works council) must be informed before any monitoring
+- Employees must be individually notified of monitoring in writing
+- Proportionality principle: monitoring must be proportionate to the legitimate aim
+- Keyloggers strictly forbidden (CNIL Délibération n°2013-001)
+- Internet usage: employer may monitor volume but not specific sites visited
+- Video surveillance: only in public areas, never in break rooms (salles de repos), changing areas, or toilets
+
+Data Retention:
+- Active employee data: duration of employment + 5 years for limitation period
+- Payroll (bulletins de paie): 5 years
+- Candidate data: 2 years maximum from last contact
+- Access logs: 6 months maximum (CNIL recommendation)
+
+--- NETHERLANDS (Uitvoeringswet AVG / UAVG) ---
+
+Ondernemingsraad (Works Council) Rights:
+- De ondernemingsraad heeft instemmingsrecht bij besluiten over personeelsvolgsystemen.
+- Works council has consent rights for decisions about employee monitoring systems.
+- Article 27 WOR (Wet op de Ondernemingsraden): explicit consent required, not just consultation.
+- Consent must be documented in writing with both parties' signatures.
+
+Medical Data (Medische Gegevens):
+- Employer may NOT ask about nature of illness
+- Only permitted questions: expected duration of absence, current tasks that need coverage
+- Company doctor (bedrijfsarts) is sole party who may process medical information
+- Manager may not store medical details, only "sick/not sick" status
+- Violation: up to €820,000 fine from Autoriteit Persoonsgegevens
+
+Data Retention:
+- Personnel files: 2 years after employment ends
+- Payroll administration: 7 years (fiscale bewaarplicht)
+- Absence records (verzuimregistratie): 2 years
+- Application data: 4 weeks after rejection (or 1 year with consent)
+
+--- SPAIN (Ley Orgánica de Protección de Datos — LOPDGDD) ---
+
+Registro de Jornada (Working Time Registration):
+- Todas las empresas deben registrar la jornada laboral diaria de cada trabajador.
+- All companies must register daily working hours for each employee (mandatory since 2019).
+- Records must include: start time, end time, total hours
+- Retention: 4 years, available to workers, unions, and labor inspectors
+- Non-compliance: fines from €626 to €6,250
+
+Derechos Digitales (Digital Rights):
+- Derecho a la intimidad en el uso de dispositivos digitales (privacy right for digital device usage)
+- Employer must establish usage criteria with worker participation
+- Employee right to privacy in BYOD devices — employer cannot access personal content
+- Derecho a la desconexión digital — Digital disconnection right (similar to French law)
+- Must be part of company policy (in collective agreement or internal protocol)
+
+Data Retention:
+- Employment contracts: 4 years after termination
+- Payroll data (nóminas): 4 years
+- Medical examination results: duration of employment + 5 years
+- Training records: 4 years
+- Video surveillance footage: maximum 30 days (then mandatory deletion unless incident)
+
+--- CROSS-REGION TECHNICAL REQUIREMENTS ---
+
+System Implementation:
+- All personal data must be stored in EU-based data centers (no US cloud without additional safeguards post-Schrems II)
+- Encryption at rest: AES-256 minimum
+- Encryption in transit: TLS 1.2 minimum, TLS 1.3 preferred
+- Access logging: every access to personal data must be logged with timestamp, user, action, and justification
+- Data anonymization: use k-anonymity (k≥5) for analytics datasets
+- Right to be forgotten: automated deletion pipelines with verification
+- Data portability: export in machine-readable format (JSON or CSV) within 30 days of request
+- Breach notification: 72 hours to supervisory authority, without undue delay to affected individuals
+- Privacy Impact Assessment (PIA): mandatory for high-risk processing (automated decision-making, large-scale profiling)

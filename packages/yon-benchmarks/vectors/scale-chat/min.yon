@@ -1,0 +1,18 @@
+@DOC ver=2.0 | id=api-authentication-rules | title="API Authentication Rules" | kind=rule | profile=exec | fmt=min
+
+@SEC name=Authentication
+@NOTE text="Bearer token OAuth2, 3600s TTL, 30d refresh"
+@RULE lvl=must | when="making API requests" | then="Include Authorization header with bearer token"
+
+@SEC name="Rate Limiting"
+@RULE lvl=must | when="rate limited" | then="Return 429 with Retry-After when rate limited"
+@NOTE text="500 requests/min globally"
+
+@SEC name="Token Access"
+@NOTE text="Admin tokens: all orgs, User tokens: own org"
+
+@SEC name="Token Issuance"
+@NOTE text="Tokens issued by /auth/token"
+
+@SEC name="Refresh Tokens"
+@NOTE text="Refresh tokens single-use, new issued with access token"

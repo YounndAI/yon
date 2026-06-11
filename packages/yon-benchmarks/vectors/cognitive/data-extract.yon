@@ -1,0 +1,22 @@
+@DOC ver=2.0 | kind=benchmark | id=data-extract | title="Data Extraction Vector" | profile=exec | fmt=canon
+
+@SEC name="Company Information"
+@CFG key=company_name | val="Meridian Analytics"
+@CFG key=founded | val:int=2019
+@CFG key=headquarters | val="Amsterdam, Netherlands"
+@CFG key=employees | val:int=342
+@CFG key=revenue_eur | val:float=28500000.00
+
+@SEC name="Product Lines"
+@MAP id=Products | pairs=["DataForge"->"Real-time data pipeline orchestration","InsightML"->"Automated machine learning platform","StreamVault"->"Enterprise data lake management"]
+
+@SEC name="Key Metrics"
+@CFG key=uptime_sla | val:float=99.97
+@CFG key=avg_latency_ms | val:float=12.4
+@CFG key=daily_events | val:int=45000000
+@CFG key=active_customers | val:int=1247
+
+@SEC name="Leadership"
+@MAP id=CLevel | pairs=["CEO"->"Dr. Eva Chen","CTO"->"Marcus Okonkwo","CFO"->"Ingrid Bergström","VP Engineering"->"Tomás Rivera"]
+
+@STAMP ts:ts=2026-02-12T19:00:00Z | src=benchmarks | label="Data extraction benchmark vector"

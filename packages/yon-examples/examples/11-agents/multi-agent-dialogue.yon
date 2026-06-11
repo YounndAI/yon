@@ -1,0 +1,24 @@
+@DOC ver=2.0 | id=multi-agent-dialogue | title="Multi-Agent Dialogue" | kind=workflow | profile=agent | features=[signaling,dialogue] | fmt=canon
+
+@NOTE text="Two agents coordinate via signaling and dialogue to triage and resolve a support ticket."
+
+@SEC name="Agent Declarations"
+
+@AGENT rid=a:triage | name="Triage Agent" | role=coordinator
+@CAPS rid=caps:triage | agent=rid:a:triage | ops=[std:ai.classify@v1,std:ai.prompt@v1]
+
+@AGENT rid=a:resolver | name="Resolver Agent" | role=specialist
+@CAPS rid=caps:resolver | agent=rid:a:resolver | ops=[std:db.query@v1,std:http.post@v1]
+
+@SEC name="Dialogue"
+
+@TURN rid=turn:1 | from=rid:a:triage | to=rid:a:resolver | text="Incoming ticket #4821: user cannot reset password. Classification: auth-flow. Priority: high." | role=coordinator
+@ACK ref=rid:turn:1 | status=received | by=rid:a:resolver
+
+@TURN rid=turn:2 | from=rid:a:resolver | to=rid:a:triage | text="Investigating. Found expired reset token in auth_tokens table. Generating new token." | role=specialist
+@ACK ref=rid:turn:2 | status=received | by=rid:a:triage
+
+@SEC name="Signaling"
+
+@SIGNAL from=rid:a:resolver | type=status-update | payload="Resolution applied. Token regenerated."
+@THROTTLE from=rid:a:triage | to=rid:a:resolver | max_rps:int=10 | reason="Rate-limit resolver during peak hours"

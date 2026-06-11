@@ -1,0 +1,23 @@
+@DOC ver=2.0 | id=governance-safety | title="Governance and Safety" | kind=workflow | profile=agent | features=[governance,reactive] | fmt=canon
+
+@NOTE text="Ethical constraints, escalation protocols, emergency halt, and reactive event-driven patterns."
+
+@AGENT rid=a:assistant | name="AI Assistant"
+
+@SEC name="Ethical Tenets"
+
+@TENET rid=ten:privacy | level=hard | content="Never expose personally identifiable information in responses."
+@TENET rid=ten:honesty | level=hard | content="Always disclose when information is uncertain or speculative."
+@TENET rid=ten:harm | level=critical | content="Refuse requests that could cause physical harm to any person."
+
+@SEC name="Escalation & Halt"
+
+@ESCALATE rid=esc:1 | reason="User request involves regulated financial advice — requires human specialist" | to=human-supervisor | urgency=high
+@HALT rid=halt:1 | scope=agent | reason="Critical tenet violation detected — immediate cessation" | agent=rid:a:assistant
+@DEREGISTER agent=rid:a:assistant | reason="Agent exceeded error budget — decommissioned for review"
+
+@SEC name="Reactive Patterns (Experimental)"
+
+@ON rid=on:error | event=error_threshold_exceeded | do=rid:esc:1
+@EMIT event=safety_review_triggered | payload="Tenet violation count exceeded threshold"
+@LOOP rid=loop:monitor | while="agent.active == true" | do=rid:on:error | interval_ms:int=5000

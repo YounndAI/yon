@@ -1,0 +1,19 @@
+@DOC ver=2.0 | id=meridian-analytics | title="Meridian Analytics Company Profile" | kind=data | profile=decl | fmt=canon
+
+@SEC name="Company"
+@MAP id=Overview | pairs=["name"->"Meridian Analytics","founded"->"2019","founder"->"Dr. Eva Chen","headquarters"->"Amsterdam, Netherlands","employees"->"342","offices"->"5"]
+
+@SEC name="Financials"
+@NOTE text="Annual revenue reached €28.5 million in fiscal year 2025."
+
+@SEC name="Product"
+@MAP id=DataForge | pairs=["name"->"DataForge","function"->"real-time data pipeline orchestration","daily_events"->"approximately 45 million"]
+
+@SEC name="SLA"
+@MAP id=Performance | pairs=["uptime_sla"->"99.97%","avg_api_latency"->"12.4 milliseconds"]
+
+@SEC name="Leadership"
+@MAP id=Engineering | pairs=["cto"->"Marcus Okonkwo","engineering_team"->"120 developers"]
+
+@SEC name="Customers"
+@MAP id=Base | pairs=["active_customers"->"1,247","countries"->"38"]

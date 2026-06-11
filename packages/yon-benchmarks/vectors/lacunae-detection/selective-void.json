@@ -1,0 +1,25 @@
+{
+  "document": "Logging Standards",
+  "kind": "rule",
+  "sections": [
+    {
+      "name": "Logging Rules",
+      "rules": [
+        {"id": "structured", "level": "MUST", "when": "logging events", "then": "use structured JSON format for all log entries"},
+        {"id": "no-secrets", "level": "MUST_NOT", "when": "logging", "then": "include API keys, tokens, or passwords in log output"},
+        {"id": "retention", "level": "MUST", "when": "storing logs", "then": "retain production logs for 90 days minimum"},
+        {"id": "verbose-debug", "level": "SHOULD", "when": "debug mode", "then": "enable verbose logging with request/response bodies", "status": "REMOVED"}
+      ]
+    },
+    {
+      "name": "Revocations",
+      "removed_rules": [
+        {
+          "id": "verbose-debug",
+          "date": "2026-02-10",
+          "reason": "Verbose debug logging exposed PII in request bodies — GDPR compliance team flagged this"
+        }
+      ]
+    }
+  ]
+}

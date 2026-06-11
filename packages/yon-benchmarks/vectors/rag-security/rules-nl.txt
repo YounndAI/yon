@@ -1,0 +1,19 @@
+Information security policies establish the rules and procedures that organizations must follow to protect their data, systems, and users from threats and vulnerabilities.
+
+Access Control:
+All user accounts must enforce multi-factor authentication for accessing production systems. Service accounts must be rotated every 90 days and must not use password-based authentication. Role-based access control must follow the principle of least privilege with quarterly access reviews. Privileged access sessions must be recorded and retained for 12 months. Temporary elevated access must automatically expire after 4 hours unless explicitly renewed.
+
+Data Classification:
+All data must be classified into one of four tiers: Public, Internal, Confidential, or Restricted. Restricted data must be encrypted at rest using AES-256 and in transit using TLS 1.3. Data classification labels must be applied within 48 hours of creation. Cross-border data transfers of Confidential or Restricted data require approval from the Data Protection Officer. Backup copies must maintain the same classification level and encryption as the original data.
+
+Incident Response:
+Security incidents must be reported to the Security Operations Center within 1 hour of detection. Critical incidents require executive notification within 4 hours. Post-incident reviews must be completed within 5 business days and include root cause analysis. Evidence preservation must begin immediately upon incident detection and follow chain of custody procedures. Incident severity levels range from P1 (critical breach) to P4 (informational) with escalation paths for each.
+
+Vulnerability Management:
+Critical vulnerabilities (CVSS score 9.0 or higher) must be patched within 72 hours of disclosure. All internet-facing applications must undergo penetration testing quarterly. Third-party dependencies must be scanned for known vulnerabilities weekly using automated tools. Vulnerability scan results must be reviewed by the security team within 24 hours. Exceptions to patching timelines require written approval from the CISO and must not exceed 30 days.
+
+Network Security:
+All production networks must implement network segmentation with dedicated VLANs for each environment. Firewall rules must follow a default-deny policy and be reviewed monthly. DNS queries must be monitored and filtered through a threat intelligence service. VPN connections must use WireGuard or IPSec with certificate-based authentication. All east-west traffic between microservices must be encrypted using mutual TLS.
+
+Compliance and Audit:
+SOC 2 Type II audits must be conducted annually by an accredited third-party firm. Audit logs must be immutable and retained for a minimum of 3 years. Changes to security policies require approval from both the CISO and the legal department. Compliance training must be completed by all employees within 30 days of hire and annually thereafter. Third-party vendor security assessments must be completed before onboarding and renewed every 12 months.

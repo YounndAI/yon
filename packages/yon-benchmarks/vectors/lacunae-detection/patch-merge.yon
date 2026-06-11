@@ -1,0 +1,10 @@
+@DOC ver=2.0 | id=api-policy | title="API Timeout Policy" | kind=policy | profile=exec | fmt=min
+
+@SEC name="Timeout Configuration"
+@RULE rid=rule:timeout | lvl=MUST | when="calling external API" | then="timeout after 30 seconds"
+
+@SEC name="Change History"
+@PATCH ts:ts="2026-01-15T12:00:00Z" | target=rid:rule:timeout | set=[then="timeout after 45 seconds"]
+@NOTE text="Increased from 30s to 45s — p99 latency on credit-check API exceeded 30s threshold."
+@PATCH ts:ts="2026-02-01T09:00:00Z" | target=rid:rule:timeout | set=[then="timeout after 60 seconds"]
+@NOTE text="Further increased from 45s to 60s — partner API migration added latency; monitors show p99 at 52s."

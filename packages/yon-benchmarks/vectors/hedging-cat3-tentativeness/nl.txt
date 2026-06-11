@@ -1,0 +1,1 @@
+For caching we might want to use Redis, or maybe just memcached if it's simpler. The session store could potentially be moved to the database instead. We might need WebSocket support eventually.

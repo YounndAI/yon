@@ -1,0 +1,39 @@
+@DOC ver=2.0 | id=invoiceflow-schema | title="InvoiceFlow Database Schema" | kind=data | profile=decl | fmt=min
+@SEC name="users"
+@MAP id=u1 | col=id | type=UUID | pk:bool=true
+@MAP id=u2 | col=email | type="VARCHAR(255)" | unique:bool=true | pii:bool=true
+@MAP id=u3 | col=full_name | type="VARCHAR(128)" | nn:bool=true | pii:bool=true
+@MAP id=u4 | col=phone | type="VARCHAR(32)" | nullable:bool=true | pii:bool=true
+@MAP id=u5 | col=role | type="ENUM(admin,manager,viewer)" | default=viewer
+@MAP id=u6 | col=team_id | type=UUID | fk="teams.id"
+@MAP id=u7 | col=created_at | type=TIMESTAMP | default="NOW()"
+@MAP id=u8 | col=last_login | type=TIMESTAMP | nullable:bool=true
+@SEC name="invoices"
+@MAP id=i1 | col=id | type=UUID | pk:bool=true
+@MAP id=i2 | col=customer_id | type=UUID | nn:bool=true
+@MAP id=i3 | col=status | type="ENUM(draft,sent,paid,overdue)" | default=draft
+@MAP id=i4 | col=currency | type="VARCHAR(3)" | default=USD | notes="ISO 4217"
+@MAP id=i5 | col=total | type="DECIMAL(12,2)" | nn:bool=true | notes="calc from line_items"
+@MAP id=i6 | col=due_date | type=DATE | nullable:bool=true | notes="req before send"
+@MAP id=i7 | col=notes | type=TEXT | nullable:bool=true
+@MAP id=i8 | col=payment_method | type="VARCHAR(64)" | nullable:bool=true | notes="admin only"
+@MAP id=i9 | col=created_by | type=UUID | fk="users.id"
+@MAP id=i10 | col=created_at | type=TIMESTAMP | default="NOW()"
+@MAP id=i11 | col=updated_at | type=TIMESTAMP | auto_update:bool=true
+@SEC name="payments"
+@MAP id=p1 | col=id | type=UUID | pk:bool=true
+@MAP id=p2 | col=invoice_id | type=UUID | fk="invoices.id" | nn:bool=true
+@MAP id=p3 | col=amount | type="DECIMAL(12,2)" | nn:bool=true | notes=">0"
+@MAP id=p4 | col=payment_method | type="VARCHAR(64)" | nn:bool=true
+@MAP id=p5 | col=reference | type="VARCHAR(128)" | nn:bool=true
+@MAP id=p6 | col=recorded_by | type=UUID | fk="users.id"
+@MAP id=p7 | col=created_at | type=TIMESTAMP | default="NOW()"
+@SEC name="audit_log"
+@NOTE text="Append-only. Not exposed via REST. Written on create/update/status_change."
+@MAP id=a1 | col=id | type=BIGINT | pk:bool=true | auto:bool=true
+@MAP id=a2 | col=entity_type | type="VARCHAR(64)" | nn:bool=true | notes="invoice|payment"
+@MAP id=a3 | col=entity_id | type=UUID | nn:bool=true
+@MAP id=a4 | col=action | type="VARCHAR(32)" | nn:bool=true | notes="create|update|status_change"
+@MAP id=a5 | col=actor_id | type=UUID | fk="users.id"
+@MAP id=a6 | col=changes | type=JSONB | nn:bool=true
+@MAP id=a7 | col=created_at | type=TIMESTAMP | default="NOW()"

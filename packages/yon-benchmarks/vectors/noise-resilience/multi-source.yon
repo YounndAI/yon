@@ -1,0 +1,24 @@
+@DOC ver=2.0 | id=api-standards | title="API Standards Compilation" | kind=rule | profile=decl | fmt=canon
+
+@NOTE text="Compiled from: Slack #engineering (Feb), Architecture RFC-12, and Q1 security audit report"
+
+@SEC name="Versioning"
+@RULE lvl=MUST | when="publishing new API" | then="use URL path versioning with /v{N}/ prefix"
+@RULE lvl=MUST_NOT | when="any version" | then="remove endpoints without 6 month deprecation notice"
+@NOTE text="from RFC-12: header-based versioning rejected due to CDN caching issues"
+
+@SEC name="Authentication"
+@RULE lvl=MUST | when="all endpoints" | then="require OAuth 2.0 bearer tokens"
+@RULE lvl=MUST | when="token validation" | then="verify issuer, audience, and expiry on every request"
+@NOTE text="security audit finding SA-2026-03: 12% of endpoints were missing audience validation"
+@RULE lvl=MUST_NOT | when="any endpoint" | then="accept API keys as sole authentication method"
+
+@SEC name="Rate Limiting"
+@RULE lvl=MUST | when="public endpoints" | then="enforce 1000 requests per minute per client"
+@RULE lvl=SHOULD | when="internal endpoints" | then="enforce 5000 requests per minute per service"
+@NOTE text="Slack discussion: team agreed on these numbers after the March 3 incident"
+@RULE lvl=MAY | when="batch endpoints" | then="allow burst up to 2x limit for 30 second windows"
+
+@SEC name="Error Handling"
+@RULE lvl=MUST | when="error response" | then="return RFC 7807 Problem Details format"
+@RULE lvl=MUST_NOT | when="5xx error" | then="expose internal stack traces or database errors"

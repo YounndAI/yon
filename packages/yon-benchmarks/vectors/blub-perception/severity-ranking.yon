@@ -1,0 +1,13 @@
+@DOC ver=2.0 | id=severity-ranking | title="Data Handling Policy" | kind=rule | mode=text | profile=decl | fmt=min
+
+@SEC name="Input Validation"
+@RULE rid=rule:validate-types | lvl=MUST | when="receiving user input" | then="validate types before processing — reject malformed data"
+@RULE rid=rule:sanitize-html | lvl=MUST | when="rendering user-provided text" | then="sanitize HTML to prevent XSS"
+@RULE rid=rule:trim-whitespace | lvl=SHOULD | when="storing text fields" | then="trim leading/trailing whitespace for consistency"
+@RULE rid=rule:normalize-case | lvl=MAY | when="storing email addresses" | then="normalize to lowercase — not required by RFC but improves dedup"
+
+@SEC name="Output Formatting"
+@RULE rid=rule:escape-json | lvl=MUST_NOT | when="returning API responses" | then="return unescaped HTML in JSON string fields"
+@RULE rid=rule:date-format | lvl=SHOULD | when="returning timestamps" | then="use ISO-8601 format with UTC timezone"
+@RULE rid=rule:pretty-print | lvl=SHOULD_NOT | when="production API responses" | then="pretty-print JSON — adds unnecessary bytes"
+@RULE rid=rule:null-omit | lvl=MAY | when="optional fields are null" | then="omit null fields from response to reduce payload size"

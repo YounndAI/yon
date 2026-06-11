@@ -1,0 +1,4 @@
+@SEC name="Missing DOC Header"
+@NOTE text="This document has no @DOC record — should fail validation."
+@CFG key=test | val="missing doc"
+@RULE lvl=MUST | when="parsing" | then="require @DOC as first record"

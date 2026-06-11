@@ -1,0 +1,136 @@
+@DOC ver=2.0 | kind=spec | id=adr-0047 | title="ADR-0047: Event-Driven Order Processing Pipeline" | profile=decl | fmt=canon
+
+@STAMP ts:ts=2024-11-15T00:00:00Z | src=human | label="Accepted"
+@NOTE text="Supersedes ADR-0031 (Synchronous Order Pipeline). Related: ADR-0039 (Message Broker Selection), ADR-0042 (Saga Pattern for Payments)."
+@NOTE text="Decision Makers: Platform Team (Jamie Chen, Lead), Backend Guild."
+
+@SEC name="Context and Problem"
+
+@NOTE text="Current synchronous order pipeline handles 2,400 orders/hr normal, 8,000/hr peak (flash sales)."
+
+@SEC name="Critical Issues (Q3 2024)"
+
+@MAP id=cascading_failures | name="Cascading Failures" | pairs=["trigger"->"inventory service p99 > 2s","impact"->"checkout flow degradation","october_flash_sale"->"3s inventory lock delay → 23% user timeouts","failed_orders"->"1,840 over 2 hours"]
+@MAP id=tight_coupling | name="Tight Coupling" | pairs=["downstream_services:int"->"7","services"->"inventory, pricing, tax, fraud, payment, shipping, notification","loyalty_addition_cost"->"3 developer-days (should be 4 hours)","root_cause"->"order service modification triggers full regression"]
+@MAP id=inconsistent_state | name="Inconsistent State" | pairs=["scenario"->"payment succeeds, shipping fails","result"->"charged customers without shipping confirmation","mitigation"->"manual reconciliation","ops_cost"->"6 hours/week"]
+@MAP id=scaling_limitations | name="Scaling Limitations" | pairs=["problem"->"synchronous pipeline forces co-scaling","example"->"fraud detection (CPU-intensive, bursty) requires scaling entire order cluster"]
+@MAP id=observability_gaps | name="Observability Gaps" | pairs=["problem"->"7 services with separate log groups","mean_diagnosis_time"->"45 minutes"]
+
+@SEC name="Decision Drivers"
+
+@RULE lvl=MUST | when="Q2 2025" | then="handle 15,000 orders/hour (6x current normal)"
+@RULE lvl=MUST | when="peak events" | then="achieve < 1% failure rate (currently 3.2%)"
+@RULE lvl=MUST | when="adding consumers" | then="no modification to order service required"
+@RULE lvl=MUST | when="diagnosing issues" | then="< 5 minute mean time to diagnose"
+@RULE lvl=MUST | when="cross-service transactions" | then="maintain data consistency (no orphaned payments)"
+@RULE lvl=MUST | when="infrastructure cost" | then="increase under 40%"
+
+@SEC name="Alternative A: Choreography (Apache Kafka)"
+
+@MAP id=kafka_pros | name="Pros" | pairs=["decoupling"->"services don't know about each other","scaling"->"partition-based parallelism","audit"->"built-in event log with replay","ecosystem"->"mature monitoring tools"]
+@MAP id=kafka_cons | name="Cons" | pairs=["flow_visibility"->"business logic distributed across services","debugging"->"trace events through multiple topics","schema_evolution"->"complex (schema registry, compatibility policies)","saga_support"->"not built-in, must implement per service","operations"->"Kafka cluster, topics, consumer groups","risk"->"event storms from circular reactions"]
+
+@SEC name="Alternative B: Orchestration (Temporal)"
+
+@MAP id=temporal_pros | name="Pros" | pairs=["readability"->"workflow definition in one place","saga"->"built-in compensation activities","retries"->"exponential backoff per activity","observability"->"full execution history, queryable state","long_running"->"supports pre-orders, backorders","monitoring"->"single dashboard for all processing"]
+@MAP id=temporal_cons | name="Cons" | pairs=["coordination"->"central point (though Temporal is distributed)","vendor_lock"->"Temporal SDK and runtime","learning_curve"->"2-3 sprint onboarding","api_dependency"->"services still need activity APIs","versioning"->"careful migration strategy required"]
+
+@SEC name="Alternative C: Hybrid (Temporal + Kafka)"
+
+@NOTE text="Use Temporal for core orchestration (inventory → pricing → tax → fraud → payment → shipping). Publish completed events to Kafka for non-critical consumers (loyalty, analytics, email, audit)."
+
+@SEC name="The Decision"
+
+@NOTE text="Going with Alternative C — the hybrid approach."
+
+@SEC name="Rationale"
+
+@MAP id=rationale | pairs=["reliability"->"Temporal saga management: payment succeeds + shipping fails → automatic payment reversal","scaling"->"Temporal workers scale independently (3 fraud, 10 payment). Kafka handles analytics firehose","extensibility"->"New non-critical consumers subscribe to Kafka without touching core workflow","observability"->"Temporal UI shows every execution, attempt, retry. Diagnosis < 5 minutes"]
+
+@SEC name="Cost Analysis"
+
+@MAP id=cost | pairs=["temporal_calculation"->"15,000 orders/hr × 7 activities = 105,000 actions/hr = 76.6M/month","temporal_cost"->"$1,900/month ($25/million actions)","kafka_managed"->"$800/month","total"->"$2,700/month (within 40% budget)"]
+
+@SEC name="Technical Architecture"
+
+@CFG key=workflow_name | value="ProcessOrderWorkflow"
+@CFG key=language | value="Go"
+@CFG key=namespace | value="orders-production"
+@CFG key=task_queue | value="order-processing"
+
+@SEC name="Workflow Steps"
+
+@STEP rid=step:validate-order | n:int=1 | op=validate_order | note="Validates item availability + customer eligibility"
+@CFG key=timeout | value="5s"
+@NOTE text="Input: order request with customer_id, items, shipping_address. Calls inventory + customer service. Compensation: none (read-only)."
+
+@STEP rid=step:calc-pricing | n:int=2 | op=calculate_pricing | note="Applies coupons, volume discounts, calculates tax"
+@CFG key=timeout | value="10s"
+@NOTE text="Calls pricing service + tax service. Compensation: none (read-only)."
+
+@STEP rid=step:fraud-check | n:int=3 | op=run_fraud_check | note="ML-based fraud detection"
+@CFG key=timeout | value="30s"
+@CFG key=retry_max:int | value:int=2
+@NOTE text="If flagged: workflow transitions to manual review (human-in-the-loop signal). Compensation: none (read-only)."
+
+@STEP rid=step:reserve-inv | n:int=4 | op=reserve_inventory | note="Reserve items with 15-minute TTL"
+@CFG key=timeout | value="10s"
+@CFG key=retry_max:int | value:int=3
+@CFG key=compensation | value="ReleaseInventoryReservation"
+
+@STEP rid=step:process-pay | n:int=5 | op=process_payment | note="Capture full amount via Stripe"
+@CFG key=timeout | value="30s"
+@CFG key=retry_max:int | value:int=2
+@CFG key=compensation | value="RefundPayment"
+
+@STEP rid=step:create-ship | n:int=6 | op=create_shipment | note="Generate tracking number"
+@CFG key=timeout | value="15s"
+@CFG key=retry_max:int | value:int=3
+@CFG key=compensation | value="CancelShipment"
+
+@STEP rid=step:finalize | n:int=7 | op=finalize_order | note="Update status, publish to Kafka, send confirmation"
+@CFG key=timeout | value="5s"
+@NOTE text="Idempotent, can retry. Compensation: none."
+
+@SEC name="Kafka Configuration"
+
+@MAP id=kafka_topics | pairs=["orders.completed"->"partition by customer_id","orders.failed"->"partition by order_id"]
+@CFG key=schema_format | value="Avro with schema registry"
+@CFG key=retention_days:int | value:int=30
+@MAP id=consumers | pairs=["loyalty-points-service"->"points accrual","analytics-ingest"->"data warehouse","email-service"->"transactional emails","audit-log"->"compliance record"]
+
+@SEC name="Saga Compensation Policy"
+
+@NOTE text="If any step after ReserveInventory fails, compensation runs in reverse order."
+@MAP id=compensation_example | name="Example: CreateShipment Fails" | pairs=["1"->"RefundPayment (refund Stripe charge)","2"->"ReleaseInventoryReservation (free items)","3"->"Update order status to 'failed' with reason","4"->"Publish OrderFailed event to Kafka","5"->"Send failure notification to customer"]
+
+@SEC name="Retry and Timeout Policies"
+
+@MAP id=defaults | pairs=["start_to_close"->"10s","schedule_to_close"->"60s","retry_attempts:int"->"3","backoff_initial"->"1s","backoff_max"->"30s","backoff_coefficient"->"2.0"]
+@NOTE text="Fraud check: higher timeout (30s) due to ML inference. Payment: 2 retries only (prevent duplicate charges with non-idempotent gateways)."
+
+@SEC name="Monitoring and Alerting"
+
+@MAP id=metrics | pairs=["order_workflow_duration_seconds"->"histogram","order_workflow_status"->"counter (completed, failed, compensated, timed_out)","activity_duration_seconds"->"histogram (labeled by activity)","compensation_triggered_total"->"counter (labeled by failing step)"]
+
+@SEC name="Alert Thresholds"
+
+@RULE lvl=MUST | when="workflow failure rate > 2% over 15min" | then="PagerDuty alert"
+@RULE lvl=MUST | when="mean workflow duration > 45s" | then="Slack alert"
+@RULE lvl=MUST | when="compensation rate > 5%" | then="PagerDuty alert"
+@RULE lvl=MUST | when="Kafka consumer lag > 10,000 messages" | then="Slack alert"
+
+@SEC name="Migration Plan"
+
+@MAP id=phase_1 | name="Phase 1: Shadow Mode (Sprint 67-68)" | pairs=["action"->"deploy alongside existing","behavior"->"both process same orders, compare results","impact"->"no customer impact"]
+@MAP id=phase_2 | name="Phase 2: Canary (Sprint 69)" | pairs=["action"->"route 10% through Temporal","expand"->"50% if green for 1 week","monitors"->"error rates, latency, compensation frequency"]
+@MAP id=phase_3 | name="Phase 3: Full Migration (Sprint 70)" | pairs=["action"->"route 100% through Temporal","decommission"->"old synchronous pipeline","rollback"->"retained for 2 sprints"]
+
+@SEC name="Risks and Mitigations"
+
+@MAP id=risks | pairs=["Temporal Cloud outage"->"fallback to sync pipeline (2 sprints)","Kafka consumer lag"->"alert at 10k, auto-scale consumers","team unfamiliarity"->"2-sprint onboarding, pair programming, Temporal training","schema evolution"->"backward-compatible Avro, schema registry","payment retries"->"idempotency keys, 2-retry limit"]
+
+@SEC name="Consequences"
+
+@MAP id=positive | name="Positive" | pairs=["traceability"->"end-to-end via Temporal UI","reconciliation"->"automatic compensation eliminates 6 hrs/week manual","scaling"->"independent fraud, payment, shipping workers","extensibility"->"Kafka subscriptions without code changes"]
+@MAP id=negative | name="Negative" | pairs=["learning"->"Temporal SDK ramp-up (2-3 sprints)","infrastructure"->"two systems to operate (Temporal + Kafka)","consistency"->"Kafka consumers have eventual consistency (acceptable for analytics/loyalty)"]

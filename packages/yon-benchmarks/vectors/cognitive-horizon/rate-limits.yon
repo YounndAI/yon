@@ -1,0 +1,21 @@
+@DOC ver=2.0 | id=invoiceflow-ratelimits | title="InvoiceFlow Rate Limiting" | kind=config | profile=exec | fmt=canon
+
+@SEC name="Per-Endpoint Limits"
+@NOTE text="Limits measured in requests per minute (rpm). Enforced per API key (tied to user)."
+@MAP id=rl-post-invoices | endpoint="POST /invoices" | rpm:int=30 | burst:int=10 | notes="Write — stricter"
+@MAP id=rl-get-invoices | endpoint="GET /invoices" | rpm:int=120 | burst:int=40 | notes="Read-heavy — generous"
+@MAP id=rl-get-invoice | endpoint="GET /invoices/:id" | rpm:int=120 | burst:int=40
+@MAP id=rl-put-invoice | endpoint="PUT /invoices/:id" | rpm:int=30 | burst:int=10 | notes="Write"
+@MAP id=rl-send-invoice | endpoint="POST /invoices/:id/send" | rpm:int=10 | burst:int=3 | notes="Triggers email — most restricted"
+@MAP id=rl-post-payments | endpoint="POST /payments" | rpm:int=20 | burst:int=5 | notes="Financial"
+@MAP id=rl-get-payments | endpoint="GET /payments" | rpm:int=120 | burst:int=40 | notes="Read-heavy"
+@MAP id=rl-health | endpoint="GET /health" | rpm=unlimited | burst=unlimited | notes="Monitoring"
+
+@SEC name="Role Exemptions"
+@RULE lvl=MUST | when="user role is admin" | then="apply 3x rate limit multiplier on all endpoints"
+@RULE lvl=MUST | when="user role is viewer" | then="apply 0.5x rate limit on write endpoints"
+@RULE lvl=MUST | when="X-Service-Token header present" | then="exempt from rate limiting entirely"
+
+@SEC name="Enforcement"
+@RULE lvl=MUST | when="rate limit exceeded" | then="return HTTP 429 with RATE_001 and Retry-After header"
+@NOTE text="Rolling window basis — not fixed calendar windows."

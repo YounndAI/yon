@@ -1,0 +1,26 @@
+@DOC ver=2.0 | id=ledger:provenance:2026-05 | domain=yai.lyt@1.0 | kind=cfg | profile=audit
+
+@META key=ledger_name | value=provenance
+@META key=month | value=2026-05
+
+@PROVENANCE target_type="note"
+  | target_id="notes/2026-05-30-thought-yai-lyt.md"
+  | ts="2026-05-30T14:32:45.200Z"
+  | src="automator:metadata-filler/v0.1.0"
+  | method="filler"
+  | confidence=1
+  | hash="sha256:8f1b9e2c4d7a3e6b5c8d1a4e7f0b3c6d9e2a5b8f1c4d7a0e3b6c9d2e5f8a1b4c"
+  | tokens=0
+  | cost_usd=0
+  | details_json="{\"fields_changed\":[\"topic\",\"purpose\",\"links-out-of-vault\"]}"
+@STAMP ts:ts=2026-05-30T14:32:45.200Z | src="lyt-runner/pre-write-hook" | hash="-"
+@PROVENANCE target_type="declaration"
+  | target_id="example-personal/.lyt/automators/metadata-filler.yon"
+  | ts="2026-05-30T14:35:01.000Z"
+  | src="automator:metadata-filler/v0.1.0"
+  | method="filler"
+  | confidence=1
+  | hash="sha256:c2e5b8f1c4d7a0e3b6c9d2e5f8a1b4c2e5b8f1c4d7a0e3b6c9d2e5f8a1b4c2e5"
+  | tokens=0
+  | cost_usd=0
+@STAMP ts:ts=2026-05-30T14:35:01.000Z | src="lyt-runner/pre-write-hook" | hash="d3f6c9e2b5a8d1f4c7b0e3d6f9c2b5a8d1f4c7b0e3d6f9c2b5a8d1f4c7b0e3d6"

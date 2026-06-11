@@ -1,0 +1,7 @@
+@DOC ver=2.0 | id=hedging-cat7-hero-design | title="Hero Section Design" | kind=rule | profile=decl | fmt=canon
+
+@SEC name="Hero Section"
+@NOTE text="The hero section should have some kind of animated background, maybe something about AI or whatever looks professional."
+
+@SEC name="Below the Fold"
+@NOTE text="We could add testimonials or something like that below the fold."

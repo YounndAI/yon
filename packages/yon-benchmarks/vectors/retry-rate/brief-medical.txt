@@ -1,0 +1,23 @@
+Clinical Trial Protocol Summary
+
+Protocol Number: ONCO-2024-042
+Phase: III Randomized, Double-Blind
+Indication: Advanced Non-Small Cell Lung Cancer (NSCLC)
+
+Study Design:
+- Multicenter, randomized 2:1 (treatment vs placebo)
+- Stratification factors: ECOG performance status (0 vs 1), PD-L1 expression (≥50% vs <50%), prior lines of therapy (1 vs 2)
+- Primary endpoint: Overall Survival (OS) with planned interim analysis at 60% events
+- Key secondary endpoints: Progression-Free Survival (PFS), Objective Response Rate (ORR), Duration of Response (DoR)
+- Safety monitoring: Independent Data Safety Monitoring Board reviews every 6 months
+
+Dosing:
+- Investigational product: 200mg IV every 3 weeks
+- Treatment duration: until progressive disease, unacceptable toxicity, or maximum 24 months
+- Dose modifications: reduce to 150mg for Grade 3 adverse events, discontinue for Grade 4
+
+Enrollment:
+- Target: 450 patients across 80 sites in North America, Europe, and Asia-Pacific
+- Key inclusion: age ≥18, confirmed NSCLC, measurable disease per RECIST v1.1, adequate organ function
+- Key exclusion: active brain metastases, autoimmune disease requiring systemic treatment, prior anti-PD-1/PD-L1 therapy
+- Enrollment period: 18 months from first patient in

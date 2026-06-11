@@ -1,0 +1,3 @@
+@DOC ver=2.0 | id=hedging-cat5-perf-status | title="Performance Status" | kind=rule | profile=decl | fmt=ultra
+@MAP id=Performance | pairs=["staging"->"somewhat acceptable, not entirely stable under load"]
+@MAP id=Migration | pairs=["status"->"fairly complete, mostly working except nullable column edge cases"]

@@ -1,0 +1,16 @@
+@DOC ver=2.0 | id=json-roundtrip | title="JSON Roundtrip" | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Embed a JSON payload, parse it, transform, and re-emit as JSON."
+
+@STEP n:int=1 | rid=read | op=std:io.noop@v1 | out=[block:sample]
+
+@BEGIN JSON | id=sample | mime=application/json | boundary=bnd_sample_01
+{
+  "name": "Alice",
+  "score": 95
+}
+@END JSON | boundary=bnd_sample_01
+
+@STEP n:int=2 | rid=parse | op=std:data.parse-json@v1 | in=[block:sample] | out=[ref:parsed]
+@STEP n:int=3 | rid=transform | op=std:data.map@v1 | in=[ref:parsed] | out=[ref:updated]
+@STEP n:int=4 | rid=emit | op=std:data.to-json@v1 | in=[ref:updated] | out=[ref:output]

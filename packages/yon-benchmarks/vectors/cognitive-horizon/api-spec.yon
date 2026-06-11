@@ -1,0 +1,33 @@
+@DOC ver=2.0 | id=invoiceflow-api | title="InvoiceFlow API Specification" | kind=data | profile=exec | fmt=canon
+
+@SEC name="POST /invoices"
+@MAP id=create-invoice | method=POST | path="/invoices" | auth="Bearer token" | roles="manager,admin"
+@NOTE text="Creates a new invoice. Body requires customer_id, line_items (array), and currency. Total is auto-calculated. Returns invoice with status draft."
+
+@SEC name="GET /invoices"
+@MAP id=list-invoices | method=GET | path="/invoices" | auth="Bearer token" | roles="viewer,manager,admin"
+@NOTE text="Lists invoices with pagination. Supports ?status=draft|sent|paid|overdue and ?customer_id= filters. Default page_size 25, max 100. Returns invoice summaries."
+
+@SEC name="GET /invoices/:id"
+@MAP id=get-invoice | method=GET | path="/invoices/:id" | auth="Bearer token" | roles="viewer,manager,admin"
+@NOTE text="Returns full invoice detail including line_items, payment history, and audit trail. User must belong to owning team unless admin."
+
+@SEC name="PUT /invoices/:id"
+@MAP id=update-invoice | method=PUT | path="/invoices/:id" | auth="Bearer token" | roles="manager,admin"
+@NOTE text="Updates draft invoices only. Updatable: line_items, currency, notes, due_date. The payment_method field can only be set by admin role."
+
+@SEC name="POST /invoices/:id/send"
+@MAP id=send-invoice | method=POST | path="/invoices/:id/send" | auth="Bearer token" | roles="manager,admin"
+@NOTE text="Transitions draft to sent. Triggers email notification. Cannot be reversed."
+
+@SEC name="POST /payments"
+@MAP id=create-payment | method=POST | path="/payments" | auth="Bearer token" | roles="admin"
+@NOTE text="Records payment against invoice. Body: invoice_id, amount, payment_method, reference. If amount equals total, status transitions to paid. Partial payments tracked."
+
+@SEC name="GET /payments"
+@MAP id=list-payments | method=GET | path="/payments" | auth="Bearer token" | roles="manager,admin"
+@NOTE text="Lists payments with pagination. Supports ?invoice_id= filter. Returns payment records."
+
+@SEC name="GET /health"
+@MAP id=health | method=GET | path="/health" | auth=none | roles=public
+@NOTE text="Public endpoint. Returns service status, version, uptime. Always HTTP 200 if running."

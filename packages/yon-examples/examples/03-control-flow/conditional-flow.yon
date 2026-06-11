@@ -1,0 +1,15 @@
+@DOC ver=2.0 | id=conditional-flow | title="Conditional Flow" | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Branch workflow based on data checks. Demonstrates CHECK-gated steps."
+
+@STEP n:int=1 | rid=fetch | op=std:http.get@v1 | args=[url="https://api.example.com/status"] | out=[ref:status]
+
+@SEC name="Validation"
+@CHECK rid=check:healthy | assert="ref:status.code == 200" | fail=ABORT | msg="Upstream unhealthy"
+
+@STEP n:int=2 | rid=process | op=std:data.map@v1 | in=[ref:status] | out=[ref:result]
+
+@SEC name="Conditional Output"
+@CHECK rid=check:threshold | assert="ref:result.value > 100" | fail=WARN | msg="Value below threshold"
+
+@STEP n:int=3 | rid=notify | op=std:notify.send@v1 | in=[ref:result]

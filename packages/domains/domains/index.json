@@ -1,0 +1,386 @@
+{
+  "version": "2.0",
+  "generated": "2026-02-20T23:50:00Z",
+  "namespaces": {
+    "yai": {
+      "tier": "official",
+      "owner": "YounndAI",
+      "domains": [
+        {
+          "id": "yai.fintech",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Financial services, algorithmic trading, risk management, and regulatory audit compliance",
+          "records": 12
+        },
+        {
+          "id": "yai.health",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Clinical decision support, medical coding, and AI-powered healthcare workflows",
+          "records": 12
+        },
+        {
+          "id": "yai.legal",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Contract analysis, e-discovery workflows, and AI-assisted legal review",
+          "records": 9
+        },
+        {
+          "id": "yai.ecommerce",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Product catalogs, order management, customer support automation, and e-commerce analytics",
+          "records": 7
+        },
+        {
+          "id": "yai.gaming",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Game economy, progression systems, moderation, and player interaction analytics",
+          "records": 10
+        },
+        {
+          "id": "yai.devops",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Deployment pipelines, infrastructure observability, and SRE workflows",
+          "records": 7
+        },
+        {
+          "id": "yai.aerospace",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Flight operations, navigation, satellite telemetry, and safety-critical aerospace systems",
+          "records": 7
+        },
+        {
+          "id": "yai.security",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Cybersecurity operations, incident response, and threat intelligence",
+          "records": 8
+        },
+        {
+          "id": "yai.infrastructure",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Cloud infrastructure, resource management, service mesh, and datacenter operations",
+          "records": 6
+        },
+        {
+          "id": "yai.compliance",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Regulatory compliance, audit management, risk assessment, and policy enforcement",
+          "records": 6
+        },
+        {
+          "id": "yai.dialogue",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Conversational AI, dialogue management, turn-taking, and multi-agent communication",
+          "records": 6
+        },
+        {
+          "id": "yai.sessions",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Session lifecycle management, state persistence, and multi-session orchestration",
+          "records": 6
+        },
+        {
+          "id": "yai.education",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Learning management, credentialing, adaptive assessment, and educational content delivery",
+          "records": 6
+        },
+        {
+          "id": "yai.insurance",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Insurance underwriting, claims processing, policy management, and actuarial risk modeling",
+          "records": 6
+        },
+        {
+          "id": "yai.logistics",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Supply chain management, freight operations, warehouse automation, and shipment tracking",
+          "records": 6
+        },
+        {
+          "id": "yai.manufacturing",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Production control, quality assurance, work order management, and industrial IoT integration",
+          "records": 6
+        },
+        {
+          "id": "yai.automotive",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Vehicle diagnostics, fleet management, ADAS telemetry, and automotive supply chain",
+          "records": 6
+        },
+        {
+          "id": "yai.government",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Civic administration, public services, procurement, and regulatory management",
+          "records": 6
+        },
+        {
+          "id": "yai.media",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Content creation, rights management, distribution channels, and audience analytics",
+          "records": 6
+        },
+        {
+          "id": "yai.hr",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Workforce management, recruitment, performance tracking, and employee lifecycle operations",
+          "records": 6
+        },
+        {
+          "id": "yai.telecom",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Network operations, subscriber management, billing, and telecommunications infrastructure",
+          "records": 6
+        },
+        {
+          "id": "yai.realestate",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Property transactions, listings, appraisals, and real estate portfolio management",
+          "records": 6
+        },
+        {
+          "id": "yai.agriculture",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Precision agriculture, crop management, soil analysis, and agricultural supply chain",
+          "records": 6
+        },
+        {
+          "id": "yai.energy",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Energy generation, distribution, trading, and emissions tracking with grid optimization support",
+          "records": 6
+        },
+        {
+          "id": "yai.research",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Scientific research, academic publishing, dataset management, and peer review workflows",
+          "records": 6
+        },
+        {
+          "id": "yai.maritime",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Vessel operations, cargo management, port logistics, AIS tracking, and maritime environmental compliance",
+          "records": 6
+        },
+        {
+          "id": "yai.pharma",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Pharmaceutical product lifecycle, clinical trials, adverse event reporting, and regulatory submissions",
+          "records": 6
+        },
+        {
+          "id": "yai.construction",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Building information modeling, construction management, facility assets, and site inspection workflows",
+          "records": 6
+        },
+        {
+          "id": "yai.environmental",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Corporate sustainability reporting, GHG inventories, ESG disclosure, and EU Taxonomy alignment",
+          "records": 6
+        },
+        {
+          "id": "yai.transportation",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Public transit operations, route planning, real-time vehicle tracking, and fare management",
+          "records": 6
+        },
+        {
+          "id": "yai.hospitality",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Hotel operations, reservation management, guest profiles, revenue optimization, and guest satisfaction analytics",
+          "records": 6
+        },
+        {
+          "id": "yai.sai",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "SAI cognitive architecture — ThinkPad working memory, Thread attention system, session marks, intentions, affect snapshots, and lifecycle state records",
+          "records": 14
+        },
+        {
+          "id": "yai.yonpa",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "YONPA — embeddable, triggered, per-project codebase-maintenance system. Runtime-expanded records (@AUTOMATOR, @CLUSTER); pure-spec parser-validation is shape-only.",
+          "records": 2
+        },
+        {
+          "id": "yai.lyt",
+          "version": "1.0",
+          "status": "active",
+          "tier": "official",
+          "verified": true,
+          "score": 1.0,
+          "notice": null,
+          "description": "Lyt — federated vault mesh storage architecture. Per-vault append-only ledger family (audit/provenance/rotation), multi-mesh family (mesh/home/edge/subscription), federation family (federation/fed_mesh/fed_automator/fed_primer/fed_canvas), tag-frequency lane family (lane/lane_member), and position-ordered arc family (arc/arc_member) — all YON-as-source-of-truth.",
+          "records": 16
+        }
+      ]
+    }
+  }
+}

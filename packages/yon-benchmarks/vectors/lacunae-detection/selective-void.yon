@@ -1,0 +1,8 @@
+@DOC ver=2.0 | id=logging-policy | title="Logging Standards" | kind=rule | profile=exec | fmt=min
+
+@SEC name="Logging Rules"
+@RULE rid=rule:structured | lvl=MUST | when="logging events" | then="use structured JSON format for all log entries"
+@RULE rid=rule:no-secrets | lvl=MUST_NOT | when="logging" | then="include API keys, tokens, or passwords in log output"
+@RULE rid=rule:retention | lvl=MUST | when="storing logs" | then="retain production logs for 90 days minimum"
+@RULE rid=rule:verbose-debug | lvl=SHOULD | when="debug mode" | then="enable verbose logging with request/response bodies"
+@VOID ts:ts="2026-02-10T09:00:00Z" | target=rid:rule:verbose-debug | because="Verbose debug logging exposed PII in request bodies — GDPR compliance team flagged this"

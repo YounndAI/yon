@@ -1,0 +1,14 @@
+@DOC ver=2.0 | id=patient-triage | title="Patient Triage" | scenario=clinical | domain=yai.health | kind=workflow | profile=audit | fmt=canon
+
+@NOTE text="Clinical triage workflow. Every step is auditable."
+
+@INPUT rid=in:patient | name=patient_id | type=string | required:bool=true
+@INPUT rid=in:symptoms | name=symptoms | type=string | required:bool=true
+
+@STEP n:int=1 | rid=assess | op=health:triage.assess@v1 | out=[block:assessment]
+@STEP n:int=2 | rid=classify | op=health:triage.classify@v1 | in=[block:assessment] | out=[block:priority]
+
+@CHECK rid=check:critical | assert="block:priority.level != critical" | fail=WARN | msg="Critical patient — escalate immediately"
+
+@STEP n:int=3 | rid=route | op=health:patient.route@v1 | in=[block:priority]
+@STAMP ts:ts="2026-02-14T05:00:00Z" | src=triage-system

@@ -1,0 +1,32 @@
+{
+  "id": "standup-notes",
+  "title": "Engineering Standup Notes — Mar 10",
+  "source_note": "Captured live during standup, some items may be incomplete",
+  "sections": [
+    {
+      "name": "Backend",
+      "rules": [
+        { "level": "MUST", "when": "before Wed deploy", "requirement": "fix the N+1 query in user-search endpoint" },
+        { "level": "SHOULD", "when": "this sprint", "requirement": "add Redis caching layer for session lookups" },
+        { "level": "MAY", "when": "time permitting", "requirement": "refactor the auth middleware to use dependency injection" }
+      ],
+      "notes": ["perf degrades above 500 concurrent — Jake saw 3s response times in staging"]
+    },
+    {
+      "name": "Frontend",
+      "rules": [
+        { "level": "MUST", "when": "before QA handoff", "requirement": "fix the dropdown z-index bug on Safari" },
+        { "level": "MUST_NOT", "when": "any PR", "requirement": "merge without running the visual regression suite" }
+      ],
+      "notes": ["Lisa reproduced it on iOS 17.4 — only happens when modal is open"]
+    },
+    {
+      "name": "DevOps",
+      "rules": [
+        { "level": "MUST", "when": "by end of sprint", "requirement": "rotate the production SSL certificates" },
+        { "level": "SHOULD", "when": "after cert rotation", "requirement": "update the monitoring alertmanager thresholds" }
+      ],
+      "notes": ["current certs expire April 2 — Mike has the runbook"]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+Legal NDA Template Specification
+
+This document specifies a mutual non-disclosure agreement template for use between two corporate parties engaging in preliminary business discussions.
+
+The agreement must include:
+- Effective date and parties (identified by legal name and jurisdiction)
+- Definition of Confidential Information: any non-public technical, financial, or business information disclosed in writing, orally, or by inspection
+- Exclusions: publicly available information, independently developed information, information received from third parties without restriction, and information required by law to be disclosed
+- Obligations: receiving party must protect confidential information with at least the same degree of care used for its own confidential information, but no less than reasonable care
+- Permitted disclosure: to employees and advisors who need to know and are bound by confidentiality obligations at least as restrictive
+- Term: 3 years from the effective date, with confidentiality obligations surviving for 2 years after termination
+- Return of materials: within 30 days of written request or termination
+- Remedies: injunctive relief available without bond requirement
+- Governing law: State of Delaware, USA
+- Dispute resolution: binding arbitration under ICC rules in Wilmington, Delaware

@@ -1,0 +1,23 @@
+@DOC ver=2.0 | id=api-rules | title="API Rules and Structure" | kind=rule | profile=exec | fmt=min
+@INTENT goal="Extract API rules and structure"
+
+@SEC name=Authentication
+@RULE lvl=must | when="making API requests" | then="Include Authorization header"
+@RULE lvl=must | when="using refresh tokens" | then="Invalidate refresh tokens after use"
+
+@SEC name="Rate Limiting"
+@RULE lvl=must | when="rate limited" | then="Return 429 on rate limit"
+
+@SEC name="User Management"
+@RULE lvl=must | when="creating a new user" | then="Require name, email, role"
+@RULE lvl=must | when="email is changed" | then="Email change requires verification"
+@RULE lvl=must | when="user is already archived" | then="Return 410 if archived"
+
+@SEC name="Order Management"
+@RULE lvl=must | when="creating a new order" | then="Require customer_id, items, total, currency"
+@RULE lvl=must | when="currency is used" | then="Currency must be ISO 4217"
+@RULE lvl=must | when="order is canceled before shipped" | then="Trigger refund on cancel"
+
+@SEC name="Error Codes"
+@MAP id=Error Codes | pairs=["ERR_NOT_FOUND"->"requested resource does not exist","ERR_RATE_LIMIT"->"too many requests","ERR_PAYMENT_FAILED"->"payment provider rejected transaction","ERR_INSUFFICIENT_FUNDS"->"account balance is too low","ERR_PERMISSION_DENIED"->"token does not have required scope","ERR_RESOURCE_LOCKED"->"resource is being modified by another process"]
+@NOTE text=3600

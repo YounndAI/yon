@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "question": "How long do access tokens last before expiring?",
+    "answer": "15 minutes",
+    "answerable": true,
+    "rule_index": 1
+  },
+  {
+    "id": 2,
+    "question": "What is the default rate limit for standard tier?",
+    "answer": "100 requests per minute",
+    "answerable": true,
+    "rule_index": 1
+  },
+  {
+    "id": 3,
+    "question": "What format must resource identifiers use in path parameters?",
+    "answer": "UUID v4",
+    "answerable": true,
+    "rule_index": 2
+  },
+  {
+    "id": 4,
+    "question": "What is the maximum page size for pagination?",
+    "answer": "100",
+    "answerable": true,
+    "rule_index": 2
+  },
+  {
+    "id": 5,
+    "question": "What RFC standard must error responses follow?",
+    "answer": "RFC 7807",
+    "answerable": true,
+    "rule_index": 3
+  },
+  {
+    "id": 6,
+    "question": "What HTTP status code is used for field validation errors?",
+    "answer": "422",
+    "answerable": true,
+    "rule_index": 3
+  },
+  {
+    "id": 7,
+    "question": "How long is stale-while-revalidate set to for collection endpoints?",
+    "answer": "60 seconds",
+    "answerable": true,
+    "rule_index": 4
+  },
+  {
+    "id": 8,
+    "question": "What Cache-Control value must private data endpoints use?",
+    "answer": "no-store",
+    "answerable": true,
+    "rule_index": 4
+  },
+  {
+    "id": 9,
+    "question": "What response time threshold triggers a warning log?",
+    "answer": "500ms",
+    "answerable": true,
+    "rule_index": 5
+  },
+  {
+    "id": 10,
+    "question": "What format must distributed tracing use?",
+    "answer": "W3C Trace Context",
+    "answerable": true,
+    "rule_index": 5
+  },
+  {
+    "id": 11,
+    "question": "How long must deprecated endpoints continue functioning?",
+    "answer": "6 months",
+    "answerable": true,
+    "rule_index": 6
+  },
+  {
+    "id": 12,
+    "question": "How many days before deprecation must migration guides be published?",
+    "answer": "90",
+    "answerable": true,
+    "rule_index": 6
+  }
+]

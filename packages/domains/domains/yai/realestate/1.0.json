@@ -1,0 +1,743 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.realestate",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Property transactions, listings, appraisals, and real estate portfolio management",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "LISTING",
+      "description": "Property listing — RESO Data Dictionary aligned, MLS entry with pricing, specs, and agent assignment",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "lst:MLS-2026-1234"
+        },
+        {
+          "name": "mls_id",
+          "type": "string",
+          "required": false,
+          "description": "MLS ID",
+          "example": "MLS-2026-1234"
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "required": false,
+          "description": "Address",
+          "example": "123 Main St, Austin, TX 78701"
+        },
+        {
+          "name": "price",
+          "type": "float",
+          "required": false,
+          "description": "List Price in USD",
+          "unit": "USD",
+          "example": "549000.0"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "active",
+            "pending",
+            "sold",
+            "withdrawn",
+            "expired",
+            "coming-soon"
+          ],
+          "description": "Listing Status (6 allowed values)",
+          "example": "active"
+        },
+        {
+          "name": "listing_type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "sale",
+            "rent",
+            "lease",
+            "auction"
+          ],
+          "description": "Listing Type: sale, rent, lease, auction",
+          "example": "sale"
+        },
+        {
+          "name": "property_type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "residential",
+            "commercial",
+            "industrial",
+            "land",
+            "multi-family"
+          ],
+          "description": "Property Type: residential, commercial, industrial, land, multi-family",
+          "example": "residential"
+        },
+        {
+          "name": "bedrooms",
+          "type": "int",
+          "required": false,
+          "description": "Bedrooms",
+          "example": "3"
+        },
+        {
+          "name": "bathrooms",
+          "type": "int",
+          "required": false,
+          "description": "Bathrooms",
+          "example": "2"
+        },
+        {
+          "name": "living_area_sqft",
+          "type": "int",
+          "required": false,
+          "description": "Living Area in sqft",
+          "unit": "sqft",
+          "example": "1850"
+        },
+        {
+          "name": "lot_size_sqft",
+          "type": "int",
+          "required": false,
+          "description": "Lot Size in sqft",
+          "unit": "sqft",
+          "example": "6500"
+        },
+        {
+          "name": "days_on_market",
+          "type": "int",
+          "required": false,
+          "description": "Days on Market",
+          "unit": "days",
+          "example": "14"
+        },
+        {
+          "name": "agent",
+          "type": "string",
+          "required": false,
+          "description": "Listing Agent",
+          "example": "Sarah Johnson"
+        },
+        {
+          "name": "photos",
+          "type": "int",
+          "required": false,
+          "description": "Photo Count",
+          "example": "24"
+        },
+        {
+          "name": "listed_date",
+          "type": "ts",
+          "required": false,
+          "description": "Listed Date as ISO 8601 timestamp",
+          "example": "2026-03-01T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "PROPERTY",
+      "description": "Property record — parcel-level data with tax assessment and zoning",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "prp:TX-78701-001"
+        },
+        {
+          "name": "parcel_no",
+          "type": "string",
+          "required": false,
+          "description": "Parcel Number",
+          "example": "01-2345-0678"
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "required": false,
+          "description": "Address",
+          "example": "123 Main St, Austin, TX 78701"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "residential",
+            "commercial",
+            "industrial",
+            "land",
+            "multi-family",
+            "mixed-use",
+            "agricultural"
+          ],
+          "description": "Property Type (7 allowed values)",
+          "example": "residential"
+        },
+        {
+          "name": "lot_sqft",
+          "type": "int",
+          "required": false,
+          "description": "Lot Size in sqft",
+          "unit": "sqft",
+          "example": "6500"
+        },
+        {
+          "name": "year_built",
+          "type": "int",
+          "required": false,
+          "description": "Year Built",
+          "example": "2019"
+        },
+        {
+          "name": "zoning",
+          "type": "string",
+          "required": false,
+          "description": "Zoning Code",
+          "example": "R-1"
+        },
+        {
+          "name": "tax_assessed",
+          "type": "float",
+          "required": false,
+          "description": "Tax Assessed Value in USD",
+          "unit": "USD",
+          "example": "425000.0"
+        },
+        {
+          "name": "stories",
+          "type": "int",
+          "required": false,
+          "description": "Stories",
+          "example": "2"
+        },
+        {
+          "name": "construction",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "wood-frame",
+            "masonry",
+            "steel",
+            "concrete",
+            "modular",
+            "mixed"
+          ],
+          "description": "Construction Type (6 allowed values)",
+          "example": "frame"
+        },
+        {
+          "name": "hoa_fee",
+          "type": "float",
+          "required": false,
+          "description": "HOA Fee in USD/month",
+          "unit": "USD/month",
+          "example": "150.0"
+        }
+      ]
+    },
+    {
+      "tag": "APPRAISAL",
+      "description": "Property appraisal — market value determination with comparables analysis",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "apr:2026-042"
+        },
+        {
+          "name": "property_ref",
+          "type": "string",
+          "required": false,
+          "description": "Property Reference",
+          "example": "prp:TX-78701-001"
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "required": false,
+          "description": "Appraised Value in USD",
+          "unit": "USD",
+          "example": "535000.0"
+        },
+        {
+          "name": "date",
+          "type": "ts",
+          "required": false,
+          "description": "Appraisal Date as ISO 8601 timestamp",
+          "example": "2026-03-10T00:00:00Z"
+        },
+        {
+          "name": "method",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "sales-comparison",
+            "cost",
+            "income",
+            "automated-avm"
+          ],
+          "description": "Valuation Method: sales-comparison, cost, income, automated-avm",
+          "example": "sales-comparison"
+        },
+        {
+          "name": "appraiser",
+          "type": "string",
+          "required": false,
+          "description": "Appraiser",
+          "example": "M. Rodriguez, MAI"
+        },
+        {
+          "name": "condition",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "excellent",
+            "good",
+            "fair",
+            "poor"
+          ],
+          "description": "Condition: excellent, good, fair, poor",
+          "example": "good"
+        },
+        {
+          "name": "comparables",
+          "type": "int",
+          "required": false,
+          "description": "Comparable Sales",
+          "example": "5"
+        },
+        {
+          "name": "adjustments",
+          "type": "string",
+          "required": false,
+          "description": "Adjustments",
+          "example": "+$12K pool, -$8K no garage"
+        }
+      ]
+    },
+    {
+      "tag": "LEASE",
+      "description": "Lease agreement — rental terms with escalation and deposit tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "ls:2026-001"
+        },
+        {
+          "name": "property_ref",
+          "type": "string",
+          "required": false,
+          "description": "Property Reference",
+          "example": "prp:TX-78701-001"
+        },
+        {
+          "name": "tenant_encrypted",
+          "type": "string",
+          "required": false,
+          "description": "Tenant (Encrypted)",
+          "example": "enc:aes256:..."
+        },
+        {
+          "name": "monthly_rent",
+          "type": "float",
+          "required": false,
+          "description": "Monthly Rent in USD",
+          "unit": "USD",
+          "example": "2400.0"
+        },
+        {
+          "name": "start_date",
+          "type": "ts",
+          "required": false,
+          "description": "Start Date as ISO 8601 timestamp",
+          "example": "2026-01-01T00:00:00Z"
+        },
+        {
+          "name": "end_date",
+          "type": "ts",
+          "required": false,
+          "description": "End Date as ISO 8601 timestamp",
+          "example": "2027-12-31T23:59:59Z"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "active",
+            "expired",
+            "terminated",
+            "month-to-month"
+          ],
+          "description": "Lease Status: active, expired, terminated, month-to-month",
+          "example": "active"
+        },
+        {
+          "name": "deposit",
+          "type": "float",
+          "required": false,
+          "description": "Security Deposit in USD",
+          "unit": "USD",
+          "example": "4800.0"
+        },
+        {
+          "name": "escalation_pct",
+          "type": "float",
+          "required": false,
+          "description": "Annual Escalation in %",
+          "unit": "%",
+          "example": "3.0"
+        },
+        {
+          "name": "terms",
+          "type": "string",
+          "required": false,
+          "description": "Terms",
+          "example": "24-month fixed, no pets"
+        }
+      ]
+    },
+    {
+      "tag": "INSPECTION",
+      "description": "Property inspection — condition report with findings and follow-up status",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "insp:2026-018"
+        },
+        {
+          "name": "property_ref",
+          "type": "string",
+          "required": false,
+          "description": "Property Reference",
+          "example": "prp:TX-78701-001"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "general",
+            "structural",
+            "termite",
+            "radon",
+            "mold",
+            "pool",
+            "roof"
+          ],
+          "description": "Inspection Type (7 allowed values)",
+          "example": "general"
+        },
+        {
+          "name": "date",
+          "type": "ts",
+          "required": false,
+          "description": "Inspection Date as ISO 8601 timestamp",
+          "example": "2026-03-05T10:00:00Z"
+        },
+        {
+          "name": "result",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "pass",
+            "pass-with-conditions",
+            "fail"
+          ],
+          "description": "Result: pass, pass-with-conditions, fail",
+          "example": "pass-with-conditions"
+        },
+        {
+          "name": "findings",
+          "type": "string",
+          "required": false,
+          "description": "Findings",
+          "example": "Minor roof wear, HVAC filter replacement needed"
+        },
+        {
+          "name": "inspector",
+          "type": "string",
+          "required": false,
+          "description": "Inspector",
+          "example": "R. Thompson, ASHI"
+        },
+        {
+          "name": "cost",
+          "type": "float",
+          "required": false,
+          "description": "Inspection Cost in USD",
+          "unit": "USD",
+          "example": "450.0"
+        },
+        {
+          "name": "follow_up",
+          "type": "bool",
+          "required": false,
+          "description": "Follow-Up Required indicator",
+          "example": "true"
+        }
+      ]
+    },
+    {
+      "tag": "CLOSING",
+      "description": "Closing or settlement — final transaction with sale price and mortgage details",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "cls:2026-042"
+        },
+        {
+          "name": "listing_ref",
+          "type": "string",
+          "required": false,
+          "description": "Listing Reference",
+          "example": "lst:MLS-2026-1234"
+        },
+        {
+          "name": "buyer_encrypted",
+          "type": "string",
+          "required": false,
+          "description": "Buyer (Encrypted)",
+          "example": "enc:aes256:..."
+        },
+        {
+          "name": "seller_encrypted",
+          "type": "string",
+          "required": false,
+          "description": "Seller (Encrypted)",
+          "example": "enc:aes256:..."
+        },
+        {
+          "name": "sale_price",
+          "type": "float",
+          "required": false,
+          "description": "Sale Price in USD",
+          "unit": "USD",
+          "example": "540000.0"
+        },
+        {
+          "name": "closing_date",
+          "type": "ts",
+          "required": false,
+          "description": "Closing Date as ISO 8601 timestamp",
+          "example": "2026-04-15"
+        },
+        {
+          "name": "escrow",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "title-company",
+            "attorney",
+            "bank",
+            "independent-escrow"
+          ],
+          "description": "Escrow Company: title-company, attorney, bank, independent-escrow",
+          "example": "First American Title"
+        },
+        {
+          "name": "title_company",
+          "type": "string",
+          "required": false,
+          "description": "Title Company",
+          "example": "Stewart Title"
+        },
+        {
+          "name": "mortgage_amount",
+          "type": "float",
+          "required": false,
+          "description": "Mortgage Amount in USD",
+          "unit": "USD",
+          "example": "432000.0"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Property transactions and portfolio management for real estate AI",
+    "highlights": [
+      "LISTING",
+      "APPRAISAL",
+      "CLOSING"
+    ],
+    "use_cases": [
+      {
+        "id": "property-lifecycle",
+        "title": "Commercial Property Lifecycle Management",
+        "steps": [
+          "Register @PROPERTY with address, type, and building specs",
+          "Commission @VALUATION appraisal for market value",
+          "Create @LISTING for available units on MLS/portal",
+          "Execute @LEASE agreement with @TENANT terms",
+          "Schedule periodic @INSPECTION for maintenance"
+        ],
+        "example": "@PROPERTY rid=prp:1 | type=\"commercial-office\" | sqft:float=12500.0 | floors:int=3 | year_built:int=2019",
+        "tags_used": [
+          "PROPERTY",
+          "LISTING",
+          "LEASE",
+          "INSPECTION"
+        ],
+        "description": "Track properties from listing through closing, managing appraisals, inspections, and lease agreements. Automate rent escalations and generate portfolio performance reports.",
+        "tags": [
+          "LISTING",
+          "PROPERTY",
+          "APPRAISAL",
+          "LEASE",
+          "INSPECTION",
+          "CLOSING"
+        ],
+        "tags_planned": [
+          "VALUATION",
+          "TENANT"
+        ]
+      },
+      {
+        "id": "portfolio-analytics",
+        "title": "Real Estate Portfolio Analytics",
+        "steps": [
+          "Aggregate @PROPERTY NOI across portfolio",
+          "Track @LEASE expiration schedule and renewal pipeline",
+          "Monitor @VALUATION trends against market benchmarks",
+          "Analyze @TENANT credit risk and diversification",
+          "Generate investor reporting from @PROPERTY performance"
+        ],
+        "example": "@LEASE rid=ls:1 | property_ref=\"prp:1\" | tenant_ref=\"tnt:5\" | monthly_rent:float=8500.0 | term_months:int=60 | status=\"active\"",
+        "tags_used": [
+          "PROPERTY",
+          "LEASE"
+        ],
+        "description": "Aggregate property valuations, lease income, and market comparables to model portfolio performance. Track cap rates, vacancy, and NOI across commercial and residential assets.",
+        "tags": [
+          "PROPERTY",
+          "APPRAISAL",
+          "LEASE",
+          "LISTING"
+        ],
+        "tags_planned": [
+          "VALUATION",
+          "TENANT"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "RESO Data Dictionary",
+        "url": "https://www.reso.org/",
+        "type": "standard"
+      },
+      {
+        "label": "Schema.org RealEstateListing",
+        "url": "https://schema.org/RealEstateListing",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.fintech",
+        "relationship": "often paired",
+        "reason": "Mortgage and financing"
+      },
+      {
+        "domain": "yai.insurance",
+        "relationship": "data overlap",
+        "reason": "Property insurance"
+      },
+      {
+        "domain": "yai.legal",
+        "relationship": "data overlap",
+        "reason": "Title and contract law"
+      }
+    ],
+    "tag_context": {
+      "LISTING": {
+        "purpose": "RESO Data Dictionary aligned MLS entry with pricing, property specs, and agent assignment",
+        "when_to_use": "MLS publishing, property search portals, market analysis, agent CRM, IDX feeds",
+        "related_standards": [
+          "RESO Web API",
+          "IDX/RETS",
+          "Schema.org Offer"
+        ]
+      },
+      "PROPERTY": {
+        "purpose": "Parcel-level property record with tax assessment, zoning, and construction details",
+        "when_to_use": "Property registration, tax assessment, zoning analysis, portfolio management, due diligence",
+        "related_standards": [
+          "RESO Data Dictionary 2.0",
+          "Schema.org RealEstateListing",
+          "BOMA"
+        ]
+      },
+      "APPRAISAL": {
+        "purpose": "Property market value determination with comparables analysis and condition assessment",
+        "when_to_use": "Mortgage underwriting, refinancing, property tax appeal, estate valuation, portfolio marking",
+        "related_standards": [
+          "IVS 2022 (IVSC)",
+          "USPAP",
+          "RICS Red Book"
+        ]
+      },
+      "LEASE": {
+        "purpose": "Rental lease agreement with escalation terms, deposit tracking, and tenant management",
+        "when_to_use": "Lease execution, rent roll management, expiration tracking, portfolio NOI calculation, tenant relations",
+        "related_standards": [
+          "IFRS 16 Leases",
+          "ASC 842 (US GAAP)",
+          "OSCRE"
+        ]
+      },
+      "INSPECTION": {
+        "purpose": "Property inspection with condition findings, follow-up requirements, and cost estimates",
+        "when_to_use": "Pre-purchase inspection, annual maintenance audit, insurance requirement, code compliance",
+        "related_standards": [
+          "ASHI Standards of Practice",
+          "InterNACHI SOP",
+          "ASTM E2018 PCA"
+        ]
+      },
+      "CLOSING": {
+        "purpose": "Final real estate settlement with sale price, escrow, title, and mortgage details",
+        "when_to_use": "Closing coordination, settlement statement generation, title transfer, deed recording, fund disbursement",
+        "related_standards": [
+          "MISMO v3 Closing",
+          "ALTA Settlement",
+          "TRID (CFPB)"
+        ]
+      }
+    },
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

@@ -1,0 +1,595 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.insurance",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Insurance underwriting, claims processing, policy management, and actuarial risk modeling",
+  "defaultMode": "struct",
+  "defaultProfile": "audit",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "POLICY",
+      "description": "Insurance policy — ACORD aligned, coverage terms with premium, deductible, and line of business",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "POL-2026-100"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "auto",
+            "home",
+            "life",
+            "health",
+            "commercial",
+            "liability",
+            "marine",
+            "cyber"
+          ],
+          "description": "Policy Type (8 allowed values)",
+          "example": "auto"
+        },
+        {
+          "name": "line_of_business",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "personal-auto",
+            "homeowners",
+            "commercial-property",
+            "general-liability",
+            "workers-comp",
+            "professional-liability",
+            "inland-marine",
+            "cyber-liability",
+            "umbrella"
+          ],
+          "description": "Line of Business (9 allowed values)",
+          "example": "personal-auto"
+        },
+        {
+          "name": "holder_encrypted",
+          "type": "string",
+          "required": false,
+          "description": "Policyholder (Encrypted)",
+          "example": "enc:aes256:..."
+        },
+        {
+          "name": "premium",
+          "type": "float",
+          "required": false,
+          "description": "Annual Premium in USD",
+          "unit": "USD",
+          "example": "1850.00"
+        },
+        {
+          "name": "deductible",
+          "type": "float",
+          "required": false,
+          "description": "Deductible in USD",
+          "unit": "USD",
+          "example": "500.00"
+        },
+        {
+          "name": "coverage_limit",
+          "type": "float",
+          "required": false,
+          "description": "Coverage Limit in USD",
+          "unit": "USD",
+          "example": "100000.00"
+        },
+        {
+          "name": "effective_date",
+          "type": "ts",
+          "required": false,
+          "description": "Effective Date as ISO 8601 timestamp",
+          "example": "2026-01-01T00:00:00Z"
+        },
+        {
+          "name": "expiry_date",
+          "type": "ts",
+          "required": false,
+          "description": "Expiry Date as ISO 8601 timestamp",
+          "example": "2027-01-01T00:00:00Z"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "active",
+            "lapsed",
+            "cancelled",
+            "expired",
+            "pending"
+          ],
+          "description": "Policy Status: active, lapsed, cancelled, expired, pending",
+          "example": "active"
+        }
+      ]
+    },
+    {
+      "tag": "CLAIM",
+      "description": "Insurance claim — ACORD loss notice aligned, loss event with reserve estimation and adjuster assignment",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "clm:2026-001"
+        },
+        {
+          "name": "policy_ref",
+          "type": "string",
+          "required": false,
+          "description": "Policy Reference",
+          "example": "POL-2026-100"
+        },
+        {
+          "name": "line_of_business",
+          "type": "string",
+          "required": false,
+          "description": "Line of Business",
+          "example": "personal-auto"
+        },
+        {
+          "name": "loss_date",
+          "type": "ts",
+          "required": false,
+          "description": "Date of Loss as ISO 8601 timestamp",
+          "example": "2026-02-15T00:00:00Z"
+        },
+        {
+          "name": "loss_type",
+          "type": "string",
+          "required": false,
+          "description": "Loss Type",
+          "example": "Collision"
+        },
+        {
+          "name": "amount_claimed",
+          "type": "float",
+          "required": false,
+          "description": "Amount Claimed in USD",
+          "unit": "USD",
+          "example": "25000.00"
+        },
+        {
+          "name": "amount_paid",
+          "type": "float",
+          "required": false,
+          "description": "Amount Paid in USD",
+          "unit": "USD",
+          "example": "18500.00"
+        },
+        {
+          "name": "reserve",
+          "type": "float",
+          "required": false,
+          "description": "Reserve Amount in USD",
+          "unit": "USD",
+          "example": "6500.00"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "reported",
+            "under-investigation",
+            "approved",
+            "denied",
+            "settled",
+            "closed"
+          ],
+          "description": "Claim Status (6 allowed values)",
+          "example": "under-investigation"
+        },
+        {
+          "name": "adjuster",
+          "type": "string",
+          "required": false,
+          "description": "Assigned Adjuster",
+          "example": "M. Chen"
+        }
+      ]
+    },
+    {
+      "tag": "UNDERWRITING",
+      "description": "Underwriting decision — risk classification with score-based pricing",
+      "fields": [
+        {
+          "name": "policy_ref",
+          "type": "string",
+          "required": false,
+          "description": "Policy Reference",
+          "example": "POL-2026-100"
+        },
+        {
+          "name": "risk_class",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "preferred",
+            "standard",
+            "substandard",
+            "declined"
+          ],
+          "description": "Risk Classification: preferred, standard, substandard, declined",
+          "example": "standard"
+        },
+        {
+          "name": "score",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            1000
+          ],
+          "description": "Risk Score (0–1000)",
+          "example": "72.5"
+        },
+        {
+          "name": "factors",
+          "type": "string",
+          "required": false,
+          "description": "Risk Factors",
+          "example": "Age: 32, Driving record: clean, Credit: good"
+        },
+        {
+          "name": "decision",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "accept",
+            "decline",
+            "refer",
+            "counter-offer"
+          ],
+          "description": "Underwriting Decision: accept, decline, refer, counter-offer",
+          "example": "accept"
+        },
+        {
+          "name": "premium_modifier",
+          "type": "float",
+          "required": false,
+          "description": "Premium Modifier",
+          "example": "1.15"
+        }
+      ]
+    },
+    {
+      "tag": "COVERAGE",
+      "description": "Coverage detail — individual coverage line within a policy",
+      "fields": [
+        {
+          "name": "policy_ref",
+          "type": "string",
+          "required": false,
+          "description": "Policy Reference",
+          "example": "POL-2026-100"
+        },
+        {
+          "name": "peril",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "fire",
+            "theft",
+            "flood",
+            "wind",
+            "collision",
+            "liability",
+            "medical",
+            "comprehensive",
+            "all-risk"
+          ],
+          "description": "Covered Peril (9 allowed values)",
+          "example": "Collision"
+        },
+        {
+          "name": "limit",
+          "type": "float",
+          "required": false,
+          "description": "Coverage Limit in USD",
+          "unit": "USD",
+          "example": "100000.00"
+        },
+        {
+          "name": "deductible",
+          "type": "float",
+          "required": false,
+          "description": "Deductible in USD",
+          "unit": "USD",
+          "example": "500.00"
+        },
+        {
+          "name": "coinsurance_pct",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Coinsurance Percentage in % (0–100)",
+          "unit": "%",
+          "example": "80"
+        },
+        {
+          "name": "exclusions",
+          "type": "string",
+          "required": false,
+          "description": "Exclusions",
+          "example": "Racing, intentional damage"
+        }
+      ]
+    },
+    {
+      "tag": "LOSS_RUN",
+      "description": "Loss history summary — aggregate claims experience for rating",
+      "fields": [
+        {
+          "name": "period",
+          "type": "string",
+          "required": false,
+          "description": "Reporting Period",
+          "example": "2025-01-01/2025-12-31"
+        },
+        {
+          "name": "claims_count",
+          "type": "int",
+          "required": false,
+          "description": "Number of Claims",
+          "example": "3"
+        },
+        {
+          "name": "incurred_total",
+          "type": "float",
+          "required": false,
+          "description": "Total Incurred in USD",
+          "unit": "USD",
+          "example": "45000.00"
+        },
+        {
+          "name": "paid_total",
+          "type": "float",
+          "required": false,
+          "description": "Total Paid in USD",
+          "unit": "USD",
+          "example": "32000.00"
+        },
+        {
+          "name": "loss_ratio",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            500
+          ],
+          "description": "Loss Ratio in % (0–500)",
+          "unit": "%",
+          "example": "62.5"
+        }
+      ]
+    },
+    {
+      "tag": "REINSURANCE",
+      "description": "Reinsurance arrangement — treaty or facultative risk transfer",
+      "fields": [
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "treaty",
+            "facultative",
+            "excess-of-loss",
+            "quota-share"
+          ],
+          "description": "Reinsurance Type: treaty, facultative, excess-of-loss, quota-share",
+          "example": "excess-of-loss"
+        },
+        {
+          "name": "cedant",
+          "type": "string",
+          "required": false,
+          "description": "Cedant (Primary Insurer)",
+          "example": "National Insurance Co."
+        },
+        {
+          "name": "reinsurer",
+          "type": "string",
+          "required": false,
+          "description": "Reinsurer",
+          "example": "Swiss Re"
+        },
+        {
+          "name": "retention",
+          "type": "float",
+          "required": false,
+          "description": "Retention in USD",
+          "unit": "USD",
+          "example": "500000.00"
+        },
+        {
+          "name": "limit",
+          "type": "float",
+          "required": false,
+          "description": "Reinsurance Limit in USD",
+          "unit": "USD",
+          "example": "10000000.00"
+        },
+        {
+          "name": "premium_ceded",
+          "type": "float",
+          "required": false,
+          "description": "Ceded Premium in USD",
+          "unit": "USD",
+          "example": "240000.00"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Insurance underwriting and claims processing for AI workflows",
+    "highlights": [
+      "CLAIM",
+      "UNDERWRITING",
+      "POLICY"
+    ],
+    "use_cases": [
+      {
+        "id": "claims-processing",
+        "title": "Automated Claims Processing",
+        "steps": [
+          "Receive @CLAIM with loss details",
+          "Validate against @POLICY coverage terms",
+          "Check @COVERAGE limits and exclusions",
+          "Review @LOSS_RUN for fraud indicators"
+        ],
+        "example": "@CLAIM rid=clm:1 | amount_claimed:float=25000.00 | status=\"under-investigation\"",
+        "tags_used": [
+          "CLAIM",
+          "POLICY",
+          "COVERAGE",
+          "LOSS_RUN"
+        ],
+        "description": "Intake first notice of loss, assess coverage applicability, route to adjusters, and track claim lifecycle from filing through settlement with fraud detection scoring.",
+        "tags": [
+          "CLAIM",
+          "POLICY",
+          "COVERAGE",
+          "PREMIUM"
+        ]
+      },
+      {
+        "id": "automated-underwriting",
+        "title": "AI-Powered Automated Underwriting",
+        "steps": [
+          "Receive new business @POLICY application",
+          "Score risk via @UNDERWRITING model with hazard factors",
+          "Structure @COVERAGE lines with limits and deductibles",
+          "Pull @LOSS_RUN history for experience rating",
+          "Issue policy or refer to manual review"
+        ],
+        "example": "@UNDERWRITING policy_ref=\"POL-2026-100\" | risk_score:float=72.5 | decision=\"accept\" | premium_modifier:float=1.15",
+        "tags_used": [
+          "POLICY",
+          "UNDERWRITING",
+          "COVERAGE",
+          "LOSS_RUN"
+        ],
+        "description": "Score insurance applications using risk factor analysis, coverage modeling, and actuarial data. Auto-bind low-risk policies and flag complex cases for manual review.",
+        "tags": [
+          "POLICY",
+          "PREMIUM",
+          "COVERAGE",
+          "UNDERWRITING",
+          "CLAIM"
+        ]
+      }
+    ],
+    "tag_context": {
+      "CLAIM": {
+        "purpose": "Loss notice with reserve estimation, adjuster assignment, and settlement workflow",
+        "when_to_use": "First notice of loss, claim investigation, reserve management, subrogation",
+        "related_standards": [
+          "ACORD Claims",
+          "ISO ClaimSearch",
+          "NAIC Model Laws"
+        ]
+      },
+      "POLICY": {
+        "purpose": "ACORD-aligned insurance policy with coverage terms, premium, and lifecycle status",
+        "when_to_use": "Policy issuance, renewal processing, endorsement, cancellation",
+        "related_standards": [
+          "ACORD AL3/XML",
+          "ISO 19312",
+          "Solvency II"
+        ]
+      },
+      "UNDERWRITING": {
+        "purpose": "Risk classification decision with scoring model output and premium modification",
+        "when_to_use": "New business submission, renewal underwriting, risk selection, pricing",
+        "related_standards": [
+          "ACORD Underwriting",
+          "ISO/IEC 22989 AI",
+          "NAIC Model Act"
+        ]
+      },
+      "COVERAGE": {
+        "purpose": "Individual coverage line within a policy with limits, deductibles, and exclusions",
+        "when_to_use": "Coverage design, gap analysis, policy comparison, claims adjudication",
+        "related_standards": [
+          "ACORD Coverage",
+          "ISO Coverage Codes"
+        ]
+      },
+      "LOSS_RUN": {
+        "purpose": "Aggregate claims experience summary for actuarial rating and renewal pricing",
+        "when_to_use": "Experience rating, renewal negotiation, reinsurance placement, portfolio analysis",
+        "related_standards": [
+          "ACORD Loss Run",
+          "NAIC Statistical Reporting"
+        ]
+      },
+      "REINSURANCE": {
+        "purpose": "Treaty or facultative risk transfer arrangement with ceded premium and retention",
+        "when_to_use": "Treaty placement, facultative binding, catastrophe modeling, capital management",
+        "related_standards": [
+          "ACORD Reinsurance",
+          "Solvency II SCR",
+          "IAIS ICS"
+        ]
+      }
+    },
+    "links": [
+      {
+        "label": "ACORD Standards",
+        "url": "https://www.acord.org/",
+        "type": "standard"
+      },
+      {
+        "label": "NAIC",
+        "url": "https://content.naic.org/",
+        "type": "regulation"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.health",
+        "relationship": "often paired",
+        "reason": "Health insurance claims"
+      },
+      {
+        "domain": "yai.fintech",
+        "relationship": "data overlap",
+        "reason": "Premium accounting"
+      },
+      {
+        "domain": "yai.compliance",
+        "relationship": "regulatory overlap",
+        "reason": "Insurance regulation"
+      }
+    ],
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

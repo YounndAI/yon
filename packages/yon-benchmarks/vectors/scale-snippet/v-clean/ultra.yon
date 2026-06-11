@@ -1,0 +1,7 @@
+@DOC ver=2.0 | id=api-auth-and-users | title="API Authentication and Users Management" | kind=rule | profile=exec | fmt=ultra
+@SEC name=Authentication
+@RULE lvl=must | when="Token is issued" | then="TTL 3600s"
+@RULE lvl=must | when="Requests exceed rate limit" | then="Rate limit 500 req/min, 429 on exceed"
+@RULE lvl=must | when="Making requests" | then="Require Authorization header"
+@MAP id=Authentication | pairs=["auth"->"Bearer token OAuth2","refresh"->"Refresh 30-day, single-use","admin tokens"->"all orgs","User tokens"->"own org only","token_endpoint"->"Token endpoint /auth/token"]
+@MAP id=UsersCrud | pairs=["Required"->"name, email, role","Email"->"unique per org","Roles"->"admin|member|viewer (default: member)","get_users"->"GET /users list","get_user"->"GET /users/:id single","patch_user"->"PATCH /users/:id update","delete_user"->"DELETE /users/:id soft-delete"]

@@ -1,0 +1,72 @@
+{
+  "designer": {
+    "name": "Mara Chen",
+    "tagline": "Design that speaks before words do",
+    "experience_years": 7,
+    "location": "Portland, OR",
+    "education": "RISD",
+    "side_work": "illustration"
+  },
+  "hero": {
+    "background": "warm off-white with subtle grain texture",
+    "cta_text": "View My Work",
+    "cta_action": "scroll to projects section"
+  },
+  "projects": [
+    {
+      "name": "Lumina Skincare",
+      "type": "rebrand",
+      "scope": "full identity, packaging, website"
+    },
+    {
+      "name": "BrewHaus",
+      "type": "taproom redesign",
+      "scope": "craft brewery"
+    },
+    {
+      "name": "Neon Athletics",
+      "type": "UI/UX",
+      "tagline": "movement redefined",
+      "scope": "fitness app"
+    },
+    {
+      "name": "Olive & Stone",
+      "type": "brand identity",
+      "scope": "boutique hotel"
+    },
+    {
+      "name": "Wavelength Records",
+      "type": "visual system",
+      "scope": "indie record label"
+    }
+  ],
+  "testimonials": [
+    {
+      "source": "Lumina Skincare founder",
+      "claim": "rebrand increased online sales by 40%"
+    },
+    {
+      "source": "BrewHaus owner",
+      "claim": "new look brought in younger crowd"
+    },
+    {
+      "source": "agency director",
+      "claim": "reliable and creative"
+    }
+  ],
+  "colors": {
+    "primary": "#F5F0EB",
+    "accent": "#E8654A",
+    "dark_text": "#2D2926",
+    "secondary": "#A8B5A0"
+  },
+  "footer": {
+    "links": ["instagram", "dribbble", "linkedin"],
+    "contact": "email form",
+    "copyright": "2026"
+  },
+  "responsive": {
+    "project_grid": "2 columns to single column on phones",
+    "navbar": "collapse into hamburger menu"
+  }
+}

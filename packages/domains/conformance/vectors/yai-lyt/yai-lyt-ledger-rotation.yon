@@ -1,0 +1,9 @@
+@DOC ver=2.0 | id=ledger:audit:2026-05 | domain=yai.lyt@1.0 | kind=cfg | profile=audit
+
+@META key=ledger_name | value=audit
+@META key=month | value=2026-05
+
+@ROTATION from_month="2026-04"
+  | to_month="2026-05"
+  | archived_path="C:/vaults/example-personal/.lyt/ledgers/audit/2026-04.yon"
+@STAMP ts:ts=2026-05-01T00:00:00.000Z | src="flows/housekeep" | hash="-"

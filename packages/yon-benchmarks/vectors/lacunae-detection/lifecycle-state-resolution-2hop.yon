@@ -1,0 +1,11 @@
+@DOC ver=2.0 | id=retry-policy-2hop | title="Service Retry Policy" | kind=rule | profile=exec | fmt=canon
+
+@SEC name="Default Behavior"
+@RULE rid=rule:max-retries | lvl=MUST | when="any service call fails" | then="retry at most 3 times"
+@RULE rid=rule:timeout | lvl=MUST | when="any service call" | then="timeout after 30 seconds"
+
+@STAMP ts:ts="2026-01-15T10:00:00Z" | src="human" | method="manual"
+
+@SEC name="Incident Response: INC-2026-0042"
+@PATCH ts:ts="2026-02-01T09:00:00Z" | target="rid:rule:max-retries" | set=[then="retry at most 5 times"]
+@NOTE text="Increased retry count after payment gateway intermittent failures"

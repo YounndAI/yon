@@ -1,0 +1,12 @@
+document: Release Approval Policy
+sections:
+  - name: Release Gates
+    rules:
+      - id: review-count
+        level: MUST
+        when: merging release branch
+        then: require 3 code reviewer approvals
+      - id: deploy-window
+        level: MUST
+        when: deploying
+        then: "deploy only during business hours (09:00-17:00 UTC) — no exceptions"

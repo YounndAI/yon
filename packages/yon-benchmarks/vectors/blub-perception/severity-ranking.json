@@ -1,0 +1,23 @@
+{
+  "document": "Data Handling Policy",
+  "sections": [
+    {
+      "name": "Input Validation",
+      "rules": [
+        { "id": "validate-types", "level": "MUST", "when": "receiving user input", "then": "validate types before processing — reject malformed data" },
+        { "id": "sanitize-html", "level": "MUST", "when": "rendering user-provided text", "then": "sanitize HTML to prevent XSS" },
+        { "id": "trim-whitespace", "level": "SHOULD", "when": "storing text fields", "then": "trim leading/trailing whitespace for consistency" },
+        { "id": "normalize-case", "level": "MAY", "when": "storing email addresses", "then": "normalize to lowercase — not required by RFC but improves dedup" }
+      ]
+    },
+    {
+      "name": "Output Formatting",
+      "rules": [
+        { "id": "escape-json", "level": "MUST_NOT", "when": "returning API responses", "then": "return unescaped HTML in JSON string fields" },
+        { "id": "date-format", "level": "SHOULD", "when": "returning timestamps", "then": "use ISO-8601 format with UTC timezone" },
+        { "id": "pretty-print", "level": "SHOULD_NOT", "when": "production API responses", "then": "pretty-print JSON — adds unnecessary bytes" },
+        { "id": "null-omit", "level": "MAY", "when": "optional fields are null", "then": "omit null fields from response to reduce payload size" }
+      ]
+    }
+  ]
+}

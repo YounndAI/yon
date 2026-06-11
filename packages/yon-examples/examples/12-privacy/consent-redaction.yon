@@ -1,0 +1,17 @@
+@DOC ver=2.0 | id=consent-redaction | title="Consent and Redaction" | kind=spec | profile=decl | fmt=canon
+
+@NOTE text="Track user consent for data processing and mark sensitive content for redaction."
+
+@SEC name="Consent Records"
+
+@CONSENT party="user:hello@allemaar.com" | scope=marketing-emails | granted:bool=true | method=web-form | revocable:bool=true | expires=2027-03-01T00:00:00Z
+
+@CONSENT party="user:hello@allemaar.com" | scope=analytics-tracking | granted:bool=true | method=cookie-banner | revocable:bool=true
+
+@CONSENT party="user:hello@allemaar.com" | scope=third-party-sharing | granted:bool=false | method=web-form | revocable:bool=true
+
+@SEC name="Redaction Markers"
+
+@REDACTION target="field:user.ssn" | reason="PII — Social Security Number" | method=mask | field=social_security_number
+@REDACTION target="field:user.date_of_birth" | reason="PII — Date of Birth" | method=generalize | field=date_of_birth
+@REDACTION target="block:medical-notes" | reason="PHI — Protected Health Information" | method=remove | start:int=42 | end:int=108

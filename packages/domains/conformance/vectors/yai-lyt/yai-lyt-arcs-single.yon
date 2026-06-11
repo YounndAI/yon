@@ -1,0 +1,18 @@
+@DOC ver=2.0 | id=arcs:example-personal | domain=yai.lyt@1.0 | kind=cfg | profile=agent
+
+@ARC rid=arc:writing-the-paper
+  | name="Writing the Paper"
+  | category="writing"
+  | last_touched:ts=2026-05-31T14:00:00.000Z
+
+@ARC_MEMBER arc_rid=arc:writing-the-paper
+  | figment_rid="notes/2026-05-29-paper-intro.md"
+  | position:int=1
+
+@ARC_MEMBER arc_rid=arc:writing-the-paper
+  | figment_rid="notes/2026-05-30-paper-method.md"
+  | position:int=2
+
+@ARC_MEMBER arc_rid=arc:writing-the-paper
+  | figment_rid="notes/2026-05-31-paper-conclusion.md"
+  | position:int=3

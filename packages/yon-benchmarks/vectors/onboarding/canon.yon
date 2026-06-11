@@ -1,0 +1,29 @@
+@DOC ver=2.0 | id=eng-onboarding | title="Engineering Onboarding Process" | kind=rule | profile=exec | fmt=canon
+
+@INTENT goal="Standardize the onboarding process for new engineers"
+
+@SEC name="Pre-Day 1"
+@RULE lvl=MUST | when="before start date" | then="complete all pre-day-1 tasks, or push start date"
+@NOTE text="HR: send welcome email with start date, office/remote info, preboarding portal link"
+@MAP id=laptop | spec="MacBook Pro M3" | ram="36GB" | image="standard dev image"
+@MAP id=accounts | pairs=["GitHub"->"add to correct team","Slack"->"add to team channels","Gmail"->"create","Jira"->"create","1Password"->"vault invite"]
+@NOTE text="Assign buddy: same team, ideally 1–2 years experience"
+
+@SEC name="Day 1 Schedule"
+@MAP id=welcome | time="09:00" | activity="HR welcome session" | details="benefits, paperwork, emergency contacts"
+@MAP id=it-setup | time="10:30" | activity="IT setup" | details="laptop handoff, 2FA, VPN config"
+@MAP id=lunch | time="12:00" | activity="Team lunch" | details="with manager and buddy"
+@MAP id=codebase | time="13:30" | activity="Codebase walkthrough" | details="buddy-led, local dev env setup"
+@MAP id=first-pr | time="15:00" | activity="First PR" | details="update team page with photo and bio (full PR workflow on day 1)"
+
+@SEC name="Week 1"
+@RULE lvl=MUST | when="daily" | then="15-min buddy check-in"
+@RULE lvl=MUST | when="by day 5" | then="complete security training"
+@NOTE text="Read team playbook and architecture docs"
+@NOTE text="Attend all team ceremonies (standup, planning, retro)"
+@RULE lvl=MUST | when="by Wednesday" | then="pick up first good-first-issue ticket"
+
+@SEC name="Milestones"
+@MAP id=day30 | milestone="30 days" | pairs=["PRs completed"->"≥5","project context"->"all active projects","independence"->"can run full test suite"]
+@MAP id=day60 | milestone="60 days" | pairs=["ownership"->"owns feature end-to-end","code review"->"≥1 review done","presentation"->"team show-and-tell"]
+@MAP id=day90 | milestone="90 days" | pairs=["ramp status"->"fully ramped","on-call"->"can handle rotation","documentation"->"≥1 process improvement documented"]

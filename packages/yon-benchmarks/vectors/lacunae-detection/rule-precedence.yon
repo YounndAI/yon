@@ -1,0 +1,10 @@
+@DOC ver=2.0 | id=deploy-rules | title="Deploy Requirements" | kind=rule | profile=decl | fmt=min
+
+@INTENT goal="Define deployment requirements with explicit priority levels"
+
+@SEC name="Production Deploy"
+@RULE lvl=MUST | when="production deploy" | then="require 2 reviewer approvals before merge"
+@RULE lvl=SHOULD | when="production deploy" | then="include performance benchmarks in PR"
+@RULE lvl=MAY | when="production deploy" | then="notify the #releases Slack channel"
+
+@CHECK rid=chk:approvals | assert="2 reviewers approved before merge" | fail=ABORT | msg="Reviewer approval is mandatory"

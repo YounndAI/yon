@@ -1,0 +1,22 @@
+{
+  "facts": [
+    { "id": 1, "fact": "Marketing budget suggested cut of approximately 15%", "hedging": false },
+    { "id": 2, "fact": "CAC on paid social dropped to $42 from $67 in Q2", "hedging": false },
+    { "id": 3, "fact": "Maria suggests increasing digital by maybe 10%", "hedging": true },
+    { "id": 4, "fact": "HR wants 12 new positions, finance approved 8, possibly 9", "hedging": true },
+    { "id": 5, "fact": "Atlanta lease negotiations might save approximately $180K annually", "hedging": true },
+    { "id": 6, "fact": "Suggested hire breakdown: 4 engineering, 2 sales, 1 CS, 1 data analyst", "hedging": false },
+    { "id": 7, "fact": "Platform migration is roughly 60% complete", "hedging": true },
+    { "id": 8, "fact": "2.3 million records processed out of estimated 8.5 million total", "hedging": false },
+    { "id": 9, "fact": "Q4 projected revenue is $4.2M, up around 12% from Q3", "hedging": false },
+    { "id": 10, "fact": "Enterprise pipeline: Acme Corp $340K, Pinnacle $520K, Project Lighthouse probably north of $800K", "hedging": true },
+    { "id": 11, "fact": "Customer churn rate increased from 3.2% to 4.1% in September", "hedging": false },
+    { "id": 12, "fact": "SF office AC replacement estimated cost around $45K", "hedging": false }
+  ],
+  "hedging_markers": [
+    { "id": "h1", "marker": "probably", "context": "tom said we probably need to cut" },
+    { "id": "h2", "marker": "approximately", "context": "might save us approximately $180K" },
+    { "id": "h3", "marker": "roughly", "context": "it's roughly 60% complete" },
+    { "id": "h4", "marker": "might", "context": "there might be some correlation" }
+  ]
+}

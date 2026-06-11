@@ -1,0 +1,27 @@
+@DOC ver=2.0 | id=stream-routing | title="Stream Routing" | kind=workflow | profile=agent | features=[signaling] | fmt=canon
+
+@NOTE text="Demonstrate named data streams with subscription, routing, and merge patterns."
+
+@AGENT rid=a:producer | name="Data Producer"
+@AGENT rid=a:consumer-1 | name="Analytics Consumer"
+@AGENT rid=a:consumer-2 | name="Archive Consumer"
+
+@SEC name="Stream Definitions"
+
+@STREAM rid=s:events | owner=rid:a:producer | type=event-log | encoding=json
+@STREAM rid=s:metrics | owner=rid:a:producer | type=telemetry | encoding=json
+
+@SEC name="Subscriptions"
+
+@SUBSCRIBE agent=rid:a:consumer-1 | stream=rid:s:events | filter="severity>=warning"
+@SUBSCRIBE agent=rid:a:consumer-2 | stream=rid:s:events
+@SUBSCRIBE agent=rid:a:consumer-1 | stream=rid:s:metrics
+
+@SEC name="Routing"
+
+@ROUTE rid=rt:fanout | group=[rid:s:events] | strategy=broadcast
+@ROUTE rid=rt:partition | group=[rid:s:metrics] | strategy=round-robin
+
+@SEC name="Stream Merge"
+
+@MERGE rid=mg:combined | streams=[rid:s:events,rid:s:metrics] | strategy=interleave

@@ -1,0 +1,30 @@
+@DOC ver=2.0 | id=novabyte-landing | title="NovaByte Landing Page" | kind=rule | profile=exec | fmt=canon
+
+@INTENT goal="Build a landing page for NovaByte, an AI-powered code review tool"
+
+@SEC name="Hero"
+@NOTE text="Dark background with purple-to-blue gradient"
+@NOTE text="Headline: Ship better code, faster"
+@NOTE text="CTA button: Start Free Trial (primary/accent color)"
+
+@SEC name="Feature Cards"
+@MAP id=features | pairs=["AI-Powered Analysis"->"Scans PRs and finds bugs before reviewers do","Team Insights"->"Metrics on review times, reviewer load, bottlenecks","Smart Suggestions"->"Suggests fixes with full context, not just flagging problems"]
+
+@SEC name="Pricing"
+@MAP id=free | tier="Free" | users:int=5 | reviews="100/month" | features="basic analysis"
+@MAP id=pro | tier="Pro" | price="$29/user/month" | reviews="unlimited" | features="full AI analysis, team metrics, priority support"
+@MAP id=enterprise | tier="Enterprise" | price="custom" | features="SSO, audit logs, dedicated account manager, SLA"
+
+@SEC name="Testimonials"
+@NOTE text="3 realistic testimonial quotes from fictional users"
+
+@SEC name="Footer"
+@MAP id=footer-links | pairs=["docs"->"Documentation","blog"->"Blog","twitter"->"Twitter","github"->"GitHub"]
+@NOTE text="Copyright 2026 NovaByte Inc."
+
+@SEC name="Navigation"
+@NOTE text="Floating navbar appears on scroll past hero"
+@MAP id=navbar | logo="left" | links="Features, Pricing, Testimonials" | cta="right"
+
+@SEC name="Constraints"
+@RULE lvl=MUST | when="any viewport" | then="fully responsive layout (not just non-breaking)"

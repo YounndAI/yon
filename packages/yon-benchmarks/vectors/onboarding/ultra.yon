@@ -1,0 +1,6 @@
+@DOC ver=2.0 | id=eng-onboarding | kind=rule | fmt=ultra
+@RULE lvl=MUST | then="complete pre-tasks or push start date"
+@MAP id=pre | laptop="MBP M3 36GB" | accounts="GitHub,Slack,Gmail,Jira,1Password" | buddy="same team 1-2yr"
+@MAP id=day1 | pairs=["09:00"->"HR welcome","10:30"->"IT setup+2FA+VPN","12:00"->"team lunch","13:30"->"codebase walkthrough","15:00"->"first PR (team page)"]
+@RULE lvl=MUST | then="daily buddy check-in, security training by d5, first ticket by Wed"
+@MAP id=milestones | pairs=["30d"->"≥5 PRs, context, independent","60d"->"own feature, 1 review, present","90d"->"ramped, on-call, 1 process doc"]

@@ -1,0 +1,136 @@
+YON Writing Card (v2.0)
+https://yon.younndai.com
+
+OUTPUT RULES (non-negotiable):
+- Output YON records ONLY. No markdown, no fenced blocks, no commentary.
+- First non-comment line MUST be @DOC.
+- Every line starts with @TAG at column 1 (uppercase), or is block content, or is a # comment.
+
+@DOC HEADER (REQUIRED — first record):
+@DOC ver=2.0 | id=<slug> | title="<Title>"
+Required: ver, id, title. Always emit all three.
+Optional: kind=doc|rule|workflow|skill|sidecar|spec|context|memory|note|prompt
+          profile=core|decl|exec|audit|cognitive|agent|full (default: exec)
+          fmt=canon|min|ultra (default: canon)
+          domain=<namespace>.<domain-name>, guide=<url>
+
+SEPARATOR: Always output canonical ` | ` (space, pipe, space) between fields.
+
+QUOTING:
+- Bare values if matching: [A-Za-z0-9_./:@+#-]+
+- Otherwise double-quote and escape: \", \\, \n, \t
+- Values containing | MUST be quoted: regex="a|b|c"
+- Empty values: key=""
+
+TYPED KEYS: key:type=value
+Types: str (default if omitted), bool, int, float, ts (ISO-8601 UTC), bytes, ref, stream, vector
+Emit type suffix for non-string values: n:int=3, active:bool=true, ts:ts=2026-01-01T00:00:00Z
+
+REQUIRED FIELDS PER TAG (incomplete tags will fail validation):
+@DOC      ver, id, title
+@SEC      name
+@STAMP    ts, src
+@NOTE     text
+@RULE     lvl (MUST|MUST_NOT|SHOULD|SHOULD_NOT|MAY), when, then
+@MAP      name, pairs   — pairs=["key"->"value"]. Both sides MUST be quoted.
+@CFG      id, set       — set=[key=value,...] for field items
+@INTENT   goal
+@CHECK    rid, assert, fail (ABORT|WARN|SKIP), msg
+@STEP     rid, n:int, op  — op format: namespace:category.action@version (e.g. std:fs.read@v1)
+@INPUT    rid, name
+@OUTPUT   rid, name
+@CATCH    target, on, do
+@RETRY    target, max
+@ERROR    code, msg
+@PATCH    ts, target, set
+@VOID     ts, target
+@REDACTION target, reason
+@CONSENT  party, scope
+@IDENTITY rid, type (person|organization|device|service|agent)
+@LOCATION rid, type (facility|address|region|coordinates|virtual)
+
+BLOCKS (@BEGIN / @END) — for code, JSON, logs, prompts, diffs:
+@BEGIN <TAG> | mime="<mime-type>" | boundary="<8+ alphanum chars>"
+<raw content — no escaping, no nesting, preserved verbatim>
+@END <TAG> | boundary="<must match exactly>"
+
+Rules:
+- TAG is uppercase and MUST match between @BEGIN and @END: JSON, CODE, CSV, LOGS, PROMPT, MAP, etc.
+- mime= is REQUIRED on every @BEGIN.
+- boundary= is REQUIRED (8+ chars matching [A-Za-z0-9_-]{8,}), unless bytes:bytes= is present.
+- @END MUST repeat boundary exactly.
+- id= is REQUIRED when document has multiple blocks or the block is referenced via block:<id>.
+- Blocks MUST NOT nest. Inside blocks, all content is raw payload.
+- Shorthand (@BEGIN tag#id) is allowed ONLY for fmt=ultra.
+
+Block example — single block:
+@BEGIN CODE | mime="text/x-python" | boundary="bnd_py_001"
+def hello():
+    return "world"
+@END CODE | boundary="bnd_py_001"
+
+Block example — multiple blocks (id required):
+@BEGIN CODE | id=handler | mime="text/x-python" | boundary="bnd_py_002"
+def process(data):
+    return data.upper()
+@END CODE | boundary="bnd_py_002"
+@BEGIN JSON | id=config | mime="application/json" | boundary="bnd_json_001"
+{"key": "value", "port": 8080}
+@END JSON | boundary="bnd_json_001"
+
+@MAP ENCODING:
+- MUST use pairs=[...]. Arrow syntax: "key"->"value". Both sides MUST be quoted.
+- @MAP name=Routes | pairs=["timeout"->"retry","auth_fail"->"escalate"]
+
+LIST CONSTRAINTS:
+- in/out lists: reference tokens ONLY (block:, rid:, cfg:, ref:, file:, url:, agent:, group:, role:, caps:, stream:, id:, loc:)
+- args/set lists: field items ONLY (key=value, key:type=value)
+- pairs lists: map pairs ONLY ("k"->"v")
+- Inline depth limit = 1. No nested lists. Flatten to @CFG or @BEGIN blocks.
+
+PRESERVATION:
+- Links, paths, URLs: preserve EXACTLY. Never alias, shorten, or rewrite.
+- Hedging language ("probably", "maybe"): preserve verbatim in text values.
+
+RECORD ORDER (recommended):
+@DOC → @STAMP → @META → @DEF → @REF → @INTENT → @SCOPE → sections (@SEC + content tags) → @BEGIN/@END blocks
+
+CHANGE CONTROL:
+@PATCH ts:ts=2026-03-15T12:00:00Z | target=rid:rule:old | set=[then="new action"]
+@VOID ts:ts=2026-03-15T12:00:00Z | target=rid:cfg:obsolete | because="Replaced by v2"
+
+WORKFLOW PATTERN:
+@STEP rid=step:parse | n:int=1 | op=std:data.parse@v1 | in=[block:source] | out=[block:parsed]
+@CHECK rid=check:src | assert="block:source != null" | fail=ABORT | msg="Missing source"
+@CATCH target=rid:step:risky | on=timeout | do=rid:step:fallback
+@RETRY target=rid:step:flaky | max:int=3 | delay_ms:int=1000 | backoff=exponential
+
+ONE-SHOT EXAMPLE — Rules document with blocks:
+@DOC ver=2.0 | id=api-security | title="API Security Policy" | kind=rule | profile=decl
+@INTENT goal="Define authentication and rate limiting standards"
+@SEC name="Authentication"
+@RULE rid=rule:bearer | lvl=MUST | when="accessing API" | then="include valid Bearer token"
+@RULE rid=rule:expired | lvl=MUST_NOT | when="token expired" | then="allow access"
+@NOTE text="Tokens expire after 24 hours."
+@SEC name="Rate Limits"
+@CFG id=ratelimit | set=[requests_per_minute:int=100,burst_limit:int=20]
+@MAP name=ErrorActions | pairs=["429"->"backoff","401"->"refresh_token","403"->"escalate"]
+@SEC name="Reference Implementation"
+@BEGIN CODE | id=auth_middleware | mime="text/typescript" | boundary="bnd_auth_001"
+export function validateToken(req: Request): boolean {
+  const token = req.headers.get('Authorization')?.replace('Bearer ', '');
+  if (!token) return false;
+  return verify(token);
+}
+@END CODE | boundary="bnd_auth_001"
+@STAMP ts:ts=2026-03-15T12:00:00Z | src=human
+
+VALIDATION CHECKLIST:
+1. Exactly one @DOC, first non-comment record.
+2. All @BEGIN have matching @END with same TAG and boundary.
+3. All @BEGIN include mime=.
+4. No duplicate keys within a single record.
+5. @MAP uses pairs=[...] with both sides quoted.
+6. Canonical separator ` | ` used consistently.
+
+RESULT CONTRACT: Output must be valid YON v2.0, parseable without an LLM, roundtrip-safe.

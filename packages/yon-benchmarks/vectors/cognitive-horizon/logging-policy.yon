@@ -1,0 +1,26 @@
+@DOC ver=2.0 | id=invoiceflow-logging | title="InvoiceFlow Logging Policy" | kind=rule | profile=exec | fmt=canon
+
+@SEC name="Request Logging"
+@NOTE text="Every API request logs: timestamp, endpoint, method, user_id, role, response status, latency_ms."
+
+@SEC name="Per-Endpoint Logging"
+@MAP id=log-post-invoices | endpoint="POST /invoices" | level=INFO | body="redacted" | notes="Log line_items count not content"
+@MAP id=log-get-invoices | endpoint="GET /invoices" | level=DEBUG | body=no
+@MAP id=log-get-invoice | endpoint="GET /invoices/:id" | level=DEBUG | body=no
+@MAP id=log-put-invoice | endpoint="PUT /invoices/:id" | level=INFO | body="changed fields only" | notes="Log which fields not values"
+@MAP id=log-send-invoice | endpoint="POST /invoices/:id/send" | level=WARN | body=no | notes="Elevated — triggers email"
+@MAP id=log-post-payments | endpoint="POST /payments" | level=INFO | body="redacted" | notes="Log amount and method not reference"
+@MAP id=log-get-payments | endpoint="GET /payments" | level=DEBUG | body=no
+@MAP id=log-health | endpoint="GET /health" | level=none | body=no | notes="Not logged — too noisy"
+
+@SEC name="PII Redaction"
+@RULE lvl=MUST | when="logging email field" | then="replace with ***@domain.com"
+@RULE lvl=MUST | when="logging full_name field" | then="replace with [REDACTED]"
+@RULE lvl=MUST | when="logging phone field" | then="replace with [REDACTED]"
+@RULE lvl=MUST | when="logging payment reference" | then="replace with ref-*** (last 4 chars visible)"
+@RULE lvl=MUST_NOT | when="any log output including error traces" | then="contain PII"
+
+@SEC name="Retention"
+@CFG key=info_warn_retention | val="90 days"
+@CFG key=debug_retention | val="7 days"
+@CFG key=audit_log_retention | val="indefinite — never deleted"

@@ -1,0 +1,14 @@
+@DOC ver=2.0 | id=data-validation | title="Data Validation" | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Validate data at multiple stages with CHECK gates."
+
+@STEP n:int=1 | rid=load | op=std:fs.read@v1 | args=[path="data/input.json"] | out=[ref:raw]
+
+@CHECK rid=check:not-empty | assert="ref:raw.length > 0" | fail=ABORT | msg="Input file is empty"
+
+@STEP n:int=2 | rid=parse | op=std:data.parse-json@v1 | in=[ref:raw] | out=[ref:data]
+
+@CHECK rid=check:schema | assert="ref:data.valid == true" | fail=ABORT | msg="Schema validation failed"
+@CHECK rid=check:dups | assert="ref:data.duplicates == 0" | fail=WARN | msg="Duplicate records found"
+
+@STEP n:int=3 | rid=store | op=std:db.insert@v1 | in=[ref:data]

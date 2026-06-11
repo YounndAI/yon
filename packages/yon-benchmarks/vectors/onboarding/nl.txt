@@ -1,0 +1,28 @@
+so we need to update our onboarding process, it's kind of a mess right now. here's what should happen when a new engineer joins:
+
+before day 1:
+- HR sends welcome email with start date, office location (or remote setup instructions), and link to preboarding portal
+- IT provisions laptop (MacBook Pro M3, 36GB RAM) with standard dev image
+- manager creates accounts: GitHub (add to correct team), Slack (add to team channels), Gmail, Jira, 1Password vault invite
+- buddy is assigned (should be someone on the same team, ideally 1-2 years experience)
+
+day 1:
+- 9:00 AM: welcome session with HR (benefits overview, sign remaining paperwork, collect emergency contacts)
+- 10:30 AM: IT setup session (laptop handoff, 2FA setup on all accounts, VPN configuration)
+- 12:00 PM: team lunch with manager and buddy
+- 1:30 PM: buddy walks through codebase, local dev environment setup
+- 3:00 PM: first PR - update the team page with your photo and bio (this is intentional, gets them through the full PR workflow on day 1)
+
+week 1:
+- daily 15-min check-in with buddy
+- complete security training (mandatory, must finish by day 5)
+- read team playbook and architecture docs
+- attend all team ceremonies (standup, planning, retro)
+- pick up first "good first issue" ticket from backlog by wednesday
+
+30-60-90 day milestones:
+- 30 days: completed at least 5 PRs, has context on all active projects, can run full test suite independently
+- 60 days: owns a feature end-to-end, has done at least 1 code review, presents at team show-and-tell
+- 90 days: fully ramped, can handle on-call rotation, has documented at least 1 process improvement
+
+important: if any of the pre-day-1 stuff isn't done, the start date should be pushed. nothing worse than a new person showing up and having to wait around for accounts to be created.

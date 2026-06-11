@@ -1,0 +1,9 @@
+@DOC ver=2.0 | id=user-model | title="User Schema" | kind=schema | profile=decl | fmt=canon
+
+@SEC name="Fields"
+@MAP id=fields | pairs=["username:str"->"required, min 3 chars", "email:str"->"required, valid format", "role:str"->"enum: user, admin, moderator", "active:bool"->"default true"]
+
+@SEC name="Constraints"
+@RULE lvl=MUST | when="creating user" | then="validate email uniqueness"
+@RULE lvl=MUST_NOT | when="any operation" | then="expose hashed password in API responses"
+@CHECK assert="email_unique" | fail=ABORT | msg="Duplicate email addresses are not allowed"

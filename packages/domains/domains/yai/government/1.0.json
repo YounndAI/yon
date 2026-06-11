@@ -1,0 +1,650 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.government",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Civic administration, public services, procurement, and regulatory management",
+  "defaultMode": "struct",
+  "defaultProfile": "audit",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "PERMIT",
+      "description": "Government permit or license — application tracking with jurisdiction and conditions",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "pmt:BLD-2026-042"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "description": "Permit Type",
+          "example": "building"
+        },
+        {
+          "name": "applicant_encrypted",
+          "type": "string",
+          "required": false,
+          "description": "Applicant (Encrypted)",
+          "example": "enc:aes256:..."
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "applied",
+            "under-review",
+            "approved",
+            "denied",
+            "expired",
+            "revoked"
+          ],
+          "description": "Permit Status (6 allowed values)",
+          "example": "approved"
+        },
+        {
+          "name": "issued",
+          "type": "ts",
+          "required": false,
+          "description": "Issue Date as ISO 8601 timestamp",
+          "example": "2026-02-15T00:00:00Z"
+        },
+        {
+          "name": "expires",
+          "type": "ts",
+          "required": false,
+          "description": "Expiry Date as ISO 8601 timestamp",
+          "example": "2027-02-15T00:00:00Z"
+        },
+        {
+          "name": "jurisdiction",
+          "type": "string",
+          "required": false,
+          "description": "Jurisdiction",
+          "example": "City of Portland"
+        },
+        {
+          "name": "conditions",
+          "type": "string",
+          "required": false,
+          "description": "Conditions",
+          "example": "Fire suppression required; ADA compliance"
+        },
+        {
+          "name": "fee",
+          "type": "float",
+          "required": false,
+          "description": "Permit Fee in USD",
+          "unit": "USD",
+          "example": "750.00"
+        }
+      ]
+    },
+    {
+      "tag": "CASE",
+      "description": "Administrative case — government matter with assignment and docket tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "cas:CE-2026-142"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "description": "Case Type",
+          "example": "code-enforcement"
+        },
+        {
+          "name": "parties_encrypted",
+          "type": "string",
+          "required": false,
+          "description": "Parties (Encrypted)",
+          "example": "enc:aes256:..."
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "open",
+            "assigned",
+            "under-review",
+            "hearing",
+            "decided",
+            "closed",
+            "appealed"
+          ],
+          "description": "Case Status (7 allowed values)",
+          "example": "under-review"
+        },
+        {
+          "name": "assigned_to",
+          "type": "string",
+          "required": false,
+          "description": "Assigned To",
+          "example": "Inspector Williams"
+        },
+        {
+          "name": "priority",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "low",
+            "normal",
+            "high",
+            "urgent"
+          ],
+          "description": "Priority: low, normal, high, urgent",
+          "example": "high"
+        },
+        {
+          "name": "opened",
+          "type": "ts",
+          "required": false,
+          "description": "Opened Date as ISO 8601 timestamp",
+          "example": "2026-01-20T00:00:00Z"
+        },
+        {
+          "name": "jurisdiction",
+          "type": "string",
+          "required": false,
+          "description": "Jurisdiction",
+          "example": "Multnomah County"
+        },
+        {
+          "name": "docket_no",
+          "type": "string",
+          "required": false,
+          "description": "Docket Number",
+          "example": "2026-CE-0142"
+        }
+      ]
+    },
+    {
+      "tag": "SERVICE_REQUEST",
+      "description": "Citizen service request — 311-style intake with SLA and department routing",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "sr:311-2026-4200"
+        },
+        {
+          "name": "service_type",
+          "type": "string",
+          "required": false,
+          "description": "Service Type",
+          "example": "pothole-repair"
+        },
+        {
+          "name": "requestor_encrypted",
+          "type": "string",
+          "required": false,
+          "description": "Requestor (Encrypted)",
+          "example": "enc:aes256:..."
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "submitted",
+            "acknowledged",
+            "in-progress",
+            "completed",
+            "closed"
+          ],
+          "description": "Request Status: submitted, acknowledged, in-progress, completed, closed",
+          "example": "in-progress"
+        },
+        {
+          "name": "submitted",
+          "type": "ts",
+          "required": false,
+          "description": "Submitted Date as ISO 8601 timestamp",
+          "example": "2026-02-20T09:30:00Z"
+        },
+        {
+          "name": "resolved",
+          "type": "ts",
+          "required": false,
+          "description": "Resolved Date as ISO 8601 timestamp",
+          "example": "2026-02-22T14:00:00Z"
+        },
+        {
+          "name": "channel",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "web",
+            "phone",
+            "in-person",
+            "app",
+            "email"
+          ],
+          "description": "Intake Channel: web, phone, in-person, app, email",
+          "example": "app"
+        },
+        {
+          "name": "department",
+          "type": "string",
+          "required": false,
+          "description": "Department",
+          "example": "Public Works"
+        },
+        {
+          "name": "sla_hours",
+          "type": "int",
+          "required": false,
+          "description": "SLA Target in hours",
+          "unit": "hours",
+          "example": "48"
+        }
+      ]
+    },
+    {
+      "tag": "REGULATION",
+      "description": "Regulatory item — codified rule with effective date and supersession chain",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "reg:EPA-HQ-2026-001"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "required": false,
+          "description": "Regulation Code",
+          "example": "40 CFR 60.5397a"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Title",
+          "example": "Standards of Performance for Crude Oil and Natural Gas"
+        },
+        {
+          "name": "effective_date",
+          "type": "ts",
+          "required": false,
+          "description": "Effective Date as ISO 8601 timestamp",
+          "example": "2026-07-01T00:00:00Z"
+        },
+        {
+          "name": "agency",
+          "type": "string",
+          "required": false,
+          "description": "Issuing Agency",
+          "example": "EPA"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "proposed",
+            "final",
+            "effective",
+            "amended",
+            "repealed"
+          ],
+          "description": "Status: proposed, final, effective, amended, repealed",
+          "example": "final"
+        },
+        {
+          "name": "supersedes",
+          "type": "string",
+          "required": false,
+          "description": "Supersedes",
+          "example": "reg:EPA-HQ-2024-100"
+        },
+        {
+          "name": "cfr_ref",
+          "type": "string",
+          "required": false,
+          "description": "CFR Reference",
+          "example": "40 CFR Part 60"
+        },
+        {
+          "name": "jurisdiction",
+          "type": "string",
+          "required": false,
+          "description": "Jurisdiction",
+          "example": "Federal (US)"
+        }
+      ]
+    },
+    {
+      "tag": "PROCUREMENT",
+      "description": "Public procurement — competitive bid with award tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "proc:GSA-2026-042"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Solicitation Title",
+          "example": "IT Infrastructure Modernization"
+        },
+        {
+          "name": "agency",
+          "type": "string",
+          "required": false,
+          "description": "Procuring Agency",
+          "example": "GSA"
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "required": false,
+          "description": "Contract Value",
+          "example": "2500000.00"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "solicitation",
+            "evaluation",
+            "awarded",
+            "protested",
+            "cancelled"
+          ],
+          "description": "Procurement Status: solicitation, evaluation, awarded, protested, cancelled",
+          "example": "awarded"
+        },
+        {
+          "name": "vendor",
+          "type": "string",
+          "required": false,
+          "description": "Awarded Vendor",
+          "example": "TechCorp Inc."
+        },
+        {
+          "name": "award_date",
+          "type": "ts",
+          "required": false,
+          "description": "Award Date as ISO 8601 timestamp",
+          "example": "2026-03-15T00:00:00Z"
+        },
+        {
+          "name": "contract_type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "firm-fixed",
+            "cost-plus",
+            "time-materials",
+            "idiq",
+            "bpa"
+          ],
+          "description": "Contract Type: firm-fixed, cost-plus, time-materials, idiq, bpa",
+          "example": "firm-fixed"
+        },
+        {
+          "name": "solicitation_no",
+          "type": "string",
+          "required": false,
+          "description": "Solicitation Number",
+          "example": "47QFCA-26-R-0042"
+        }
+      ]
+    },
+    {
+      "tag": "BENEFIT",
+      "description": "Government benefit or grant — program disbursement with eligibility tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "ben:SNAP-2026-42000"
+        },
+        {
+          "name": "program",
+          "type": "string",
+          "required": false,
+          "description": "Benefit Program",
+          "example": "SNAP"
+        },
+        {
+          "name": "recipient_encrypted",
+          "type": "string",
+          "required": false,
+          "description": "Recipient (Encrypted)",
+          "example": "enc:aes256:..."
+        },
+        {
+          "name": "amount",
+          "type": "float",
+          "required": false,
+          "description": "Benefit Amount in USD",
+          "unit": "USD",
+          "example": "425.00"
+        },
+        {
+          "name": "period",
+          "type": "string",
+          "required": false,
+          "description": "Benefit Period",
+          "example": "2026-03"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "applied",
+            "eligible",
+            "approved",
+            "disbursed",
+            "denied",
+            "terminated"
+          ],
+          "description": "Benefit Status (6 allowed values)",
+          "example": "disbursed"
+        },
+        {
+          "name": "eligibility",
+          "type": "string",
+          "required": false,
+          "description": "Eligibility Criteria",
+          "example": "Income < 130% FPL, household size 3"
+        },
+        {
+          "name": "disbursed",
+          "type": "bool",
+          "required": false,
+          "description": "Disbursed indicator",
+          "example": "true"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Civic administration and public services for GovTech AI",
+    "highlights": [
+      "PERMIT",
+      "SERVICE_REQUEST",
+      "PROCUREMENT"
+    ],
+    "use_cases": [
+      {
+        "id": "digital-services",
+        "title": "Digital Government Service Delivery",
+        "steps": [
+          "Authenticate @CITIZEN via eIDAS-compliant digital identity",
+          "Submit @SERVICE_REQUEST through unified portal",
+          "Attach supporting @DOCUMENT with digital signatures",
+          "Route request through departmental workflow",
+          "Issue @DOCUMENT response with legally-binding certification"
+        ],
+        "example": "@SERVICE_REQUEST rid=sr:1 | type=\"building-permit\" | status=\"under-review\" | submitted=\"2026-02-15\" | department=\"urban-planning\"",
+        "tags_used": [
+          "SERVICE_REQUEST"
+        ],
+        "description": "Manage citizen service requests from intake through resolution with SLA tracking, department routing, and multi-channel access (web, phone, in-person, app).",
+        "tags": [
+          "SERVICE_REQUEST",
+          "PERMIT",
+          "CASE",
+          "BENEFIT"
+        ],
+        "tags_planned": [
+          "CITIZEN",
+          "DOCUMENT"
+        ]
+      },
+      {
+        "id": "fiscal-transparency",
+        "title": "Public Budget Transparency",
+        "steps": [
+          "Publish @BUDGET allocations in machine-readable XBRL format",
+          "Track expenditure against @BUDGET line items",
+          "Cross-reference spending with @ORDINANCE appropriation authority",
+          "Generate citizen-facing @BUDGET visualization dashboards",
+          "File @ELECTION campaign finance disclosures"
+        ],
+        "example": "@BUDGET rid=bg:1 | fiscal_year:int=2026 | department=\"health\" | allocated:float=12500000.0 | spent:float=8750000.0 | status=\"active\"",
+        "tags_used": [],
+        "description": "Track procurement solicitations, contract awards, and benefit disbursements with full audit trails. Generate public dashboards showing spending by agency and program.",
+        "tags": [
+          "PROCUREMENT",
+          "BENEFIT",
+          "REGULATION",
+          "CASE"
+        ],
+        "tags_planned": [
+          "BUDGET",
+          "ORDINANCE",
+          "ELECTION"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "NIEM",
+        "url": "https://www.niem.gov/",
+        "type": "standard"
+      },
+      {
+        "label": "OASIS LegalXML",
+        "url": "https://www.oasis-open.org/",
+        "type": "standard"
+      },
+      {
+        "label": "GovStack",
+        "url": "https://www.govstack.global/",
+        "type": "standard"
+      },
+      {
+        "label": "Open311",
+        "url": "https://www.open311.org/",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.compliance",
+        "relationship": "regulatory overlap",
+        "reason": "Regulatory compliance"
+      },
+      {
+        "domain": "yai.legal",
+        "relationship": "data overlap",
+        "reason": "Administrative law"
+      }
+    ],
+    "tag_context": {
+      "PERMIT": {
+        "purpose": "Government permit or license application with jurisdiction, conditions, and fee tracking",
+        "when_to_use": "Permit applications, license renewals, compliance checks, business registration, building approvals",
+        "related_standards": [
+          "ICC International Building Code",
+          "EU Services Directive",
+          "OASIS CIQ"
+        ]
+      },
+      "CASE": {
+        "purpose": "Administrative government case with docket number, assignment, and priority routing",
+        "when_to_use": "Administrative hearings, code enforcement, appeals processing, inter-agency referrals",
+        "related_standards": [
+          "Open311",
+          "NIEM 6.0",
+          "Schema.org GovernmentService"
+        ]
+      },
+      "SERVICE_REQUEST": {
+        "purpose": "Citizen service request (311-style) with SLA target, intake channel, and department routing",
+        "when_to_use": "Citizen complaints, pothole reports, utility service requests, public works dispatching",
+        "related_standards": [
+          "Open311",
+          "GovStack BB Digital Reg",
+          "OASIS CIQ"
+        ]
+      },
+      "REGULATION": {
+        "purpose": "Codified regulatory rule with effective date, issuing agency, and supersession chain",
+        "when_to_use": "Rulemaking tracking, regulatory impact analysis, compliance mapping, legal research",
+        "related_standards": [
+          "Akoma Ntoso (OASIS)",
+          "ELI (EU)",
+          "USLM (US)"
+        ]
+      },
+      "PROCUREMENT": {
+        "purpose": "Public procurement solicitation with competitive bid tracking, award, and contract type",
+        "when_to_use": "RFP issuance, bid evaluation, contract award, vendor management, protest handling",
+        "related_standards": [
+          "OCDS (Open Contracting)",
+          "EU eTendering",
+          "FAR (US)"
+        ]
+      },
+      "BENEFIT": {
+        "purpose": "Government benefit or grant disbursement with program, eligibility, and payment status",
+        "when_to_use": "Benefits enrollment, eligibility determination, grant administration, payment processing",
+        "related_standards": [
+          "HL7 FHIR Coverage",
+          "NIEM Human Services",
+          "SSA OASDI"
+        ]
+      }
+    },
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

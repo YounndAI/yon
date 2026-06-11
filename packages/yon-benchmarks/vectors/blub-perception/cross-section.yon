@@ -1,0 +1,15 @@
+@DOC ver=2.0 | id=cross-section | title="Deployment Pipeline Policy" | kind=rule | mode=text | profile=decl | fmt=min
+
+@SEC name="Build Stage"
+@RULE rid=rule:build-artifacts | lvl=MUST | when="build completes" | then="publish artifacts to artifact registry with SHA-256 checksum"
+@RULE rid=rule:build-notify | lvl=SHOULD | when="build fails" | then="notify the on-call channel within 60 seconds"
+
+@SEC name="Test Stage"
+@RULE rid=rule:test-artifacts | lvl=MUST | when="running integration tests" | then="pull artifacts from registry using checksums from Build Stage — never rebuild"
+@RULE rid=rule:test-coverage | lvl=MUST | when="test stage completes" | then="report coverage to Deploy Stage — deploy gate requires ≥80%"
+@NOTE text="Test Stage depends on Build Stage artifacts. Deploy Stage depends on Test Stage coverage report."
+
+@SEC name="Deploy Stage"
+@RULE rid=rule:deploy-gate | lvl=MUST | when="deploying to production" | then="verify Test Stage coverage ≥80% AND Build Stage checksum matches artifact in registry"
+@RULE rid=rule:deploy-rollback | lvl=MUST | when="deploy health check fails within 5 minutes" | then="automatic rollback to previous Build Stage artifact"
+@NOTE text="Deploy Stage has cross-dependencies: requires outputs from BOTH Build Stage and Test Stage."

@@ -1,0 +1,18 @@
+@DOC ver=2.0 | id=cybersecurity-incident | title="Cybersecurity Incident Response" | domain=yai.security@1.0 | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Detect, classify, contain, and remediate security incidents."
+
+@STEP n:int=1 | rid=detect | op=domain:siem.alert@v1 | out=[ref:alert]
+@STEP n:int=2 | rid=classify | op=domain:threat.classify@v1 | in=[ref:alert] | out=[ref:classification]
+
+@SEC name="Severity Routing"
+@RULE lvl=MUST | when="severity is critical" | then="page on-call immediately"
+@RULE lvl=MUST | when="severity is high" | then="create incident ticket within 15 minutes"
+@RULE lvl=SHOULD | when="severity is medium" | then="queue for next business day"
+
+@STEP n:int=3 | rid=contain | op=domain:firewall.block@v1 | in=[ref:classification] | out=[ref:containment]
+@STEP n:int=4 | rid=investigate | op=domain:forensics.collect@v1 | in=[ref:alert, ref:containment] | out=[ref:evidence]
+@STEP n:int=5 | rid=remediate | op=domain:patch.apply@v1 | in=[ref:evidence]
+@STEP n:int=6 | rid=report | op=domain:compliance.report@v1 | in=[ref:alert, ref:evidence]
+
+@STAMP ts:ts="2026-02-14T05:00:00Z" | src=soc-automation

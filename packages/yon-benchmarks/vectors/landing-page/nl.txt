@@ -1,0 +1,21 @@
+ok so i need a landing page for my new product, it's called "NovaByte" and it's basically an AI-powered code review tool. think something like what linear has but for code reviews
+
+the hero section needs to be really impactful, like dark background with some kind of gradient, maybe purple to blue? and a big headline that says something about "Ship better code, faster" or whatever works. theres also a CTA button that should say "Start Free Trial" and it should be primary/accent colored
+
+then below that i want 3 feature cards:
+1. AI-Powered Analysis - it scans your PRs and finds bugs before reviewers do 
+2. Team Insights - shows metrics about review times, who reviews what, bottlenecks etc
+3. Smart Suggestions - not just finding problems but actually suggesting fixes with context
+
+there should be a pricing section with 3 tiers:
+- Free: up to 5 users, 100 reviews/month, basic analysis
+- Pro: $29/user/month, unlimited reviews, full AI analysis, team metrics, priority support
+- Enterprise: custom pricing, SSO, audit logs, dedicated account manager, SLA
+
+also need a testimonial section, use 3 quotes from fictional people. make them realistic though, not cheesy.
+
+footer should have the usual stuff - links to docs, blog, twitter, github. copyright 2026 NovaByte Inc.
+
+oh and make sure the page is responsive. like actually responsive, not just "it doesn't break on mobile"
+
+one more thing - i want a floating navbar that appears when you scroll past the hero. logo on left, nav links in middle (Features, Pricing, Testimonials), CTA button on right.

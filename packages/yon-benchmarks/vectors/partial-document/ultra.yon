@@ -1,0 +1,10 @@
+@DOC ver=2.0 | id=greenfield-family-medicine-intake | title="Patient Intake Form for Greenfield Family Medicine" | profile=decl | fmt=ultra
+@MAP id=PatientInformation | pairs=["patient name"->"Sarah Okonkwo","date of birth"->"March 15 1988","gender"->"female","address"->"4210 Birch Lane, apt 3B, Asheville NC 28801","phone"->"(828) 555-0147","email"->"s.okonkwo@email.com","emergency contact"->"James Okonkwo, husband, (828) 555-0291"]
+@MAP id=InsuranceInformation | pairs=["insurance"->"BlueCross BlueShield","policy number"->"BCB-4401882","group number"->"GRP-7720","primary care physician"->"Dr. Linda Patel","referring physician"->"none (self-referred)"]
+@MAP id=Allergies | pairs=["penicillin"->"causes rash","shellfish"->"anaphylaxis - carries epipen","seasonal pollen"->"mild, takes zyrtec"]
+@MAP id=CurrentMedications | pairs=["metformin"->"500mg twice daily for type 2 diabetes, started 2022","lisinopril"->"10mg daily for blood pressure, started 2023","vitamin D"->"2000 IU daily, recommended by PCP","birth control"->"lo loestrin fe, continuous since 2019"]
+@MAP id=MedicalHistory | pairs=["type 2 diabetes"->"diagnosed 2022, managed with diet and metformin, A1C last check was 6.8 in January 2026","hypertension"->"diagnosed 2023, controlled with medication","appendectomy"->"2015, no complications","fractured left wrist"->"2019 from a cycling accident, fully healed"]
+@MAP id=FamilyHistory | pairs=["family_history"->"Family medical history"]
+@MAP id=SocialHistory | pairs=["social_history"->"Social habits [3x]"]
+@MAP id=ReasonForVisit | pairs=["visit_reason"->"Visit reason"]
+@MAP id=VaccinationStatus | pairs=["COVID"->"fully vaccinated plus boosters (last one Sept 2025)","flu shot"->"October 2025","Tdap"->"2021"]

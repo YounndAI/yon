@@ -1,0 +1,698 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.energy",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Energy generation, distribution, trading, and emissions tracking with grid optimization support",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "GENERATION",
+      "description": "Power generation unit — output, capacity factor, and emissions tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "gen:solar-farm-12"
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "solar",
+            "wind",
+            "hydro",
+            "nuclear",
+            "gas",
+            "coal",
+            "biomass",
+            "geothermal"
+          ],
+          "description": "Energy Source (8 allowed values)",
+          "example": "solar"
+        },
+        {
+          "name": "output_mw",
+          "type": "float",
+          "required": false,
+          "description": "Current Output in MW",
+          "unit": "MW",
+          "example": "38.7"
+        },
+        {
+          "name": "capacity_mw",
+          "type": "float",
+          "required": false,
+          "description": "Rated Capacity in MW",
+          "unit": "MW",
+          "example": "50.0"
+        },
+        {
+          "name": "capacity_factor",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            1
+          ],
+          "description": "Capacity Factor (0–1) (0–1)",
+          "example": "0.774"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "online",
+            "offline",
+            "maintenance",
+            "ramping",
+            "standby"
+          ],
+          "description": "Unit Status: online, offline, maintenance, ramping, standby",
+          "example": "online"
+        },
+        {
+          "name": "fuel_type",
+          "type": "string",
+          "required": false,
+          "description": "Fuel Type",
+          "example": "n/a"
+        },
+        {
+          "name": "efficiency",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            1
+          ],
+          "description": "Thermal Efficiency (0–1) (0–1)",
+          "example": "0.42"
+        },
+        {
+          "name": "co2_rate",
+          "type": "float",
+          "required": false,
+          "description": "CO₂ Rate in tCO₂/MWh",
+          "unit": "tCO₂/MWh",
+          "example": "0.0"
+        }
+      ]
+    },
+    {
+      "tag": "METER",
+      "description": "Energy meter reading — interval consumption and demand data",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "mtr:res-42"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "residential",
+            "commercial",
+            "industrial",
+            "solar-net"
+          ],
+          "description": "Meter Type: residential, commercial, industrial, solar-net",
+          "example": "residential"
+        },
+        {
+          "name": "location",
+          "type": "string",
+          "required": false,
+          "description": "Location",
+          "example": "14 Oak Lane, Unit 3"
+        },
+        {
+          "name": "reading_kwh",
+          "type": "float",
+          "required": false,
+          "description": "Cumulative Reading in kWh",
+          "unit": "kWh",
+          "example": "1247.5"
+        },
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": false,
+          "description": "Reading Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-01T00:00:00Z"
+        },
+        {
+          "name": "tariff",
+          "type": "string",
+          "required": false,
+          "description": "Tariff Code",
+          "example": "TOU-peak"
+        },
+        {
+          "name": "demand_kw",
+          "type": "float",
+          "required": false,
+          "description": "Peak Demand in kW",
+          "unit": "kW",
+          "example": "8.4"
+        },
+        {
+          "name": "power_factor",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            1
+          ],
+          "description": "Power Factor (0–1) (0–1)",
+          "example": "0.95"
+        },
+        {
+          "name": "interval_min",
+          "type": "int",
+          "required": false,
+          "description": "Interval Length in min",
+          "unit": "min",
+          "example": "15"
+        }
+      ]
+    },
+    {
+      "tag": "TRADE",
+      "description": "Energy trade — wholesale market transaction with node and congestion pricing",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "trd:DA-2026-03-01-14"
+        },
+        {
+          "name": "market",
+          "type": "string",
+          "required": false,
+          "description": "Market",
+          "example": "PJM-DA"
+        },
+        {
+          "name": "product",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "day-ahead",
+            "real-time",
+            "futures",
+            "bilateral",
+            "renewable-certificate"
+          ],
+          "description": "Product: day-ahead, real-time, futures, bilateral, renewable-certificate",
+          "example": "Energy-Peak"
+        },
+        {
+          "name": "volume_mwh",
+          "type": "float",
+          "required": false,
+          "description": "Volume in MWh",
+          "unit": "MWh",
+          "example": "100.0"
+        },
+        {
+          "name": "price",
+          "type": "float",
+          "required": false,
+          "description": "Price in $/MWh",
+          "unit": "$/MWh",
+          "example": "42.50"
+        },
+        {
+          "name": "counterparty",
+          "type": "string",
+          "required": false,
+          "description": "Counterparty",
+          "example": "GridCo Energy"
+        },
+        {
+          "name": "settlement",
+          "type": "ts",
+          "required": false,
+          "description": "Settlement Date as ISO 8601 timestamp",
+          "example": "2026-03-02T00:00:00Z"
+        },
+        {
+          "name": "node",
+          "type": "string",
+          "required": false,
+          "description": "Pricing Node",
+          "example": "PJM-WESTERNHUB"
+        },
+        {
+          "name": "congestion",
+          "type": "float",
+          "required": false,
+          "description": "Congestion Charge in $/MWh",
+          "unit": "$/MWh",
+          "example": "3.20"
+        }
+      ]
+    },
+    {
+      "tag": "EMISSION",
+      "description": "Emissions record — GHG Protocol scoped reporting with verification status",
+      "fields": [
+        {
+          "name": "source_ref",
+          "type": "string",
+          "required": false,
+          "description": "Source Reference",
+          "example": "gen:gas-turbine-4"
+        },
+        {
+          "name": "co2_tonnes",
+          "type": "float",
+          "required": false,
+          "description": "CO₂ in tonnes",
+          "unit": "tonnes",
+          "example": "1240.5"
+        },
+        {
+          "name": "ch4_tonnes",
+          "type": "float",
+          "required": false,
+          "description": "CH₄ in tonnes",
+          "unit": "tonnes",
+          "example": "0.8"
+        },
+        {
+          "name": "n2o_tonnes",
+          "type": "float",
+          "required": false,
+          "description": "N₂O in tonnes",
+          "unit": "tonnes",
+          "example": "0.12"
+        },
+        {
+          "name": "scope",
+          "type": "int",
+          "required": false,
+          "range": [
+            1,
+            3
+          ],
+          "description": "GHG Scope (1–3) (1–3)",
+          "example": "1"
+        },
+        {
+          "name": "period",
+          "type": "string",
+          "required": false,
+          "description": "Reporting Period",
+          "example": "2026-Q1"
+        },
+        {
+          "name": "methodology",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "ghg-protocol",
+            "epa-mandatory",
+            "eu-ets",
+            "iso-14064",
+            "custom"
+          ],
+          "description": "Methodology: ghg-protocol, epa-mandatory, eu-ets, iso-14064, custom",
+          "example": "EPA eGRID 2024"
+        },
+        {
+          "name": "verified",
+          "type": "bool",
+          "required": false,
+          "description": "Verified indicator",
+          "example": "true"
+        },
+        {
+          "name": "offset_credits",
+          "type": "float",
+          "required": false,
+          "description": "Offset Credits in tonnes",
+          "unit": "tonnes",
+          "example": "200.0"
+        }
+      ]
+    },
+    {
+      "tag": "FORECAST",
+      "description": "Demand or price forecast — model-driven prediction with confidence intervals",
+      "fields": [
+        {
+          "name": "region",
+          "type": "string",
+          "required": false,
+          "description": "Region",
+          "example": "PJM-West"
+        },
+        {
+          "name": "period",
+          "type": "string",
+          "required": false,
+          "description": "Forecast Period",
+          "example": "2026-03-02T14:00/15:00"
+        },
+        {
+          "name": "demand_mw",
+          "type": "float",
+          "required": false,
+          "description": "Forecast Demand in MW",
+          "unit": "MW",
+          "example": "32400.0"
+        },
+        {
+          "name": "supply_mw",
+          "type": "float",
+          "required": false,
+          "description": "Available Supply in MW",
+          "unit": "MW",
+          "example": "35800.0"
+        },
+        {
+          "name": "price",
+          "type": "float",
+          "required": false,
+          "description": "Forecast Price in $/MWh",
+          "unit": "$/MWh",
+          "example": "38.70"
+        },
+        {
+          "name": "confidence",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            1
+          ],
+          "description": "Confidence (0–1) (0–1)",
+          "example": "0.88"
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "arima",
+            "neural-net",
+            "ensemble",
+            "physics-based",
+            "statistical",
+            "hybrid"
+          ],
+          "description": "Forecast Model (6 allowed values)",
+          "example": "LSTM-grid-v4"
+        },
+        {
+          "name": "renewable_pct",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Renewable Percentage in % (0–100)",
+          "unit": "%",
+          "example": "42.0"
+        },
+        {
+          "name": "peak_hour",
+          "type": "int",
+          "required": false,
+          "range": [
+            0,
+            23
+          ],
+          "description": "Peak Hour (0–23) (0–23)",
+          "example": "17"
+        }
+      ]
+    },
+    {
+      "tag": "STORAGE",
+      "description": "Energy storage — battery or pumped-hydro with state-of-charge and cycle tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "sto:bess-farm-3"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "lithium-ion",
+            "flow",
+            "pumped-hydro",
+            "compressed-air",
+            "flywheel",
+            "hydrogen"
+          ],
+          "description": "Storage Type (6 allowed values)",
+          "example": "lithium-ion"
+        },
+        {
+          "name": "capacity_mwh",
+          "type": "float",
+          "required": false,
+          "description": "Capacity in MWh",
+          "unit": "MWh",
+          "example": "200.0"
+        },
+        {
+          "name": "soc_pct",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "State of Charge in % (0–100)",
+          "unit": "%",
+          "example": "72.0"
+        },
+        {
+          "name": "charge_rate_mw",
+          "type": "float",
+          "required": false,
+          "description": "Charge Rate in MW",
+          "unit": "MW",
+          "example": "50.0"
+        },
+        {
+          "name": "discharge_rate_mw",
+          "type": "float",
+          "required": false,
+          "description": "Discharge Rate in MW",
+          "unit": "MW",
+          "example": "50.0"
+        },
+        {
+          "name": "cycles",
+          "type": "int",
+          "required": false,
+          "description": "Cycle Count",
+          "example": "1247"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "charging",
+            "discharging",
+            "idle",
+            "maintenance"
+          ],
+          "description": "Status: charging, discharging, idle, maintenance",
+          "example": "discharging"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Energy grid management and carbon accounting for AI systems",
+    "highlights": [
+      "GENERATION",
+      "EMISSION",
+      "FORECAST"
+    ],
+    "use_cases": [
+      {
+        "id": "smart-grid-monitoring",
+        "title": "Smart Grid Real-Time Monitoring",
+        "steps": [
+          "Collect @READING from AMI smart @METER network",
+          "Monitor @GRID frequency and voltage stability",
+          "Track @GENERATION output from renewables and conventional sources",
+          "Detect anomalies and trigger @OUTAGE prediction models",
+          "Adjust @TARIFF signals based on demand-response"
+        ],
+        "example": "@READING rid=rd:1 | meter_ref=\"mtr:42\" | value:float=1247.5 | unit=\"kWh\" | quality=\"validated\"",
+        "tags_used": [
+          "METER",
+          "GENERATION"
+        ],
+        "description": "Ingest generation, consumption, and grid telemetry data in real-time to balance supply/demand, detect faults, and optimize distributed energy resource dispatch.",
+        "tags": [
+          "GENERATION",
+          "CONSUMPTION",
+          "GRID",
+          "FORECAST"
+        ],
+        "tags_planned": [
+          "READING",
+          "GRID",
+          "OUTAGE",
+          "TARIFF"
+        ]
+      },
+      {
+        "id": "renewable-optimization",
+        "title": "Renewable Energy Portfolio Optimization",
+        "steps": [
+          "Forecast @GENERATION capacity from wind and solar assets",
+          "Balance intermittent @GENERATION against @GRID demand",
+          "Optimize @TARIFF pricing for peak-shaving incentives",
+          "Schedule battery storage dispatch from @METER telemetry",
+          "Report carbon offset metrics per @GENERATION source"
+        ],
+        "example": "@GENERATION rid=gen:1 | source=\"solar\" | capacity_mw:float=50.0 | output_mw:float=38.7 | efficiency:float=0.774",
+        "tags_used": [
+          "GENERATION",
+          "METER"
+        ],
+        "description": "Combine generation forecasts, emission tracking, and energy trading data to maximize renewable utilization, meet carbon targets, and optimize wholesale market positions.",
+        "tags": [
+          "GENERATION",
+          "EMISSION",
+          "TRADE",
+          "FORECAST"
+        ],
+        "tags_planned": [
+          "GRID",
+          "TARIFF"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "IEC CIM (61968/61970)",
+        "url": "https://www.iec.ch/",
+        "type": "standard"
+      },
+      {
+        "label": "Green Button",
+        "url": "https://www.greenbuttondata.org/",
+        "type": "standard"
+      },
+      {
+        "label": "GHG Protocol",
+        "url": "https://ghgprotocol.org/",
+        "type": "standard"
+      },
+      {
+        "label": "OASIS EMIX",
+        "url": "https://www.oasis-open.org/",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.infrastructure",
+        "relationship": "often paired",
+        "reason": "Critical infrastructure monitoring"
+      },
+      {
+        "domain": "yai.compliance",
+        "relationship": "regulatory overlap",
+        "reason": "Emissions reporting requirements"
+      }
+    ],
+    "tag_context": {
+      "GENERATION": {
+        "purpose": "Power generation unit with output, capacity factor, efficiency, and CO₂ emission rate",
+        "when_to_use": "Plant performance monitoring, dispatch scheduling, renewable capacity tracking, emissions reporting",
+        "related_standards": [
+          "IEC 61400 Wind",
+          "IEC 61724 PV",
+          "ISO 50001"
+        ]
+      },
+      "METER": {
+        "purpose": "Energy meter reading with interval consumption, demand, power factor, and tariff data",
+        "when_to_use": "AMI data collection, billing input, demand profiling, load research, net metering",
+        "related_standards": [
+          "IEC 62056 DLMS/COSEM",
+          "ANSI C12.19",
+          "CIM IEC 61968"
+        ]
+      },
+      "TRADE": {
+        "purpose": "Wholesale energy market transaction with node pricing, volume, and congestion charges",
+        "when_to_use": "Day-ahead/real-time market bids, bilateral trade settlement, PPA tracking, portfolio valuation",
+        "related_standards": [
+          "OASIS eMIX",
+          "EPEX SPOT",
+          "ISO 15687 Energy Trading"
+        ]
+      },
+      "EMISSION": {
+        "purpose": "GHG Protocol scoped emissions record with verification status and offset credits",
+        "when_to_use": "Carbon accounting, ESG reporting, EU ETS compliance, Scope 1/2/3 inventories, offset tracking",
+        "related_standards": [
+          "GHG Protocol",
+          "ISO 14064",
+          "EU ETS MRV"
+        ]
+      },
+      "FORECAST": {
+        "purpose": "Demand or price forecast with model reference, confidence interval, and renewable mix",
+        "when_to_use": "Load forecasting, price prediction, renewable intermittency planning, grid balancing, capacity auctions",
+        "related_standards": [
+          "IEC 61400-12 Wind",
+          "ECMWF",
+          "WMO GRIB2"
+        ]
+      },
+      "STORAGE": {
+        "purpose": "Energy storage asset with state-of-charge, charge/discharge rates, and cycle count",
+        "when_to_use": "Battery dispatch scheduling, grid ancillary services, virtual power plant management, degradation monitoring",
+        "related_standards": [
+          "IEC 62619 Li-ion Safety",
+          "UL 9540A",
+          "IEEE 2030"
+        ]
+      }
+    },
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

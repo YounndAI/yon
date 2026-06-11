@@ -1,0 +1,19 @@
+@DOC ver=2.0 | id=standup-notes | title="Engineering Standup Notes — Mar 10" | kind=log | profile=core | fmt=canon
+
+@NOTE text="Captured live during standup, some items may be incomplete"
+
+@SEC name="Backend"
+@RULE lvl=MUST | when="before Wed deploy" | then="fix the N+1 query in user-search endpoint"
+@NOTE text="perf degrades above 500 concurrent — Jake saw 3s response times in staging"
+@RULE lvl=SHOULD | when="this sprint" | then="add Redis caching layer for session lookups"
+@RULE lvl=MAY | when="time permitting" | then="refactor the auth middleware to use dependency injection"
+
+@SEC name="Frontend"
+@RULE lvl=MUST | when="before QA handoff" | then="fix the dropdown z-index bug on Safari"
+@NOTE text="Lisa reproduced it on iOS 17.4 — only happens when modal is open"
+@RULE lvl=MUST_NOT | when="any PR" | then="merge without running the visual regression suite"
+
+@SEC name="DevOps"
+@RULE lvl=MUST | when="by end of sprint" | then="rotate the production SSL certificates"
+@NOTE text="current certs expire April 2 — Mike has the runbook"
+@RULE lvl=SHOULD | when="after cert rotation" | then="update the monitoring alertmanager thresholds"

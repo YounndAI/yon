@@ -1,0 +1,11 @@
+@DOC ver=2.0 | kind=test | id=yonpa-01 | title="Automator — valid minimal" | profile=exec | fmt=min | with=[yonpa]
+
+@AUTOMATOR id=yTrim
+  | name="yTrim"
+  | mission="Reduce verbosity within a single file"
+  | layer=refactor
+  | tier=reasoning
+  | version="0.1.0"
+  | yonpa_schema_version="1.0"
+
+@NOTE text="Minimal valid @AUTOMATOR — all required fields present, no optional fields"

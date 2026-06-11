@@ -1,0 +1,13 @@
+@DOC ver=2.0 | id=education-grading | title="Automated Grading Pipeline" | domain=yai.education@1.0 | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Process student submissions, run plagiarism checks, and assign grades."
+
+@STEP n:int=1 | rid=collect | op=domain:lms.fetch-submissions@v1 | out=[ref:submissions]
+@STEP n:int=2 | rid=plagiarism | op=domain:integrity.check@v1 | in=[ref:submissions] | out=[ref:integrity]
+
+@CHECK rid=gate:integrity | assert="ref:integrity.flagged_count == 0" | fail=WARN | msg="Some submissions flagged for review"
+
+@STEP n:int=3 | rid=grade | op=domain:grading.auto-score@v1 | in=[ref:submissions, ref:integrity] | out=[ref:grades]
+@STEP n:int=4 | rid=review | op=domain:grading.instructor-review@v1 | in=[ref:grades] | out=[ref:final_grades]
+@STEP n:int=5 | rid=publish | op=domain:lms.publish-grades@v1 | in=[ref:final_grades]
+@STEP n:int=6 | rid=notify | op=std:notify.batch@v1 | in=[ref:final_grades]

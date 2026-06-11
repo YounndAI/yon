@@ -1,0 +1,22 @@
+[
+  { "id": 1, "question": "What is the head of Emergency Medicine's name?", "answer": "Dr. Rachel Nguyen", "position": "top" },
+  { "id": 2, "question": "How many beds does the Emergency Department have?", "answer": "42", "position": "top" },
+  { "id": 3, "question": "How many visits per year does the ED handle?", "answer": "approximately 85,000", "position": "top" },
+  { "id": 4, "question": "What floor is Cardiology on?", "answer": "Floor 3", "position": "top" },
+  { "id": 5, "question": "What days does the heart failure clinic run?", "answer": "Tuesday and Thursday", "position": "top" },
+  { "id": 6, "question": "How many joint replacements does Orthopedics perform per year?", "answer": "approximately 1,200", "position": "top" },
+  { "id": 7, "question": "What level is the NICU?", "answer": "Level III", "position": "top" },
+  { "id": 8, "question": "How many babies does OB/GYN deliver per year?", "answer": "approximately 3,500", "position": "top" },
+  { "id": 9, "question": "What is the head of Oncology's cancer specialization?", "answer": "lung and GI cancers", "position": "top" },
+  { "id": 10, "question": "How many active clinical trials does Oncology have?", "answer": "12", "position": "top" },
+  { "id": 11, "question": "What is the average door-to-needle time for tPA in Neurology?", "answer": "28 minutes", "position": "middle" },
+  { "id": 12, "question": "How many MRI machines does Radiology have?", "answer": "3", "position": "middle" },
+  { "id": 13, "question": "How many images does Radiology process per year?", "answer": "approximately 250,000", "position": "middle" },
+  { "id": 14, "question": "What is the turnaround time for stat CBC?", "answer": "30 minutes", "position": "middle" },
+  { "id": 15, "question": "How many tests does the lab process per year?", "answer": "1.8 million", "position": "middle" },
+  { "id": 16, "question": "How many beds does the acute psychiatric unit have?", "answer": "24", "position": "bottom" },
+  { "id": 17, "question": "How many rural clinics receive telepsychiatry services?", "answer": "3", "position": "bottom" },
+  { "id": 18, "question": "What is the total number of licensed beds in the hospital?", "answer": "520", "position": "bottom" },
+  { "id": 19, "question": "What year was the hospital founded?", "answer": "1962", "position": "bottom" },
+  { "id": 20, "question": "What EMR system does the hospital use?", "answer": "Epic", "position": "bottom" }
+]

@@ -1,0 +1,44 @@
+document: Architecture Standards
+sections:
+  - name: Global
+    rules:
+      - level: MUST
+        when: calling external APIs
+        then: use async patterns with circuit breakers
+      - level: MUST_NOT
+        when: any service
+        then: make synchronous external HTTP calls
+    children:
+      - name: "Domain: Financial"
+        rules:
+          - level: MUST
+            when: processing payments
+            then: validate all inputs before external calls
+        notes:
+          - "Financial domain has stricter retry policies — max 2 retries, 500ms timeout."
+        children:
+          - name: "Service: Payments"
+            rules:
+              - level: MUST
+                when: calling payment processors
+                then: log full request/response for audit trail
+              - level: MUST
+                when: external API failure
+                then: queue for retry, never block checkout
+            children:
+              - name: "Version: Payments-v2"
+                notes:
+                  - "v2 migrates from batch to real-time credit checks."
+                rules:
+                  - level: MUST
+                    when: credit check in payments-v2
+                    then: use streaming pipeline with 200ms SLA
+                children:
+                  - name: "Exception: Checkout Flow"
+                    rules:
+                      - id: payments-v2-sync-exception
+                        level: MUST
+                        when: credit-check during checkout in payments-v2
+                        then: use synchronous call with 150ms hard timeout — async pipeline adds 800ms latency unacceptable for checkout UX
+                    notes:
+                      - "Approved exception: sync call acceptable ONLY during checkout, with mandatory circuit breaker and fallback to cached score."

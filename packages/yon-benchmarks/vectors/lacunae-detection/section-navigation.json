@@ -1,0 +1,19 @@
+{
+  "id": "auth-policy",
+  "title": "Authentication Policy",
+  "intent": "Define role-specific authentication requirements organized by context",
+  "sections": {
+    "API Routes": {
+      "rules": [
+        { "level": "MUST", "context": "handling API requests", "requirement": "validate Bearer token on every request" },
+        { "level": "MUST", "context": "token expired", "requirement": "return 401 Unauthorized" }
+      ]
+    },
+    "Internal Tools": {
+      "rules": [
+        { "level": "MAY", "context": "handling internal requests", "requirement": "validate auth token" }
+      ],
+      "note": "Internal tools behind VPN may operate without token validation"
+    }
+  }
+}

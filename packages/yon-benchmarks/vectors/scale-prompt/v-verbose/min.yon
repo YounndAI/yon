@@ -1,0 +1,33 @@
+@DOC ver=2.0 | id=api-rules | title="API Rules and Guidelines" | kind=rule | profile=exec | fmt=min
+@INTENT goal="Define API rules and guidelines" | audience=developers
+
+@SEC name=Authentication
+@RULE lvl=must | when="Using OAuth2" | then="OAuth2 with Bearer tokens"
+@RULE lvl=must | when="Token issued" | then="Token TTL 3600s"
+@RULE lvl=must | when="Using refresh tokens" | then="Refresh tokens 30d"
+@RULE lvl=must | when="Client exceeds rate limit" | then="429 on rate limit"
+@RULE lvl=must | when="Using admin tokens" | then="Admin tokens all orgs"
+@RULE lvl=must | when="Using regular user tokens" | then="User tokens own org"
+@RULE lvl=must | when="Making API request" | then="Auth header required"
+@RULE lvl=must | when="Using refresh token" | then="Refresh tokens single-use"
+
+@SEC name="Users API"
+@RULE lvl=must | when="Creating user" | then="POST /users requires fields"
+@RULE lvl=must | when="Assigning email" | then="Email unique per org"
+@RULE lvl=must | when="Role not specified" | then="Role defaults to member"
+@RULE lvl=must | when="Getting user list" | then="Cursor pagination"
+@RULE lvl=must | when="Requesting user details" | then="User details include timestamps"
+@RULE lvl=must | when="Updating user" | then="Email change needs verification"
+@RULE lvl=must | when="Deleting user" | then="Soft delete users"
+@RULE lvl=must | when="Deleting archived user" | then="410 on archived delete"
+
+@SEC name="Orders API"
+@RULE lvl=must | when="Creating order" | then="Order creation requires fields"
+@RULE lvl=must | when="Validating order total" | then="Order total validation"
+@RULE lvl=must | when="Using currency" | then="Currency ISO 4217"
+@RULE lvl=must | when="Mixing currencies in order" | then="No mixed currencies"
+@RULE lvl=must | when="Modifying order" | then="Modify draft orders"
+@RULE lvl=must | when="Deleting order" | then="Use cancel for delete"
+
+@SEC name="Error Codes"
+@MAP id=Error Codes | pairs=["ERR_AUTH"->"Invalid or expired token","ERR_NOT_FOUND"->"Resource does not exist","ERR_VALIDATION"->"Schema validation failed","ERR_CONFLICT"->"Resource already exists","ERR_RATE_LIMIT"->"Exceeded rate limit","ERR_PAYMENT_FAILED"->"Payment rejected","ERR_INSUFFICIENT_FUNDS"->"Insufficient account balance","ERR_PERMISSION_DENIED"->"Insufficient permissions","ERR_RESOURCE_LOCKED"->"Resource is locked"]

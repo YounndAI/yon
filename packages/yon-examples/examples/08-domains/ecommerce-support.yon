@@ -1,0 +1,10 @@
+@DOC ver=2.0 | id=support-ticket | title="Support Ticket Handler" | domain=yai.ecommerce | kind=workflow | profile=exec | fmt=min
+
+@NOTE text="Customer support routing workflow."
+
+@INPUT rid=in:text | name=ticket_text | type=string | required:bool=true
+@INPUT rid=in:tier | name=customer_tier | type=string
+
+@STEP n:int=1 | rid=classify | op=support:ticket.classify@v1 | out=[block:category]
+@STEP n:int=2 | rid=priority | op=support:ticket.priority@v1 | in=[block:category] | out=[block:priority]
+@STEP n:int=3 | rid=route | op=support:ticket.route@v1 | in=[block:priority]

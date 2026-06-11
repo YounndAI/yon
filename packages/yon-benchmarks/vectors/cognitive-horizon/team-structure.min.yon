@@ -1,0 +1,24 @@
+@DOC ver=2.0 | id=invoiceflow-teams | title="InvoiceFlow Team Structure" | kind=data | profile=decl | fmt=min
+@SEC name="billing"
+@NOTE text="Owns /invoices endpoints and invoice lifecycle."
+@MAP id=member-aisha | name="Aisha Patel" | role=admin | title="Lead, on-call primary"
+@MAP id=member-rafael | name="Rafael Montoya" | role=manager | title="Invoice ops"
+@MAP id=member-lena | name="Lena Sørensen" | role=viewer | title="Reporting"
+@SEC name="payments"
+@NOTE text="Owns /payments endpoints."
+@MAP id=member-chen | name="Chen Wei" | role=admin | title="Lead, on-call primary"
+@MAP id=member-priya | name="Priya Sharma" | role=manager | title="Reconciliation"
+@SEC name="platform"
+@NOTE text="Owns infrastructure, auth, monitoring, deployment."
+@MAP id=member-erik | name="Erik Lindqvist" | role=admin | title="Lead, on-call primary"
+@MAP id=member-yuto | name="Yuto Nakamura" | role=manager | title="CI/CD"
+@SEC name="Ownership"
+@MAP id=own-invoices | component="/invoices" | team=billing | escalation="Aisha→Chen"
+@MAP id=own-payments | component="/payments" | team=payments | escalation="Chen→Aisha"
+@MAP id=own-health | component="/health" | team=platform | escalation=Erik
+@MAP id=own-auth | component=auth | team=platform | escalation=Erik
+@MAP id=own-db | component=db | team=platform | escalation="Erik→Aisha"
+@MAP id=own-ratelimit | component=ratelimit | team=platform | escalation=Erik
+@MAP id=own-monitoring | component=monitoring | team=platform | escalation=Erik
+@MAP id=own-deploy | component=deploy | team=platform | escalation="Erik→Yuto"
+@NOTE text="On-call weekly Mon-Mon. Lead=primary. P1+P2 alerts paged."

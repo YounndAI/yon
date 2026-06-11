@@ -1,0 +1,19 @@
+@DOC ver=2.0 | id=coding-standards | title="Coding Standards" | kind=rule | profile=decl | fmt=canon
+
+@NOTE text="Team coding conventions. Declarative rules only — no execution."
+
+@SEC name="Naming Conventions"
+@RULE lvl=MUST | when="naming variables" | then="use camelCase for local variables and parameters"
+@RULE lvl=MUST | when="naming types" | then="use PascalCase for types, interfaces, and classes"
+@RULE lvl=MUST | when="naming constants" | then="use UPPER_SNAKE_CASE for true constants"
+@RULE lvl=SHOULD | when="naming files" | then="use kebab-case for file names"
+@RULE lvl=MUST_NOT | when="naming" | then="use single-character names except for loop counters"
+
+@SEC name="Code Structure"
+@RULE lvl=MUST | when="writing functions" | then="limit to 50 lines maximum"
+@RULE lvl=SHOULD | when="writing modules" | then="export only the public API from index.ts"
+@RULE lvl=MUST | when="adding dependencies" | then="justify in PR description"
+
+@SEC name="Error Handling"
+@RULE lvl=MUST | when="catching errors" | then="log with structured context before re-throwing"
+@RULE lvl=MUST_NOT | when="error handling" | then="swallow exceptions silently"

@@ -1,0 +1,20 @@
+@DOC ver=2.0 | id=auth-system-rules | title="Authentication System Rules" | kind=rule | profile=exec | fmt=canon
+
+@SEC name="Authentication Tokens"
+@RULE lvl=must | when="Using OAuth2" | then="Use OAuth2 with Bearer tokens"
+@RULE lvl=must | when="Token issued" | then="Tokens have a TTL of 3600 seconds"
+@RULE lvl=must | when="Using refresh tokens" | then="Refresh tokens last for about 30 days"
+@RULE lvl=must | when="Using refresh tokens" | then="Refresh tokens can only be used once and are invalidated after use"
+
+@SEC name="Rate Limiting"
+@RULE lvl=must | when="Requests exceed rate limit" | then="Return 429 status code and include Retry-After header if rate limit exceeded"
+
+@SEC name="Token Access"
+@RULE lvl=must | when="Using admin tokens" | then="Admin tokens can access resources across all organizations"
+@RULE lvl=must | when="Using regular user tokens" | then="Regular user tokens can only access data within their own organization"
+
+@SEC name="API Requests"
+@RULE lvl=must | when="Making API request" | then="Every API request must have the Authorization header with a valid bearer token"
+
+@SEC name="Token Issuance"
+@RULE lvl=must | when="Issuing tokens" | then="Tokens are issued through the /auth/token endpoint using client credentials or authorization code flow"

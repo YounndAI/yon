@@ -1,0 +1,124 @@
+Authentication uses Bearer token OAuth2 with a 3600 second TTL and 30-day refresh.
+Rate limit is 500 requests per minute globally. When rate limited, return 429 with Retry-After header.
+Admin tokens can access all organizations. User tokens can only access their own organization.
+All API requests must include the Authorization header with a valid bearer token.
+Tokens are issued by the /auth/token endpoint using client credentials or authorization code flow.
+Refresh tokens can be used once and are invalidated after use. A new refresh token is issued with each access token.
+
+The users endpoint at POST /users creates a new user. Required fields are name, email, and role.
+Email must be unique per organization. Roles are admin, member, or viewer. Default role is member.
+GET /users returns a paginated list with cursor-based pagination. Default limit is 25, max is 100.
+GET /users/:id returns a single user or 404 if not found. Includes last_login and created_at.
+PATCH /users/:id does a partial update with merge semantics. Cannot change email without verification.
+DELETE /users/:id soft-deletes by setting status to archived. Archived users cannot log in.
+If the user is already archived, return 410 Gone.
+
+The orders endpoint at POST /orders creates a new order. Required fields are customer_id, items, total, and currency.
+Each item must have product_id, quantity, and unit_price. Total must equal sum of (quantity * unit_price).
+Currency must be ISO 4217 (USD, EUR, GBP, CAD, AUD, JPY). Mixed currencies in one order are not allowed.
+GET /orders supports filtering by customer_id, status, date range, and minimum total amount.
+Orders go through a lifecycle: draft → confirmed → processing → shipped → delivered. Can be canceled before shipped.
+PATCH /orders/:id allows updating items only in draft status. Status changes use dedicated endpoints.
+POST /orders/:id/confirm moves from draft to confirmed and triggers payment authorization.
+POST /orders/:id/cancel marks as canceled and triggers refund if payment was captured.
+DELETE /orders/:id is not supported. Use cancel instead.
+
+Error codes follow a consistent pattern. ERR_AUTH means invalid or expired token.
+ERR_NOT_FOUND means the requested resource does not exist. ERR_VALIDATION means the request body failed schema validation.
+ERR_CONFLICT means a duplicate resource was detected (e.g., duplicate email). ERR_RATE_LIMIT means too many requests.
+ERR_PAYMENT_FAILED means the payment provider rejected the transaction. ERR_INSUFFICIENT_FUNDS means the account balance is too low.
+ERR_PERMISSION_DENIED means the token does not have the required scope. ERR_RESOURCE_LOCKED means the resource is being modified by another process.
+All error responses include a request_id for debugging and a human-readable message.
+
+The products endpoint at POST /products creates a new product. Required fields are name, description, price, category, and active status.
+Name has a maximum of 255 characters. Description has a maximum of 2000 characters. Price is in smallest currency unit (cents).
+Categories are predefined: software, hardware, service, subscription, addon. Custom categories are not supported.
+GET /products supports filtering by category, active status, and price range. Results include price count but not full price objects.
+PATCH /products/:id can update any field. Setting active to false prevents new orders but does not affect existing ones.
+Products with active orders cannot be deleted. They must be deactivated first.
+Each product can have multiple prices for different currencies and billing intervals.
+
+The invoices endpoint manages billing documents. POST /invoices creates an invoice from an order or subscription.
+Required fields are customer_id, items, due_date, and payment_terms. Payment terms are net-15, net-30, or net-60.
+Invoices go through statuses: draft → open → paid → void. Draft invoices can be edited. Open invoices cannot.
+POST /invoices/:id/pay attempts payment with the default payment method. Returns 402 on failure.
+POST /invoices/:id/void marks the invoice as void. Cannot void a paid invoice.
+GET /invoices supports filtering by customer_id, status, date range, and amount range.
+Overdue invoices (past due_date and still open) trigger automatic reminder emails at 1, 7, and 14 days.
+
+Input validation rules apply globally. Email fields must validate against RFC 5322 format.
+Phone fields must validate E.164 format (e.g., +1234567890). All monetary amounts must be positive integers in cents.
+Date fields must be ISO 8601 UTC format (e.g., 2026-01-15T00:00:00Z). Timezone abbreviations are not accepted.
+Metadata objects are optional and limited to 20 keys. Both keys and values must be strings with a 500 character maximum.
+Array fields have a maximum of 100 items per request. Larger batches must use the bulk import endpoint.
+String fields are trimmed of leading and trailing whitespace. Empty strings are treated as null.
+Boolean fields accept true/false, 1/0, or yes/no. All other values are rejected.
+Enum fields are case-insensitive during input but stored in lowercase.
+
+Webhooks allow real-time notifications for events in the system.
+Events include order.created, order.updated, order.completed, payment.succeeded, payment.failed, and invoice.paid.
+All webhook payloads are signed with HMAC-SHA256 using the webhook secret. Verify the signature before processing.
+You must respond with 200 within 30 seconds. If the endpoint does not respond, the delivery is marked as failed.
+Failed deliveries are retried with exponential backoff: 1 minute, 5 minutes, 25 minutes, 2 hours, 10 hours.
+After all retries are exhausted (5 attempts), the webhook is marked as failing and the account owner is notified by email.
+To register a webhook, POST to /webhooks with url (must be HTTPS), events array, and optional secret.
+GET /webhooks/:id/deliveries returns the last 30 days of delivery attempts with status, response code, and timing.
+
+The subscriptions endpoint manages recurring billing. POST /subscriptions creates a new subscription.
+Required fields are customer_id, plan_id, trial_days (0-365), and payment_method_id (required unless trial).
+Subscriptions start immediately or after the trial period. The first invoice is created automatically unless in trial.
+Billing cycle anchor can be set to a specific date. Otherwise, the subscription starts on the creation date.
+Proration behavior can be create_prorations (default), none, or always_invoice.
+Status flow is trialing → active → past_due → canceled. Past_due occurs when payment fails.
+PATCH /subscriptions/:id can update items, payment method, and metadata. Mid-cycle changes create prorations.
+DELETE /subscriptions/:id cancels the subscription. Default is at period end. Use ?at=now for immediate with prorated refund.
+
+The payments endpoint handles one-time charges. POST /payments creates a payment.
+Required fields are amount (integer cents), currency (ISO 4217), method_id, and description.
+Payments are processed synchronously. Success returns 200 with transaction_id. Failure returns 402 with error details.
+If the payment method is a card, the issuing bank's authorization is checked. 3D Secure is triggered when required.
+Refunds are created via POST /payments/:id/refund. Partial refunds are supported. Full refund is the default.
+Payment methods can be cards, bank transfers, or digital wallets. Each has different processing times and fee structures.
+
+GDPR compliance requirements are mandatory for all data handling operations.
+You must encrypt all PII at rest using AES-256 and in transit using TLS 1.3. No exceptions.
+Right to erasure must be implemented and completed within 30 days of receiving a valid erasure request.
+Data processing records must be maintained and available for audit at all times.
+Data breaches must be reported to the supervisory authority within 72 hours of becoming aware.
+Data protection impact assessments must be conducted annually and before launching new data processing activities.
+A data protection officer must be appointed and their contact details published on the privacy page.
+Explicit consent must be obtained before processing personal data. Pre-checked boxes are not valid consent.
+Data portability requests must be fulfilled in a machine-readable format (JSON or CSV) within 30 days.
+Cross-border data transfers require Standard Contractual Clauses or adequacy decisions.
+
+SOC 2 Type II compliance requirements govern all system operations.
+Access controls must follow the principle of least privilege. No user should have more access than needed for their role.
+Audit logs must record all data access events including who accessed what, when, and from where.
+Vulnerability scans must be conducted monthly using automated tools. Critical findings must be remediated within 48 hours.
+Penetration testing must be performed annually by an independent third party.
+Incident response procedures must include detection, triage, containment, eradication, and post-mortem phases.
+Business continuity plans must be tested semi-annually. Recovery time objective is 4 hours for Tier 1 services.
+Backups must be encrypted at rest and tested for recoverability quarterly.
+Multi-factor authentication is required for all administrative access. SMS-based MFA is deprecated in favor of TOTP or hardware keys.
+Employee background checks must be completed before granting system access.
+Vendor security assessments must be conducted annually for all third-party services that process customer data.
+
+PCI-DSS Level 1 compliance requirements govern all payment processing.
+Full card numbers must never be stored after authorization. Only last four digits and card fingerprint are retained.
+Payment data must be tokenized before storage using a PCI-compliant tokenization service.
+The payment processing network must be segmented from other internal networks with firewall rules.
+Intrusion detection systems must monitor all network traffic in the payment segment in real-time.
+Encryption keys must be rotated annually. Compromised keys must be rotated immediately.
+Physical access to servers processing cardholder data must be restricted to authorized personnel only.
+All payment processing code must undergo security review before deployment.
+Quarterly ASV scans must be conducted by an approved scanning vendor.
+
+Rate limiting is configured at multiple levels: global, per-user, and per-endpoint.
+Global rate limit is 1000 requests per minute. Per-user rate limit is 100 requests per minute.
+Burst limit allows 50 requests in a 1-second window before throttling kicks in.
+The throttle strategy is sliding window to prevent thundering herd problems.
+Rate limit headers are included in all responses: X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset.
+When rate limited, the Retry-After header specifies the number of seconds to wait.
+Authenticated requests have higher limits than anonymous requests.
+Webhook deliveries do not count against rate limits.
+Batch endpoints have separate rate limits calculated per item, not per request.

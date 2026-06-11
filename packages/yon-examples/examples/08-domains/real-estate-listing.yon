@@ -1,0 +1,14 @@
+@DOC ver=2.0 | id=real-estate-listing | title="Property Listing Workflow" | domain=yai.realestate@1.0 | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Ingest property data, generate descriptions, and publish to multiple listing services."
+
+@STEP n:int=1 | rid=ingest | op=domain:property.ingest@v1 | out=[ref:property]
+@STEP n:int=2 | rid=photos | op=domain:media.process@v1 | in=[ref:property] | out=[ref:media]
+@STEP n:int=3 | rid=describe | op=domain:ai.generate-description@v1 | in=[ref:property, ref:media] | out=[ref:description]
+
+@SEC name="Quality Check"
+@CHECK rid=gate:complete | assert="ref:property.bedrooms > 0" | fail=ABORT | msg="Missing property details"
+@CHECK rid=gate:photos | assert="ref:media.count >= 5" | fail=WARN | msg="Fewer than 5 photos"
+
+@STEP n:int=4 | rid=publish-mls | op=domain:listing.publish@v1 | in=[ref:property, ref:media, ref:description]
+@STEP n:int=5 | rid=publish-website | op=domain:website.update@v1 | in=[ref:property, ref:media, ref:description]

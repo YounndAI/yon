@@ -1,0 +1,19 @@
+The following document uses YON notation. @SEC defines sections. @RULE defines requirements with lvl=MUST or lvl=MUST_NOT indicating obligation level, when=context indicating when the rule applies, and then=requirement indicating what must or must not be done. Read each rule carefully and follow them exactly when writing code.
+
+@DOC ver=2.0 | id=code-safety-rules | title="Code Safety Rules" | kind=rule | profile=decl | fmt=min
+
+@SEC name="Input Handling"
+@RULE lvl=MUST_NOT | when="handling user input" | then="use eval(), new Function(), or Function() constructor"
+@RULE lvl=MUST | when="parsing JSON from external sources" | then="wrap in try/catch and return typed error response"
+
+@SEC name="Database"
+@RULE lvl=MUST_NOT | when="building database queries" | then="concatenate or interpolate user input into SQL strings"
+@RULE lvl=MUST | when="querying databases" | then="use parameterized queries with prepared statements or query builder"
+
+@SEC name="Auth & Secrets"
+@RULE lvl=MUST_NOT | when="writing log output" | then="include API keys, tokens, passwords, session IDs, credit card numbers, or PII"
+@RULE lvl=MUST | when="logging operations that involve sensitive data" | then="replace sensitive values with [REDACTED] before logging"
+
+@SEC name="Error Handling"
+@RULE lvl=MUST_NOT | when="catching errors" | then="use empty catch blocks — every catch must log the error or re-throw"
+@RULE lvl=MUST | when="returning errors to API clients" | then="use generic error messages — never expose stack traces, internal paths, or system state"

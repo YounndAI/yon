@@ -1,0 +1,127 @@
+Incident Postmortem — INC-2024-0892: Authentication Service Complete Outage
+
+Severity: SEV-1 (Critical)
+Duration: 2 hours 47 minutes (14:23 UTC to 17:10 UTC, November 8, 2024)
+Status: Resolved
+Author: Maria Torres, SRE Lead
+Reviewers: David Park (VP Engineering), Aisha Okafor (Platform Lead), Tom Nakamura (Security)
+
+Executive Summary:
+
+On November 8, 2024, our authentication service experienced a complete outage lasting 2 hours and 47 minutes. During this period, approximately 94,000 users were unable to log in, and 12,000 active sessions expired without renewal. The direct revenue impact is estimated at $186,000 in lost transactions. The root cause was a misconfigured certificate rotation that deployed an expired TLS certificate to 3 of 4 auth service pods, combined with a health check that didn't validate certificate expiry. The incident was exacerbated by inadequate monitoring coverage — our certificate expiry alerts were configured on the load balancer but not on individual pods.
+
+Timeline (All Times UTC):
+
+13:45 — Automated certificate rotation job runs as scheduled. It successfully generates new certificates from our internal CA and deploys them to the certificate store. However, due to a configuration error introduced in PR #4782 (merged October 29), the rotation job uses the wrong certificate profile. The profile specifies a 0-day validity period instead of 90 days. This means the certificates are already expired at the moment of creation.
+
+13:47 — Certificate store updated. Pods auth-service-1, auth-service-2, and auth-service-3 pick up the new certificates within their 2-minute refresh interval. Pod auth-service-4 does not refresh because it's in a rolling restart from an unrelated deployment (#deploy-auth-v3.12.1).
+
+14:15 — First user reports "unable to log in" in support channel. Support categorizes as individual user issue and suggests clearing cookies.
+
+14:23 — Monitoring detects spike in 5xx errors from auth-service. PagerDuty alert fires for "Auth Service Error Rate > 5%". On-call engineer Rajesh Patel acknowledges the alert.
+
+14:28 — Rajesh checks the auth-service dashboard. Error rate has jumped from 0.1% to 67%. He notices that 3 out of 4 pods are rejecting requests with TLS handshake failures. Pod 4 (which didn't refresh) is functioning normally and handling all traffic through the load balancer's health-check routing.
+
+14:35 — Rajesh escalates to SEV-1 and pages the auth team. War room opened in #inc-2024-0892 Slack channel. Maria Torres (SRE Lead) joins as incident commander.
+
+14:42 — Auth team identifies TLS handshake errors in pod logs. The error message is: "tls: failed to verify certificate: x509: certificate has expired or is not yet valid". Root cause identified as certificate issue but the specific cause (rotation job misconfiguration) is not yet known.
+
+14:50 — Team attempts to restart the affected pods, hoping they'll pick up the correct certificates. Pods restart but immediately load the same expired certificates from the certificate store. Error rate remains at 67%.
+
+14:55 — Team checks the certificate store directly. All certificates in the store show "Not After: November 8, 2024 13:45:00 UTC" — meaning they expired at the moment of creation. The team now understands the problem is in the certificate rotation, not the pods.
+
+15:10 — Team manually generates new certificates using the correct profile. New certificates are uploaded to the certificate store. However, pods don't immediately refresh because the certificate refresh interval is 2 minutes and the pods are in a crash-loop.
+
+15:15 — Team performs a rolling restart of all 4 pods. Pods 1, 2, and 3 come up with valid certificates. Pod 4 (which was working on the old certs) also gets the new certificates.
+
+15:20 — All 4 pods operational. Error rate drops from 67% to 2%. The remaining 2% is from stale client connections that haven't retried.
+
+15:35 — Error rate returns to normal (0.1%). On-call confirms service fully restored. However, approximately 12,000 sessions that expired during the outage have not been renewed. Users must re-authenticate.
+
+15:40 — Team begins investigating root cause of the certificate profile misconfiguration. PR #4782 is identified as the source — it changed the rotation job configuration but used a test profile (0-day validity) instead of the production profile (90-day validity). The PR was approved by one reviewer who didn't catch the incorrect profile name.
+
+16:00 — Hotfix PR #4891 submitted to revert certificate profile to production values. Reviewed by 2 engineers and merged.
+
+17:10 — Full root cause analysis complete. Incident marked as resolved. Post-incident review scheduled for November 12.
+
+Impact Assessment:
+
+User impact:
+- 94,000 unique users unable to authenticate during the outage window
+- 12,000 active sessions expired without renewal (users required to re-login)
+- Customer support received 2,340 tickets related to login failures
+- 89% of tickets auto-resolved after service restoration, 11% (257 tickets) required manual follow-up
+
+Revenue impact:
+- E-commerce transactions blocked during login-gated checkout: estimated $186,000
+- Premium subscription renewals deferred (auto-renew failed): $23,000 (recovered within 24 hours)
+- Total direct revenue impact: $186,000 (net of recovered renewals)
+
+SLA impact:
+- Monthly uptime target: 99.95%
+- This incident consumed 2h47m of our 21.9-minute monthly budget (for a 30-day month)
+- We will breach our SLA commitment for November. Customer credits estimated at $42,000.
+
+Internal impact:
+- 7 engineers engaged for 2h47m (19.5 person-hours)
+- On-call escalation triggered for 3 teams (auth, platform, SRE)
+- 1 sprint planning session disrupted (auth team, November 11 sprint)
+
+Root Cause Analysis:
+
+The root cause is a combination of three failures:
+
+1. Configuration Error (Primary): PR #4782, merged October 29, changed the certificate rotation job's configuration. The PR author used a test certificate profile name ("cert-profile-test-0d") instead of the production profile ("cert-profile-prod-90d"). The test profile generates certificates with 0-day validity (immediate expiry, used for rotation testing). The PR was reviewed by one engineer who approved it without verifying the profile name against the deployment runbook.
+
+2. Insufficient Health Checks (Contributing): The auth service's Kubernetes health check (readinessProbe) validates that the HTTPS port is open but does NOT validate certificate validity. A probe that checked TLS handshake success would have detected the expired certificates immediately and removed the pod from the load balancer before users were affected. The health check was written 2 years ago when the service used load-balancer-terminated TLS. When we moved to pod-level TLS (June 2024), the health check was not updated.
+
+3. Monitoring Gap (Contributing): Certificate expiry alerts were configured on the AWS ALB (load balancer) but not on individual pod certificates. Since we moved to pod-level TLS, the ALB no longer terminates TLS and therefore has no visibility into pod certificate state. The monitoring configuration was not updated during the TLS migration.
+
+The combined effect: a bad certificate was created, health checks didn't catch it, and monitoring didn't alert on it. The 30-minute gap between first user report (14:15) and PagerDuty alert (14:23) represents 8 minutes of silent failure where the error rate was building.
+
+Action Items:
+
+Immediate (complete by November 15):
+- AI-1: Revert certificate profile to production values — DONE (PR #4891, merged Nov 8)
+- AI-2: Add TLS handshake validation to auth service readiness probe — Owner: Rajesh Patel
+- AI-3: Add certificate expiry monitoring to all pods (not just ALB) — Owner: Maria Torres
+- AI-4: Audit all services using pod-level TLS for consistent health checks — Owner: Aisha Okafor
+
+Short-term (complete by November 30):
+- AI-5: Add certificate profile validation to CI/CD pipeline (reject "test" profiles in production branches) — Owner: David Park
+- AI-6: Implement certificate rotation dry-run mode that validates new certificates before deployment — Owner: Tom Nakamura
+- AI-7: Update alerting playbook to include certificate rotation failures as SEV-1 triggers — Owner: Maria Torres
+- AI-8: Reduce certificate refresh interval from 2 minutes to 30 seconds — Owner: Rajesh Patel
+
+Long-term (complete by December 31):
+- AI-9: Implement automated rollback for certificate rotation (if new cert fails handshake, revert to previous) — Owner: Platform Team
+- AI-10: Add end-to-end TLS health monitoring across all services (synthetic probe from external endpoints) — Owner: SRE Team
+- AI-11: Create certificate management runbook with mandatory profile verification checklist — Owner: Tom Nakamura
+- AI-12: Conduct team-wide incident response training focused on TLS/certificate troubleshooting — Owner: Maria Torres
+
+Contributing Factors and Prevention:
+
+What went well:
+- PagerDuty alerted within 8 minutes of error rate spike
+- War room established within 12 minutes of alert
+- Root cause identified within 20 minutes of escalation
+- Pod 4 acting as inadvertent canary prevented complete zero-availability scenario
+- Communication to stakeholders was timely (status page updated at 14:40, customer email at 15:00)
+
+What went wrong:
+- Review process: PR #4782 was approved with only 1 reviewer. Critical infrastructure changes should require 2 reviewers.
+- Health check design: readinessProbe didn't validate actual TLS functionality
+- Monitoring coverage: TLS monitoring gap existed since June 2024 (5 months undetected)
+- Initial response: First user report at 14:15 was dismissed as individual issue. If escalated immediately, detection would have been 8 minutes faster.
+- Documentation: No runbook existed for certificate rotation failures
+
+Detected by: Automated monitoring (PagerDuty error rate alert)
+Time to detect: 38 minutes (from certificate deployment at 13:45 to PagerDuty alert at 14:23)
+Time to mitigate: 57 minutes (from alert at 14:23 to all pods operational at 15:20)
+Time to resolve: 2 hours 47 minutes (from first impact to full resolution including session recovery)
+
+Metrics for tracking action item effectiveness:
+- Certificate rotation success rate (target: 100%)
+- TLS handshake failure detection latency (target: < 30 seconds)
+- Mean time to detect TLS issues (target: < 5 minutes)
+- Health check coverage for pod-level TLS services (target: 100%)

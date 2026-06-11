@@ -1,0 +1,13 @@
+@DOC ver=2.0 | id=invoiceflow-errors | title="InvoiceFlow Error Codes" | kind=data | profile=decl | fmt=min
+@MAP id=AUTH_001 | http:int=401 | msg="Missing/invalid Bearer token" | retry=no
+@MAP id=AUTH_002 | http:int=403 | msg="Insufficient role" | retry=no
+@MAP id=AUTH_003 | http:int=403 | msg="Resource belongs to another team" | retry=no
+@MAP id=VAL_001 | http:int=400 | msg="Invalid field — see details" | retry=no
+@MAP id=VAL_002 | http:int=400 | msg="Invoice total must be >0" | retry=no
+@MAP id=VAL_003 | http:int=400 | msg="Due date must be future" | retry=no
+@MAP id=VAL_004 | http:int=409 | msg="Not draft — cannot update" | retry=no
+@MAP id=VAL_005 | http:int=409 | msg="Cannot send without due_date" | retry=no
+@MAP id=PAY_001 | http:int=400 | msg="Amount exceeds remaining balance" | retry=no
+@MAP id=PAY_002 | http:int=409 | msg="Invoice not sent/overdue" | retry=no
+@MAP id=PAY_003 | http:int=409 | msg="Duplicate payment reference" | retry=no
+@MAP id=RATE_001 | http:int=429 | msg="Rate limit exceeded" | retry=yes

@@ -1,0 +1,127 @@
+{
+  "hospital": {
+    "name": "Riverside General Hospital",
+    "founded": 1962,
+    "address": "1200 Riverside Drive, Portland, Oregon 97201",
+    "total_licensed_beds": 520,
+    "total_employees": 4200,
+    "annual_operating_budget": "$890 million",
+    "emr_system": "Epic",
+    "emr_implemented": 2019,
+    "helicopter_pad": true,
+    "helicopter_pad_since": 2008,
+    "university_affiliation": "OHSU",
+    "magnet_recognition": 2024,
+    "parking_spaces": 2400,
+    "visiting_hours": "10am-8pm daily"
+  },
+  "departments": [
+    {
+      "name": "Emergency Medicine",
+      "floor": "1 (Ground)",
+      "head": "Dr. Rachel Nguyen",
+      "hours": "24/7",
+      "beds": 42,
+      "trauma_bays": 8,
+      "resuscitation_rooms": 3,
+      "annual_visits": 85000,
+      "triage_target_minutes": 15
+    },
+    {
+      "name": "Cardiology",
+      "floor": "3",
+      "head": "Dr. Marcus Webb",
+      "hours": "7am-7pm weekdays, 8am-2pm Saturdays",
+      "cath_labs": 2,
+      "ep_lab": 1,
+      "heart_failure_clinic": "Tuesday and Thursday"
+    },
+    {
+      "name": "Orthopedics",
+      "floor": "4",
+      "head": "Dr. Yuki Sato",
+      "hours": "8am-5pm weekdays",
+      "operating_rooms": 3,
+      "annual_replacements": 1200,
+      "success_rate": "98.5%"
+    },
+    {
+      "name": "Pediatrics",
+      "floor": "5",
+      "head": "Dr. Amara Okafor",
+      "nicu_beds": 20,
+      "nicu_level": "III",
+      "general_beds": 15
+    },
+    {
+      "name": "Obstetrics & Gynecology",
+      "floor": "5 (West Wing)",
+      "head": "Dr. Sarah Lin",
+      "annual_deliveries": 3500,
+      "labor_rooms": 4,
+      "csection_ors": 2,
+      "postpartum_rooms": 12
+    },
+    {
+      "name": "Oncology",
+      "floor": "6",
+      "head": "Dr. Ibrahim Hassan",
+      "specialization": "lung and GI cancers",
+      "infusion_chairs": 15,
+      "daily_census": 45,
+      "active_clinical_trials": 12
+    },
+    {
+      "name": "Neurology",
+      "floor": "7",
+      "head": "Dr. Elena Popov",
+      "certification": "Comprehensive Stroke Center",
+      "door_to_needle_minutes": 28,
+      "national_target_minutes": 60
+    },
+    {
+      "name": "Radiology",
+      "floor": "Basement Level 1",
+      "head": "Dr. David Park",
+      "mri_machines": 3,
+      "ct_scanners": 2,
+      "xray_rooms": 4,
+      "pet_ct": 1,
+      "ultrasound_suites": 2,
+      "annual_images": 250000
+    },
+    {
+      "name": "Pathology & Laboratory",
+      "floor": "Basement Level 2",
+      "head": "Dr. Linda Frost",
+      "accreditation": "CAP",
+      "annual_tests": 1800000,
+      "stat_cbc_minutes": 30,
+      "routine_chemistry_hours": 2,
+      "histology_hours": 48
+    },
+    {
+      "name": "Psychiatry",
+      "floor": "8 (secured unit)",
+      "head": "Dr. Michael Chen",
+      "acute_beds": 24,
+      "detox_beds": 6,
+      "telepsychiatry_clinics": 3,
+      "telepsychiatry_radius_miles": 100
+    },
+    {
+      "name": "Physical Therapy & Rehabilitation",
+      "floor": "2",
+      "head": "Dr. Katherine Walsh",
+      "gym_sqft": 6000,
+      "has_pool": true,
+      "weekly_outpatients": 200
+    },
+    {
+      "name": "Administration",
+      "floor": "9",
+      "head": "CEO Thomas Rivera",
+      "connected_devices": 15000
+    }
+  ]
+}

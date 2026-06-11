@@ -1,0 +1,12 @@
+@DOC ver=2.0 | id=api-rules | title="API Rules and Endpoints" | kind=rule | profile=exec | fmt=ultra
+@SEC name=Authentication
+@RULE lvl=must | when="rate limited" | then="Return 429 on rate limit"
+@RULE lvl=must | when="API request" | then="Authorization header required"
+@SEC name="User Management"
+@RULE lvl=must | when="creating user" | then="Email unique per org"
+@RULE lvl=must | when="PATCH /users/:id" | then="PATCH /users/:id, email verification required"
+@RULE lvl=must | when="user is already archived" | then="Return 410 if archived"
+@MAP id=Authentication | pairs=["auth"->"Bearer token OAuth2, 3600s TTL, 30d refresh","token_issuance"->"/auth/token issues tokens","refresh_tokens"->"Refresh tokens single-use"]
+@MAP id=RateLimiting | pairs=["rate_limit"->"500 req/min globally"]
+@MAP id=TokenAccess | pairs=["token_access"->"Admin tokens: all orgs, User tokens: own org"]
+@MAP id=UserManagement | pairs=["create_user"->"POST /users creates user","admin"->"full access","member"->"default role","viewer"->"read-only","list_users"->"GET /users paginated","get_user"->"GET /users/:id returns user","delete_user"->"DELETE /users/:id soft-delete"]

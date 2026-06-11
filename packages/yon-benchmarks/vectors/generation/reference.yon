@@ -1,0 +1,18 @@
+@DOC ver=2.0 | id=reference | title="Reference Generation Template" | kind=benchmark | profile=exec | fmt=canon
+
+@SEC name="Purpose"
+@NOTE text="Reference document that LLMs will be asked to replicate."
+@NOTE text="Tests whether LLMs can produce structurally valid YON from spec examples."
+
+@SEC name="Configuration"
+@CFG id=app | set=[app_name=TaskFlow,version="3.2.1",environment=production]
+
+@SEC name="Access Rules"
+@RULE lvl=MUST | when="user role is admin" | then="allow all operations"
+@RULE lvl=MUST | when="user role is viewer" | then="allow read-only access"
+@RULE lvl=MUST_NOT | when="user is unauthenticated" | then="allow any API access"
+
+@SEC name="Settings"
+@MAP name=Defaults | pairs=["timeout_ms:int"->"5000","retries:int"->"3","log_level"->"info"]
+
+@STAMP ts:ts=2026-02-12T19:00:00Z | src=benchmarks

@@ -1,0 +1,16 @@
+@DOC ver=2.0 | id=api-authentication-rules | title="API Authentication Rules" | kind=rule | profile=exec | fmt=canon
+
+@SEC name=Authentication
+@NOTE text="Authentication uses Bearer token OAuth2 with a 3600 second TTL and 30-day refresh."
+@RULE lvl=must | when="API requests are made" | then="All API requests must include the Authorization header with a valid bearer token."
+
+@SEC name="Rate Limiting"
+@RULE lvl=must | when="Rate limit is exceeded" | then="When rate limited, return 429 with Retry-After header."
+@NOTE text="Rate limit is 500 requests per minute globally."
+
+@SEC name="Token Access"
+@NOTE text="Admin tokens can access all organizations. User tokens can only access their own organization."
+
+@SEC name="Token Issuance"
+@NOTE text="Tokens are issued by the /auth/token endpoint using client credentials or authorization code flow."
+@NOTE text="Refresh tokens can be used once and are invalidated after use. A new refresh token is issued with each access token."

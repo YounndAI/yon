@@ -1,0 +1,13 @@
+@DOC ver=2.0 | id=routing-policy | title="Request Routing Policy" | kind=rule | mode=text | profile=decl | fmt=min
+
+@INTENT goal="Define ordered fallback chain for request handling with strict timeout enforcement" | audience="Backend engineers, SRE"
+
+@SEC name="Fallback Chain"
+@NOTE text="Chain is strictly ordered. Each handler gets exactly one attempt. Total chain timeout: 2000ms."
+@MAP id=Handlers | pairs=["handler-a (primary)"->"Live API call with 500ms timeout","handler-b (secondary)"->"Replica service with 1000ms timeout","handler-c (tertiary)"->"Cached response from Redis (stale OK, max 24h)","fallback (last-resort)"->"Return 503 with retry-after header"]
+
+@SEC name="Chain Rules"
+@RULE lvl=MUST | when="handler fails" | then="proceed to next handler in chain — never retry failed handler"
+@RULE lvl=MUST | when="all handlers exhausted" | then="execute last-resort fallback"
+
+@CHECK rid=chk:chain-timeout | assert="total chain execution does not exceed 2000ms" | fail=ABORT | msg="Chain timeout budget exceeded"

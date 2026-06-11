@@ -1,0 +1,543 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.dialogue",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Conversational AI, dialogue management, turn-taking, and multi-agent communication",
+  "defaultMode": "chat",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "TURN",
+      "description": "Dialogue turn — single utterance in a conversation with role and intent classification",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "turn:conv42-003"
+        },
+        {
+          "name": "role",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "user",
+            "assistant",
+            "system",
+            "tool",
+            "agent"
+          ],
+          "description": "Speaker Role: user, assistant, system, tool, agent",
+          "example": "user"
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "required": false,
+          "description": "Utterance Content",
+          "example": "Book a flight to Tokyo next Friday"
+        },
+        {
+          "name": "intent",
+          "type": "string",
+          "required": false,
+          "description": "Classified Intent",
+          "example": "book_flight"
+        },
+        {
+          "name": "confidence",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            1
+          ],
+          "description": "Intent Confidence (0–1)",
+          "example": "0.94"
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "required": false,
+          "description": "Language",
+          "example": "en-US"
+        },
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": false,
+          "description": "Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-01T14:22:05Z"
+        },
+        {
+          "name": "turn_number",
+          "type": "int",
+          "required": false,
+          "description": "Turn Number",
+          "example": "3"
+        }
+      ]
+    },
+    {
+      "tag": "ACK",
+      "description": "Acknowledgement — confirmation of receipt with optional feedback or correction",
+      "fields": [
+        {
+          "name": "turn_ref",
+          "type": "string",
+          "required": false,
+          "description": "Turn Reference",
+          "example": "turn:conv42-003"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "received",
+            "understood",
+            "clarification-needed",
+            "rejected",
+            "accepted"
+          ],
+          "description": "Acknowledgement Status: received, understood, clarification-needed, rejected, accepted",
+          "example": "understood"
+        },
+        {
+          "name": "feedback",
+          "type": "string",
+          "required": false,
+          "description": "Feedback",
+          "example": "Confirmed one-way flight"
+        },
+        {
+          "name": "correction",
+          "type": "string",
+          "required": false,
+          "description": "Correction",
+          "example": "Round-trip, not one-way"
+        },
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": false,
+          "description": "Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-01T14:22:08Z"
+        }
+      ]
+    },
+    {
+      "tag": "CONTEXT",
+      "description": "Dialogue context — conversational state and slot values for session tracking",
+      "fields": [
+        {
+          "name": "session_ref",
+          "type": "string",
+          "required": true,
+          "description": "Session Reference",
+          "example": "sess:conv42"
+        },
+        {
+          "name": "slots",
+          "type": "string",
+          "required": false,
+          "description": "Slot Values (JSON)",
+          "example": "{\"destination\":\"Tokyo\",\"date\":\"2026-03-07\"}"
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "greeting",
+            "information-gathering",
+            "processing",
+            "confirmation",
+            "farewell",
+            "escalation"
+          ],
+          "description": "Dialogue State (6 allowed values)",
+          "example": "confirmation"
+        },
+        {
+          "name": "topic",
+          "type": "string",
+          "required": false,
+          "description": "Current Topic",
+          "example": "flight-booking"
+        },
+        {
+          "name": "sentiment",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "positive",
+            "neutral",
+            "negative",
+            "frustrated"
+          ],
+          "description": "User Sentiment: positive, neutral, negative, frustrated",
+          "example": "positive"
+        },
+        {
+          "name": "entities",
+          "type": "string",
+          "required": false,
+          "description": "Extracted Entities (JSON)",
+          "example": "[\"Tokyo\",\"next Friday\"]"
+        }
+      ]
+    },
+    {
+      "tag": "PROMPT",
+      "description": "Prompt template — reusable instruction with variables and model targeting",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "pmt:flight-booking-v3"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Prompt Name",
+          "example": "flight-booking-confirmation"
+        },
+        {
+          "name": "template",
+          "type": "string",
+          "required": false,
+          "description": "Template",
+          "example": "Confirm {destination} on {date} for {passenger}"
+        },
+        {
+          "name": "variables",
+          "type": "string",
+          "required": false,
+          "description": "Variables (JSON)",
+          "example": "[\"destination\",\"date\",\"passenger\"]"
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "gpt-4o",
+            "claude-4",
+            "gemini-2.5",
+            "llama-4",
+            "mistral-large",
+            "custom"
+          ],
+          "description": "Target Model (6 allowed values)",
+          "example": "gpt-4o"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": false,
+          "description": "Version",
+          "example": "3.1"
+        },
+        {
+          "name": "temperature",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            2
+          ],
+          "description": "Temperature in 0-2 (0–2)",
+          "unit": "0-2",
+          "example": "0.3"
+        },
+        {
+          "name": "max_tokens",
+          "type": "int",
+          "required": false,
+          "description": "Max Tokens",
+          "example": "512"
+        }
+      ]
+    },
+    {
+      "tag": "HANDOFF",
+      "description": "Agent handoff — conversation transfer between agents, departments, or escalation tiers",
+      "fields": [
+        {
+          "name": "from_agent",
+          "type": "string",
+          "required": false,
+          "description": "Source Agent",
+          "example": "bot:travel-assistant"
+        },
+        {
+          "name": "to_agent",
+          "type": "string",
+          "required": false,
+          "description": "Target Agent",
+          "example": "human:support-tier2"
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "escalation",
+            "specialization",
+            "capacity",
+            "language",
+            "timeout",
+            "user-request"
+          ],
+          "description": "Handoff Reason (6 allowed values)",
+          "example": "escalation"
+        },
+        {
+          "name": "context_summary",
+          "type": "string",
+          "required": false,
+          "description": "Context Summary",
+          "example": "User booking flight to Tokyo, payment issue"
+        },
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": false,
+          "description": "Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-01T14:25:00Z"
+        },
+        {
+          "name": "priority",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "low",
+            "normal",
+            "high",
+            "urgent"
+          ],
+          "description": "Priority: low, normal, high, urgent",
+          "example": "high"
+        }
+      ]
+    },
+    {
+      "tag": "ANNOTATION",
+      "description": "Dialogue annotation — human or QA label applied to conversation data",
+      "fields": [
+        {
+          "name": "turn_ref",
+          "type": "string",
+          "required": false,
+          "description": "Turn Reference",
+          "example": "turn:conv42-003"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Annotation Label",
+          "example": "correct-intent"
+        },
+        {
+          "name": "annotator",
+          "type": "string",
+          "required": false,
+          "description": "Annotator",
+          "example": "qa:sarah-m"
+        },
+        {
+          "name": "confidence",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            1
+          ],
+          "description": "Label Confidence (0–1)",
+          "example": "0.92"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "intent",
+            "entity",
+            "sentiment",
+            "quality",
+            "safety",
+            "hallucination"
+          ],
+          "description": "Annotation Category (6 allowed values)",
+          "example": "quality"
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "required": false,
+          "description": "Notes",
+          "example": "Intent correct but entity date ambiguous"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Conversational AI and dialogue management for chat systems",
+    "highlights": [
+      "TURN",
+      "CONTEXT",
+      "HANDOFF"
+    ],
+    "use_cases": [
+      {
+        "id": "conversational-ai",
+        "title": "Multi-Channel Conversational AI Bot",
+        "steps": [
+          "Parse @UTTERANCE for @INTENT classification and @ENTITY extraction",
+          "Fill @SLOT values from extracted entities and context",
+          "Execute @FLOW decision logic based on intent and slot state",
+          "Generate @RESPONSE with natural language and rich media",
+          "Log conversation for training data refinement"
+        ],
+        "example": "@INTENT rid=int:1 | name=\"book_flight\" | confidence:float=0.94 | utterance_ref=\"utt:42\"",
+        "tags_used": [],
+        "description": "Process user utterances across web, voice, and messaging channels. Classify intents, extract entities, manage dialogue state, and generate contextual responses.",
+        "tags": [
+          "UTTERANCE",
+          "INTENT",
+          "CONTEXT",
+          "RESPONSE"
+        ],
+        "tags_planned": [
+          "UTTERANCE",
+          "INTENT",
+          "ENTITY",
+          "SLOT",
+          "FLOW",
+          "RESPONSE"
+        ]
+      },
+      {
+        "id": "voice-assistant",
+        "title": "Voice Assistant Pipeline",
+        "steps": [
+          "Transcribe @UTTERANCE from speech-to-text (ASR)",
+          "Classify @INTENT with domain-specific NLU model",
+          "Extract @ENTITY mentions (dates, locations, amounts)",
+          "Resolve @SLOT dependencies and prompt for missing values",
+          "Synthesize @RESPONSE via text-to-speech (TTS)"
+        ],
+        "example": "@UTTERANCE rid=utt:1 | text=\"Book a flight to Tokyo next Friday\" | channel=\"voice\" | lang=\"en-US\" | confidence:float=0.97",
+        "tags_used": [],
+        "description": "Handle speech-to-text input, intent routing, multi-turn context management, and text-to-speech output for voice-first interfaces with evaluation scoring.",
+        "tags": [
+          "UTTERANCE",
+          "INTENT",
+          "RESPONSE",
+          "EVAL",
+          "CONTEXT"
+        ],
+        "tags_planned": [
+          "UTTERANCE",
+          "INTENT",
+          "ENTITY",
+          "SLOT",
+          "RESPONSE"
+        ]
+      }
+    ],
+    "tag_context": {
+      "TURN": {
+        "purpose": "Single dialogue utterance with role, intent classification, confidence, and turn ordering",
+        "when_to_use": "Conversation logging, dialogue history serialization, training data annotation, turn-level analytics",
+        "related_standards": [
+          "W3C Web Speech API",
+          "Rasa Open Source"
+        ]
+      },
+      "ACK": {
+        "purpose": "Message acknowledgement with status, optional feedback, and correction for agent coordination",
+        "when_to_use": "Receipt confirmation in multi-agent systems, clarification requests, user feedback capture, QA loops",
+        "related_standards": [
+          "HTTP 202 Accepted",
+          "MQTT QoS",
+          "AMQP 1.0 Disposition"
+        ]
+      },
+      "CONTEXT": {
+        "purpose": "Conversational state snapshot with filled slots, dialogue phase, sentiment, and extracted entities",
+        "when_to_use": "Session state persistence, slot filling checkpoints, dialogue policy input, context handoff between agents",
+        "related_standards": [
+          "OpenAI Assistants",
+          "LangChain Memory",
+          "Mem0 API"
+        ]
+      },
+      "PROMPT": {
+        "purpose": "Reusable prompt template with variable placeholders, model targeting, and generation parameters",
+        "when_to_use": "Prompt registry management, A/B testing prompts, version-controlled instruction sets, model configuration",
+        "related_standards": [
+          "DSPy Signatures",
+          "Guidance (Microsoft)",
+          "LMQL"
+        ]
+      },
+      "HANDOFF": {
+        "purpose": "Conversation transfer between agents or departments with context summary and priority",
+        "when_to_use": "Agent escalation, specialist routing, capacity overflow, language switching, user-initiated transfers",
+        "related_standards": [
+          "LivePerson Handoff",
+          "Genesys Routing",
+          "Twilio Flex"
+        ]
+      },
+      "ANNOTATION": {
+        "purpose": "Human or QA label applied to dialogue data for quality, safety, or training purposes",
+        "when_to_use": "Training data labeling, quality assurance review, safety classification, hallucination detection",
+        "related_standards": [
+          "W3C Web Annotation",
+          "Prodigy (spaCy)",
+          "Label Studio"
+        ]
+      }
+    },
+    "links": [
+      {
+        "label": "Rasa Open Source",
+        "url": "https://rasa.com/",
+        "type": "reference"
+      },
+      {
+        "label": "OASIS DITA",
+        "url": "https://www.oasis-open.org/",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.sessions",
+        "relationship": "bridge",
+        "reason": "Session management for conversations"
+      }
+    ],
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

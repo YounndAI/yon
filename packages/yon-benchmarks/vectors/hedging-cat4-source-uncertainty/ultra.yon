@@ -1,0 +1,2 @@
+@DOC ver=2.0 | id=hedging-cat4-auth-issues | title="Authentication Issues" | kind=rule | profile=decl | fmt=ultra
+@MAP id=ReportedIssues | pairs=["auth"->"apparently race condition in token refresh","pool"->"I heard connection pool maxed out","release"->"supposedly fixes memory leak, nobody confirmed yet"]

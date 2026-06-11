@@ -1,0 +1,1 @@
+{"authentication":{},"users":{},"orders":{},"products":{},"invoices":{},"subscriptions":{},"payments":{},"validation":{},"webhooks":{},"error_codes":{},"compliance":{"gdpr":[],"soc2":[],"pci_dss":[],"hipaa":[]},"rate_limiting":{},"shipping":{},"inventory":{},"notifications":{},"analytics":{},"reporting":{},"caching":{},"observability":{},"architecture":{}}

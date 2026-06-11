@@ -1,0 +1,43 @@
+@DOC ver=2.0 | id=adr-0047 | title="ADR-0047: Event-Driven Order Pipeline" | kind=spec | profile=decl | fmt=ultra
+@STAMP ts:ts=2024-11-15T00:00:00Z | src=human | label=Accepted
+@NOTE text="Supersedes ADR-0031. Related: ADR-0039, ADR-0042."
+@SEC name="Context"
+@MAP id=iss | pairs=["cascade"->"inv p99>2s→23% timeout,1840 fail","coupling"->"7 svcs, loyalty=3d not 4h","state"->"pay ok+ship fail→6h/wk manual","scale"->"sync co-scale, fraud bursty","obs"->"45min diag across 7 logs"]
+@SEC name="Drivers"
+@RULE lvl=MUST | when="Q2-2025" | then="15k/hr"
+@RULE lvl=MUST | when="peak" | then="<1% fail (was 3.2%)"
+@RULE lvl=MUST | when="new consumer" | then="no order svc mod"
+@RULE lvl=MUST | when="diag" | then="<5min"
+@RULE lvl=MUST | when="cost" | then="<40% infra increase"
+@SEC name="Alt A: Kafka"
+@MAP id=ap | pairs=["pro"->"decouple,partition-scale,audit-replay","con"->"distributed-logic,multi-topic-debug,no-saga,event-storms"]
+@SEC name="Alt B: Temporal"
+@MAP id=bp | pairs=["pro"->"single-workflow,built-in-saga,per-activity-retry,queryable-history","con"->"central-coord,vendor-lock,2-3-sprint-learn"]
+@SEC name="Decision"
+@NOTE text="Alt C: Temporal core + Kafka analytics. Saga reliability + independent scaling + analytics firehose."
+@SEC name="Cost"
+@MAP id=$ | pairs=["temporal"->"76.6M act/mo=$1900","kafka"->"$800","total"->"$2700 (<40%)"]
+@SEC name="Steps"
+@STEP rid=step:validate | n:int=1 | op=validate_order | note="avail+elig,5s,readonly"
+@STEP rid=step:pricing | n:int=2 | op=calc_pricing | note="coupons+tax,10s,readonly"
+@STEP rid=step:fraud | n:int=3 | op=fraud_check | note="ML,30s,retry2,manual-if-flagged"
+@STEP rid=step:reserve | n:int=4 | op=reserve_inv | note="15min-TTL,10s,retry3,comp:release"
+@STEP rid=step:pay | n:int=5 | op=process_pay | note="stripe,30s,retry2,comp:refund"
+@STEP rid=step:ship | n:int=6 | op=create_ship | note="tracking,15s,retry3,comp:cancel"
+@STEP rid=step:final | n:int=7 | op=finalize | note="status+kafka+notify,5s,idempotent"
+@SEC name="Kafka"
+@MAP id=k | pairs=["orders.completed"->"by cust_id","orders.failed"->"by order_id"]
+@CFG key=schema | value=Avro
+@CFG key=ret:int | value:int=30
+@SEC name="Alerts"
+@RULE lvl=MUST | when="fail>2%/15m" | then="PD"
+@RULE lvl=MUST | when="dur>45s" | then="Slack"
+@RULE lvl=MUST | when="comp>5%" | then="PD"
+@RULE lvl=MUST | when="lag>10k" | then="Slack"
+@SEC name="Migration"
+@MAP id=m | pairs=["67-68"->"shadow(both,compare)","69"->"canary 10→50%","70"->"100%,decom old,rollback 2sp"]
+@SEC name="Risks"
+@MAP id=r | pairs=["outage"->"sync fallback 2sp","lag"->"alert+autoscale","learn"->"2sp onboard+pair","schema"->"compat Avro+registry","dupes"->"idemp keys,2-retry"]
+@SEC name="Consequences"
+@MAP id=p | pairs=["trace"->"Temporal UI e2e","recon"->"auto comp −6h/wk","scale"->"independent workers","extend"->"Kafka sub no code"]
+@MAP id=n | pairs=["learn"->"2-3sp Temporal","infra"->"2 systems","consist"->"eventual analytics/loyalty"]

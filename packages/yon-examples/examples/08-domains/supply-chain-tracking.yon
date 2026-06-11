@@ -1,0 +1,16 @@
+@DOC ver=2.0 | id=supply-chain-tracking | title="Supply Chain Tracking" | domain=yai.logistics@1.0 | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Track shipment from warehouse to delivery with checkpoint validation."
+
+@STEP n:int=1 | rid=create-shipment | op=domain:shipment.create@v1 | out=[ref:shipment]
+
+@SEC name="Checkpoints"
+@STEP n:int=2 | rid=pick-pack | op=domain:warehouse.dispatch@v1 | in=[ref:shipment] | out=[ref:dispatch]
+@STEP n:int=3 | rid=carrier-handoff | op=domain:carrier.accept@v1 | in=[ref:dispatch] | out=[ref:tracking]
+@STEP n:int=4 | rid=in-transit | op=domain:tracking.update@v1 | in=[ref:tracking]
+@STEP n:int=5 | rid=last-mile | op=domain:delivery.attempt@v1 | in=[ref:tracking] | out=[ref:delivery]
+
+@SEC name="Verification"
+@CHECK rid=gate:delivered | assert="ref:delivery.status == delivered" | fail=WARN | msg="Delivery not confirmed"
+
+@STEP n:int=6 | rid=close | op=domain:shipment.close@v1 | in=[ref:shipment, ref:delivery]

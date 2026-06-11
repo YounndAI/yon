@@ -1,0 +1,546 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.manufacturing",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Production control, quality assurance, work order management, and industrial IoT integration",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "WORK_ORDER",
+      "description": "Manufacturing work order — production job with quantity, routing, and schedule",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "wo:2026-042"
+        },
+        {
+          "name": "product",
+          "type": "string",
+          "required": false,
+          "description": "Product",
+          "example": "Widget-A100"
+        },
+        {
+          "name": "quantity",
+          "type": "int",
+          "required": false,
+          "description": "Order Quantity in units",
+          "unit": "units",
+          "example": "5000"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "planned",
+            "released",
+            "in-progress",
+            "completed",
+            "on-hold",
+            "cancelled"
+          ],
+          "description": "Work Order Status (6 allowed values)",
+          "example": "in-progress"
+        },
+        {
+          "name": "priority",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "low",
+            "normal",
+            "high",
+            "urgent"
+          ],
+          "description": "Priority: low, normal, high, urgent",
+          "example": "high"
+        },
+        {
+          "name": "due_date",
+          "type": "ts",
+          "required": false,
+          "description": "Due Date as ISO 8601 timestamp",
+          "example": "2026-03-15T00:00:00Z"
+        },
+        {
+          "name": "line",
+          "type": "string",
+          "required": false,
+          "description": "Production Line",
+          "example": "Line-3"
+        }
+      ]
+    },
+    {
+      "tag": "BOM",
+      "description": "Bill of materials — hierarchical component list with quantities",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "bom:A100-v3"
+        },
+        {
+          "name": "product",
+          "type": "string",
+          "required": false,
+          "description": "Parent Product",
+          "example": "Widget-A100"
+        },
+        {
+          "name": "component",
+          "type": "string",
+          "required": false,
+          "description": "Component",
+          "example": "Bearing-SKF-6205"
+        },
+        {
+          "name": "quantity",
+          "type": "float",
+          "required": false,
+          "description": "Quantity Per",
+          "example": "4.0"
+        },
+        {
+          "name": "unit",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "pcs",
+            "kg",
+            "liters",
+            "meters",
+            "sheets",
+            "rolls",
+            "sets"
+          ],
+          "description": "Unit of Measure (7 allowed values)",
+          "example": "ea"
+        },
+        {
+          "name": "level",
+          "type": "int",
+          "required": false,
+          "description": "BOM Level",
+          "example": "2"
+        }
+      ]
+    },
+    {
+      "tag": "QUALITY",
+      "description": "Quality inspection — SPC data with pass/fail disposition",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "qi:2026-1450"
+        },
+        {
+          "name": "work_order_ref",
+          "type": "string",
+          "required": false,
+          "description": "Work Order Reference",
+          "example": "wo:2026-042"
+        },
+        {
+          "name": "measurement",
+          "type": "float",
+          "required": false,
+          "description": "Measured Value",
+          "example": "25.03"
+        },
+        {
+          "name": "spec_min",
+          "type": "float",
+          "required": false,
+          "description": "Specification Minimum in mm",
+          "unit": "mm",
+          "example": "24.95"
+        },
+        {
+          "name": "spec_max",
+          "type": "float",
+          "required": false,
+          "description": "Specification Maximum",
+          "example": "25.05"
+        },
+        {
+          "name": "result",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "pass",
+            "fail",
+            "rework",
+            "scrap"
+          ],
+          "description": "Inspection Result: pass, fail, rework, scrap",
+          "example": "pass"
+        },
+        {
+          "name": "inspector",
+          "type": "string",
+          "required": false,
+          "description": "Inspector",
+          "example": "J. Martinez"
+        }
+      ]
+    },
+    {
+      "tag": "MACHINE",
+      "description": "Machine or equipment — OEE tracking with maintenance scheduling",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "mc:CNC-07"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Machine Name",
+          "example": "CNC-Lathe-07"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "running",
+            "idle",
+            "maintenance",
+            "breakdown",
+            "setup"
+          ],
+          "description": "Machine Status: running, idle, maintenance, breakdown, setup",
+          "example": "running"
+        },
+        {
+          "name": "oee",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Overall Equipment Effectiveness in % (0–100)",
+          "unit": "%",
+          "example": "87.0"
+        },
+        {
+          "name": "cycle_time_sec",
+          "type": "float",
+          "required": false,
+          "description": "Cycle Time in seconds",
+          "unit": "seconds",
+          "example": "42.5"
+        },
+        {
+          "name": "location",
+          "type": "string",
+          "required": false,
+          "description": "Location",
+          "example": "Plant A, Bay 3"
+        }
+      ]
+    },
+    {
+      "tag": "DEFECT",
+      "description": "Product defect — root cause analysis and corrective action tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "df:2026-089"
+        },
+        {
+          "name": "work_order_ref",
+          "type": "string",
+          "required": false,
+          "description": "Work Order Reference",
+          "example": "wo:2026-042"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "description": "Defect Type",
+          "example": "dimensional"
+        },
+        {
+          "name": "root_cause",
+          "type": "string",
+          "required": false,
+          "description": "Root Cause",
+          "example": "Worn tool insert"
+        },
+        {
+          "name": "severity",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "minor",
+            "major",
+            "critical"
+          ],
+          "description": "Severity: minor, major, critical",
+          "example": "major"
+        },
+        {
+          "name": "corrective_action",
+          "type": "string",
+          "required": false,
+          "description": "Corrective Action",
+          "example": "Replace tool insert; adjust offset"
+        },
+        {
+          "name": "quantity_affected",
+          "type": "int",
+          "required": false,
+          "description": "Quantity Affected in units",
+          "unit": "units",
+          "example": "12"
+        }
+      ]
+    },
+    {
+      "tag": "INVENTORY",
+      "description": "Inventory level — raw material and WIP tracking with reorder points",
+      "fields": [
+        {
+          "name": "material",
+          "type": "string",
+          "required": false,
+          "description": "Material",
+          "example": "Steel-304-1.5mm"
+        },
+        {
+          "name": "location",
+          "type": "string",
+          "required": false,
+          "description": "Storage Location",
+          "example": "Warehouse A, Bin R-12"
+        },
+        {
+          "name": "quantity",
+          "type": "float",
+          "required": false,
+          "description": "Quantity on Hand",
+          "example": "2500.0"
+        },
+        {
+          "name": "unit",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "pcs",
+            "kg",
+            "liters",
+            "meters",
+            "sheets",
+            "rolls",
+            "sets"
+          ],
+          "description": "Unit of Measure (7 allowed values)",
+          "example": "kg"
+        },
+        {
+          "name": "reorder_point",
+          "type": "float",
+          "required": false,
+          "description": "Reorder Point",
+          "example": "500.0"
+        },
+        {
+          "name": "lot_number",
+          "type": "string",
+          "required": false,
+          "description": "Lot Number",
+          "example": "LOT-2026-0042"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Production control and quality assurance for Industry 4.0 AI",
+    "highlights": [
+      "WORK_ORDER",
+      "QUALITY",
+      "MACHINE"
+    ],
+    "use_cases": [
+      {
+        "id": "smart-factory",
+        "title": "Smart Factory Production Monitoring",
+        "steps": [
+          "Create @WORK_ORDER from customer demand forecast",
+          "Explode @BOM into material requirements and routing",
+          "Monitor @MACHINE OEE, vibration, and temperature in real-time",
+          "Log @DEFECT with root cause and containment action",
+          "Track @INVENTORY consumption against @WORK_ORDER plan"
+        ],
+        "example": "@MACHINE rid=mc:1 | name=\"CNC-Lathe-07\" | status=\"running\" | oee:float=0.87 | cycle_time_sec:float=42.5",
+        "tags_used": [
+          "WORK_ORDER",
+          "BOM",
+          "MACHINE",
+          "DEFECT",
+          "INVENTORY"
+        ],
+        "description": "Track work orders through production stages, monitor machine utilization, and capture quality measurements in real-time. Alert on process deviations and SPC violations.",
+        "tags": [
+          "WORK_ORDER",
+          "QUALITY",
+          "MACHINE",
+          "BOM"
+        ]
+      },
+      {
+        "id": "quality-control",
+        "title": "Statistical Quality Control Pipeline",
+        "steps": [
+          "Sample @DEFECT data from @MACHINE inspection stations",
+          "Run SPC control charts on @DEFECT rates per @SHIFT",
+          "Trigger containment when @DEFECT exceeds control limits",
+          "Trace affected @INVENTORY lots via @BOM component tree",
+          "Issue corrective action and update @WORK_ORDER holds"
+        ],
+        "example": "@DEFECT rid=df:1 | type=\"dimensional\" | severity=\"major\" | machine_ref=\"mc:1\" | lot_ref=\"inv:42\" | disposition=\"scrap\"",
+        "tags_used": [
+          "DEFECT",
+          "MACHINE",
+          "INVENTORY",
+          "BOM",
+          "WORK_ORDER"
+        ],
+        "description": "Collect in-process measurements, apply SPC control charts, and trigger containment actions when quality metrics exceed specification limits. Track material lot traceability.",
+        "tags": [
+          "QUALITY",
+          "BOM",
+          "INVENTORY",
+          "WORK_ORDER"
+        ],
+        "tags_planned": [
+          "SHIFT"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "ISA-95 (IEC 62264)",
+        "url": "https://www.isa.org/",
+        "type": "standard"
+      },
+      {
+        "label": "OPC UA",
+        "url": "https://opcfoundation.org/",
+        "type": "standard"
+      },
+      {
+        "label": "MESA MOM",
+        "url": "https://mesa.org/",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.logistics",
+        "relationship": "often paired",
+        "reason": "Supply chain and shipping"
+      },
+      {
+        "domain": "yai.automotive",
+        "relationship": "data overlap",
+        "reason": "Automotive manufacturing"
+      },
+      {
+        "domain": "yai.aerospace",
+        "relationship": "data overlap",
+        "reason": "Aircraft manufacturing and MRO"
+      }
+    ],
+    "tag_context": {
+      "WORK_ORDER": {
+        "purpose": "Manufacturing work order for production job tracking with quantity, routing, and scheduling",
+        "when_to_use": "Production scheduling, shop floor dispatching, capacity planning, customer order fulfillment",
+        "related_standards": [
+          "ISA-95 (IEC 62264)",
+          "MESA MOM",
+          "ISO 22400 KPI"
+        ]
+      },
+      "BOM": {
+        "purpose": "Hierarchical bill of materials with component quantities and assembly levels",
+        "when_to_use": "Material requirements planning, engineering change management, cost estimation, supplier sourcing",
+        "related_standards": [
+          "ISA-95 Material Model",
+          "IPC-2581 (PCB)",
+          "ISO 8601"
+        ]
+      },
+      "QUALITY": {
+        "purpose": "Quality inspection record with SPC measurement data and pass/fail disposition",
+        "when_to_use": "Incoming inspection, in-process SPC, final inspection, supplier quality audits",
+        "related_standards": [
+          "ISO 9001:2015 QMS",
+          "IATF 16949",
+          "ISO 2859 Sampling"
+        ]
+      },
+      "MACHINE": {
+        "purpose": "Machine or equipment record with OEE tracking, cycle time, and maintenance scheduling",
+        "when_to_use": "Equipment monitoring, predictive maintenance, OEE dashboards, digital twin integration",
+        "related_standards": [
+          "OPC UA (IEC 62541)",
+          "MTConnect",
+          "ISO 23247 Digital Twin"
+        ]
+      },
+      "DEFECT": {
+        "purpose": "Product defect record with root cause analysis, severity, and corrective action tracking",
+        "when_to_use": "Nonconformance reporting, 8D investigations, CAPA tracking, warranty analysis",
+        "related_standards": [
+          "ISO 9001 Nonconformity",
+          "IATF 16949 8D",
+          "AIAG PPAP"
+        ]
+      },
+      "INVENTORY": {
+        "purpose": "Raw material and WIP inventory tracking with reorder points and lot traceability",
+        "when_to_use": "Material tracking, reorder management, lot traceability, cycle counting, JIT replenishment",
+        "related_standards": [
+          "GS1 EPCIS",
+          "ISA-95 Material",
+          "ISO 28219 Labeling"
+        ]
+      }
+    },
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

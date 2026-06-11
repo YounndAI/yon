@@ -1,0 +1,35 @@
+patient intake form for greenfield family medicine
+
+patient name: Sarah Okonkwo
+date of birth: march 15 1988
+gender: female
+address: 4210 Birch Lane, apt 3B, Asheville NC 28801
+phone: (828) 555-0147
+email: s.okonkwo@email.com
+emergency contact: James Okonkwo, husband, (828) 555-0291
+
+insurance: BlueCross BlueShield, policy number BCB-4401882, group number GRP-7720
+primary care physician: Dr. Linda Patel
+referring physician: none (self-referred)
+
+allergies: penicillin (causes rash), shellfish (anaphylaxis - carries epipen), seasonal pollen (mild, takes zyrtec)
+
+current medications:
+- metformin 500mg twice daily for type 2 diabetes, started 2022
+- lisinopril 10mg daily for blood pressure, started 2023
+- vitamin D 2000 IU daily, recommended by PCP
+- birth control (lo loestrin fe), continuous since 2019
+
+medical history:
+- type 2 diabetes diagnosed 2022, managed with diet and metformin, A1C last check was 6.8 in january 2026
+- hypertension diagnosed 2023, controlled with medication
+- appendectomy 2015, no complications
+- fractured left wrist 2019 from a cycling accident, fully healed
+
+family history: father has type 2 diabetes and high cholesterol. mother had breast cancer at age 58 (in remission). maternal grandmother had Alzheimer's.
+
+social history: non-smoker, occasional alcohol (2-3 drinks per week), exercises 3x per week (yoga, hiking), works as a graphic designer from home. no recreational drug use.
+
+reason for visit: annual physical plus follow-up on diabetes management. also wants to discuss recurring headaches that started about 3 months ago, usually behind the right eye, happen 2-3 times per week, last about 4 hours.
+
+vaccination status: COVID fully vaccinated plus boosters (last one sept 2025), flu shot october 2025, Tdap 2021.

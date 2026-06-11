@@ -1,0 +1,28 @@
+{
+  "document": "Compliance Check Framework",
+  "sections": [
+    {
+      "name": "Authentication Rules",
+      "rules": [
+        { "id": "session-timeout", "level": "MUST", "when": "user session active", "then": "enforce 30-minute idle timeout — terminate session after inactivity" },
+        { "id": "mfa-required", "level": "MUST", "when": "accessing admin panel", "then": "require multi-factor authentication before granting access" },
+        { "id": "password-policy", "level": "MUST", "when": "setting user password", "then": "enforce minimum 12 characters with uppercase, lowercase, number, and symbol" }
+      ]
+    },
+    {
+      "name": "Compliance Checks",
+      "checks": [
+        { "target_rule": "session-timeout", "frequency": "quarterly", "method": "automated", "description": "Verify session timeout fires after 30 minutes idle. Test with browser devtools network tab." },
+        { "target_rule": "mfa-required", "frequency": "monthly", "method": "manual", "description": "Attempt admin panel access without MFA — must be blocked. Document in compliance log." },
+        { "target_rule": "password-policy", "frequency": "weekly", "method": "automated", "description": "Run password strength validator against test corpus of 1000 passwords. All must pass." }
+      ]
+    },
+    {
+      "name": "Audit Trail",
+      "notes": ["Each check references its governing rule via target_rule. The reference chain is: check.target_rule → rule.id. This enables automated compliance mapping."],
+      "stamps": [
+        { "who": "compliance-officer", "ts": "2026-02-01T10:00:00Z", "text": "Q1 2026 review: all 3 checks passing. Next review due 2026-04-01." }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "document": "API Security Policy v2",
+  "sections": [
+    {
+      "name": "Authentication",
+      "rules": [
+        { "id": "jwt-auth", "level": "MUST", "when": "calling any API endpoint", "then": "include valid JWT in Authorization header — reject 401 on missing or expired token" },
+        { "id": "api-key", "level": "MUST", "when": "calling public endpoints", "then": "include API key in X-API-Key header — rate limit by key" }
+      ]
+    },
+    {
+      "name": "Rate Limiting",
+      "rules": [
+        { "id": "rate-limit", "level": "MUST", "when": "any client exceeds 1000 requests per minute", "then": "return 429 and block for 300 seconds" }
+      ]
+    }
+  ]
+}

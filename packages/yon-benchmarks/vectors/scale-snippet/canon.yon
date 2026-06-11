@@ -1,0 +1,24 @@
+@DOC ver=2.0 | id=api-rules | title="API Rules and Endpoints" | kind=rule | profile=exec | fmt=canon
+
+@SEC name=Authentication
+@NOTE text="Authentication uses Bearer token OAuth2 with a 3600 second TTL and 30-day refresh."
+@RULE lvl=must | when="rate limited" | then="When rate limited, return 429 with Retry-After header."
+@RULE lvl=must | when="API request" | then="All API requests must include the Authorization header with a valid bearer token."
+@NOTE text="Tokens are issued by the /auth/token endpoint using client credentials or authorization code flow."
+@NOTE text="Refresh tokens can be used once and are invalidated after use. A new refresh token is issued with each access token."
+
+@SEC name="Rate Limiting"
+@NOTE text="Rate limit is 500 requests per minute globally."
+
+@SEC name="Token Access"
+@NOTE text="Admin tokens can access all organizations. User tokens can only access their own organization."
+
+@SEC name="User Management"
+@NOTE text="The users endpoint at POST /users creates a new user. Required fields are name, email, and role."
+@RULE lvl=must | when="creating user" | then="Email must be unique per organization."
+@MAP id=Roles name=Roles | pairs=["admin"->"full access","member"->"default role","viewer"->"read-only"]
+@NOTE text="GET /users returns a paginated list with cursor-based pagination. Default limit is 25, max is 100."
+@NOTE text="GET /users/:id returns a single user or 404 if not found. Includes last_login and created_at."
+@RULE lvl=must | when="PATCH /users/:id" | then="PATCH /users/:id does a partial update with merge semantics. Cannot change email without verification."
+@NOTE text="DELETE /users/:id soft-deletes by setting status to archived. Archived users cannot log in."
+@RULE lvl=must | when="user is already archived" | then="If the user is already archived, return 410 Gone."

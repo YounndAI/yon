@@ -1,0 +1,3 @@
+@DOC ver=2.0 | id=hedging-cat8-architecture | title="Architecture Decisions" | kind=rule | profile=decl | fmt=ultra
+@MAP id=ServiceArchitecture | pairs=["services"->"could split into three, if that makes sense for scale"]
+@MAP id=DataPipeline | pairs=["pattern"->"might benefit from event sourcing, assuming team has bandwidth"]

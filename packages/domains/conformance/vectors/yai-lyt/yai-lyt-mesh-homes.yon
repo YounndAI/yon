@@ -1,0 +1,20 @@
+@DOC ver=2.0 | id=mesh:0190abcd-1234-7000-8abc-def012345678 | title="younndai" | domain=yai.lyt@1.0 | kind=cfg | profile=agent
+
+@MESH rid=mesh:0190abcd-1234-7000-8abc-def012345678
+  | name="younndai"
+  | push_target="younndai"
+  | push_kind=org
+  | main_vault_rid=vault:0190abcd-1234-7000-8abc-def012345679
+  | created_at:ts=2026-05-28T12:00:00Z
+
+@MESH_HOME mesh_rid=mesh:0190abcd-1234-7000-8abc-def012345678
+  | vault_rid=vault:0190abcd-1234-7000-8abc-def012345679
+  | vault_name="main"
+
+@MESH_HOME mesh_rid=mesh:0190abcd-1234-7000-8abc-def012345678
+  | vault_rid=vault:0190abcd-1234-7000-8abc-def01234567a
+  | vault_name="engineering"
+
+@MESH_HOME mesh_rid=mesh:0190abcd-1234-7000-8abc-def012345678
+  | vault_rid=vault:0190abcd-1234-7000-8abc-def01234567b
+  | vault_name="lyt"

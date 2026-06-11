@@ -1,0 +1,17 @@
+{
+  "id": "deploy-rules",
+  "title": "Deploy Requirements",
+  "intent": "Define deployment requirements with explicit priority levels",
+  "sections": {
+    "Production Deploy": {
+      "rules": [
+        { "level": "MUST", "context": "production deploy", "requirement": "require 2 reviewer approvals before merge" },
+        { "level": "SHOULD", "context": "production deploy", "requirement": "include performance benchmarks in PR" },
+        { "level": "MAY", "context": "production deploy", "requirement": "notify the #releases Slack channel" }
+      ],
+      "checks": [
+        { "id": "chk:approvals", "assertion": "2 reviewers approved before merge", "onFailure": "abort", "message": "Reviewer approval is mandatory" }
+      ]
+    }
+  }
+}

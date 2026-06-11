@@ -1,0 +1,22 @@
+@DOC ver=2.0 | id=etl-pipeline | title="ETL Pipeline" | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Extract, transform, load pipeline with input contracts and audit stamp."
+
+@INPUT rid=in:source | name=source_path | type=string | required:bool=true
+@INPUT rid=in:target | name=target_table | type=string | required:bool=true
+
+@SEC name="Extract"
+@STEP n:int=1 | rid=extract | op=std:fs.read@v1 | out=[ref:raw]
+
+@SEC name="Transform"
+@STEP n:int=2 | rid=clean | op=std:data.clean@v1 | in=[ref:raw] | out=[ref:cleaned]
+@CHECK rid=check:nulls | assert="ref:cleaned.null_count == 0" | fail=WARN | msg="Null values detected"
+@STEP n:int=3 | rid=enrich | op=std:data.enrich@v1 | in=[ref:cleaned] | out=[ref:enriched]
+
+@SEC name="Load"
+@STEP n:int=4 | rid=load | op=std:db.upsert@v1 | in=[ref:enriched]
+@CHECK rid=check:count | assert="ref:enriched.row_count > 0" | fail=ABORT | msg="No rows to load"
+
+@OUTPUT rid=out:summary | name=load_summary | type=string
+
+@STAMP ts:ts="2026-02-14T05:00:00Z" | src=etl-scheduler

@@ -1,0 +1,18 @@
+@DOC ver=2.0 | id=api-rules | title="API Rules and Endpoints" | kind=rule | profile=exec | fmt=ultra
+@SEC name=Authentication
+@RULE lvl=must | when="making API requests" | then="Include Authorization header"
+@RULE lvl=must | when="rate limited" | then="Return 429 on rate limit"
+@SEC name="User Management"
+@RULE lvl=must | when="creating a user" | then="POST /users requires name, email, role"
+@RULE lvl=must | when="email is provided" | then="Email unique per org"
+@RULE lvl=must | when="user not found" | then="Return 404 if user not found"
+@RULE lvl=must | when="user is already archived" | then="Return 410 if archived"
+@SEC name="Order Management"
+@RULE lvl=must | when="creating an order" | then="POST /orders requires customer_id, items, total, currency"
+@RULE lvl=must | when="total is calculated" | then="Total = sum(quantity * unit_price)"
+@RULE lvl=must | when="currency is provided" | then="Currency ISO 4217"
+@RULE lvl=must | when="order is canceled" | then="Cancel triggers refund"
+@MAP id=Authentication | pairs=["auth_ttl"->"Bearer token OAuth2, 3600s TTL","token_issue"->"/auth/token endpoint","refresh_tokens"->"Refresh tokens single-use"]
+@MAP id=UserManagement | pairs=["roles"->"Roles: admin, member, viewer","user_list"->"GET /users paginated","user_patch"->"PATCH /users/:id partial update"]
+@MAP id=OrderManagement | pairs=["order_lifecycle"->"Order lifecycle: draft to delivered"]
+@MAP id=ErrorCodes | pairs=["ERR_AUTH"->"invalid or expired token","ERR_NOT_FOUND"->"requested resource does not exist","ERR_VALIDATION"->"request body failed schema validation","ERR_CONFLICT"->"duplicate resource detected","ERR_RATE_LIMIT"->"too many requests","ERR_PAYMENT_FAILED"->"payment provider rejected transaction","ERR_INSUFFICIENT_FUNDS"->"account balance too low","ERR_PERMISSION_DENIED"->"token lacks required scope","ERR_RESOURCE_LOCKED"->"resource being modified by another process"]

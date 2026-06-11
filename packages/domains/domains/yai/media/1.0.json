@@ -1,0 +1,677 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.media",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Content creation, rights management, distribution channels, and audience analytics",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "CONTENT",
+      "description": "Content asset — media item with metadata, licensing, and distribution tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "cnt:2026-001"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Title",
+          "example": "Breaking: AI Summit 2026"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "article",
+            "video",
+            "audio",
+            "image",
+            "podcast",
+            "livestream",
+            "interactive"
+          ],
+          "description": "Content Type (7 allowed values)",
+          "example": "article"
+        },
+        {
+          "name": "creator",
+          "type": "string",
+          "required": false,
+          "description": "Creator",
+          "example": "Jane Doe"
+        },
+        {
+          "name": "published",
+          "type": "ts",
+          "required": false,
+          "description": "Published Date as ISO 8601 timestamp",
+          "example": "2026-03-15T09:00:00Z"
+        },
+        {
+          "name": "duration_sec",
+          "type": "int",
+          "required": false,
+          "description": "Duration in seconds",
+          "unit": "seconds",
+          "example": "1847"
+        },
+        {
+          "name": "format",
+          "type": "string",
+          "required": false,
+          "description": "File Format",
+          "example": "video/mp4"
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "required": false,
+          "description": "Language",
+          "example": "en"
+        },
+        {
+          "name": "license",
+          "type": "string",
+          "required": false,
+          "description": "License",
+          "example": "CC-BY-4.0"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Description",
+          "example": "Coverage of the annual AI Summit"
+        },
+        {
+          "name": "keywords",
+          "type": "string",
+          "required": false,
+          "description": "Keywords",
+          "example": "AI, summit, technology, 2026"
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "required": false,
+          "description": "Source",
+          "example": "Reuters"
+        }
+      ]
+    },
+    {
+      "tag": "RIGHTS",
+      "description": "Rights and licensing — territory-based grant with royalty and exclusivity terms",
+      "fields": [
+        {
+          "name": "content_ref",
+          "type": "string",
+          "required": false,
+          "description": "Content Reference",
+          "example": "cnt:2026-001"
+        },
+        {
+          "name": "holder",
+          "type": "string",
+          "required": false,
+          "description": "Rights Holder",
+          "example": "Universal Music Group"
+        },
+        {
+          "name": "territory",
+          "type": "string",
+          "required": false,
+          "description": "Territory",
+          "example": "EU"
+        },
+        {
+          "name": "grant_type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "broadcast",
+            "streaming",
+            "syndication",
+            "reprint",
+            "derivative",
+            "all"
+          ],
+          "description": "Grant Type (6 allowed values)",
+          "example": "streaming"
+        },
+        {
+          "name": "start_date",
+          "type": "ts",
+          "required": false,
+          "description": "Start Date as ISO 8601 timestamp",
+          "example": "2026-01-01T00:00:00Z"
+        },
+        {
+          "name": "end_date",
+          "type": "ts",
+          "required": false,
+          "description": "End Date as ISO 8601 timestamp",
+          "example": "2027-12-31T23:59:59Z"
+        },
+        {
+          "name": "royalty_pct",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Royalty Rate in % (0–100)",
+          "unit": "%",
+          "example": "15.0"
+        },
+        {
+          "name": "exclusive",
+          "type": "bool",
+          "required": false,
+          "description": "Exclusive indicator",
+          "example": "true"
+        },
+        {
+          "name": "medium",
+          "type": "string",
+          "required": false,
+          "description": "Medium",
+          "example": "digital"
+        }
+      ]
+    },
+    {
+      "tag": "CHANNEL",
+      "description": "Distribution channel — platform presence with subscriber metrics",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "ch:yt-main"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Channel Name",
+          "example": "Tech Insights"
+        },
+        {
+          "name": "platform",
+          "type": "string",
+          "required": false,
+          "description": "Platform",
+          "example": "YouTube"
+        },
+        {
+          "name": "subscribers",
+          "type": "int",
+          "required": false,
+          "description": "Subscriber Count",
+          "example": "450000"
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "required": false,
+          "description": "Language",
+          "example": "en"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": false,
+          "description": "Category",
+          "example": "Technology"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "active",
+            "paused",
+            "archived"
+          ],
+          "description": "Channel Status: active, paused, archived",
+          "example": "active"
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": false,
+          "description": "Channel URL",
+          "example": "https://youtube.com/@techinsights"
+        },
+        {
+          "name": "owner",
+          "type": "string",
+          "required": false,
+          "description": "Owner",
+          "example": "MediaCorp"
+        }
+      ]
+    },
+    {
+      "tag": "AUDIENCE",
+      "description": "Audience metrics — engagement and reach data per content or channel",
+      "fields": [
+        {
+          "name": "channel_ref",
+          "type": "string",
+          "required": false,
+          "description": "Channel Reference",
+          "example": "ch:yt-main"
+        },
+        {
+          "name": "content_ref",
+          "type": "string",
+          "required": false,
+          "description": "Content Reference",
+          "example": "cnt:2026-001"
+        },
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": false,
+          "description": "Measurement Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-15T12:00:00Z"
+        },
+        {
+          "name": "impressions",
+          "type": "int",
+          "required": false,
+          "description": "Impressions",
+          "example": "125000"
+        },
+        {
+          "name": "engagement",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Engagement Rate in % (0–100)",
+          "unit": "%",
+          "example": "4.7"
+        },
+        {
+          "name": "demographics",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "18-24",
+            "25-34",
+            "35-44",
+            "45-54",
+            "55-64",
+            "65+",
+            "mixed",
+            "unknown"
+          ],
+          "description": "Demographics (8 allowed values)",
+          "example": "M25-34: 38%, F25-34: 22%"
+        },
+        {
+          "name": "retention",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Retention Rate in % (0–100)",
+          "unit": "%",
+          "example": "62.0"
+        },
+        {
+          "name": "reach",
+          "type": "int",
+          "required": false,
+          "description": "Unique Reach",
+          "example": "98000"
+        },
+        {
+          "name": "shares",
+          "type": "int",
+          "required": false,
+          "description": "Shares",
+          "example": "3200"
+        }
+      ]
+    },
+    {
+      "tag": "SCHEDULE",
+      "description": "Programming schedule — content slot assignment with priority and repeat flags",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "sched:2026-0315-pm"
+        },
+        {
+          "name": "channel_ref",
+          "type": "string",
+          "required": false,
+          "description": "Channel Reference",
+          "example": "ch:broadcast-1"
+        },
+        {
+          "name": "content_ref",
+          "type": "string",
+          "required": false,
+          "description": "Content Reference",
+          "example": "cnt:2026-001"
+        },
+        {
+          "name": "air_date",
+          "type": "ts",
+          "required": false,
+          "description": "Air Date as ISO 8601 timestamp",
+          "example": "2026-03-15T20:00:00Z"
+        },
+        {
+          "name": "slot",
+          "type": "string",
+          "required": false,
+          "description": "Time Slot",
+          "example": "primetime"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "scheduled",
+            "live",
+            "aired",
+            "cancelled",
+            "preempted"
+          ],
+          "description": "Schedule Status: scheduled, live, aired, cancelled, preempted",
+          "example": "scheduled"
+        },
+        {
+          "name": "priority",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "low",
+            "normal",
+            "high"
+          ],
+          "description": "Priority: low, normal, high",
+          "example": "high"
+        },
+        {
+          "name": "repeat",
+          "type": "bool",
+          "required": false,
+          "description": "Repeat indicator",
+          "example": "false"
+        }
+      ]
+    },
+    {
+      "tag": "TALENT",
+      "description": "Talent or creator — contributor profile with rate and availability",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "tal:jdoe-01"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Name",
+          "example": "Jane Doe"
+        },
+        {
+          "name": "role",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "host",
+            "producer",
+            "director",
+            "writer",
+            "actor",
+            "journalist",
+            "editor",
+            "contributor"
+          ],
+          "description": "Role (8 allowed values)",
+          "example": "host"
+        },
+        {
+          "name": "agency",
+          "type": "string",
+          "required": false,
+          "description": "Agency",
+          "example": "CAA"
+        },
+        {
+          "name": "rate",
+          "type": "float",
+          "required": false,
+          "description": "Rate in USD/day",
+          "unit": "USD/day",
+          "example": "5000.0"
+        },
+        {
+          "name": "availability",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "available",
+            "booked",
+            "unavailable"
+          ],
+          "description": "Availability: available, booked, unavailable",
+          "example": "available"
+        },
+        {
+          "name": "credits",
+          "type": "string",
+          "required": false,
+          "description": "Credits",
+          "example": "AI Summit 2025, Tech Today"
+        },
+        {
+          "name": "territory",
+          "type": "string",
+          "required": false,
+          "description": "Territory",
+          "example": "US"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Content creation and distribution for media AI",
+    "highlights": [
+      "CONTENT",
+      "RIGHTS",
+      "AUDIENCE"
+    ],
+    "use_cases": [
+      {
+        "id": "content-pipeline",
+        "title": "Multi-Platform Content Publishing Pipeline",
+        "steps": [
+          "Create @ARTICLE or @CONTENT with editorial metadata",
+          "Attach @ASSET media files (images, video, audio)",
+          "Distribute to @CHANNEL endpoints (web, app, social)",
+          "Target @AUDIENCE segments for personalized delivery",
+          "Measure engagement and attribution per @CAMPAIGN"
+        ],
+        "example": "@ARTICLE rid=art:1 | headline=\"Breaking: AI Summit 2026\" | status=\"published\" | author=\"Jane Doe\" | section=\"technology\"",
+        "tags_used": [
+          "CONTENT",
+          "CHANNEL",
+          "AUDIENCE"
+        ],
+        "description": "Manage content creation, editorial review, and multi-platform distribution. Track asset rights, licensing windows, and embargo dates across channels and territories.",
+        "tags": [
+          "CONTENT",
+          "ASSET",
+          "CHANNEL",
+          "SCHEDULE",
+          "AUDIENCE"
+        ],
+        "tags_planned": [
+          "ARTICLE",
+          "ASSET",
+          "CAMPAIGN"
+        ]
+      },
+      {
+        "id": "ad-monetization",
+        "title": "Programmatic Ad Monetization",
+        "steps": [
+          "Define @AUDIENCE segments from first-party data",
+          "Configure @CAMPAIGN targeting and budget parameters",
+          "Serve ads across @CHANNEL inventory via OpenRTB",
+          "Track viewability and engagement per @CONTENT placement",
+          "Generate @CAMPAIGN performance and revenue reports"
+        ],
+        "example": "@CAMPAIGN rid=camp:1 | name=\"Q1-Brand-Awareness\" | budget:float=50000.0 | impressions:int=2500000 | cpm:float=20.0",
+        "tags_used": [
+          "AUDIENCE",
+          "CHANNEL",
+          "CONTENT"
+        ],
+        "description": "Serve ad campaigns across inventory, track impressions and engagement, and optimize yield through real-time bidding data and audience segment targeting.",
+        "tags": [
+          "AD_CAMPAIGN",
+          "AUDIENCE",
+          "CHANNEL",
+          "CONTENT"
+        ],
+        "tags_planned": [
+          "CAMPAIGN"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "Dublin Core",
+        "url": "https://www.dublincore.org/",
+        "type": "standard"
+      },
+      {
+        "label": "IPTC NewsML",
+        "url": "https://iptc.org/",
+        "type": "standard"
+      },
+      {
+        "label": "EBU",
+        "url": "https://www.ebu.ch/",
+        "type": "standard"
+      },
+      {
+        "label": "Schema.org CreativeWork",
+        "url": "https://schema.org/CreativeWork",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.legal",
+        "relationship": "data overlap",
+        "reason": "Content licensing and rights"
+      },
+      {
+        "domain": "yai.ecommerce",
+        "relationship": "often paired",
+        "reason": "Digital content sales"
+      }
+    ],
+    "tag_context": {
+      "CONTENT": {
+        "purpose": "Media asset with editorial metadata, licensing, and multi-platform distribution tracking",
+        "when_to_use": "Content ingestion, CMS cataloging, search indexing, recommendation engines, syndication feeds",
+        "related_standards": [
+          "Schema.org CreativeWork",
+          "EIDR (Entertainment ID)",
+          "ISRC/ISWC"
+        ]
+      },
+      "RIGHTS": {
+        "purpose": "Territory-based content rights grant with royalty terms, exclusivity, and medium restrictions",
+        "when_to_use": "Content licensing, rights clearance, royalty calculation, territory windowing, distribution authorization",
+        "related_standards": [
+          "EIDR Rights",
+          "DDEX (Music)",
+          "ONIX (Publishing)"
+        ]
+      },
+      "CHANNEL": {
+        "purpose": "Distribution channel or platform presence with subscriber metrics and category classification",
+        "when_to_use": "Platform registration, audience reach reporting, cross-platform analytics, channel portfolio management",
+        "related_standards": [
+          "Schema.org BroadcastChannel",
+          "HLS (RFC 8216)",
+          "DASH-IF"
+        ]
+      },
+      "AUDIENCE": {
+        "purpose": "Engagement and reach metrics per content item or channel with demographic breakdown",
+        "when_to_use": "Performance reporting, audience segmentation, ad targeting, content optimization, retention analysis",
+        "related_standards": [
+          "IAB Audience Taxonomy 1.1",
+          "Nielsen DAR",
+          "comScore vCE"
+        ]
+      },
+      "SCHEDULE": {
+        "purpose": "Programming schedule slot with content assignment, priority level, and repeat configuration",
+        "when_to_use": "Broadcast scheduling, content calendar management, primetime planning, preemption handling",
+        "related_standards": [
+          "SMPTE ST 2110",
+          "EBU MOS",
+          "Schema.org Schedule"
+        ]
+      },
+      "TALENT": {
+        "purpose": "Creator or contributor profile with role, rate, and availability for production planning",
+        "when_to_use": "Talent booking, credit assignment, contract negotiation, availability scheduling, cast management",
+        "related_standards": [
+          "EIDR Party",
+          "IMDb API",
+          "Schema.org Person"
+        ]
+      }
+    },
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

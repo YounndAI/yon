@@ -1,0 +1,60 @@
+# @younndai/domains
+
+> Framework-agnostic package for fetching, bundling, validating, introspecting, and classifying YounndAI Domain schemas — plus JSON Schema export for universal ecosystem interop.
+
+## Install
+
+```bash
+npm install @younndai/domains
+```
+
+## Core Capabilities
+
+- **33 official yai.\* domains bundled** — zero network, instant access
+- **Full registry client** — 10 API methods + health check + typed errors
+- **Validation engine** — 5 constraint checks (required, type, range, enum, pattern)
+- **JSON Schema export** — convert domain records to JSON Schema draft-07
+- **Schema introspection** — 6 async + 6 sync functions to explore domain structure
+- **Reverse tag lookup** — find all domains that define a given tag
+- **Taxonomy engine** — classification (tiers, conformance, trust, freshness)
+- **Offline bundles** — download, save, load, apply registry bundles
+- **Pluggable cache** — in-memory default, swap to Redis/IndexedDB/filesystem
+
+## Quick Start
+
+```ts
+import { getDomain, validateRecord, resolveDomain } from '@younndai/domains';
+
+// Fetch a domain (T1 bundled → T3 local → T2 remote)
+const schema = await resolveDomain('yai.health');
+
+// Validate data against a domain record
+const result = await validateRecord('yai.fintech', 'TXN', {
+  id: 'txn-001',
+  amount: 1500.50,
+  currency: 'USD',
+});
+
+if (!result.valid) {
+  result.errors.forEach(e => console.error(`${e.field}: ${e.message}`));
+}
+```
+
+## Subpath Exports
+
+- `@younndai/domains` — main entry (everything)
+- `@younndai/domains/taxonomy` — classification engine
+- `@younndai/domains/json-schema` — JSON Schema conversion
+
+## Key Types
+
+- `DomainSchema` — full domain definition with records and validation rules
+- `DomainRecord` — record definition with typed fields
+- `FieldConstraint` — per-field constraint (type, required, range, enum, pattern)
+- `ValidationResult` — validation outcome with errors and warnings
+- `TagLookupResult` — reverse lookup result with all matching domains
+
+## Registry
+
+- **URL**: https://domains.younndai.com
+- **API**: https://domains.younndai.com/api/domains

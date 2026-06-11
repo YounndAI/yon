@@ -1,0 +1,1 @@
+{"authentication":{"auth_type":"Bearer token (OAuth2)","token_ttl":3600,"refresh_ttl_days":30,"rate_limit_per_min":500,"rules":["return 429 with Retry-After","admin: all orgs","user: own org only"]}}

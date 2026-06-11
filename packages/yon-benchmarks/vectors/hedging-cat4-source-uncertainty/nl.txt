@@ -1,0 +1,1 @@
+Apparently the authentication module has a race condition during token refresh. I heard from DevOps that the connection pool was already maxed out. Supposedly the new release fixes the memory leak but nobody has confirmed it yet.

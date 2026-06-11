@@ -1,0 +1,15 @@
+@DOC ver=2.0 | id=cross-domain-actors | title="Cross-Domain Actors" | kind=spec | profile=agent | fmt=canon
+
+@NOTE text="Demonstrate cross-domain identity and location references for multi-system agent coordination."
+
+@SEC name="Actor Identities"
+
+@IDENTITY rid=id:user | type=human | handle=hello@allemaar.com | realm=corporate-sso
+@IDENTITY rid=id:bot | type=agent | handle=support-bot-v3 | realm=internal-agents
+@IDENTITY rid=id:ext | type=service | handle=payment-gateway | realm=external-api
+
+@SEC name="Spatial References"
+
+@LOCATION rid=loc:eu | type=region | value=eu-west-1 | provider=aws
+@LOCATION rid=loc:office | type=physical | value="Berlin HQ, Floor 3" | timezone=Europe/Berlin
+@LOCATION rid=loc:vnet | type=network | value=10.0.0.0/16 | provider=internal

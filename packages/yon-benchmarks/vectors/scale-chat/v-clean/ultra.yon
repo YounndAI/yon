@@ -1,0 +1,5 @@
+@DOC ver=2.0 | id=auth-config | title="Authentication Configuration" | kind=rule | profile=exec | fmt=ultra
+@SEC name=Authentication
+@RULE lvl=must | when="Rate limit exceeded" | then="429 + Retry-After on exceed"
+@RULE lvl=must | when="Making requests" | then="Authorization header required"
+@MAP id=Authentication | pairs=["Bearer token"->"OAuth2","Token TTL"->"3600s","Refresh"->"30-day, single-use","admin tokens"->"all orgs","user tokens"->"own org only","token_endpoint"->"Token endpoint: /auth/token"]

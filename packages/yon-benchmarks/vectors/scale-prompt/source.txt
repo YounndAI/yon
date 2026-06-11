@@ -1,0 +1,31 @@
+Authentication uses Bearer token OAuth2 with a 3600 second TTL and 30-day refresh.
+Rate limit is 500 requests per minute globally. When rate limited, return 429 with Retry-After header.
+Admin tokens can access all organizations. User tokens can only access their own organization.
+All API requests must include the Authorization header with a valid bearer token.
+Tokens are issued by the /auth/token endpoint using client credentials or authorization code flow.
+Refresh tokens can be used once and are invalidated after use. A new refresh token is issued with each access token.
+
+The users endpoint at POST /users creates a new user. Required fields are name, email, and role.
+Email must be unique per organization. Roles are admin, member, or viewer. Default role is member.
+GET /users returns a paginated list with cursor-based pagination. Default limit is 25, max is 100.
+GET /users/:id returns a single user or 404 if not found. Includes last_login and created_at.
+PATCH /users/:id does a partial update with merge semantics. Cannot change email without verification.
+DELETE /users/:id soft-deletes by setting status to archived. Archived users cannot log in.
+If the user is already archived, return 410 Gone.
+
+The orders endpoint at POST /orders creates a new order. Required fields are customer_id, items, total, and currency.
+Each item must have product_id, quantity, and unit_price. Total must equal sum of (quantity * unit_price).
+Currency must be ISO 4217 (USD, EUR, GBP, CAD, AUD, JPY). Mixed currencies in one order are not allowed.
+GET /orders supports filtering by customer_id, status, date range, and minimum total amount.
+Orders go through a lifecycle: draft → confirmed → processing → shipped → delivered. Can be canceled before shipped.
+PATCH /orders/:id allows updating items only in draft status. Status changes use dedicated endpoints.
+POST /orders/:id/confirm moves from draft to confirmed and triggers payment authorization.
+POST /orders/:id/cancel marks as canceled and triggers refund if payment was captured.
+DELETE /orders/:id is not supported. Use cancel instead.
+
+Error codes follow a consistent pattern. ERR_AUTH means invalid or expired token.
+ERR_NOT_FOUND means the requested resource does not exist. ERR_VALIDATION means the request body failed schema validation.
+ERR_CONFLICT means a duplicate resource was detected (e.g., duplicate email). ERR_RATE_LIMIT means too many requests.
+ERR_PAYMENT_FAILED means the payment provider rejected the transaction. ERR_INSUFFICIENT_FUNDS means the account balance is too low.
+ERR_PERMISSION_DENIED means the token does not have the required scope. ERR_RESOURCE_LOCKED means the resource is being modified by another process.
+All error responses include a request_id for debugging and a human-readable message.

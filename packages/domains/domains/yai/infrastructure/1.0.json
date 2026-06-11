@@ -1,0 +1,631 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.infrastructure",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Cloud infrastructure, resource management, service mesh, and datacenter operations",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "NODE",
+      "description": "Infrastructure node — compute, storage, or network resource with health metrics",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "node:web-prod-01"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "compute",
+            "storage",
+            "network",
+            "database",
+            "cache",
+            "load-balancer",
+            "gateway"
+          ],
+          "description": "Node Type (7 allowed values)",
+          "example": "compute"
+        },
+        {
+          "name": "provider",
+          "type": "string",
+          "required": false,
+          "description": "Cloud Provider",
+          "example": "AWS"
+        },
+        {
+          "name": "region",
+          "type": "string",
+          "required": false,
+          "description": "Region",
+          "example": "eu-west-1"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "running",
+            "stopped",
+            "terminated",
+            "maintenance",
+            "degraded"
+          ],
+          "description": "Node Status: running, stopped, terminated, maintenance, degraded",
+          "example": "running"
+        },
+        {
+          "name": "cpu_pct",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "CPU Usage in % (0–100)",
+          "unit": "%",
+          "example": "42.5"
+        },
+        {
+          "name": "memory_pct",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Memory Usage in % (0–100)",
+          "unit": "%",
+          "example": "67.3"
+        },
+        {
+          "name": "disk_pct",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Disk Usage in % (0–100)",
+          "unit": "%",
+          "example": "55.0"
+        },
+        {
+          "name": "ip",
+          "type": "string",
+          "required": false,
+          "description": "IP Address",
+          "example": "10.0.1.42"
+        }
+      ]
+    },
+    {
+      "tag": "SERVICE",
+      "description": "Service instance — microservice or application with health check and dependency graph",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "svc:api-gateway"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Service Name",
+          "example": "api-gateway"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": false,
+          "description": "Version",
+          "example": "2.4.1"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "healthy",
+            "degraded",
+            "unhealthy",
+            "starting",
+            "stopping"
+          ],
+          "description": "Service Status: healthy, degraded, unhealthy, starting, stopping",
+          "example": "healthy"
+        },
+        {
+          "name": "replicas",
+          "type": "int",
+          "required": false,
+          "description": "Replicas",
+          "example": "3"
+        },
+        {
+          "name": "node_ref",
+          "type": "string",
+          "required": false,
+          "description": "Node Reference",
+          "example": "node:web-prod-01"
+        },
+        {
+          "name": "port",
+          "type": "int",
+          "required": false,
+          "description": "Port",
+          "example": "8080"
+        },
+        {
+          "name": "health_endpoint",
+          "type": "string",
+          "required": false,
+          "description": "Health Endpoint",
+          "example": "/healthz"
+        },
+        {
+          "name": "dependencies",
+          "type": "string",
+          "required": false,
+          "description": "Dependencies",
+          "example": "svc:auth, svc:db-proxy"
+        }
+      ]
+    },
+    {
+      "tag": "CERT",
+      "description": "TLS certificate — PKI asset with expiry tracking and auto-renewal status",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "cert:api-2026"
+        },
+        {
+          "name": "domain",
+          "type": "string",
+          "required": false,
+          "description": "Domain",
+          "example": "api.example.com"
+        },
+        {
+          "name": "issuer",
+          "type": "string",
+          "required": false,
+          "description": "Issuer",
+          "example": "Let's Encrypt R3"
+        },
+        {
+          "name": "issued",
+          "type": "ts",
+          "required": false,
+          "description": "Issued Date as ISO 8601 timestamp",
+          "example": "2026-01-15T00:00:00Z"
+        },
+        {
+          "name": "expires",
+          "type": "ts",
+          "required": false,
+          "description": "Expiry Date as ISO 8601 timestamp",
+          "example": "2026-04-15T00:00:00Z"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "dv",
+            "ov",
+            "ev",
+            "self-signed",
+            "wildcard"
+          ],
+          "description": "Certificate Type: dv, ov, ev, self-signed, wildcard",
+          "example": "dv"
+        },
+        {
+          "name": "auto_renew",
+          "type": "bool",
+          "required": false,
+          "description": "Auto-Renew indicator",
+          "example": "true"
+        },
+        {
+          "name": "fingerprint",
+          "type": "string",
+          "required": false,
+          "description": "Fingerprint",
+          "example": "SHA256:abc123..."
+        }
+      ]
+    },
+    {
+      "tag": "DNS",
+      "description": "DNS record — domain resolution entry with TTL and routing configuration",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Record Name",
+          "example": "api.example.com"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "A",
+            "AAAA",
+            "CNAME",
+            "MX",
+            "TXT",
+            "SRV",
+            "NS",
+            "PTR",
+            "CAA"
+          ],
+          "description": "Record Type (9 allowed values)",
+          "example": "A"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Record Value",
+          "example": "10.0.1.42"
+        },
+        {
+          "name": "ttl",
+          "type": "int",
+          "required": false,
+          "description": "TTL in seconds",
+          "unit": "seconds",
+          "example": "300"
+        },
+        {
+          "name": "priority",
+          "type": "int",
+          "required": false,
+          "description": "Priority",
+          "example": "10"
+        },
+        {
+          "name": "zone",
+          "type": "string",
+          "required": false,
+          "description": "Zone",
+          "example": "example.com"
+        },
+        {
+          "name": "routing",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "simple",
+            "weighted",
+            "latency",
+            "geolocation",
+            "failover"
+          ],
+          "description": "Routing Policy: simple, weighted, latency, geolocation, failover",
+          "example": "latency"
+        }
+      ]
+    },
+    {
+      "tag": "NETWORK",
+      "description": "Network segment — VLAN, VPC, or subnet with CIDR and security group",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "net:vpc-prod"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Network Name",
+          "example": "prod-vpc-eu-west"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "vpc",
+            "subnet",
+            "vlan",
+            "security-group",
+            "nacl",
+            "peering"
+          ],
+          "description": "Network Type (6 allowed values)",
+          "example": "vpc"
+        },
+        {
+          "name": "cidr",
+          "type": "string",
+          "required": false,
+          "description": "CIDR Block",
+          "example": "10.0.0.0/16"
+        },
+        {
+          "name": "region",
+          "type": "string",
+          "required": false,
+          "description": "Region",
+          "example": "eu-west-1"
+        },
+        {
+          "name": "availability_zone",
+          "type": "string",
+          "required": false,
+          "description": "Availability Zone",
+          "example": "eu-west-1a"
+        },
+        {
+          "name": "public",
+          "type": "bool",
+          "required": false,
+          "description": "Public indicator",
+          "example": "false"
+        }
+      ]
+    },
+    {
+      "tag": "COST",
+      "description": "Infrastructure cost — cloud spend with tagging and budget tracking",
+      "fields": [
+        {
+          "name": "service",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "compute",
+            "storage",
+            "network",
+            "database",
+            "cdn",
+            "dns",
+            "monitoring",
+            "other"
+          ],
+          "description": "Service (8 allowed values)",
+          "example": "EC2"
+        },
+        {
+          "name": "amount",
+          "type": "float",
+          "required": false,
+          "description": "Amount in USD",
+          "unit": "USD",
+          "example": "4523.67"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "pattern": "^[A-Z]{3}$",
+          "description": "Currency",
+          "example": "USD"
+        },
+        {
+          "name": "period",
+          "type": "string",
+          "required": false,
+          "description": "Billing Period",
+          "example": "2026-03"
+        },
+        {
+          "name": "account",
+          "type": "string",
+          "required": false,
+          "description": "Account",
+          "example": "prod-eu-west"
+        },
+        {
+          "name": "budget",
+          "type": "float",
+          "required": false,
+          "description": "Budget in USD",
+          "unit": "USD",
+          "example": "5000.0"
+        },
+        {
+          "name": "forecast",
+          "type": "float",
+          "required": false,
+          "description": "Forecast in USD",
+          "unit": "USD",
+          "example": "4800.0"
+        },
+        {
+          "name": "tags",
+          "type": "string",
+          "required": false,
+          "description": "Tags",
+          "example": "team:platform, env:prod"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Cloud infrastructure and service mesh for platform AI",
+    "highlights": [
+      "NODE",
+      "SERVICE",
+      "COST"
+    ],
+    "use_cases": [
+      {
+        "id": "predictive-maintenance",
+        "title": "Predictive Maintenance for Critical Infrastructure",
+        "steps": [
+          "Register @ASSET with location, criticality, and lifecycle stage",
+          "Deploy @SENSOR for vibration, temperature, and corrosion monitoring",
+          "Trigger @ALERT when ML model detects degradation pattern",
+          "Schedule @MAINTENANCE work order with resource allocation",
+          "Update @ASSET condition score after maintenance completion"
+        ],
+        "example": "@MAINTENANCE rid=mt:1 | asset_ref=\"ast:7\" | type=\"predictive\" | priority=\"high\" | scheduled_date=\"2026-03-15\"",
+        "tags_used": [],
+        "description": "Collect sensor telemetry from physical assets, detect degradation patterns, and schedule maintenance before failures occur. Track SLA compliance across service tiers.",
+        "tags": [
+          "ASSET",
+          "SENSOR",
+          "SLA",
+          "INCIDENT",
+          "COST"
+        ],
+        "tags_planned": [
+          "ASSET",
+          "SENSOR",
+          "ALERT",
+          "MAINTENANCE"
+        ]
+      },
+      {
+        "id": "capacity-planning",
+        "title": "Infrastructure Capacity Planning",
+        "steps": [
+          "Map @NETWORK topology with @ASSET interconnections",
+          "Monitor @CAPACITY utilization across infrastructure segments",
+          "Analyze @SENSOR load patterns for demand forecasting",
+          "Plan @CAPACITY expansion based on growth projections",
+          "Simulate failure scenarios against @NETWORK redundancy"
+        ],
+        "example": "@CAPACITY rid=cap:1 | asset_ref=\"ast:7\" | utilization:float=0.78 | max_capacity:float=1000.0 | unit=\"Mbps\"",
+        "tags_used": [
+          "NETWORK"
+        ],
+        "description": "Model resource utilization trends, project future demand, and plan capacity expansions with cost forecasting. Track cloud and on-premise asset inventories.",
+        "tags": [
+          "ASSET",
+          "SENSOR",
+          "COST",
+          "SLA",
+          "CHANGE"
+        ],
+        "tags_planned": [
+          "ASSET",
+          "CAPACITY",
+          "SENSOR"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "CloudEvents",
+        "url": "https://cloudevents.io/",
+        "type": "standard"
+      },
+      {
+        "label": "OpenTelemetry",
+        "url": "https://opentelemetry.io/",
+        "type": "standard"
+      },
+      {
+        "label": "CNCF",
+        "url": "https://www.cncf.io/",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.devops",
+        "relationship": "often paired",
+        "reason": "Deployment and observability"
+      },
+      {
+        "domain": "yai.security",
+        "relationship": "data overlap",
+        "reason": "Network and access security"
+      }
+    ],
+    "tag_context": {
+      "NODE": {
+        "purpose": "Compute, storage, or network resource with real-time health metrics and provider attribution",
+        "when_to_use": "Resource provisioning, capacity monitoring, health dashboards, fleet inventory, auto-scaling decisions",
+        "related_standards": [
+          "SNMP (RFC 3411)",
+          "YANG (RFC 7950)",
+          "OpenConfig"
+        ]
+      },
+      "SERVICE": {
+        "purpose": "Microservice or application with health check endpoint, replica count, and dependency graph",
+        "when_to_use": "Service catalog, deployment tracking, health monitoring, dependency mapping, incident correlation",
+        "related_standards": [
+          "ITIL Service Catalogue",
+          "TM Forum TMF638",
+          "ISO 20000"
+        ]
+      },
+      "CERT": {
+        "purpose": "TLS/PKI certificate with expiry tracking, auto-renewal status, and issuer chain",
+        "when_to_use": "Certificate provisioning, expiry alerting, renewal automation, compliance auditing, PKI inventory",
+        "related_standards": [
+          "X.509 (RFC 5280)",
+          "ACME (RFC 8555)",
+          "WebPKI CA/B Forum"
+        ]
+      },
+      "DNS": {
+        "purpose": "Domain resolution entry with TTL, routing policy, and zone management",
+        "when_to_use": "DNS provisioning, traffic routing, failover configuration, CDN integration, zone management",
+        "related_standards": [
+          "RFC 1035 DNS",
+          "RFC 8484 DoH",
+          "DNSSEC (RFC 4033)"
+        ]
+      },
+      "NETWORK": {
+        "purpose": "VLAN, VPC, or subnet segment with CIDR block, security groups, and availability zone",
+        "when_to_use": "Network architecture, VPC provisioning, subnet planning, security group management, peering setup",
+        "related_standards": [
+          "CIM IEC 61970",
+          "ISO/IEC 27033 Network Security",
+          "IEEE 802"
+        ]
+      },
+      "COST": {
+        "purpose": "Cloud spend record with service-level tagging, budget tracking, and forecast projection",
+        "when_to_use": "FinOps reporting, budget alerting, cost allocation by tag, forecast modeling, chargeback calculation",
+        "related_standards": [
+          "FinOps Framework",
+          "AWS CUR",
+          "ISO 55001 LCC"
+        ]
+      }
+    },
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

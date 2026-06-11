@@ -1,0 +1,13 @@
+@DOC ver=2.0 | id=hr-onboarding | title="Employee Onboarding" | domain=yai.hr@1.0 | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Automated onboarding workflow for new employees. Provisions accounts, assigns equipment, and schedules orientation."
+
+@STEP n:int=1 | rid=create-profile | op=domain:hr.create-employee@v1 | out=[ref:employee]
+@STEP n:int=2 | rid=provision-email | op=domain:iam.create-account@v1 | in=[ref:employee] | out=[ref:account]
+@STEP n:int=3 | rid=assign-equipment | op=domain:asset.assign@v1 | in=[ref:employee] | out=[ref:equipment]
+@STEP n:int=4 | rid=setup-access | op=domain:iam.grant-roles@v1 | in=[ref:employee, ref:account]
+@STEP n:int=5 | rid=schedule-orientation | op=domain:calendar.book@v1 | in=[ref:employee]
+@STEP n:int=6 | rid=notify-manager | op=std:notify.email@v1 | in=[ref:employee]
+@STEP n:int=7 | rid=notify-employee | op=std:notify.email@v1 | in=[ref:employee, ref:account, ref:equipment]
+
+@STAMP ts:ts="2026-02-14T05:00:00Z" | src=hr-system

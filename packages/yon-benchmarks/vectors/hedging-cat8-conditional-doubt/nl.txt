@@ -1,0 +1,1 @@
+We could split the service into three microservices, if that makes sense for our scale. The data pipeline might benefit from event sourcing, assuming the team has bandwidth to learn it.

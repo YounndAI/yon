@@ -1,0 +1,28 @@
+ok here's what we need for the new data pipeline. basically we're getting event data from 3 sources and need to process it into our analytics warehouse:
+
+sources:
+- Kafka topic "user-events" - ~2M events/day, JSON format, contains user actions like page views, clicks, form submissions. schema has: user_id, event_type, timestamp, properties (nested object), session_id, device_info
+- S3 bucket "partner-data-drops" - CSV files uploaded daily by partners around 3 AM UTC, typically 500MB-2GB each, contains transaction data with fields: partner_id, transaction_id, amount, currency, status, created_at, metadata_json
+- PostgreSQL "legacy-crm" - we need to CDC (change data capture) the customers and orders tables, estimated 50k changes/day
+
+processing requirements:
+- deduplicate events using (user_id + event_type + timestamp) as composite key
+- enrich user events with customer data from CRM (join on user_id = customer.external_id)  
+- convert all timestamps to UTC (partner data comes in various timezones)
+- validate currency codes against ISO 4217 list
+- PII masking: hash email addresses and phone numbers using SHA-256 before loading to warehouse
+- bad records should go to a dead letter queue, not block the pipeline
+
+destination: BigQuery dataset "analytics_prod"
+- partitioned by date (event_date)
+- clustered by event_type and user_id
+- retention: raw data 2 years, aggregated data forever
+
+SLA requirements:
+- Kafka events: max 15 minutes end-to-end latency
+- S3 files: processed within 2 hours of upload
+- CDC changes: within 30 minutes
+- pipeline availability: 99.9% uptime
+- alerting: if lag exceeds 2x SLA threshold, page on-call engineer
+
+tech stack: we're thinking Apache Flink for stream processing, dbt for transformations in BigQuery, Airflow for orchestrating the S3 batch jobs. open to suggestions though.

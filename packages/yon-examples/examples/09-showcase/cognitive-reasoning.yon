@@ -1,0 +1,20 @@
+@DOC ver=2.0 | id=cognitive-reasoning | title="Cognitive Reasoning Chain" | kind=workflow | profile=cognitive | fmt=canon
+
+@NOTE text="Multi-step reasoning workflow. The agent thinks through a problem using structured deliberation."
+
+@SEC name="Problem Analysis"
+@STEP n:int=1 | rid=frame | op=std:ai.reason@v1 | out=[ref:framing]
+@NOTE text="Frame the problem before attempting a solution."
+
+@SEC name="Hypothesis Generation"
+@STEP n:int=2 | rid=hypothesize | op=std:ai.reason@v1 | in=[ref:framing] | out=[ref:hypotheses]
+@CHECK rid=gate:count | assert="ref:hypotheses.count >= 2" | fail=WARN | msg="Too few hypotheses"
+
+@SEC name="Evidence Gathering"
+@STEP n:int=3 | rid=gather | op=std:ai.search@v1 | in=[ref:hypotheses] | out=[ref:evidence]
+
+@SEC name="Evaluation"
+@STEP n:int=4 | rid=evaluate | op=std:ai.reason@v1 | in=[ref:hypotheses, ref:evidence] | out=[ref:evaluation]
+@STEP n:int=5 | rid=conclude | op=std:ai.synthesize@v1 | in=[ref:evaluation] | out=[ref:conclusion]
+
+@STAMP ts:ts="2026-02-14T05:00:00Z" | src=reasoning-engine

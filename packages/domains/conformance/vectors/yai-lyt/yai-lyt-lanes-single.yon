@@ -1,0 +1,16 @@
+@DOC ver=2.0 | id=lanes:example-personal | domain=yai.lyt@1.0 | kind=cfg | profile=agent
+
+@LANE rid=lane:thinking
+  | name="thinking"
+  | source_keywords=["thinking"]
+  | mem_count:int=3
+  | last_built:ts=2026-05-31T14:00:00.000Z
+
+@LANE_MEMBER lane_rid=lane:thinking
+  | figment_rid="notes/2026-05-29-thought-tag-frequency.md"
+
+@LANE_MEMBER lane_rid=lane:thinking
+  | figment_rid="notes/2026-05-30-thought-lanes-design.md"
+
+@LANE_MEMBER lane_rid=lane:thinking
+  | figment_rid="notes/2026-05-31-thought-search-cascade.md"

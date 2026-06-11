@@ -1,0 +1,9 @@
+@DOC ver=2.0 | id=webhook-system | kind=rule | fmt=ultra
+@INTENT goal="Webhook system"
+@MAP id=create | endpoint="POST /webhooks" | pairs=["url"->"HTTPS, required","events"->"array","secret"->"optional","active"->"default true","metadata"->"max 10 keys","retry_policy"->"exponential|linear, 1–10 retries"]
+@MAP id=delivery | headers="X-Webhook-ID, X-Webhook-Timestamp, X-Webhook-Signature" | sig="HMAC-SHA256" | timeout:int=30
+@RULE lvl=MUST | when="5xx/timeout" | then="retry: 1m→5m→25m→2h→10h"
+@RULE lvl=MUST_NOT | when="4xx" | then="retry"
+@RULE lvl=MUST | when="retries exhausted" | then="mark failing, email owner"
+@MAP id=endpoints | pairs=["GET /webhooks"->"list 20/page","GET /:id"->"get","PATCH /:id"->"update","DELETE /:id"->"soft delete","GET /:id/deliveries"->"30d history","POST /:id/test"->"test"]
+@RULE lvl=MUST | when="account" | then="max 100 webhooks, 1000 deliveries/min/webhook"

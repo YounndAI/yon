@@ -1,0 +1,841 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.fintech",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Financial services, algorithmic trading, risk management, and regulatory audit compliance with structured transaction trails",
+  "defaultMode": "struct",
+  "defaultProfile": "audit",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "TXN",
+      "description": "Transaction record — ISO 20022 aligned, uniquely identified financial event with payment method, counterparties, and category",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Transaction ID",
+          "example": "txn:PAY-2026-0042"
+        },
+        {
+          "name": "amount",
+          "type": "float",
+          "required": false,
+          "description": "Amount in USD",
+          "unit": "USD",
+          "example": "25000.00"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "pattern": "^[A-Z]{3}$",
+          "description": "Currency (ISO 4217)",
+          "example": "EUR"
+        },
+        {
+          "name": "payment_method",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "credit-transfer",
+            "direct-debit",
+            "card",
+            "cheque",
+            "cash",
+            "wire"
+          ],
+          "description": "Payment Method (6 allowed values)",
+          "example": "wire"
+        },
+        {
+          "name": "debtor",
+          "type": "string",
+          "required": false,
+          "description": "Debtor",
+          "example": "Acme Corp DE12345678"
+        },
+        {
+          "name": "creditor",
+          "type": "string",
+          "required": false,
+          "description": "Creditor",
+          "example": "Supplier Ltd FR98765432"
+        },
+        {
+          "name": "merchant",
+          "type": "string",
+          "required": false,
+          "description": "Merchant",
+          "example": "Supplier Ltd"
+        },
+        {
+          "name": "remittance_info",
+          "type": "string",
+          "required": false,
+          "description": "Remittance Info",
+          "example": "Invoice INV-2026-0087"
+        },
+        {
+          "name": "timestamp",
+          "type": "ts",
+          "required": false,
+          "description": "Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-01T14:22:05Z"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": false,
+          "description": "Category",
+          "example": "supplier-payment"
+        }
+      ]
+    },
+    {
+      "tag": "RISK",
+      "description": "Risk assessment — model-driven scoring with configurable thresholds",
+      "fields": [
+        {
+          "name": "level",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ],
+          "description": "Risk Level: low, medium, high, critical",
+          "example": "medium"
+        },
+        {
+          "name": "score",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Risk Score (0–100) (0–100)",
+          "example": "42.0"
+        },
+        {
+          "name": "factors",
+          "type": "string",
+          "required": false,
+          "description": "Contributing Factors (JSON)",
+          "example": "[\"credit_history\",\"income_ratio\"]"
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "required": false,
+          "description": "Model Name",
+          "example": "credit-risk-v3"
+        },
+        {
+          "name": "threshold",
+          "type": "float",
+          "required": false,
+          "description": "Threshold",
+          "example": "65.0"
+        }
+      ]
+    },
+    {
+      "tag": "AUDIT_TRAIL",
+      "description": "Immutable audit trail entry — regulatory-grade action logging",
+      "fields": [
+        {
+          "name": "action",
+          "type": "string",
+          "required": false,
+          "description": "Action",
+          "example": "order-approved"
+        },
+        {
+          "name": "actor",
+          "type": "string",
+          "required": false,
+          "description": "Actor",
+          "example": "compliance:jdoe"
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "required": false,
+          "description": "Reason",
+          "example": "Pre-trade risk check passed"
+        },
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": false,
+          "description": "Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-01T14:20:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "COMPLIANCE",
+      "description": "Regulatory compliance check — tracks regulation adherence and review status",
+      "fields": [
+        {
+          "name": "regulation",
+          "type": "string",
+          "required": true,
+          "description": "Regulation",
+          "example": "EU AMLD 6"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "compliant",
+            "non-compliant",
+            "under-review",
+            "remediation"
+          ],
+          "description": "Compliance Status: compliant, non-compliant, under-review, remediation",
+          "example": "compliant"
+        },
+        {
+          "name": "findings",
+          "type": "string",
+          "required": false,
+          "description": "Findings",
+          "example": "No adverse media matches"
+        },
+        {
+          "name": "reviewer",
+          "type": "string",
+          "required": false,
+          "description": "Reviewer",
+          "example": "compliance:smiller"
+        }
+      ]
+    },
+    {
+      "tag": "POSITION",
+      "description": "Trading position — portfolio exposure tracking with NAV percentage limits",
+      "fields": [
+        {
+          "name": "symbol",
+          "type": "string",
+          "required": true,
+          "description": "Symbol",
+          "example": "AAPL"
+        },
+        {
+          "name": "qty",
+          "type": "int",
+          "required": false,
+          "description": "Quantity",
+          "example": "5000"
+        },
+        {
+          "name": "side",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "long",
+            "short"
+          ],
+          "description": "Side: long, short",
+          "example": "long"
+        },
+        {
+          "name": "price",
+          "type": "float",
+          "required": false,
+          "description": "Mark Price in USD",
+          "unit": "USD",
+          "example": "178.50"
+        },
+        {
+          "name": "pnl",
+          "type": "float",
+          "required": false,
+          "description": "Unrealized P&L in USD",
+          "unit": "USD",
+          "example": "12500.00"
+        },
+        {
+          "name": "pct_nav",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "% of NAV (0–100)",
+          "unit": "%",
+          "example": "8.2"
+        },
+        {
+          "name": "limit_pct",
+          "type": "float",
+          "required": false,
+          "description": "Concentration Limit in %",
+          "unit": "%",
+          "example": "10.0"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "open",
+            "closed",
+            "pending"
+          ],
+          "description": "Position Status: open, closed, pending",
+          "example": "open"
+        }
+      ]
+    },
+    {
+      "tag": "FACTORS",
+      "description": "Risk factor breakdown — weighted components contributing to an overall risk score",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Factor Name",
+          "example": "payment-history"
+        },
+        {
+          "name": "weight",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            1
+          ],
+          "description": "Weight (0–1) in 0-1 (0–1)",
+          "unit": "0-1",
+          "example": "0.35"
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "required": false,
+          "description": "Factor Value",
+          "example": "82.0"
+        }
+      ]
+    },
+    {
+      "tag": "RISK_SCORE",
+      "description": "Computed risk score — model output with threshold comparison",
+      "fields": [
+        {
+          "name": "value",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Score (0–100) (0–100)",
+          "example": "72.0"
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "required": false,
+          "description": "Model",
+          "example": "credit-risk-v3"
+        },
+        {
+          "name": "threshold",
+          "type": "float",
+          "required": false,
+          "description": "Decision Threshold",
+          "example": "65.0"
+        }
+      ]
+    },
+    {
+      "tag": "ORDER",
+      "description": "Trade order — supports multiple order types with time-in-force constraints",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Order ID",
+          "example": "ord:2026-03-01-0042"
+        },
+        {
+          "name": "side",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "buy",
+            "sell"
+          ],
+          "description": "Side: buy, sell",
+          "example": "buy"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "required": false,
+          "description": "Symbol",
+          "example": "AAPL"
+        },
+        {
+          "name": "qty",
+          "type": "int",
+          "required": false,
+          "description": "Quantity",
+          "example": "1000"
+        },
+        {
+          "name": "order_type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "market",
+            "limit",
+            "stop",
+            "stop-limit"
+          ],
+          "description": "Order Type: market, limit, stop, stop-limit",
+          "example": "limit"
+        },
+        {
+          "name": "limit_price",
+          "type": "float",
+          "required": false,
+          "description": "Limit Price in USD",
+          "unit": "USD",
+          "example": "175.00"
+        },
+        {
+          "name": "tif",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "DAY",
+            "GTC",
+            "IOC",
+            "FOK"
+          ],
+          "description": "Time-in-Force: DAY, GTC, IOC, FOK",
+          "example": "GTC"
+        }
+      ]
+    },
+    {
+      "tag": "FILL",
+      "description": "Order fill/execution — records actual execution price, quantity, and venue",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "fill:exec-0042-1"
+        },
+        {
+          "name": "exec_id",
+          "type": "string",
+          "required": false,
+          "description": "Execution ID",
+          "example": "EXEC-2026-00421"
+        },
+        {
+          "name": "price",
+          "type": "float",
+          "required": false,
+          "description": "Fill Price in USD",
+          "unit": "USD",
+          "example": "175.10"
+        },
+        {
+          "name": "qty",
+          "type": "int",
+          "required": false,
+          "description": "Filled Quantity",
+          "example": "500"
+        },
+        {
+          "name": "venue",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "NYSE",
+            "NASDAQ",
+            "LSE",
+            "dark-pool",
+            "OTC",
+            "internal-cross"
+          ],
+          "description": "Venue (6 allowed values)",
+          "example": "XNYS"
+        },
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": false,
+          "description": "Fill Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-01T14:30:02.150Z"
+        }
+      ]
+    },
+    {
+      "tag": "SLIPPAGE",
+      "description": "Slippage analysis — measures execution quality in basis points",
+      "fields": [
+        {
+          "name": "expected_price",
+          "type": "float",
+          "required": false,
+          "description": "Expected Price in USD",
+          "unit": "USD",
+          "example": "175.00"
+        },
+        {
+          "name": "actual_avg",
+          "type": "float",
+          "required": false,
+          "description": "Actual Avg Price in USD",
+          "unit": "USD",
+          "example": "175.10"
+        },
+        {
+          "name": "slippage_bps",
+          "type": "float",
+          "required": false,
+          "description": "Slippage in bps",
+          "unit": "bps",
+          "example": "5.7"
+        },
+        {
+          "name": "direction",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "favorable",
+            "adverse"
+          ],
+          "description": "Direction: favorable, adverse",
+          "example": "adverse"
+        }
+      ]
+    },
+    {
+      "tag": "MARGIN",
+      "description": "Margin requirements — tracks initial, maintenance, and excess capital",
+      "fields": [
+        {
+          "name": "initial",
+          "type": "float",
+          "required": false,
+          "description": "Initial Margin in USD",
+          "unit": "USD",
+          "example": "500000.00"
+        },
+        {
+          "name": "maintenance",
+          "type": "float",
+          "required": false,
+          "description": "Maintenance Margin in USD",
+          "unit": "USD",
+          "example": "350000.00"
+        },
+        {
+          "name": "excess",
+          "type": "float",
+          "required": false,
+          "description": "Excess Margin in USD",
+          "unit": "USD",
+          "example": "150000.00"
+        },
+        {
+          "name": "utilization",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Utilization in % (0–100)",
+          "unit": "%",
+          "example": "70.0"
+        }
+      ]
+    },
+    {
+      "tag": "PORTFOLIO",
+      "description": "Portfolio summary — net asset value, cash, and positions aggregate",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Portfolio ID",
+          "example": "ptf:growth-fund-1"
+        },
+        {
+          "name": "nav",
+          "type": "float",
+          "required": false,
+          "description": "Net Asset Value in USD",
+          "unit": "USD",
+          "example": "10850000.00"
+        },
+        {
+          "name": "cash",
+          "type": "float",
+          "required": false,
+          "description": "Cash Balance in USD",
+          "unit": "USD",
+          "example": "1250000.00"
+        },
+        {
+          "name": "positions",
+          "type": "string",
+          "required": false,
+          "description": "Position Count / Refs",
+          "example": "42"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Structured financial data for trading, risk, and compliance AI",
+    "highlights": [
+      "TXN",
+      "POSITION",
+      "ORDER"
+    ],
+    "use_cases": [
+      {
+        "id": "cross-border-payments",
+        "title": "Cross-Border Payment Processing",
+        "steps": [
+          "Initiate @PAYMENT with sender/receiver IBAN details",
+          "Run @KYC verification against sanctions lists",
+          "Execute @FX conversion at spot rate",
+          "Create @TRANSFER via SWIFT/ISO 20022 channel",
+          "Update @BALANCE for both accounts",
+          "Generate @TRANSACTION audit trail"
+        ],
+        "example": "@PAYMENT rid=pay:1 | currency=\"EUR\" | amount:float=25000.0 | method=\"wire\" | status=\"processing\"",
+        "tags_used": [],
+        "description": "Route transactions across payment rails with real-time FX conversion, sanctions screening, and AML compliance checks. Track settlement status through clearing networks.",
+        "tags": [
+          "TXN",
+          "WALLET",
+          "COMPLIANCE",
+          "FILL",
+          "POSITION"
+        ],
+        "tags_planned": [
+          "PAYMENT",
+          "KYC",
+          "FX",
+          "TRANSFER",
+          "BALANCE",
+          "TRANSACTION"
+        ]
+      },
+      {
+        "id": "lending-lifecycle",
+        "title": "Digital Lending Lifecycle",
+        "steps": [
+          "Collect @KYC documentation for applicant identity",
+          "Assess @RISK score using credit bureau and income data",
+          "Structure @LOAN terms with rate, tenure, and collateral",
+          "Disburse funds via @TRANSFER to borrower @ACCOUNT",
+          "Track repayment @TRANSACTION entries against @BALANCE"
+        ],
+        "example": "@LOAN rid=ln:1 | principal:float=150000.0 | rate:float=4.25 | term_months:int=360 | status=\"active\"",
+        "tags_used": [
+          "RISK"
+        ],
+        "description": "Process loan applications from credit scoring through disbursement, track repayment schedules, manage collections, and report to credit bureaus with regulatory compliance.",
+        "tags": [
+          "TXN",
+          "ACCOUNT",
+          "FACTORS",
+          "COMPLIANCE",
+          "WALLET"
+        ],
+        "tags_planned": [
+          "KYC",
+          "LOAN",
+          "TRANSFER",
+          "ACCOUNT",
+          "TRANSACTION",
+          "BALANCE"
+        ]
+      }
+    ],
+    "tag_context": {
+      "TXN": {
+        "purpose": "ISO 20022 aligned financial transaction with payment method, counterparties, and category",
+        "when_to_use": "Payment recording, transfer settlement, transaction reconciliation, audit trail generation",
+        "related_standards": [
+          "ISO 20022",
+          "FIX Protocol"
+        ]
+      },
+      "RISK": {
+        "purpose": "Model-driven risk assessment with level classification, score, and contributing factors",
+        "when_to_use": "Credit risk scoring, AML screening, counterparty evaluation, loan origination risk assessment",
+        "related_standards": [
+          "Basel III/IV",
+          "FRTB",
+          "ISO 22739"
+        ]
+      },
+      "AUDIT_TRAIL": {
+        "purpose": "Immutable regulatory-grade action log for compliance and surveillance",
+        "when_to_use": "SOX audit logging, trade surveillance, regulatory filing evidence, change tracking",
+        "related_standards": [
+          "SEC Rule 17a-4",
+          "MiFID II (RTS 25)"
+        ]
+      },
+      "COMPLIANCE": {
+        "purpose": "Regulatory compliance check tracking adherence status, findings, and reviewer",
+        "when_to_use": "KYC/AML checks, regulatory examination responses, periodic compliance reviews, remediation tracking",
+        "related_standards": [
+          "FATF 40 Recommendations",
+          "FinCEN BSA",
+          "EU AMLD 6"
+        ]
+      },
+      "POSITION": {
+        "purpose": "Trading portfolio exposure with quantity, P&L, NAV concentration, and limit tracking",
+        "when_to_use": "Holdings monitoring, concentration risk alerts, portfolio analytics, EOD position reports",
+        "related_standards": [
+          "FIX Protocol (Tag 55)",
+          "ISDA definitions"
+        ]
+      },
+      "FACTORS": {
+        "purpose": "Weighted risk factor breakdown contributing to composite risk score",
+        "when_to_use": "Risk model explainability, factor attribution, model validation, regulatory model documentation",
+        "related_standards": [
+          "ISO 22739 DLT",
+          "FICO Score Model",
+          "Basel III IRB"
+        ]
+      },
+      "RISK_SCORE": {
+        "purpose": "Computed risk score output from model with threshold comparison for decision automation",
+        "when_to_use": "Automated decisioning, threshold-based alerts, model output logging, scorecard evaluation",
+        "related_standards": [
+          "FICO Score",
+          "Basel III PD/LGD",
+          "ISO 22739"
+        ]
+      },
+      "ORDER": {
+        "purpose": "Trade order with type, side, quantity, time-in-force, and optional limit price",
+        "when_to_use": "Order submission, algo trading signals, order book analysis, pre-trade compliance",
+        "related_standards": [
+          "FIX 5.0 SP2 NewOrderSingle",
+          "ISO 10383 MIC",
+          "OATS (FINRA)"
+        ]
+      },
+      "FILL": {
+        "purpose": "Order execution record with actual fill price, quantity, venue, and execution ID",
+        "when_to_use": "Trade confirmation, best execution analysis, post-trade reporting, reconciliation",
+        "related_standards": [
+          "FIX ExecutionReport",
+          "ISO 10383",
+          "MiFID II RTS 25"
+        ]
+      },
+      "SLIPPAGE": {
+        "purpose": "Execution quality measurement comparing expected vs actual price in basis points",
+        "when_to_use": "Best execution monitoring, algo performance evaluation, TCA (transaction cost analysis), broker comparison",
+        "related_standards": [
+          "FIX Last Market",
+          "MiFID II Best Execution",
+          "SEC Rule 606"
+        ]
+      },
+      "MARGIN": {
+        "purpose": "Margin capital requirements tracking initial, maintenance, and excess levels",
+        "when_to_use": "Margin call monitoring, capital adequacy checks, collateral management, regulatory capital reporting",
+        "related_standards": [
+          "ISDA CSA",
+          "Basel III SA-CCR",
+          "EMIR IM"
+        ]
+      },
+      "PORTFOLIO": {
+        "purpose": "Portfolio-level summary with net asset value, cash balance, and positions aggregate",
+        "when_to_use": "NAV calculation, portfolio reporting, fund accounting, investor statements",
+        "related_standards": [
+          "GIPS (CFA)",
+          "ISO 10962 CFI",
+          "XBRL"
+        ]
+      }
+    },
+    "links": [
+      {
+        "label": "FIX Protocol",
+        "url": "https://www.fixtrading.org/",
+        "type": "standard"
+      },
+      {
+        "label": "ISO 20022",
+        "url": "https://www.iso20022.org/",
+        "type": "standard"
+      },
+      {
+        "label": "MiFID II",
+        "url": "https://www.esma.europa.eu/policy-rules/mifid-ii-and-mifir",
+        "type": "regulation"
+      },
+      {
+        "label": "SOX Compliance",
+        "url": "https://www.sec.gov/spotlight/sarbanes-oxley.htm",
+        "type": "regulation"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.compliance",
+        "relationship": "regulatory overlap",
+        "reason": "SOX and MiFID audit trails"
+      },
+      {
+        "domain": "yai.insurance",
+        "relationship": "often paired",
+        "reason": "Financial product risk assessment"
+      },
+      {
+        "domain": "yai.legal",
+        "relationship": "regulatory overlap",
+        "reason": "Contract terms and regulatory filings"
+      }
+    ],
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

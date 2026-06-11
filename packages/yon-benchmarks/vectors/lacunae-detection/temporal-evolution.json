@@ -1,0 +1,33 @@
+{
+  "document": "Access Control Policy Lifecycle",
+  "kind": "rule",
+  "sections": [
+    {
+      "name": "Initial Policy (June 2025)",
+      "timestamp": "2025-06-01T08:00:00Z",
+      "rules": [
+        {"level": "MUST", "id": "default-deny", "when": "request arrives without valid token", "then": "deny access and return 403"},
+        {"level": "MUST", "id": "admin-2fa", "when": "admin user authenticates", "then": "require two-factor authentication via TOTP"},
+        {"level": "MUST", "id": "session-ttl", "when": "session is created", "then": "set session TTL to 24 hours"},
+        {"level": "MUST", "id": "api-rate", "when": "API request received", "then": "enforce 100 requests per minute per user"}
+      ]
+    },
+    {
+      "name": "Policy Update (October 2025)",
+      "timestamp": "2025-10-15T11:30:00Z",
+      "note": "Post-incident review INC-2025-0947: session hijacking via long-lived session token.",
+      "patches": [
+        {"target": "session-ttl", "updated_then": "set session TTL to 4 hours — reduced from 24h after INC-2025-0947"},
+        {"target": "admin-2fa", "updated_then": "require two-factor authentication via hardware security key (FIDO2) — TOTP deprecated"}
+      ]
+    },
+    {
+      "name": "Policy Revocation (January 2026)",
+      "timestamp": "2026-01-10T09:00:00Z",
+      "note": "API rate limit removed after migration to token-bucket algorithm with per-endpoint limits.",
+      "revocations": [
+        {"target": "api-rate", "reason": "Replaced by per-endpoint rate limits in API gateway — blanket per-user limit no longer applicable"}
+      ]
+    }
+  ]
+}

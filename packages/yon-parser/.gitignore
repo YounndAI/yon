@@ -1,0 +1,10 @@
+node_modules
+dist
+.turbo
+*.tsbuildinfo
+/reports
+test/reports
+.env
+.env.local
+.env.*
+!.env.example

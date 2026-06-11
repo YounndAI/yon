@@ -1,0 +1,18 @@
+@DOC ver=2.0 | id=api-standards | title="API Design Standards" | kind=rule | profile=decl | fmt=canon
+
+@NOTE text="Declarative rules for API design. No execution, just policy."
+
+@SEC name="Endpoints"
+@RULE lvl=MUST | when="designing REST endpoints" | then="use plural nouns for collections"
+@RULE lvl=MUST | when="returning collections" | then="wrap in envelope with data and meta fields"
+@RULE lvl=SHOULD | when="filtering" | then="use query parameters, not path segments"
+@RULE lvl=MUST_NOT | when="designing endpoints" | then="use verbs in URL paths"
+
+@SEC name="Versioning"
+@RULE lvl=MUST | when="API versioning" | then="use URL prefix /v{N}/"
+@RULE lvl=SHOULD_NOT | when="making breaking changes" | then="remove fields without a deprecation period"
+
+@SEC name="Error Handling"
+@RULE lvl=MUST | when="returning errors" | then="use standard HTTP status codes"
+@RULE lvl=MUST | when="error response" | then="include error code, message, and request ID"
+@MAP id=StatusCodes | pairs=["400"->"Bad Request","401"->"Unauthorized","403"->"Forbidden","404"->"Not Found","500"->"Internal Server Error"]

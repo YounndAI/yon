@@ -1,0 +1,37 @@
+YON Domains Card (v2.0)
+
+PROFILES — control which record families appear:
+  core       Basic structure (@DOC, @SEC, @NOTE, @META, @CFG, @MAP)
+  decl       Rules and schemas (+@RULE, @SCHEMA, @DEF, @REF)
+  exec       Workflows (+@STEP, @CHECK, @CATCH, @RETRY, @INPUT, @OUTPUT, @YIELD)
+  audit      Provenance (+@STAMP, @REDACTION, @CONSENT)
+  cognitive  AI thought chains (+@INTENT, @SCOPE, profile=cognitive tags)
+  agent      Multi-agent systems (+@AGENT, @STREAM, @SIGNAL, @SUBSCRIBE, @MERGE, @THROTTLE, @ROUTE)
+  full       All record families enabled
+
+Declare in @DOC: profile=decl
+Feature toggles: with=[...], without=[...]
+
+FORMAT MODES — control printing density (lossless, never removes records):
+  canon   Full readability, all optional fields. For humans.
+  min     Reduced quoting, cosmetic whitespace stripped. Default for LLM pipelines.
+  ultra   Maximum density, structural omission. For cost-critical transport.
+
+Declare in @DOC: fmt=min
+
+DOMAINS — industry-specific record families:
+  Declare in @DOC: domain=yai.health
+  Records MAY include domain= to override for that record.
+
+Official domains (yon.* namespace):
+  yai.aerospace    yai.agriculture  yai.automotive     yai.compliance
+  yai.construction yai.devops       yai.dialogue       yai.ecommerce
+  yai.education    yai.energy       yai.environmental  yai.fintech
+  yai.gaming       yai.government   yai.health         yai.hospitality
+  yai.hr           yai.infrastructure yai.insurance    yai.legal
+  yai.logistics    yai.manufacturing  yai.maritime     yai.media
+  yai.pharma       yai.realestate   yai.research       yai.sai
+  yai.security     yai.sessions     yai.telecom        yai.transportation
+
+Partner domains: use own namespace (not <namespace>.*), e.g. stripe.payments, google.ai, etc., verified via domains.younndai.com
+Community domains: self-published, no registration (e.g., com.mycompany-crm)

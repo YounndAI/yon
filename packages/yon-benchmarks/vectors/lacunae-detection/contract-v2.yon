@@ -1,0 +1,15 @@
+@DOC ver=2.0 | id=api-security | title="API Security Policy v2" | kind=rule | mode=text | profile=exec | fmt=min
+
+@SEC name="Authentication"
+@RULE rid=rule:jwt-auth | lvl=MUST | when="calling any API endpoint" | then="include valid JWT in Authorization header — reject 401 on missing or expired token"
+@RULE rid=rule:api-key | lvl=MUST | when="calling public endpoints" | then="include API key in X-API-Key header — rate limit by key"
+@RULE rid=rule:session-bind | lvl=MUST | when="establishing session" | then="bind session to client IP and user-agent — reject on mismatch"
+
+@SEC name="Rate Limiting"
+@RULE rid=rule:rate-limit | lvl=MUST | when="any client exceeds 1000 requests per minute" | then="return 429 and block for 60 seconds"
+
+@SEC name="Change History"
+@PATCH ts:ts="2026-02-10T09:00:00Z" | target=rid:rule:rate-limit | set=[then="return 429 and block for 300 seconds"]
+@STAMP who="security-lead" | ts:ts="2026-02-10T09:15:00Z" | text="Rate limit penalty increased from 60s to 300s after DDoS incident SEC-2026-003."
+@VOID ts:ts="2026-03-01T14:00:00Z" | target=rid:rule:session-bind | because="Session binding causes issues with mobile clients on cellular networks — IP changes frequently"
+@STAMP who="mobile-team" | ts:ts="2026-03-01T14:30:00Z" | text="Session binding voided per mobile team request. Replaced by device fingerprinting in separate policy."

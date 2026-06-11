@@ -1,0 +1,7 @@
+{
+  "parse": "ok",
+  "validate_strict": "error",
+  "validate_lenient": "warn",
+  "error_code": null,
+  "notes": "@AUTOMATOR is missing the required `mission` field. Strict domain validation fails; lenient mode warns. Existing error codes (E001-E006, E101-E112) may cover this as a required-field error; if a yai.yonpa-specific code is needed, file a separate yon-spec RFC."
+}

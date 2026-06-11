@@ -1,0 +1,59 @@
+@DOC ver=2.0 | kind=spec | id=billing-api | title="Billing API v2" | profile=decl | fmt=MIN
+
+@SEC name="Auth"
+@CFG key=auth | value="Bearer OAuth2, 1h TTL, 30d refresh"
+@CFG key=rate | value="500/min, 10000/hr per org"
+@RULE lvl=MUST | when="429" | then="Retry-After header"
+@RULE lvl=MUST | when="admin token" | then="all orgs"
+@RULE lvl=MUST | when="user token" | then="own org"
+
+@SEC name="Conventions"
+@CFG key=base | value="https://api.acmebilling.io/v2"
+@CFG key=pagination | value="cursor, max 100, default 25"
+@CFG key=timestamps | value="ISO 8601 UTC"
+@CFG key=money | value="cents integer + currency"
+@CFG key=idempotency | value="Idempotency-Key, 24h TTL"
+
+@SEC name="Customers"
+@MAP id=post_customer | pairs=["name"->"req","email"->"req, unique","phone"->"opt","tax_id"->"opt","metadata"->"opt, 20 keys max"]
+@NOTE text="201 create. 409 email conflict. PATCH all except email. DELETE soft-archives (410 if already)."
+@MAP id=filters | pairs=["email"->"exact","created_after"->"ISO","created_before"->"ISO","sort"->"created_at desc|asc"]
+
+@SEC name="Products"
+@MAP id=post_product | pairs=["name"->"req, 255 chars","description"->"opt, 2000 chars","active"->"bool, default true"]
+@RULE lvl=MUST | when="subscription" | then="product needs ≥1 price"
+@NOTE text="active=false blocks new subs, not existing."
+
+@SEC name="Prices"
+@MAP id=post_price | pairs=["amount"->"req, cents","currency"->"USD|EUR|GBP|CAD|AUD|JPY","interval"->"month|quarter|year","type"->"recurring|one_time","billing_scheme"->"per_unit|tiered"]
+@NOTE text="Immutability: prices immutable after creation"
+@MAP id=tiers | pairs=["≤10"->"1000c/unit","≤100"->"800c/unit","∞"->"500c/unit"]
+
+@SEC name="Subscriptions"
+@MAP id=post_sub | pairs=["customer_id"->"req","items"->"[{price_id,qty}]","trial_days"->"0-365","payment_method"->"req unless trial","proration"->"create_prorations|none|always_invoice"]
+@MAP id=status_flow | pairs=["trialing"->"active","active"->"past_due|canceled","past_due"->"active|canceled"]
+@NOTE text="DELETE: ?at=period_end (default)|now. Resume: only if canceled + future cancel_at."
+
+@SEC name="Invoices"
+@MAP id=invoice_filters | pairs=["customer_id"->"exact","subscription_id"->"exact","status"->"draft|open|paid|void|uncollectible"]
+@NOTE text="POST /pay: 402 on fail. POST /void: only open invoices."
+
+@SEC name="Events"
+@MAP id=events | pairs=["customer"->"created|updated|archived","product"->"created|updated","price"->"created|deactivated","subscription"->"created|updated|canceled|trial_ending(3d)","invoice"->"created|paid|payment_failed|voided","payment_method"->"attached|detached|expiring(30d)"]
+
+@SEC name="Errors"
+@MAP id=codes | pairs=["ERR_AUTHENTICATION"->"bad token","ERR_AUTHORIZATION"->"no perms","ERR_NOT_FOUND"->"404","ERR_VALIDATION"->"body invalid","ERR_CONFLICT"->"duplicate","ERR_RATE_LIMIT"->"429","ERR_PAYMENT_FAILED"->"payment error","ERR_SUBSCRIPTION_INACTIVE"->"canceled sub","ERR_PRICE_IMMUTABLE"->"price locked","ERR_IDEMPOTENCY_MISMATCH"->"key reuse"]
+
+@SEC name="Versioning"
+@CFG key=format | value="date-based (2024-01-01)"
+@CFG key=header | value="X-API-Version"
+@CFG key=deprecation_months | value:int=6
+
+@SEC name="SDKs"
+@MAP id=sdks | pairs=["JS/TS"->"@acme/billing-sdk","Python"->"acme-billing","Ruby"->"acme-billing","Go"->"go.acme.io/billing"]
+
+@SEC name="Sandbox"
+@CFG key=url | value="https://sandbox.api.acmebilling.io/v2"
+@CFG key=prefix | value="sk_test_"
+@CFG key=rate | value:int=100
+@MAP id=test_pms | pairs=["pm_test_success"->"always ok","pm_test_decline"->"always fail","pm_test_insufficient"->"insufficient funds"]

@@ -1,0 +1,35 @@
+@DOC ver=2.0 | kind=note | id=greenpulse-brainstorm | title="GreenPulse — Mobile App Concept Brainstorm" | profile=decl | fmt=canon
+
+@NOTE text="Pure ideation session. Nothing decided. Think big, think weird, don't self-censor."
+
+@SEC name="Idea 1: Personal Carbon Dashboard"
+
+@NOTE text="Mint-for-carbon-footprint. Users connect bank accounts, auto-categorize spending into carbon impact. Uses Plaid for bank integration, carbon APIs (Climatiq, CarbonInterface) for estimates — but none are great for individual transactions. Would need custom mapping layer."
+
+@MAP id=carbon_features | pairs=["carbon_budget"->"calorie counter for CO2","trends"->"weekly/monthly charts with animations","social_compare"->"anonymous friend averages","gamification"->"badges, streaks, challenges (Meatless Monday)","ar_vision"->"point at product, see carbon score (probably too hard)"]
+
+@NOTE text="Concerns: privacy barrier (bank data sharing), calculation accuracy (rough estimates), UX for confidence intervals (confusing for casual users)."
+
+@SEC name="Idea 2: Neighborhood Sustainability Map"
+
+@NOTE text="Google Maps meets Nextdoor. User-generated pins: sustainable businesses, gardens, EV chargers, recycling, compost sites. OpenStreetMap-style community content. Low cost but needs moderation."
+
+@MAP id=map_revenue | pairs=["verified_pins"->"businesses pay for eco-checkmark","gov_sponsors"->"local government boards","grants"->"nonprofit route (credible but less fundable)","geo_challenges"->"visit 5 green businesses → discount bundle (brands pay)"]
+
+@SEC name="Idea 3: Food Waste Countdown Timer"
+
+@NOTE text="Scan grocery receipt or manual entry. App predicts spoilage. Push notifications with timing: 'avocados peak tomorrow — 3 recipes' or 'bananas entering freeze zone.' Integration with recipe APIs (Spoonacular, Edamam) and food-sharing apps (Too Good To Go, OLIO)."
+
+@NOTE text="Notification timing is everything — too early = ignored, too late = wasted."
+@NOTE text="Possible V2 combination with Idea 1: single sustainability score (carbon + food waste). But scope creep for MVP — park it."
+
+@SEC name="Idea 4: Anti-Fast-Fashion Closet"
+
+@NOTE text="Digital wardrobe: photo catalog, AI categorization, outfit suggestions from existing clothes. Anti-shopping personal stylist. When buying, app discourages first ('You have 6 white t-shirts'). Then suggests sustainable alternatives (thrift, ethical brands)."
+
+@MAP id=closet_tech | pairs=["ai_styling"->"object detection + fashion sense (GPT-4V or Pinterest data)","business_model"->"affiliate links to sustainable brands or subscription tier","crazy_extension"->"social closet-sharing (Airbnb for wardrobes — probably its own startup)"]
+
+@SEC name="Next Steps"
+
+@MAP id=actions | pairs=["everyone"->"vote top 2 ideas by Friday","schedule"->"deep-dive session next week on winners","Alex"->"research carbon API landscape","Sarah"->"sketch wireframes for top-voted concept","Mark"->"competitive analysis (Joro, Commons, CoGo, Oroeco)"]
+@NOTE text="No budget decisions yet — still exploratory."

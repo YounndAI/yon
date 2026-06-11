@@ -1,0 +1,17 @@
+@DOC ver=2.0 | id=project-config | title="Project Configuration" | kind=spec | profile=decl | fmt=canon
+
+@NOTE text="Declarative project configuration. Defines build targets, dependencies, and environment."
+
+@SEC name="Build Targets"
+@MAP id=Targets | pairs=["web"->"Next.js 16","api"->"Express 5","mobile"->"React Native 0.76"]
+
+@SEC name="Dependencies"
+@MAP id=Required | pairs=["node"->">= 22.0.0","npm"->">= 10.0.0","postgres"->">= 16.0"]
+
+@SEC name="Environment Matrix"
+@MAP id=Environments | pairs=["development"->"local Docker","staging"->"AWS ECS","production"->"AWS EKS"]
+
+@SEC name="Quality Gates"
+@RULE lvl=MUST | when="merging to main" | then="all tests pass with zero failures"
+@RULE lvl=MUST | when="merging to main" | then="code coverage above 80 percent"
+@RULE lvl=SHOULD | when="releasing" | then="update CHANGELOG.md with version notes"

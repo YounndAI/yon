@@ -1,0 +1,88 @@
+@DOC ver=2.0 | kind=benchmark | id=embedded-code | title="Embedded Code Blocks" | profile=exec | fmt=canon
+
+@SEC name="Python Block"
+@NOTE text="Python with quotes, f-strings, and special characters."
+@BEGIN lang=python | id=py-sample
+def greet(name: str) -> str:
+    """Return a greeting with "quotes" inside."""
+    return f"Hello, {name}! It's {2 + 2} o'clock."
+
+# Pipe character: | and backslash: \
+data = {"key": "value", "nested": {"a": [1, 2, 3]}}
+print(data["key"])
+@END
+
+@SEC name="JSON Block"
+@NOTE text="JSON with nested objects, arrays, and special chars."
+@BEGIN lang=json | id=json-sample
+{
+  "name": "YON Benchmark",
+  "version": "2.0",
+  "tags": ["streaming", "lossless", "cognitive-economy"],
+  "config": {
+    "timeout": 30000,
+    "retries": 3,
+    "description": "Contains \"quotes\" and \\backslashes\\"
+  },
+  "data": [
+    { "id": 1, "value": null },
+    { "id": 2, "value": true }
+  ]
+}
+@END
+
+@SEC name="SQL Block"
+@NOTE text="SQL with string literals and operators."
+@BEGIN lang=sql | id=sql-sample
+SELECT u.id, u.name, COUNT(o.id) AS order_count
+FROM users u
+LEFT JOIN orders o ON o.user_id = u.id
+WHERE u.status = 'active'
+  AND u.created_at >= '2026-01-01'
+  AND u.email LIKE '%@younndai.com'
+GROUP BY u.id, u.name
+HAVING COUNT(o.id) > 0
+ORDER BY order_count DESC;
+@END
+
+@SEC name="Bash Block"
+@NOTE text="Shell script with pipes, redirects, and variable expansion."
+@BEGIN lang=bash | id=bash-sample
+#!/bin/bash
+set -euo pipefail
+
+API_KEY="${OPENAI_API_KEY:-}"
+if [ -z "$API_KEY" ]; then
+  echo "Error: OPENAI_API_KEY not set" >&2
+  exit 1
+fi
+
+curl -s "https://api.example.com/data" \
+  -H "Authorization: Bearer $API_KEY" \
+  | jq '.results[] | {id, name}' \
+  > output.json 2>&1
+
+echo "Done. $(wc -l < output.json) records written."
+@END
+
+@SEC name="TypeScript Block"
+@NOTE text="TypeScript with generics, template literals, and regex."
+@BEGIN lang=typescript | id=ts-sample
+interface Config<T extends Record<string, unknown>> {
+  readonly name: string;
+  readonly values: T;
+  readonly validate: (input: T) => boolean;
+}
+
+const pattern = /^@[A-Z]+\s+(.+)$/gm;
+const escaped = `Contains "quotes" and \`backticks\` and $\{expressions}`;
+
+async function process<T>(config: Config<T>): Promise<T | null> {
+  if (!config.validate(config.values)) {
+    throw new Error(`Invalid config: ${config.name}`);
+  }
+  return config.values;
+}
+@END
+
+@STAMP ts:ts=2026-02-12T19:00:00Z | src=benchmarks | label="Multi-language code embedding vector"

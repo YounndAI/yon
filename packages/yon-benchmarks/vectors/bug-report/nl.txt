@@ -1,0 +1,29 @@
+hey team, we have a critical issue in production right now
+
+so around 2:47 PM UTC today (Feb 12), customers started reporting they can't complete checkout. the payment form loads fine but when they hit "Pay Now" it just spins forever and then shows a generic error message "Something went wrong"
+
+i checked the logs and there's a ton of these:
+ERROR PaymentService.processPayment(): Connection timeout after 30000ms to stripe-api.internal.prod:443
+the stripe internal proxy seems to be the problem. it started right after the 2:30 PM deployment (deploy #4521)
+
+what we know so far:
+- affects all payment methods (card, apple pay, google pay)
+- only production, staging works fine
+- the stripe dashboard shows NO incoming requests from our side after 2:30 PM
+- about 340 failed transactions so far
+- revenue impact estimated at $47,000
+- our health check endpoint returns 200 but the payment health check returns 503
+
+what we've tried:
+- restarted the payment service pods (3 times) - no effect
+- checked stripe status page - all green
+- verified API keys haven't changed
+- tried direct connection to stripe (bypassing proxy) from a prod pod - that works!
+
+so the proxy is definitely the issue. but we can't just bypass it because of PCI compliance - all payment traffic must go through the proxy for logging
+
+rollback is risky because #4521 included a database migration that added 3 new columns to the orders table
+
+i need someone from infra to check the proxy NOW. @sarah can you look at the proxy config? also @mike can you check if the deployment changed any network policies?
+
+current workaround: we're considering enabling the maintenance page for checkout while we fix this. estimated resolution time: unknown

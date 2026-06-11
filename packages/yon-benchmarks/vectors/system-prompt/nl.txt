@@ -1,0 +1,15 @@
+here are the design constraints for the landing page code generation:
+
+1. The page MUST use semantic HTML5 elements (header, main, section, footer, nav). No div soup — every container must have a meaningful tag.
+
+2. The page MUST be fully responsive using CSS Grid for the main layout and Flexbox for component-level alignment. No fixed pixel widths on containers.
+
+3. The page MUST NOT use any inline styles. All styling must go through CSS custom properties (variables) defined in a :root block.
+
+4. The page SHOULD use the color palette: primary #1A1A2E, secondary #16213E, accent #E94560, surface #F5F5F5. SHOULD prefer the accent color for interactive elements.
+
+5. All images MUST have descriptive alt text. Decorative images must use alt="" with role="presentation".
+
+6. The page MUST NOT use JavaScript for layout or styling. JS is permitted only for interactivity (menu toggle, scroll animations).
+
+7. The page SHOULD include a skip-to-content link as the first focusable element for keyboard navigation accessibility.

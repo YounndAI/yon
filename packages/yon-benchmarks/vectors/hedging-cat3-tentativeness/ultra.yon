@@ -1,0 +1,3 @@
+@DOC ver=2.0 | id=hedging-cat3-caching | title="Caching Strategy" | kind=rule | profile=decl | fmt=ultra
+@MAP id=Caching | pairs=["cache"->"might want Redis, maybe memcached if simpler","session"->"could potentially move to DB"]
+@MAP id=FutureNeeds | pairs=["websocket"->"might need eventually"]

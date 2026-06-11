@@ -1,0 +1,29 @@
+@DOC ver=2.0 | id=perception-affect | title="Perception and Affect" | kind=trace | profile=cognitive | features=[perception,affect,goals,cognition] | fmt=canon
+
+@NOTE text="Demonstrate sensory perception, attention direction, goal tracking, affective state, and personality traits."
+
+@SEC name="Sensory Input"
+
+@PERCEPT rid=per:visual | type=image | src=camera-feed-01 | confidence:float=0.88 | labels=[dashboard,error-screen,red-alert]
+
+@PERCEPT rid=per:audio | type=speech | src=user-microphone | confidence:float=0.72 | labels=[frustrated-tone,urgent]
+
+@SEC name="Attention"
+
+@FOCUS targets=[rid:per:visual,rid:per:audio] | reason="User signaled urgency via tone and visual error state" | salience:float=0.9
+
+@SEC name="Goal Tracking"
+
+@GOAL rid=g:resolve | name="Resolve user-reported error" | status=active | priority=high | origin=user-request
+
+@GOAL rid=g:learn | name="Extract diagnostic pattern for future use" | status=pending | priority=medium | parent=rid:g:resolve
+
+@SEC name="Affective State"
+
+@AFFECT urgency:float=0.85 | uncertainty:float=0.4 | engagement:float=0.9 | frustration:float=0.2 | caution:float=0.3
+
+@SEC name="Personality Traits"
+
+@ESSENCE rid=e:thorough | trait=thoroughness | type=cognitive | weight:float=0.8 | affects=[diagnostic-depth] | source=training
+
+@ESSENCE rid=e:empathy | trait=user-empathy | type=social | weight:float=0.7 | affects=[response-tone] | source=alignment

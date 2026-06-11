@@ -1,0 +1,29 @@
+{
+  "document": "Data Write Policy",
+  "kind": "rule",
+  "sections": [
+    {
+      "name": "Write Operations",
+      "rules": [
+        {"level": "MUST", "when": "writing to production database", "then": "run validation pipeline first — no exceptions"},
+        {"level": "MUST_NOT", "when": "any module", "then": "bypass validation pipeline for production writes"},
+        {"level": "MUST", "when": "validation fails", "then": "reject write and log validation errors"}
+      ],
+      "checks": [
+        {"id": "no-bypass", "assert": "no code path bypasses validation", "fail": "ABORT", "message": "Validation bypass is a data integrity violation"}
+      ]
+    },
+    {
+      "name": "Policy Evolution",
+      "change_history": [
+        {
+          "date": "2026-01-20",
+          "incident": "INC-2026-0012",
+          "target": "no-bypass check",
+          "change": "Updated message to: Validation bypass is a data integrity violation — Incident INC-2026-0012 confirmed bypass caused data corruption",
+          "context": "A service bypassed validation during a migration batch job, corrupting 847 records. Check message tightened to reference incident."
+        }
+      ]
+    }
+  ]
+}

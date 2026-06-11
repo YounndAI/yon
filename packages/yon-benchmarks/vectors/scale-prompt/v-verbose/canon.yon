@@ -1,0 +1,34 @@
+@DOC ver=2.0 | id=api-rules | title="API Rules and Guidelines" | kind=rule | profile=exec | fmt=canon
+
+@INTENT goal="Define API rules and guidelines" | audience=developers
+
+@SEC name=Authentication
+@RULE lvl=must | when="Using OAuth2" | then="Use OAuth2 with Bearer tokens"
+@RULE lvl=must | when="Token issued" | then="Tokens have a TTL of 3600 seconds"
+@RULE lvl=must | when="Using refresh tokens" | then="Refresh tokens last for 30 days"
+@RULE lvl=must | when="Client exceeds rate limit" | then="Return 429 status code if rate limit exceeded"
+@RULE lvl=must | when="Using admin tokens" | then="Admin tokens access all organizations"
+@RULE lvl=must | when="Using regular user tokens" | then="User tokens access own organization"
+@RULE lvl=must | when="Making API request" | then="Authorization header with valid bearer token required"
+@RULE lvl=must | when="Using refresh token" | then="Refresh tokens can only be used once"
+
+@SEC name="Users API"
+@RULE lvl=must | when="Creating user" | then="POST /users requires name, email, and role"
+@RULE lvl=must | when="Assigning email" | then="Email must be unique within organization"
+@RULE lvl=must | when="Role not specified" | then="Default role is member"
+@RULE lvl=must | when="Getting user list" | then="GET /users uses cursor-based pagination"
+@RULE lvl=must | when="Requesting user details" | then="GET /users/:id includes last_login and created_at"
+@RULE lvl=must | when="Updating user" | then="Email change requires verification"
+@RULE lvl=must | when="Deleting user" | then="DELETE /users/:id performs soft delete"
+@RULE lvl=must | when="Deleting archived user" | then="Return 410 Gone for archived user deletion"
+
+@SEC name="Orders API"
+@RULE lvl=must | when="Creating order" | then="POST /orders requires customer_id, items, total, and currency"
+@RULE lvl=must | when="Validating order total" | then="Order total must equal sum of item amounts"
+@RULE lvl=must | when="Using currency" | then="Currency must be valid ISO 4217 code"
+@RULE lvl=must | when="Mixing currencies in order" | then="Cannot mix currencies within an order"
+@RULE lvl=must | when="Modifying order" | then="PATCH /orders/:id only in draft status"
+@RULE lvl=must | when="Deleting order" | then="DELETE /orders/:id not supported, use cancel"
+
+@SEC name="Error Codes"
+@MAP id=Error Codes name="Error Codes" | pairs=["ERR_AUTH"->"Invalid or expired token","ERR_NOT_FOUND"->"Resource does not exist","ERR_VALIDATION"->"Schema validation failed","ERR_CONFLICT"->"Resource already exists","ERR_RATE_LIMIT"->"Exceeded rate limit","ERR_PAYMENT_FAILED"->"Payment rejected","ERR_INSUFFICIENT_FUNDS"->"Insufficient account balance","ERR_PERMISSION_DENIED"->"Insufficient permissions","ERR_RESOURCE_LOCKED"->"Resource is locked"]

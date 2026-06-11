@@ -1,0 +1,52 @@
+@DOC ver=2.0 | id=chunk-0 | title=Partial | kind=rule | profile=exec | fmt=min
+@NOTE text="So basically the way authentication works is that you need to use OAuth2 with Bearer tokens. The tokens have a TTL (time to live) of 3600 seconds, which is like one hour. And then there's also refresh tokens that last for about 30 days or so. Oh and I should mention the rate limiting - we have a rate limit of 500 requests per minute per API key globally across all endpoints. If a client goes over the rate limit, you should return a 429 status code and make sure to include the Retry-After header so they know when to try again. One important thing to note is that admin tokens are special - they can access resources across all organizations in the system. Regular user tokens on the other hand can only access data within their own organization, which makes sense from a security perspective. Also every single API request needs to have the Authorization header with a valid bearer token or it should be rejected. Tokens are issued through the /auth/token endpoint - you can use either client credentials flow or authorization code flow depending on your use case. Oh and refresh tokens - they can only be used once. After you use a refresh token it gets invalidated and you get a new one back along with the new access token.\n\nFor the users part of the API, there's a POST endpoint at /users that you know creates a new user in the system. The fields that are absolutely required are the name, the email address, and their role. Now here's the thing - the email address has to be unique within each organization (so two users in the same org can't have the same email, but users in different orgs can). The available roles you can assign are admin, member, or viewer, and if you don't specify a role it defaults to member which is the most common one anyway. When you want to get a list of users you use GET /users and it returns paginated results using cursor-based pagination (not offset-based). The default number of items per page is 25 but you can request up to 100 at most. If you need a specific user, GET /users/:id gives you the full user object with their last_login and created_at timestamps included. For updating a user you use PATCH /users/:id which does a partial update using merge semantics - you only send the fields you want to change. But be careful, you cannot change a user's email address without going through the email verification process first. And for deletion, DELETE /users/:id doesn't actually delete the user permanently, it's a soft delete that sets their status to archived. Once a user is archived they can't log in anymore. If someone tries to delete a user that's already archived, you should return 410 Gone status.\n\nOkay so for orders - the POST /orders endpoint is what you use to create a brand new order in the system. There are several required fields that you absolutely must include: the customer_id (which links to the customer placing the order), the items array (which contains all the products being ordered), the total amount, and the currency. Now for the items array, each item within it needs to have a product_id, a quantity, and a unit_price. And here's a validation rule that's really important - the total field MUST be exactly equal to the sum of all the item amounts (that is, quantity multiplied by unit_price for each item). If the math doesn't add up, reject the order. Currency has to be a valid ISO 4217 code - we support USD, EUR, GBP, CAD, AUD, and JPY. You absolutely cannot mix different currencies within a single order - that's a hard rule. For retrieving orders, the GET /orders endpoint supports filtering by various fields including customer_id, status, date range, and minimum total amount. Now orders have a very specific lifecycle they go through: first they start as draft, then they get confirmed, then they go into processing, then shipped, and finally delivered. An order can be canceled at any point before it reaches the shipped status. For modifying orders, PATCH /orders/:id only works when the order is still in draft status - once it's confirmed you can't change the items anymore. Status transitions use their own dedicated endpoints rather than PATCH. POST /orders/:id/confirm moves from draft to confirmed and also triggers payment authorization. POST /orders/:id/cancel marks the order as canceled and if payment was already captured it triggers a refund. And one more thing - DELETE /orders/:id is not actually supported at all. If you want to remove an order, use the cancel endpoint instead.\n\nLet me explain the error codes - they all follow a consistent pattern which makes them easier to work with. ERR_AUTH is returned when the authentication token is either invalid or has expired so the client needs to get a new one. ERR_NOT_FOUND means that whatever resource they were trying to access doesn't exist in the system, maybe it was deleted or the ID is wrong. ERR_VALIDATION gets returned when the request body that was sent doesn't pass our schema validation rules - like missing required fields or wrong data types. ERR_CONFLICT is used when we detect that a resource already exists with the same unique identifier, for example if someone tries to create a user with an email that's already taken. ERR_RATE_LIMIT happens when the client has sent too many requests and exceeded their rate limit allocation. ERR_PAYMENT_FAILED means that the payment provider (like Stripe or whatever) rejected the transaction for some reason. ERR_INSUFFICIENT_FUNDS is specifically for when the customer's account balance is too low to cover the transaction amount. ERR_PERMISSION_DENIED means the token that was used doesn't have the necessary scope or permission to perform the requested action. ERR_RESOURCE_LOCKED is returned when someone tries to modify a resource that's currently being modified by another process, like a concurrent update situation. And one more important thing - all error responses must include a request_id field which is useful for debugging, and a human-readable message field that explains what went wrong."
+
+@SEC name="Products API"
+@RULE lvl=must | when="POST /products" | then="POST /products creates product"
+@RULE lvl=must | when="name field" | then="Name max 255 chars"
+@RULE lvl=must | when="description field" | then="Description max 2000 chars"
+@RULE lvl=must | when=price | then="Price in smallest unit"
+@RULE lvl=must | when="GET /products" | then="Filter by category, status, price"
+@RULE lvl=must | when="PATCH /products/:id" | then="PATCH updates product"
+@RULE lvl=must | when="active field set to false" | then="Active false excludes from orders"
+@RULE lvl=must | when="deleting a product" | then="Deactivate before delete"
+
+@SEC name="Invoices API"
+@RULE lvl=must | when="POST /invoices" | then="POST /invoices creates invoice"
+@RULE lvl=must | when="invoice status is draft" | then="Draft invoices editable"
+@RULE lvl=must | when="invoice status is open" | then="Open invoices locked"
+@RULE lvl=must | when="POST /invoices/:id/pay" | then="Charge default payment method"
+@RULE lvl=must | when="POST /invoices/:id/void" | then="Void invoice"
+@RULE lvl=must | when="invoice is paid" | then="Paid invoice needs refund"
+
+@SEC name="Input Validation"
+@RULE lvl=must | when="email fields" | then="Email RFC 5322"
+@RULE lvl=must | when="phone number fields" | then="Phone E.164"
+@RULE lvl=must | when="monetary amounts" | then="Money in cents"
+@RULE lvl=must | when="date fields" | then="Date ISO 8601 UTC"
+@RULE lvl=must | when="metadata objects" | then="Metadata 20 keys, 500 chars"
+@RULE lvl=must | when="array fields" | then="Array max 100 items"
+@RULE lvl=must | when="string fields" | then="Trim strings, empty as null"
+@RULE lvl=must | when="boolean fields" | then="Boolean true/false, 1/0, yes/no"
+@RULE lvl=must | when="enum fields" | then="Enum case-insensitive, lowercase"
+
+@SEC name="Webhook Events"
+@MAP id=Events | pairs=["order.created"->"new order placed","order.updated"->"order modified","order.completed"->"order delivered","payment.succeeded"->"payment successful","payment.failed"->"payment failed","invoice.paid"->"invoice paid"]
+
+@SEC name=Security
+@RULE lvl=must | when="processing webhook payload" | then="Verify HMAC-SHA256"
+
+@SEC name="Delivery Requirements"
+@RULE lvl=must | when="webhook sent" | then="Respond 200 in 30s"
+@NOTE text="Retry with backoff"
+@MAP id=Retry Intervals | pairs=["1st retry"->"1 minute","2nd retry"->"5 minutes","3rd retry"->"25 minutes","4th retry"->"2 hours","5th retry"->"10 hours"]
+
+@SEC name="Setup and History"
+@RULE lvl=must | when="setting up webhook" | then="HTTPS for setup"
+@NOTE text="GET delivery history"
+@NOTE text=1999
+@NOTE text=1234567890
+@NOTE text=2026
+@NOTE text=19.99
+@NOTE text=EST
+@NOTE text=PST

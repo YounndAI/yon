@@ -1,0 +1,11 @@
+@DOC ver=2.0 | id=error-recovery | title="Error Recovery" | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Retry with backoff, then fall back to cache on exhaustion."
+
+@STEP n:int=1 | rid=fetch | op=std:http.get@v1 | args=[url="https://api.example.com/data"] | out=[ref:data] | timeout_ms:int=8000
+@RETRY target=rid:fetch | max:int=3 | delay_ms:int=1000 | backoff=exponential
+@CATCH target=rid:fetch | on=error | do=rid:use-cache
+
+@STEP n:int=2 | rid=use-cache | op=std:cache.get@v1 | args=[key=cached-data] | out=[ref:data]
+
+@STEP n:int=3 | rid=process | op=std:data.map@v1 | in=[ref:data] | out=[ref:result]

@@ -1,0 +1,15 @@
+@DOC ver=2.0 | id=retry-backoff | title="Retry with Backoff" | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Exponential backoff retry pattern with structured error handling."
+
+@STEP n:int=1 | rid=fetch | op=std:http.get@v1 | args=[url="https://api.example.com/unstable"] | out=[ref:data] | timeout_ms:int=10000
+@RETRY target=rid:fetch | max:int=5 | delay_ms:int=1000 | backoff=exponential
+
+@STEP n:int=2 | rid=validate | op=std:data.validate@v1 | in=[ref:data] | out=[ref:valid]
+
+@CHECK rid=gate:valid | assert="ref:valid.ok == true" | fail=ABORT | msg="Fetched data failed validation"
+
+@STEP n:int=3 | rid=store | op=std:db.insert@v1 | in=[ref:valid]
+
+@CATCH target=rid:fetch | on=timeout | do=rid:log-and-skip
+@STEP n:int=4 | rid=log-and-skip | op=std:log.warn@v1 | args=[msg="Fetch timed out after retries"]

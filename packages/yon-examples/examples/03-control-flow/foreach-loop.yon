@@ -1,0 +1,15 @@
+@DOC ver=2.0 | id=foreach-loop | title="ForEach Loop" | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Iterate over a list and process each item. Uses step chaining with ref tokens."
+
+@SEC name="Prepare"
+@STEP n:int=1 | rid=load | op=std:fs.read@v1 | args=[path="data/items.json"] | out=[ref:items]
+
+@SEC name="Loop"
+@STEP n:int=2 | rid=iterate | op=std:data.foreach@v1 | in=[ref:items] | out=[ref:current_item]
+@STEP n:int=3 | rid=enrich | op=std:data.enrich@v1 | in=[ref:current_item] | out=[ref:enriched]
+
+@SEC name="Collect"
+@STEP n:int=4 | rid=aggregate | op=std:data.collect@v1 | in=[ref:enriched] | out=[ref:results]
+
+@STAMP ts:ts="2026-02-14T05:00:00Z" | src=batch-runner

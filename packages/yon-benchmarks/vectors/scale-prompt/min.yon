@@ -1,0 +1,27 @@
+@DOC ver=2.0 | id=api-rules | title="API Rules and Endpoints" | kind=rule | profile=exec | fmt=min
+
+@SEC name=Authentication
+@RULE lvl=must | when="making API requests" | then="Include Authorization header"
+@RULE lvl=must | when="rate limited" | then="Return 429 on rate limit"
+@NOTE text="Bearer token OAuth2, 3600s TTL"
+@NOTE text="/auth/token endpoint"
+@NOTE text="Refresh tokens single-use"
+
+@SEC name="User Management"
+@RULE lvl=must | when="creating a user" | then="POST /users requires name, email, role"
+@RULE lvl=must | when="email is provided" | then="Email unique per org"
+@NOTE text="Roles: admin, member, viewer"
+@NOTE text="GET /users paginated"
+@RULE lvl=must | when="user not found" | then="Return 404 if user not found"
+@NOTE text="PATCH /users/:id partial update"
+@RULE lvl=must | when="user is already archived" | then="Return 410 if archived"
+
+@SEC name="Order Management"
+@RULE lvl=must | when="creating an order" | then="POST /orders requires customer_id, items, total, currency"
+@RULE lvl=must | when="total is calculated" | then="Total = sum(quantity * unit_price)"
+@RULE lvl=must | when="currency is provided" | then="Currency ISO 4217"
+@NOTE text="Order lifecycle: draft to delivered"
+@RULE lvl=must | when="order is canceled" | then="Cancel triggers refund"
+
+@SEC name="Error Codes"
+@MAP id=Error Codes | pairs=["ERR_AUTH"->"invalid or expired token","ERR_NOT_FOUND"->"requested resource does not exist","ERR_VALIDATION"->"request body failed schema validation","ERR_CONFLICT"->"duplicate resource detected","ERR_RATE_LIMIT"->"too many requests","ERR_PAYMENT_FAILED"->"payment provider rejected transaction","ERR_INSUFFICIENT_FUNDS"->"account balance too low","ERR_PERMISSION_DENIED"->"token lacks required scope","ERR_RESOURCE_LOCKED"->"resource being modified by another process"]

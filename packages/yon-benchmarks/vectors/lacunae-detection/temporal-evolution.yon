@@ -1,0 +1,21 @@
+@DOC ver=2.0 | id=temporal-evolution | title="Access Control Policy Lifecycle" | kind=rule | mode=text | profile=exec | fmt=min
+
+@INTENT goal="Demonstrate YON temporal policy evolution via @PATCH and @VOID" | audience="Compliance officers, security architects"
+@STAMP ts:ts="2025-06-01T08:00:00Z" | src=human | method=manual
+
+@SEC name="Initial Policy (June 2025)"
+@RULE rid=rule:default-deny | lvl=MUST | when="request arrives without valid token" | then="deny access and return 403"
+@RULE rid=rule:admin-2fa | lvl=MUST | when="admin user authenticates" | then="require two-factor authentication via TOTP"
+@RULE rid=rule:session-ttl | lvl=MUST | when="session is created" | then="set session TTL to 24 hours"
+@RULE rid=rule:api-rate | lvl=MUST | when="API request received" | then="enforce 100 requests per minute per user"
+
+@SEC name="Policy Update (October 2025)"
+@STAMP ts:ts="2025-10-15T11:30:00Z" | src="security-team" | method=manual
+@NOTE text="Post-incident review INC-2025-0947: session hijacking via long-lived session token."
+@PATCH ts:ts="2025-10-15T11:30:00Z" | target=rid:rule:session-ttl | set=[then="set session TTL to 4 hours — reduced from 24h after INC-2025-0947"]
+@PATCH ts:ts="2025-10-15T11:30:00Z" | target=rid:rule:admin-2fa | set=[then="require two-factor authentication via hardware security key (FIDO2) — TOTP deprecated"]
+
+@SEC name="Policy Revocation (January 2026)"
+@STAMP ts:ts="2026-01-10T09:00:00Z" | src="cto" | method=manual
+@NOTE text="API rate limit removed after migration to token-bucket algorithm with per-endpoint limits."
+@VOID ts:ts="2026-01-10T09:00:00Z" | target=rid:rule:api-rate | because="Replaced by per-endpoint rate limits in API gateway — blanket per-user limit no longer applicable"

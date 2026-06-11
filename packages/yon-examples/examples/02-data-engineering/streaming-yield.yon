@@ -1,0 +1,18 @@
+@DOC ver=2.0 | id=streaming-yield | title="Streaming Yield" | kind=workflow | profile=exec | features=[workflow] | fmt=canon
+
+@NOTE text="Demonstrate @YIELD for intermediate results during long-running data processing."
+
+@INPUT rid=in:source | name=data_source | type=string | required:bool=true
+
+@STEP n:int=1 | rid=extract | op=std:data.read@v1 | args=[source=ref:in:source] | out=[ref:raw_data]
+
+@STEP n:int=2 | rid=chunk-1 | op=std:data.map@v1 | in=[ref:raw_data] | args=[range="0-1000"] | out=[ref:batch_1]
+@YIELD rid=progress-1 | value="Batch 1 of 3 complete" | step=rid:chunk-1 | progress:float=0.33
+
+@STEP n:int=3 | rid=chunk-2 | op=std:data.map@v1 | in=[ref:raw_data] | args=[range="1001-2000"] | out=[ref:batch_2]
+@YIELD rid=progress-2 | value="Batch 2 of 3 complete" | step=rid:chunk-2 | progress:float=0.66
+
+@STEP n:int=4 | rid=chunk-3 | op=std:data.map@v1 | in=[ref:raw_data] | args=[range="2001-3000"] | out=[ref:batch_3]
+@YIELD rid=progress-3 | value="Batch 3 of 3 complete" | step=rid:chunk-3 | progress:float=1.0
+
+@OUTPUT rid=out:summary | name=processing_summary | type=string

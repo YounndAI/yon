@@ -1,0 +1,27 @@
+@DOC ver=2.0 | id=federation:example-user | domain=yai.lyt@1.0 | kind=cfg | profile=agent
+
+@FEDERATION rid=fed:0190abcd12347000abcdef0123456789
+  | handle="example-user"
+  | visibility=private
+  | created_at:ts=2026-05-29T12:00:00Z
+
+@FED_PRIMER fed_rid=fed:0190abcd12347000abcdef0123456789
+  | primer_path="primers/federation.md"
+  | scope=federation
+  | cadence="0 6 * * *"
+  | generated_at:ts=2026-05-29T06:00:00Z
+
+@FED_PRIMER fed_rid=fed:0190abcd12347000abcdef0123456789
+  | primer_path="primers/personal-mesh.md"
+  | scope=mesh
+  | cadence=manual
+  | generated_at:ts=2026-05-29T07:00:00Z
+
+@FED_CANVAS fed_rid=fed:0190abcd12347000abcdef0123456789
+  | canvas_rid=canvas:0190abcd12347000abcdef0123456eee
+  | title="Pod overview"
+  | canvas_path="canvases/pod-overview.canvas"
+  | kind=mesh-tree
+  | created_at:ts=2026-05-29T12:15:00Z
+
+@META key=last_synced_at | value=2026-05-29T12:15:00Z

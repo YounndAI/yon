@@ -1,0 +1,8 @@
+@DOC ver=2.0 | id=access-checks | title="Access Control Checks" | kind=rule | profile=decl | fmt=min
+
+@INTENT goal="Define checkpoint contracts with explicit failure behaviors"
+
+@SEC name="Access Control"
+@CHECK rid=chk:auth | assert="user.role == admin" | fail=ABORT | msg="Admin access required — request halted"
+@CHECK rid=chk:quota | assert="request_count < 1000" | fail=WARN | msg="Approaching rate limit — monitor usage"
+@CHECK rid=chk:format | assert="payload.type in [json,xml]" | fail=SKIP | msg="Unsupported format ignored — proceeding without processing"

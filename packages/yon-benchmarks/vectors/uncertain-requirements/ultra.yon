@@ -1,0 +1,14 @@
+@DOC ver=2.0 | id=internal-task-management-system | title="Internal Task Management System Specification" | kind=spec | profile=decl | fmt=ultra
+@SEC name="API Design"
+@RULE lvl=MUST | when="API requests" | then="Rate limit: 100/min"
+@SEC name="Performance Requirements"
+@RULE lvl=MUST | when="Page load" | then="Page load <2s [1.5]"
+@RULE lvl=MUST | when="API response" | then="API response: 200ms [500ms]"
+@SEC name="Non-Functional Requirements"
+@RULE lvl=MUST | when="Uptime SLA" | then="Uptime SLA: 99.9% [99.5] [99.5%]"
+@MAP id=ProjectOverview | pairs=["project"->"Project: TaskFlow [Internal Task Management System]","status"->"Status: Early requirements"]
+@MAP id=CoreFeatures | pairs=["Task creation"->"title, description, assignee, due date","Kanban board"->"To Do, In Progress, Review, Done","Search and filtering"->"assignee, status, tags","Real-time updates"->"WebSocket"]
+@MAP id=Database | pairs=["database_choice"->"PostgreSQL preferred","users"->"","teams"->"","projects"->"","tasks"->"","comments"->"","attachments"->"","labels"->"","activity_log"->""]
+@MAP id=ApiDesign | pairs=["api_type"->"REST API, possible GraphQL"]
+@MAP id=IntegrationPoints | pairs=["notifications"->"Slack notifications, email fallback","calendar_sync"->"Google Calendar sync"]
+@MAP id=OpenQuestions | pairs=["multi_tenancy"->"Multi-tenancy question","note"->"100ms","note"->"JSON"]

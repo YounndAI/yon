@@ -1,0 +1,24 @@
+@DOC ver=2.0 | id=api-rules | title="API Rules and Structure" | kind=rule | profile=exec | fmt=canon
+
+@INTENT goal="Extract API rules and structure"
+
+@SEC name=Authentication
+@RULE lvl=must | when="making API requests" | then="All API requests must include the Authorization header with a valid bearer token."
+@RULE lvl=must | when="using refresh tokens" | then="Refresh tokens can be used once and are invalidated after use. A new refresh token is issued with each access token."
+
+@SEC name="Rate Limiting"
+@RULE lvl=must | when="rate limited" | then="When rate limited, return 429 with Retry-After header."
+
+@SEC name="User Management"
+@RULE lvl=must | when="creating a new user" | then="The users endpoint at POST /users creates a new user. Required fields are name, email, and role."
+@RULE lvl=must | when="email is changed" | then="Cannot change email without verification."
+@RULE lvl=must | when="user is already archived" | then="If the user is already archived, return 410 Gone."
+
+@SEC name="Order Management"
+@RULE lvl=must | when="creating a new order" | then="The orders endpoint at POST /orders creates a new order. Required fields are customer_id, items, total, and currency."
+@RULE lvl=must | when="currency is used" | then="Currency must be ISO 4217 (USD, EUR, GBP, CAD, AUD, JPY)."
+@RULE lvl=must | when="order is canceled before shipped" | then="POST /orders/:id/cancel marks as canceled and triggers refund if payment was captured."
+
+@SEC name="Error Codes"
+@MAP id=Error Codes name="Error Codes" | pairs=["ERR_NOT_FOUND"->"requested resource does not exist","ERR_RATE_LIMIT"->"too many requests","ERR_PAYMENT_FAILED"->"payment provider rejected transaction","ERR_INSUFFICIENT_FUNDS"->"account balance is too low","ERR_PERMISSION_DENIED"->"token does not have required scope","ERR_RESOURCE_LOCKED"->"resource is being modified by another process"]
+@NOTE text=3600

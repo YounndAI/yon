@@ -1,0 +1,46 @@
+@DOC ver=2.0 | id=api-rules | title="API Rules and Guidelines" | kind=rule | profile=exec | fmt=canon
+
+@INTENT goal="Extract API rules and guidelines"
+
+@SEC name=Authentication
+@NOTE text="Auth: Bearer token OAuth2. Token TTL: 3600s."
+@NOTE text="Refresh: 30-day, single-use (invalidated after use, new one issued with access token)."
+@RULE lvl=must | when="Rate limit exceeded" | then="Rate limit: 500 req/min global. On exceed: 429 + Retry-After header."
+@RULE lvl=must | when="Authorization required" | then="All requests require Authorization header."
+@NOTE text="Token endpoint: /auth/token (client credentials or auth code flow)."
+
+@SEC name="Users CRUD"
+@RULE lvl=must | when="Creating user" | then="POST /users — create. Required: name, email, role."
+@RULE lvl=must | when="Email change" | then="PATCH /users/:id — partial update, merge semantics. Email change requires verification."
+@RULE lvl=must | when="Deleting user" | then="DELETE /users/:id — soft-delete (status→archived, login disabled)."
+
+@SEC name="Orders API"
+@RULE lvl=must | when="Creating order" | then="POST /orders — create. Required: customer_id, items[], total, currency."
+@RULE lvl=must | when="Order total" | then="Total must equal Σ(qty × unit_price)."
+@RULE lvl=must | when="Order currency" | then="Currency: ISO 4217 (USD, EUR, GBP, CAD, AUD, JPY). No mixed currencies per order."
+
+@SEC name="Error Codes"
+@MAP id=Error Codes name="Error Codes" | pairs=["ERR_AUTH"->"invalid/expired token","ERR_NOT_FOUND"->"resource doesn't exist","ERR_VALIDATION"->"request body failed schema validation","ERR_CONFLICT"->"duplicate resource","ERR_RATE_LIMIT"->"too many requests","ERR_PAYMENT_FAILED"->"payment provider rejected","ERR_INSUFFICIENT_FUNDS"->"account balance too low","ERR_PERMISSION_DENIED"->"token lacks required scope","ERR_RESOURCE_LOCKED"->"concurrent modification in progress"]
+
+@SEC name="Products API"
+@RULE lvl=must | when="Creating product" | then="POST /products — create. Required: name (max 255), description (max 2000), price (cents), category, active."
+@RULE lvl=must | when="Deleting product" | then="DELETE — blocked if active orders exist. Deactivate first."
+
+@SEC name="Invoices API"
+@RULE lvl=must | when="Creating invoice" | then="POST /invoices — create from order or subscription. Required: customer_id, items, due_date, payment_terms (net-15|net-30|net-60)."
+@RULE lvl=must | when="Voiding invoice" | then="POST /invoices/:id/void — mark void. Cannot void paid invoices."
+
+@SEC name="Global Validation Rules"
+@RULE lvl=must | when="Validating email" | then="Email: RFC 5322."
+@RULE lvl=must | when="Validating phone" | then="Phone: E.164 (+1234567890)."
+@RULE lvl=must | when="Validating dates" | then="Dates: ISO 8601 UTC (2026-01-15T00:00:00Z)."
+
+@SEC name=Webhooks
+@RULE lvl=must | when="Processing webhook" | then="Security: HMAC-SHA256 signed payloads. Verify signature before processing."
+@RULE lvl=must | when="Webhook delivery" | then="Delivery: must respond 200 within 30s."
+@NOTE text=order.created
+@NOTE text=order.updated
+@NOTE text=order.completed
+@NOTE text=payment.succeeded
+@NOTE text=payment.failed
+@NOTE text=invoice.paid

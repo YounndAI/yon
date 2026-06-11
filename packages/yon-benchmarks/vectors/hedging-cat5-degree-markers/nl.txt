@@ -1,0 +1,1 @@
+The current performance is somewhat acceptable for staging but not entirely stable under load. The migration script is fairly complete, mostly working except for edge cases with nullable columns.

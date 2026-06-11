@@ -1,0 +1,30 @@
+@DOC ver=2.0 | id=invoiceflow-teams | title="InvoiceFlow Team Structure" | kind=data | profile=decl | fmt=canon
+
+@SEC name="billing"
+@NOTE text="Owns invoice functionality: POST/PUT/GET /invoices and invoice lifecycle."
+@MAP id=member-aisha | name="Aisha Patel" | role=admin | title="Team lead, on-call primary"
+@MAP id=member-rafael | name="Rafael Montoya" | role=manager | title="Invoice operations"
+@MAP id=member-lena | name="Lena Sørensen" | role=viewer | title="Reporting and audits"
+
+@SEC name="payments"
+@NOTE text="Owns payment processing: POST/GET /payments."
+@MAP id=member-chen | name="Chen Wei" | role=admin | title="Team lead, on-call primary"
+@MAP id=member-priya | name="Priya Sharma" | role=manager | title="Payment reconciliation"
+
+@SEC name="platform"
+@NOTE text="Owns infrastructure, auth, monitoring, deployment. Not responsible for business logic endpoints."
+@MAP id=member-erik | name="Erik Lindqvist" | role=admin | title="Team lead, on-call primary"
+@MAP id=member-yuto | name="Yuto Nakamura" | role=manager | title="CI/CD and deployments"
+
+@SEC name="Ownership Map"
+@MAP id=own-invoices | component="/invoices endpoints" | team=billing | escalation="Aisha Patel → Chen Wei"
+@MAP id=own-payments | component="/payments endpoints" | team=payments | escalation="Chen Wei → Aisha Patel"
+@MAP id=own-health | component="/health endpoint" | team=platform | escalation="Erik Lindqvist"
+@MAP id=own-auth | component="Authentication & auth rules" | team=platform | escalation="Erik Lindqvist"
+@MAP id=own-db | component="Database schema" | team=platform | escalation="Erik Lindqvist → Aisha Patel"
+@MAP id=own-ratelimit | component="Rate limiting" | team=platform | escalation="Erik Lindqvist"
+@MAP id=own-monitoring | component="Monitoring & alerts" | team=platform | escalation="Erik Lindqvist"
+@MAP id=own-deploy | component="Deployment pipeline" | team=platform | escalation="Erik Lindqvist → Yuto Nakamura"
+
+@SEC name="On-Call"
+@NOTE text="Weekly rotation Mon-Mon. Team lead is primary. Cross-team escalation follows ownership map. Receives P1 and P2 alerts."

@@ -1,0 +1,14 @@
+@DOC ver=2.0 | id=food-delivery-dispatch | title="Food Delivery Dispatch" | domain=yai.delivery@1.0 | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Order routing, driver assignment, and delivery tracking for food delivery."
+
+@STEP n:int=1 | rid=receive-order | op=domain:order.accept@v1 | out=[ref:order]
+@STEP n:int=2 | rid=estimate | op=domain:routing.estimate@v1 | in=[ref:order] | out=[ref:eta]
+@STEP n:int=3 | rid=assign-driver | op=domain:dispatch.assign@v1 | in=[ref:order, ref:eta] | out=[ref:driver]
+
+@CHECK rid=gate:driver | assert="ref:driver.available == true" | fail=WARN | msg="No available drivers"
+
+@STEP n:int=4 | rid=notify-restaurant | op=std:notify.send@v1 | in=[ref:order]
+@STEP n:int=5 | rid=track | op=domain:tracking.start@v1 | in=[ref:order, ref:driver] | out=[ref:tracking]
+@STEP n:int=6 | rid=deliver | op=domain:delivery.complete@v1 | in=[ref:tracking] | out=[ref:delivery]
+@STEP n:int=7 | rid=rate | op=domain:feedback.collect@v1 | in=[ref:order, ref:delivery]

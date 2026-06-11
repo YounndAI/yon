@@ -1,0 +1,576 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.automotive",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Vehicle diagnostics, fleet management, ADAS telemetry, and automotive supply chain",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "VEHICLE",
+      "description": "Vehicle record — VIN-identified unit with odometer and service status",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "veh:TES-42"
+        },
+        {
+          "name": "vin",
+          "type": "string",
+          "required": false,
+          "pattern": "^[A-HJ-NPR-Z0-9]{17}$",
+          "description": "Vehicle Identification Number",
+          "example": "5YJ3E1EA1NF123456"
+        },
+        {
+          "name": "make",
+          "type": "string",
+          "required": false,
+          "description": "Manufacturer",
+          "example": "Tesla"
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "required": false,
+          "description": "Model",
+          "example": "Model 3"
+        },
+        {
+          "name": "year",
+          "type": "int",
+          "required": false,
+          "description": "Model Year",
+          "example": "2026"
+        },
+        {
+          "name": "odometer_km",
+          "type": "int",
+          "required": false,
+          "description": "Odometer in km",
+          "unit": "km",
+          "example": "24350"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "active",
+            "service",
+            "recalled",
+            "decommissioned"
+          ],
+          "description": "Vehicle Status: active, service, recalled, decommissioned",
+          "example": "active"
+        }
+      ]
+    },
+    {
+      "tag": "DTC",
+      "description": "Diagnostic trouble code — OBD-II fault code with freeze frame data",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": false,
+          "pattern": "^[PBCU][0-9A-F]{4}$",
+          "description": "DTC Code",
+          "example": "P0301"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Fault Description",
+          "example": "Cylinder 1 Misfire Detected"
+        },
+        {
+          "name": "severity",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "info",
+            "pending",
+            "active",
+            "stored",
+            "permanent"
+          ],
+          "description": "Severity: info, pending, active, stored, permanent",
+          "example": "active"
+        },
+        {
+          "name": "module",
+          "type": "string",
+          "required": false,
+          "description": "ECU Module",
+          "example": "PCM"
+        },
+        {
+          "name": "freeze_frame",
+          "type": "string",
+          "required": false,
+          "description": "Freeze Frame Data",
+          "example": "RPM:2400,MAP:85kPa,ECT:92C"
+        },
+        {
+          "name": "mil",
+          "type": "bool",
+          "required": false,
+          "description": "Malfunction Indicator Lamp",
+          "example": "true"
+        }
+      ]
+    },
+    {
+      "tag": "SERVICE",
+      "description": "Service record — maintenance or repair event with parts and labor tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "svc:2026-0042"
+        },
+        {
+          "name": "vehicle_ref",
+          "type": "string",
+          "required": false,
+          "description": "Vehicle Reference",
+          "example": "veh:TES-42"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "scheduled",
+            "unscheduled",
+            "recall",
+            "warranty",
+            "inspection"
+          ],
+          "description": "Service Type: scheduled, unscheduled, recall, warranty, inspection",
+          "example": "scheduled"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Service Description",
+          "example": "60K km scheduled maintenance"
+        },
+        {
+          "name": "cost",
+          "type": "float",
+          "required": false,
+          "description": "Total Cost in USD",
+          "unit": "USD",
+          "example": "485.00"
+        },
+        {
+          "name": "parts_cost",
+          "type": "float",
+          "required": false,
+          "description": "Parts Cost in USD",
+          "unit": "USD",
+          "example": "210.00"
+        },
+        {
+          "name": "labor_hours",
+          "type": "float",
+          "required": false,
+          "description": "Labor Hours",
+          "unit": "hours",
+          "example": "2.5"
+        },
+        {
+          "name": "technician",
+          "type": "string",
+          "required": false,
+          "description": "Technician",
+          "example": "M. Rodriguez"
+        }
+      ]
+    },
+    {
+      "tag": "TRIP",
+      "description": "Vehicle trip — telematics-derived journey with fuel economy and driving metrics",
+      "fields": [
+        {
+          "name": "vehicle_ref",
+          "type": "string",
+          "required": false,
+          "description": "Vehicle Reference",
+          "example": "veh:TES-42"
+        },
+        {
+          "name": "start_ts",
+          "type": "ts",
+          "required": false,
+          "description": "Trip Start as ISO 8601 timestamp",
+          "example": "2026-03-01T08:15:00Z"
+        },
+        {
+          "name": "end_ts",
+          "type": "ts",
+          "required": false,
+          "description": "Trip End as ISO 8601 timestamp",
+          "example": "2026-03-01T09:02:00Z"
+        },
+        {
+          "name": "distance_km",
+          "type": "float",
+          "required": false,
+          "description": "Distance in km",
+          "unit": "km",
+          "example": "42.3"
+        },
+        {
+          "name": "fuel_liters",
+          "type": "float",
+          "required": false,
+          "description": "Fuel Consumed",
+          "unit": "L",
+          "example": "3.8"
+        },
+        {
+          "name": "avg_speed_kmh",
+          "type": "float",
+          "required": false,
+          "description": "Average Speed in km/h",
+          "unit": "km/h",
+          "example": "54.0"
+        },
+        {
+          "name": "max_speed_kmh",
+          "type": "float",
+          "required": false,
+          "description": "Maximum Speed in km/h",
+          "unit": "km/h",
+          "example": "112.0"
+        },
+        {
+          "name": "harsh_events",
+          "type": "int",
+          "required": false,
+          "range": [
+            0,
+            999
+          ],
+          "description": "Harsh Events (0–999)",
+          "example": "2"
+        },
+        {
+          "name": "idle_min",
+          "type": "int",
+          "required": false,
+          "description": "Idle Time in min",
+          "unit": "min",
+          "example": "8"
+        }
+      ]
+    },
+    {
+      "tag": "RECALL",
+      "description": "Vehicle recall — safety campaign with affected VIN range and remedy",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "rcl:NHTSA-26-042"
+        },
+        {
+          "name": "campaign",
+          "type": "string",
+          "required": false,
+          "description": "Campaign Number",
+          "example": "26V-042"
+        },
+        {
+          "name": "component",
+          "type": "string",
+          "required": false,
+          "description": "Affected Component",
+          "example": "Front Brake Caliper"
+        },
+        {
+          "name": "severity",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "safety",
+            "compliance",
+            "service-campaign"
+          ],
+          "description": "Severity: safety, compliance, service-campaign",
+          "example": "safety"
+        },
+        {
+          "name": "remedy",
+          "type": "string",
+          "required": false,
+          "description": "Remedy Action",
+          "example": "Replace front brake calipers"
+        },
+        {
+          "name": "affected_units",
+          "type": "int",
+          "required": false,
+          "description": "Affected Units",
+          "example": "14500"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "announced",
+            "active",
+            "completed"
+          ],
+          "description": "Campaign Status: announced, active, completed",
+          "example": "active"
+        }
+      ]
+    },
+    {
+      "tag": "ADAS_EVENT",
+      "description": "ADAS event — driver assistance system activation or intervention",
+      "fields": [
+        {
+          "name": "vehicle_ref",
+          "type": "string",
+          "required": false,
+          "description": "Vehicle Reference",
+          "example": "veh:TES-42"
+        },
+        {
+          "name": "system",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "aeb",
+            "lka",
+            "bsm",
+            "acc",
+            "tsr",
+            "parking-assist",
+            "night-vision"
+          ],
+          "description": "ADAS System (7 allowed values)",
+          "example": "aeb"
+        },
+        {
+          "name": "trigger",
+          "type": "string",
+          "required": false,
+          "description": "Trigger Condition",
+          "example": "pedestrian-detected"
+        },
+        {
+          "name": "speed_kmh",
+          "type": "float",
+          "required": false,
+          "description": "Speed at Event in km/h",
+          "unit": "km/h",
+          "example": "45.0"
+        },
+        {
+          "name": "intervention",
+          "type": "bool",
+          "required": false,
+          "description": "System Intervened indicator",
+          "example": "true"
+        },
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": false,
+          "description": "Event Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-01T08:42:15Z"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Vehicle diagnostics and fleet intelligence for automotive AI",
+    "highlights": [
+      "VEHICLE",
+      "DTC",
+      "TRIP"
+    ],
+    "use_cases": [
+      {
+        "id": "connected-vehicle",
+        "title": "Connected Vehicle Fleet Analytics",
+        "steps": [
+          "Register @VEHICLE with VIN and configuration",
+          "Stream @TELEMATICS data (GPS, speed, fuel, ADAS events)",
+          "Process @DIAGNOSTIC trouble codes from OBD-II/UDS",
+          "Schedule predictive @SERVICE based on degradation models",
+          "Flag @RECALL campaigns matching @VEHICLE VIN range"
+        ],
+        "example": "@TELEMATICS rid=tm:1 | vehicle_ref=\"veh:42\" | speed_kmh:float=85.0 | fuel_pct:float=0.62 | lat:float=48.8566 | lon:float=2.3522",
+        "tags_used": [
+          "VEHICLE",
+          "SERVICE",
+          "RECALL"
+        ],
+        "description": "Process OBD-II diagnostic codes, trip telemetry, and maintenance schedules to optimize fleet utilization, predict component failures, and reduce operational costs.",
+        "tags": [
+          "VEHICLE",
+          "DTC",
+          "TRIP",
+          "SERVICE"
+        ],
+        "tags_planned": [
+          "TELEMATICS",
+          "DIAGNOSTIC"
+        ]
+      },
+      {
+        "id": "parts-traceability",
+        "title": "Automotive Parts Traceability",
+        "steps": [
+          "Register @PART with supplier, lot, and PPAP status",
+          "Link @PART to @VEHICLE build via assembly records",
+          "Monitor @DIAGNOSTIC fault patterns linked to specific @PART lots",
+          "Initiate @RECALL targeting affected @VEHICLE population",
+          "Coordinate @SERVICE campaign with dealer network"
+        ],
+        "example": "@PART rid=pt:1 | name=\"Brake Caliper Assembly\" | supplier=\"Bosch\" | lot=\"LOT-2026-0042\" | ppap_level:int=3",
+        "tags_used": [
+          "VEHICLE",
+          "RECALL",
+          "SERVICE"
+        ],
+        "description": "Track vehicle components from manufacturing through installation and recall. Link DTC fault codes to affected VINs for targeted service campaigns and warranty claims.",
+        "tags": [
+          "VEHICLE",
+          "DTC",
+          "SERVICE",
+          "RECALL"
+        ],
+        "tags_planned": [
+          "PART",
+          "DIAGNOSTIC"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "SAE J1979 (OBD-II)",
+        "url": "https://www.sae.org/",
+        "type": "standard"
+      },
+      {
+        "label": "ISO 15031",
+        "url": "https://www.iso.org/",
+        "type": "standard"
+      },
+      {
+        "label": "AUTOSAR",
+        "url": "https://www.autosar.org/",
+        "type": "standard"
+      },
+      {
+        "label": "NHTSA Recalls",
+        "url": "https://www.nhtsa.gov/recalls",
+        "type": "reference"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.manufacturing",
+        "relationship": "often paired",
+        "reason": "Vehicle manufacturing"
+      },
+      {
+        "domain": "yai.insurance",
+        "relationship": "data overlap",
+        "reason": "Auto insurance and telematics"
+      },
+      {
+        "domain": "yai.logistics",
+        "relationship": "data overlap",
+        "reason": "Fleet management"
+      }
+    ],
+    "tag_context": {
+      "VEHICLE": {
+        "purpose": "Master vehicle record with VIN identification, odometer reading, and operational status",
+        "when_to_use": "Fleet registration, vehicle inventory, warranty tracking, telematics enrollment",
+        "related_standards": [
+          "ISO 3779 VIN",
+          "ISO 11452 EMC",
+          "UNECE WP.29"
+        ]
+      },
+      "DTC": {
+        "purpose": "OBD-II diagnostic trouble code with severity, module source, and freeze-frame snapshot",
+        "when_to_use": "Fault diagnosis, predictive maintenance triggers, emissions compliance, service prioritization",
+        "related_standards": [
+          "ISO 14229 UDS",
+          "ISO 15031 OBD-II",
+          "SAE J1939"
+        ]
+      },
+      "SERVICE": {
+        "purpose": "Maintenance or repair event with cost breakdown, parts, labor hours, and technician assignment",
+        "when_to_use": "Service history logging, warranty claim documentation, fleet maintenance scheduling, cost tracking",
+        "related_standards": [
+          "ISO 18541 RMI",
+          "SAE J2534 Pass-Thru",
+          "ASAM ODX"
+        ]
+      },
+      "TRIP": {
+        "purpose": "Telematics-derived vehicle trip with distance, fuel consumption, speed metrics, and driving behavior",
+        "when_to_use": "Fleet analytics, fuel economy reporting, driver scoring, usage-based insurance, route optimization",
+        "related_standards": [
+          "ISO 20078 ExVe",
+          "ETSI ITS-G5",
+          "IEEE 802.11p"
+        ]
+      },
+      "RECALL": {
+        "purpose": "Vehicle safety recall campaign with component, severity classification, and remedy status",
+        "when_to_use": "Recall notification, affected vehicle identification, remedy tracking, NHTSA compliance reporting",
+        "related_standards": [
+          "NHTSA TREAD Act",
+          "UNECE R131",
+          "EU 2019/2144 GSR"
+        ]
+      },
+      "ADAS_EVENT": {
+        "purpose": "Advanced driver assistance system activation or intervention event with trigger context",
+        "when_to_use": "ADAS performance monitoring, safety analytics, liability documentation, system calibration validation",
+        "related_standards": [
+          "SAE J3016 Automation Levels",
+          "ISO 22737 LSAD",
+          "Euro NCAP"
+        ]
+      }
+    },
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

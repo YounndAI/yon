@@ -1,0 +1,11 @@
+@DOC ver=2.0 | kind=test | id=yonpa-04 | title="Automator — yonpa_schema_version pattern violation" | profile=exec | fmt=min | with=[yonpa]
+
+@AUTOMATOR id=yTrim
+  | name="yTrim"
+  | mission="Reduce verbosity within a single file"
+  | layer=refactor
+  | tier=reasoning
+  | version="0.1.0"
+  | yonpa_schema_version="1.0.0-beta"
+
+@NOTE text="@AUTOMATOR.yonpa_schema_version='1.0.0-beta' violates the ^\\d+\\.\\d+$ pattern (major.minor only). Also exercises the silent-drift defense — at the parser level the pattern fails; at the YONPA convention-linter level (which performs ≤ bundled-version comparison) values beyond the bundled schema version are refused as a separate semantic check. This vector covers the parser-level shape failure; the linter-level semantic refusal is tested in YONPA's own test suite."

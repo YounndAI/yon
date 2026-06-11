@@ -1,0 +1,74 @@
+name: Bug report
+description: Report a defect in a YON toolchain package
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Please fill every field — structured reports let us
+        (and our tooling) triage quickly.
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      description: Which package is affected?
+      options:
+        - "@younndai/yon-parser"
+        - "@younndai/yon-generator"
+        - "@younndai/yon-runner"
+        - "@younndai/yon-converter"
+        - "@younndai/yon-examples"
+        - "@younndai/yon-benchmarks"
+        - "@younndai/domains"
+        - "@younndai/ai-relay"
+        - "umbrella / tooling"
+        - "unsure"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Package version
+      placeholder: "e.g. 2.0.0"
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One or two sentences — what is wrong?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Minimal steps or a code snippet. Include the YON input if relevant.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include the exact error message or output.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Node version, OS, and runtime.
+      value: |
+        - Node:
+        - OS:
+        - Runtime (Node/Deno/Bun/browser):
+    validations:
+      required: false

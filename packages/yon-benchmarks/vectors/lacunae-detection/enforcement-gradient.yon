@@ -1,0 +1,10 @@
+@DOC ver=2.0 | id=code-quality | title="Code Quality Standards" | kind=rule | mode=text | profile=decl | fmt=min
+
+@INTENT goal="Define graduated enforcement levels for TypeScript code quality and security" | audience="Frontend and backend engineers"
+
+@SEC name="TypeScript Standards"
+@RULE lvl=MUST | when="configuring TypeScript" | then="enable strict mode in tsconfig.json"
+@RULE lvl=SHOULD | when="writing public functions" | then="add JSDoc comments with parameter descriptions"
+@RULE lvl=MUST_NOT | when="any code" | then="use eval() or Function() constructor — security vulnerability"
+
+@CHECK rid=chk:strict-enabled | assert="TypeScript strict mode is enabled in tsconfig.json" | fail=ABORT | msg="Strict mode is a mandatory baseline"

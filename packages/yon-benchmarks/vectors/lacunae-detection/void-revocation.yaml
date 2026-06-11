@@ -1,0 +1,8 @@
+document: Data Processing Policy
+sections:
+  - name: Anonymization
+    rules:
+      - id: anon
+        level: MUST
+        when: storing analytics
+        then: anonymize all PII before storage

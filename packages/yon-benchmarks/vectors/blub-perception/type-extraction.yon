@@ -1,0 +1,23 @@
+@DOC ver=2.0 | id=type-extraction | title="API Rate Limit Configuration" | kind=rule | mode=text | profile=decl | fmt=min
+
+@SEC name="Global Defaults"
+@CFG id=Defaults | set=[max_requests:int=1000,window_ms:int=60000,burst_allowed:bool=true,cooldown_factor:float=1.5]
+@NOTE text="max_requests — type: int, controls request cap per window"
+@NOTE text="window_ms — type: int, sliding window duration in milliseconds"
+@NOTE text="burst_allowed — type: bool, toggles burst mode for traffic spikes"
+@NOTE text="cooldown_factor — type: float, backoff multiplier after limit hit"
+@NOTE text="All rate limits use token-bucket algorithm with sliding window."
+@SCHEMA key="max_requests" | opts=[100,1000,30000] | default="1000"
+@SCHEMA key="burst_allowed" | opts=[true,false] | default="true"
+@SCHEMA key="cooldown_factor" | opts=[1.0,1.5,2.0,2.5] | default="1.5"
+
+@SEC name="Premium Tier"
+@CFG id=PremiumLimits | set=[max_requests:int=30000,window_ms:int=60000,burst_allowed:bool=true,priority:int=1]
+@NOTE text="priority — type: int, queue priority (1=highest)"
+@RULE lvl=MUST | when="premium tier client" | then="apply PremiumLimits — 30x default throughput"
+
+@SEC name="Free Tier"
+@CFG id=FreeLimits | set=[max_requests:int=100,window_ms:int=60000,burst_allowed:bool=false,cooldown_factor:float=2.5]
+@RULE lvl=MUST | when="free tier client" | then="apply FreeLimits with burst disabled"
+@STAMP ts:ts="2026-01-10T14:30:00Z" | src="ops-team"
+@NOTE text="Free tier burst disabled after abuse incident FR-2024-0831."

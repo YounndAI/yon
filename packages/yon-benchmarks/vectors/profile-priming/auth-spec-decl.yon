@@ -1,0 +1,15 @@
+@DOC ver=2.0 | id=auth-spec | title="Authentication Standards" | kind=rule | mode=text | profile=decl | fmt=min
+
+@SEC name="Token Handling"
+@RULE lvl=MUST | when="receiving API request" | then="validate JWT signature before processing"
+@RULE lvl=MUST_NOT | when="handling tokens" | then="store tokens in localStorage or cookies without HttpOnly flag"
+@RULE lvl=MUST | when="token expires" | then="return 401 with clear error message, never silently refresh"
+
+@SEC name="Input Validation"
+@RULE lvl=MUST | when="accepting user input" | then="validate type and length before any operation"
+@RULE lvl=MUST_NOT | when="type coercion" | then="use implicit coercion — always use explicit parsing with validation"
+
+@SEC name="Access Control"
+@RULE lvl=MUST | when="admin endpoints" | then="require role-based authorization check before handler execution"
+@RULE lvl=MUST_NOT | when="protecting routes" | then="rely on client-side checks alone"
+@RULE lvl=MUST | when="CORS configuration" | then="whitelist specific origins, never use wildcard in production"

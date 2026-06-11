@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "id": "Q1",
+      "prompt": "What are the top 3 risks in this system? Rank by severity.",
+      "active": true
+    },
+    {
+      "id": "Q2",
+      "prompt": "What would you prioritize fixing first and why?",
+      "active": false
+    },
+    {
+      "id": "Q3",
+      "prompt": "What risks might be underrepresented in this specification?",
+      "active": false
+    }
+  ]
+}

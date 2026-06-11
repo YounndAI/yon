@@ -1,0 +1,860 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.maritime",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Vessel operations, cargo management, port logistics, AIS tracking, and maritime environmental compliance",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "VESSEL",
+      "description": "Ship identity and registry — IMO-registered vessel with classification and tonnage data",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "v:imo9876543"
+        },
+        {
+          "name": "imo_number",
+          "type": "string",
+          "required": false,
+          "pattern": "^\\d{7}$",
+          "description": "IMO Number",
+          "example": "9876543"
+        },
+        {
+          "name": "mmsi",
+          "type": "string",
+          "required": false,
+          "pattern": "^\\d{9}$",
+          "description": "MMSI",
+          "example": "211234567"
+        },
+        {
+          "name": "call_sign",
+          "type": "string",
+          "required": false,
+          "description": "Radio Call Sign",
+          "example": "DAGB"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Vessel Name",
+          "example": "MV Atlantic Pioneer"
+        },
+        {
+          "name": "flag_state",
+          "type": "string",
+          "required": false,
+          "description": "Flag State",
+          "example": "DE"
+        },
+        {
+          "name": "vessel_type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "bulk-carrier",
+            "container",
+            "tanker",
+            "chemical-tanker",
+            "general-cargo",
+            "ro-ro",
+            "passenger",
+            "lng-carrier",
+            "lpg-carrier",
+            "car-carrier",
+            "offshore",
+            "fishing",
+            "tug",
+            "yacht"
+          ],
+          "description": "Vessel Type (14 allowed values)",
+          "example": "container"
+        },
+        {
+          "name": "class_society",
+          "type": "string",
+          "required": false,
+          "description": "Classification Society",
+          "example": "DNV"
+        },
+        {
+          "name": "gross_tonnage",
+          "type": "float",
+          "required": false,
+          "description": "Gross Tonnage in GT",
+          "unit": "GT",
+          "example": "32500"
+        },
+        {
+          "name": "deadweight",
+          "type": "float",
+          "required": false,
+          "description": "Deadweight Tonnage in DWT",
+          "unit": "DWT",
+          "example": "55000"
+        },
+        {
+          "name": "loa_m",
+          "type": "float",
+          "required": false,
+          "description": "Length Overall in m",
+          "unit": "m",
+          "example": "199.9"
+        },
+        {
+          "name": "beam_m",
+          "type": "float",
+          "required": false,
+          "description": "Beam",
+          "unit": "m",
+          "example": "32.2"
+        },
+        {
+          "name": "year_built",
+          "type": "int",
+          "required": false,
+          "description": "Year Built",
+          "example": "2019"
+        }
+      ]
+    },
+    {
+      "tag": "VOYAGE",
+      "description": "Commercial voyage — port-to-port journey with cargo and charter details",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "voy:2026-001"
+        },
+        {
+          "name": "vessel_ref",
+          "type": "string",
+          "required": false,
+          "description": "Vessel Reference",
+          "example": "v:imo9876543"
+        },
+        {
+          "name": "departure_port",
+          "type": "string",
+          "required": false,
+          "pattern": "^[A-Z]{2}[A-Z0-9]{3}$",
+          "description": "Departure Port (LOCODE)",
+          "example": "DEHAM"
+        },
+        {
+          "name": "arrival_port",
+          "type": "string",
+          "required": false,
+          "pattern": "^[A-Z]{2}[A-Z0-9]{3}$",
+          "description": "Arrival Port (LOCODE)",
+          "example": "SGSIN"
+        },
+        {
+          "name": "etd",
+          "type": "ts",
+          "required": false,
+          "description": "Estimated Time of Departure",
+          "example": "2026-03-01T06:00:00Z"
+        },
+        {
+          "name": "eta",
+          "type": "ts",
+          "required": false,
+          "description": "Estimated Time of Arrival",
+          "example": "2026-03-22T14:00:00Z"
+        },
+        {
+          "name": "atd",
+          "type": "ts",
+          "required": false,
+          "description": "Actual Time of Departure",
+          "example": "2026-03-01T07:15:00Z"
+        },
+        {
+          "name": "ata",
+          "type": "ts",
+          "required": false,
+          "description": "Actual Time of Arrival",
+          "example": "2026-03-22T12:30:00Z"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "planned",
+            "loading",
+            "in-transit",
+            "at-anchor",
+            "discharging",
+            "completed",
+            "cancelled"
+          ],
+          "description": "Voyage Status (7 allowed values)",
+          "example": "in-transit"
+        },
+        {
+          "name": "cargo_type",
+          "type": "string",
+          "required": false,
+          "description": "Primary Cargo Type",
+          "example": "Containerized general cargo"
+        },
+        {
+          "name": "charterer",
+          "type": "string",
+          "required": false,
+          "description": "Charterer",
+          "example": "Hapag-Lloyd"
+        },
+        {
+          "name": "voyage_number",
+          "type": "string",
+          "required": false,
+          "description": "Voyage Number",
+          "example": "V2026-EU-ASIA-001"
+        }
+      ]
+    },
+    {
+      "tag": "CARGO",
+      "description": "Cargo manifest — bill of lading with HS code, hazmat classification, and weight",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "c:1"
+        },
+        {
+          "name": "voyage_ref",
+          "type": "string",
+          "required": false,
+          "description": "Voyage Reference",
+          "example": "voy:2026-001"
+        },
+        {
+          "name": "bl_number",
+          "type": "string",
+          "required": false,
+          "description": "Bill of Lading Number",
+          "example": "MAEU123456"
+        },
+        {
+          "name": "hs_code",
+          "type": "string",
+          "required": false,
+          "description": "HS Commodity Code",
+          "example": "2709.00"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Cargo Description",
+          "example": "Crude petroleum"
+        },
+        {
+          "name": "weight_tonnes",
+          "type": "float",
+          "required": false,
+          "description": "Weight in tonnes",
+          "unit": "tonnes",
+          "example": "28500.0"
+        },
+        {
+          "name": "volume_cbm",
+          "type": "float",
+          "required": false,
+          "description": "Volume in m³",
+          "unit": "m³",
+          "example": "1200.0"
+        },
+        {
+          "name": "container_count",
+          "type": "int",
+          "required": false,
+          "description": "Container Count",
+          "example": "42"
+        },
+        {
+          "name": "hazmat_class",
+          "type": "int",
+          "required": false,
+          "range": [
+            1,
+            9
+          ],
+          "description": "Hazmat Class (IMDG) (1–9)",
+          "example": "3"
+        },
+        {
+          "name": "un_number",
+          "type": "string",
+          "required": false,
+          "description": "UN Number",
+          "example": "UN1267"
+        },
+        {
+          "name": "packing_group",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "I",
+            "II",
+            "III"
+          ],
+          "description": "Packing Group: I, II, III",
+          "example": "II"
+        },
+        {
+          "name": "temperature_controlled",
+          "type": "bool",
+          "required": false,
+          "description": "Temperature Controlled indicator",
+          "example": "false"
+        },
+        {
+          "name": "consignee_encrypted",
+          "type": "string",
+          "required": false,
+          "description": "Consignee (Encrypted)",
+          "example": "enc:aes256:..."
+        }
+      ]
+    },
+    {
+      "tag": "PORT_CALL",
+      "description": "Port call — vessel arrival and departure at a port with berth assignment and pilot details",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "pc:DEHAM-001"
+        },
+        {
+          "name": "vessel_ref",
+          "type": "string",
+          "required": false,
+          "description": "Vessel Reference",
+          "example": "v:imo9876543"
+        },
+        {
+          "name": "port_locode",
+          "type": "string",
+          "required": false,
+          "pattern": "^[A-Z]{2}[A-Z0-9]{3}$",
+          "description": "Port UN/LOCODE",
+          "example": "DEHAM"
+        },
+        {
+          "name": "berth",
+          "type": "string",
+          "required": false,
+          "description": "Berth Assignment",
+          "example": "CTH-B4"
+        },
+        {
+          "name": "arrival_ts",
+          "type": "ts",
+          "required": false,
+          "description": "Arrival Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-01T04:00:00Z"
+        },
+        {
+          "name": "departure_ts",
+          "type": "ts",
+          "required": false,
+          "description": "Departure Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-02T18:00:00Z"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "expected",
+            "at-anchor",
+            "berthed",
+            "loading",
+            "discharging",
+            "departed"
+          ],
+          "description": "Port Call Status (6 allowed values)",
+          "example": "berthed"
+        },
+        {
+          "name": "pilot_required",
+          "type": "bool",
+          "required": false,
+          "description": "Pilot Required indicator",
+          "example": "true"
+        },
+        {
+          "name": "draught_m",
+          "type": "float",
+          "required": false,
+          "description": "Vessel Draught in m",
+          "unit": "m",
+          "example": "11.5"
+        },
+        {
+          "name": "psc_inspection",
+          "type": "bool",
+          "required": false,
+          "description": "PSC Inspection indicator",
+          "example": "false"
+        }
+      ]
+    },
+    {
+      "tag": "AIS_POSITION",
+      "description": "AIS position report — real-time vessel tracking per ITU-R M.1371-5 standard",
+      "fields": [
+        {
+          "name": "mmsi",
+          "type": "string",
+          "required": false,
+          "pattern": "^\\d{9}$",
+          "description": "MMSI",
+          "example": "211234567"
+        },
+        {
+          "name": "lat",
+          "type": "float",
+          "required": false,
+          "range": [
+            -90,
+            90
+          ],
+          "description": "Latitude in ° (-90–90)",
+          "unit": "°",
+          "example": "51.9485"
+        },
+        {
+          "name": "lon",
+          "type": "float",
+          "required": false,
+          "range": [
+            -180,
+            180
+          ],
+          "description": "Longitude in ° (-180–180)",
+          "unit": "°",
+          "example": "1.3510"
+        },
+        {
+          "name": "sog_kts",
+          "type": "float",
+          "required": false,
+          "description": "Speed Over Ground in kts",
+          "unit": "kts",
+          "example": "12.4"
+        },
+        {
+          "name": "cog",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            360
+          ],
+          "description": "Course Over Ground in ° (0–360)",
+          "unit": "°",
+          "example": "225.0"
+        },
+        {
+          "name": "heading",
+          "type": "int",
+          "required": false,
+          "range": [
+            0,
+            360
+          ],
+          "description": "True Heading in ° (0–360)",
+          "unit": "°",
+          "example": "223"
+        },
+        {
+          "name": "nav_status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "under-way-engine",
+            "at-anchor",
+            "not-under-command",
+            "restricted-manoeuvrability",
+            "constrained-by-draught",
+            "moored",
+            "aground",
+            "fishing",
+            "under-way-sailing"
+          ],
+          "description": "Navigation Status (9 allowed values)",
+          "example": "under-way-engine"
+        },
+        {
+          "name": "rot",
+          "type": "float",
+          "required": false,
+          "description": "Rate of Turn in °/min",
+          "unit": "°/min",
+          "example": "0.0"
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "required": false,
+          "description": "AIS Destination",
+          "example": "SGSIN"
+        },
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": false,
+          "description": "Position Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-10T14:22:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "ENVIRONMENTAL",
+      "description": "Maritime environmental compliance — MARPOL emissions, ballast water, and energy efficiency indices",
+      "fields": [
+        {
+          "name": "vessel_ref",
+          "type": "string",
+          "required": false,
+          "description": "Vessel Reference",
+          "example": "v:imo9876543"
+        },
+        {
+          "name": "eexi",
+          "type": "float",
+          "required": false,
+          "description": "Energy Efficiency Existing Ship Index",
+          "unit": "gCO₂/t·nm",
+          "example": "5.2"
+        },
+        {
+          "name": "eedi",
+          "type": "float",
+          "required": false,
+          "description": "Energy Efficiency Design Index",
+          "unit": "gCO₂/t·nm",
+          "example": "4.8"
+        },
+        {
+          "name": "cii_rating",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "description": "Carbon Intensity Indicator Rating",
+          "example": "B"
+        },
+        {
+          "name": "sox_pct",
+          "type": "float",
+          "required": false,
+          "description": "Sulphur Content in %",
+          "unit": "%",
+          "example": "0.10"
+        },
+        {
+          "name": "nox_tier",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "I",
+            "II",
+            "III"
+          ],
+          "description": "NOx Emission Tier: I, II, III",
+          "example": "III"
+        },
+        {
+          "name": "ballast_water_treated",
+          "type": "bool",
+          "required": false,
+          "description": "Ballast Water Treated indicator",
+          "example": "true"
+        },
+        {
+          "name": "marpol_annex",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "I",
+            "II",
+            "III",
+            "IV",
+            "V",
+            "VI"
+          ],
+          "description": "MARPOL Annex (6 allowed values)",
+          "example": "VI"
+        },
+        {
+          "name": "fuel_type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "hfo",
+            "vlsfo",
+            "mgo",
+            "lng",
+            "methanol",
+            "ammonia",
+            "hydrogen",
+            "battery"
+          ],
+          "description": "Fuel Type (8 allowed values)",
+          "example": "vlsfo"
+        },
+        {
+          "name": "co2_tonnes",
+          "type": "float",
+          "required": false,
+          "description": "CO₂ Emissions in tonnes",
+          "unit": "tonnes",
+          "example": "14200.0"
+        },
+        {
+          "name": "scrubber_fitted",
+          "type": "bool",
+          "required": false,
+          "description": "Scrubber Fitted indicator",
+          "example": "true"
+        },
+        {
+          "name": "reporting_year",
+          "type": "int",
+          "required": false,
+          "description": "Reporting Year",
+          "example": "2025"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Maritime operations and vessel management for shipping AI",
+    "highlights": [
+      "VESSEL",
+      "AIS_POSITION",
+      "ENVIRONMENTAL"
+    ],
+    "use_cases": [
+      {
+        "id": "fleet-tracking",
+        "title": "Fleet Tracking and Port Operations",
+        "steps": [
+          "Register @VESSEL with IMO and classification data",
+          "Plan @VOYAGE with port-to-port routing and charter terms",
+          "Manifest @CARGO with HS codes and hazmat classification",
+          "Track @AIS_POSITION in real-time via ITU-R M.1371",
+          "Record @PORT_CALL arrivals, berth assignments, and PSC inspections"
+        ],
+        "example": "@AIS_POSITION mmsi=\"211234567\" | lat:float=51.9485 | lon:float=1.3510 | sog_kts:float=12.4 | nav_status=\"under-way-engine\"",
+        "tags_used": [
+          "VESSEL",
+          "VOYAGE",
+          "CARGO",
+          "AIS_POSITION",
+          "PORT_CALL"
+        ],
+        "description": "Monitor vessel positions via AIS, track port calls and berth assignments, and manage crew certifications. Optimize routes for fuel efficiency and weather avoidance.",
+        "tags": [
+          "VESSEL",
+          "PORT_CALL",
+          "CREW",
+          "VOYAGE"
+        ]
+      },
+      {
+        "id": "emissions-compliance",
+        "title": "IMO Emissions and Environmental Reporting",
+        "steps": [
+          "Collect @ENVIRONMENTAL data per vessel per reporting year",
+          "Calculate CII rating from annual fuel consumption and distance",
+          "Verify MARPOL Annex VI SOx compliance in emission control areas",
+          "Cross-reference @VOYAGE routes with ECA boundary data",
+          "Generate annual DCS/MRV reports for flag state submission"
+        ],
+        "example": "@ENVIRONMENTAL vessel_ref=\"v:imo9876543\" | cii_rating=\"B\" | co2_tonnes:float=14200.0 | fuel_type=\"vlsfo\" | marpol_annex=\"VI\"",
+        "tags_used": [
+          "ENVIRONMENTAL",
+          "VOYAGE",
+          "VESSEL"
+        ],
+        "description": "Calculate fuel consumption and CO2 emissions per voyage leg for IMO DCS, EU MRV, and CII compliance. Track shore power usage and ballast water management.",
+        "tags": [
+          "VOYAGE",
+          "VESSEL",
+          "PORT_CALL",
+          "CARGO"
+        ]
+      },
+      {
+        "id": "cargo-logistics",
+        "title": "Cargo Documentation and Hazmat Compliance",
+        "steps": [
+          "Create @CARGO manifest with bill of lading and HS commodity codes",
+          "Classify dangerous goods per IMDG Code (hazmat_class + UN number)",
+          "Link cargo to @VOYAGE for tracking through loading and discharge",
+          "Verify temperature-controlled cargo requirements per container",
+          "Record @PORT_CALL discharge status and customs clearance"
+        ],
+        "example": "@CARGO rid=c:1 | voyage_ref=\"v:1\" | bl_number=\"MAEU123456\" | hs_code=\"2709.00\" | weight_tonnes:float=28500.0 | hazmat_class:int=3",
+        "tags_used": [
+          "CARGO",
+          "VOYAGE",
+          "PORT_CALL"
+        ],
+        "description": "Manage bills of lading, cargo manifests, and dangerous goods declarations. Ensure IMDG code compliance and coordinate customs clearance across port authorities.",
+        "tags": [
+          "CARGO",
+          "VESSEL",
+          "PORT_CALL",
+          "VOYAGE"
+        ]
+      }
+    ],
+    "tag_context": {
+      "VESSEL": {
+        "purpose": "Master vessel record with IMO registration, classification society, and physical dimensions",
+        "when_to_use": "Fleet registration, vessel database, vetting and inspection, charterparty reference",
+        "related_standards": [
+          "IMO Ship Identification Number Scheme",
+          "IHS Markit/S&P Global",
+          "ClassNK/LR/DNV"
+        ]
+      },
+      "VOYAGE": {
+        "purpose": "Commercial voyage linking departure and arrival ports with charter and cargo context",
+        "when_to_use": "Voyage planning, chartering, laytime calculation, demurrage tracking, fleet scheduling",
+        "related_standards": [
+          "BIMCO Charter Parties",
+          "UN/LOCODE",
+          "Baltic Exchange"
+        ]
+      },
+      "CARGO": {
+        "purpose": "Cargo manifest with commodity classification, dangerous goods data, and consignment details",
+        "when_to_use": "Bill of lading creation, customs declaration, IMDG compliance, container tracking",
+        "related_standards": [
+          "IMDG Code",
+          "WCO HS Convention",
+          "IMO FAL Convention"
+        ]
+      },
+      "PORT_CALL": {
+        "purpose": "Vessel port visit record with berth, pilot, draught, and inspection data",
+        "when_to_use": "Port scheduling, berth allocation, pilot boarding, port state control, terminal operations",
+        "related_standards": [
+          "IMO FAL Convention",
+          "Paris MoU / Tokyo MoU PSC",
+          "UN/LOCODE"
+        ]
+      },
+      "AIS_POSITION": {
+        "purpose": "Real-time vessel position report decoded from AIS transponder broadcasts",
+        "when_to_use": "Fleet tracking, collision avoidance, ETA prediction, geofencing, route optimization",
+        "related_standards": [
+          "ITU-R M.1371-5",
+          "IEC 62320",
+          "IALA Guidelines"
+        ]
+      },
+      "ENVIRONMENTAL": {
+        "purpose": "Environmental performance metrics for IMO regulatory compliance and ESG reporting",
+        "when_to_use": "Annual CII/EEXI reporting, MARPOL compliance, EU MRV, carbon accounting, flag state submissions",
+        "related_standards": [
+          "MARPOL Annex VI",
+          "IMO MEPC.353(78) CII",
+          "EU MRV Regulation 2015/757"
+        ]
+      }
+    },
+    "links": [
+      {
+        "label": "IMO",
+        "url": "https://www.imo.org/",
+        "type": "standard"
+      },
+      {
+        "label": "ITU-R M.1371-5 (AIS)",
+        "url": "https://www.itu.int/rec/R-REC-M.1371/en",
+        "type": "standard"
+      },
+      {
+        "label": "MARPOL",
+        "url": "https://www.imo.org/en/about/Conventions/Pages/MARPOL.aspx",
+        "type": "standard"
+      },
+      {
+        "label": "IHO S-100",
+        "url": "https://iho.int/en/s-100-universal-hydrographic-data-model",
+        "type": "standard"
+      },
+      {
+        "label": "UN/LOCODE",
+        "url": "https://unece.org/trade/cefact/unlocode-code-list-country-and-territory",
+        "type": "standard"
+      },
+      {
+        "label": "IMDG Code",
+        "url": "https://www.imo.org/en/OurWork/Safety/Pages/DangerousGoods-default.aspx",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.logistics",
+        "relationship": "often paired",
+        "reason": "Cargo and supply chain operations"
+      },
+      {
+        "domain": "yai.energy",
+        "relationship": "data overlap",
+        "reason": "Fuel consumption and emissions tracking"
+      },
+      {
+        "domain": "yai.aerospace",
+        "relationship": "data overlap",
+        "reason": "Navigation, telemetry, and safety systems"
+      }
+    ],
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

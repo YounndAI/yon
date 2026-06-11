@@ -1,0 +1,28 @@
+@DOC ver=2.0 | id=analytics-dashboard-design | title="Analytics Dashboard Design" | kind=rule | profile=decl | fmt=canon
+
+@SEC name="Dashboard Layout"
+@NOTE text="The dashboard should be dark-themed with a sidebar on the left."
+@NOTE text="Main area to have 4 KPI cards for metrics like revenue, active users, churn rate, and MRR."
+@NOTE text="Numbers should update in real-time or close to real-time."
+@NOTE text="Include a line chart for revenue trends and a pie chart for traffic sources."
+@NOTE text="Consider using d3 or Recharts for chart integration with React."
+
+@SEC name="Data Table"
+@NOTE text="Data table with sortable columns and pagination, 10 rows per page."
+@NOTE text="Columns: user name, email, signup date, plan tier, last active."
+
+@SEC name="Sidebar Navigation"
+@NOTE text="Sidebar similar to Linear, clean and minimal, collapsible."
+@NOTE text="Navigation items: Dashboard, Analytics, Users, Settings, Billing."
+
+@SEC name="Authentication and Access"
+@NOTE text="Use OAuth for authentication with Google and GitHub."
+@NOTE text="Role-based access: admins see everything, viewers see own data."
+
+@SEC name="Design and Performance"
+@NOTE text="Color scheme: dark gray backgrounds with blue, purple, or teal accents."
+@NOTE text="Dashboard should load in under 2 seconds, 3 seconds on slower connections."
+@NOTE text="Charts should render without blocking the main thread."
+
+@SEC name="Export Functionality"
+@NOTE text="Users can download reports as CSV or PDF, Excel export later."

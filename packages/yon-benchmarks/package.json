@@ -1,0 +1,91 @@
+{
+  "name": "@younndai/yon-benchmarks",
+  "description": "Benchmark suite for the YON™ format — structural reliability, cognitive economy, token efficiency, and streaming properties.",
+  "version": "2.0.0",
+  "author": {
+    "name": "MARLINK TRADING SRL (YounndAI)",
+    "url": "https://younndai.com"
+  },
+  "contributors": [
+    {
+      "name": "Alexandru Mareș",
+      "url": "https://allemaar.com"
+    }
+  ],
+  "homepage": "https://yon.younndai.com",
+  "dependencies": {
+    "@ai-sdk/anthropic": "^3.0.0",
+    "@ai-sdk/google": "^3.0.0",
+    "@ai-sdk/openai": "^3.0.0",
+    "@younndai/ai-relay": "^3.0.0",
+    "@younndai/domains": "^2.0.0",
+    "@younndai/yon-converter": "^2.0.0",
+    "@younndai/yon-generator": "^2.0.0",
+    "@younndai/yon-parser": "^2.0.0",
+    "@younndai/yon-runner": "^2.0.0",
+    "@younndai/yon-spec": "^2.0.0",
+    "ai": "^6.0.0",
+    "dotenv": "^17.4.2",
+    "tiktoken": "^1.0.22"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "tsx": "^4.21.1",
+    "typescript": "^6.0.3",
+    "vitest": "^4.0.18"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "vectors",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "NOTICE",
+    "TRADEMARK.md",
+    "HOW-TO-USE.md",
+    "TESTING.md",
+    "package.json"
+  ],
+  "keywords": [
+    "yon",
+    "younndai",
+    "benchmarks",
+    "benchmark",
+    "token-efficient",
+    "llm",
+    "ai",
+    "streaming",
+    "data-format",
+    "evaluation"
+  ],
+  "license": "Apache-2.0",
+  "main": "./dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YounndAI/yon.git",
+    "directory": "packages/yon-benchmarks"
+  },
+  "scripts": {
+    "bench": "node --expose-gc --import tsx/esm src/bench.ts",
+    "bench:clean": "node -e \"const fs=require('fs'),p=require('path'),d=p.join(__dirname,'reports');fs.existsSync(d)&&fs.readdirSync(d).forEach(f=>fs.rmSync(p.join(d,f),{recursive:true,force:true}))\"",
+    "bench:llm": "node --expose-gc --import tsx/esm src/bench.ts --llm",
+    "bench:local": "node --expose-gc --import tsx/esm src/bench.ts --local",
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "report": "tsx src/bench.ts --report",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "type": "module",
+  "types": "./dist/index.d.ts"
+}

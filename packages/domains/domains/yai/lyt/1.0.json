@@ -1,0 +1,1047 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.lyt",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1.0,
+  "notice": null,
+  "description": "The YON domain for Lyt federated-vault storage. Defines the record families that Lyt vaults, meshes, and pods emit as their YON-as-source-of-truth. Ledger (@AUDIT / @PROVENANCE / @ROTATION) captures per-vault append-only audit, provenance, and month-rotation events. Mesh (@MESH / @MESH_HOME / @MESH_EDGE / @MESH_SUBSCRIPTION) declares a vault federation's identity — its push target, home vaults, edges, and subscriptions. Federation (@FEDERATION / @FED_MESH / @FED_AUTOMATOR / @FED_PRIMER / @FED_CANVAS) describes a pod's joined meshes, registered automators, and primer + canvas pointers. Lane (@LANE / @LANE_MEMBER) clusters figments by shared tag frequency into a per-vault search layer. Arc (@ARC / @ARC_MEMBER) orders figments into position-ordered narrative sequences. Vault-home-mesh (@VAULT_HOME_MESH) is a per-vault declaration of its owning mesh. Public-mesh (@MESH_PUBLIC / @UPDATE_CADENCE) carries publisher-declared discovery metadata and sync cadence for meshes advertised publicly.",
+  "defaultMode": "struct",
+  "defaultProfile": "audit",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "AUDIT",
+      "description": "Append-only audit log entry — every Lyt vault action that touches state (init, mesh-init, automator write, friction note, rebuild-index, …) emits one @AUDIT record to the vault's audit.yon ledger, followed by a chained @STAMP.",
+      "fields": [
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": true,
+          "description": "ISO 8601 UTC timestamp the audited action took place",
+          "example": "2026-05-30T14:30:00.000Z"
+        },
+        {
+          "name": "actor",
+          "type": "string",
+          "required": true,
+          "description": "Who performed the action — user:<handle>, automator:<name>/<ver>, agent:<name>, or system:lyt",
+          "example": "user:acme-handler"
+        },
+        {
+          "name": "action",
+          "type": "string",
+          "required": true,
+          "description": "Action verb — typically '<surface>.<verb>' (e.g. vault.init, mesh.add-edge, automator.write, friction.note, rebuild.ledger)",
+          "example": "automator.write"
+        },
+        {
+          "name": "target_type",
+          "type": "string",
+          "required": true,
+          "description": "Kind of entity the action operated on — vault, mesh, edge, subscription, provenance, note, declaration, registry, etc.",
+          "example": "provenance"
+        },
+        {
+          "name": "target_id",
+          "type": "string",
+          "required": true,
+          "description": "Identifier of the targeted entity — rid string, vault-relative path, or natural-key identifier",
+          "example": "notes/2026-05-30-thought-yai-lyt.md"
+        },
+        {
+          "name": "result",
+          "type": "string",
+          "required": false,
+          "enum": ["success", "failure", "skipped", "partial"],
+          "description": "Outcome of the action — defaults to 'success' when omitted",
+          "example": "success"
+        },
+        {
+          "name": "details_json",
+          "type": "string",
+          "required": false,
+          "description": "JSON-encoded extra context. Common keys: target_path, target_kind, run_id_hex, mesh_rid, fields_changed",
+          "example": "{\"target_path\":\"notes/x.md\",\"target_kind\":\"note\",\"run_id_hex\":\"01a2…\"}"
+        }
+      ]
+    },
+    {
+      "tag": "PROVENANCE",
+      "description": "Append-only provenance ledger entry — every automator-driven write emits one @PROVENANCE record carrying the full attribution chain (src + method + confidence + hash + tokens + cost + model + approver), followed by a chained @STAMP. Distinct from inline @STAMP records (which carry per-write provenance into note frontmatter / pre-declaration position): @PROVENANCE is the ledger-shape ARCHIVE; inline @STAMP is the per-write CARRIER. They coexist.",
+      "fields": [
+        {
+          "name": "target_type",
+          "type": "string",
+          "required": true,
+          "enum": ["note", "declaration", "yon-record", "meta-key", "vault", "mesh", "edge", "subscription", "registry"],
+          "description": "Kind of target the provenance attaches to",
+          "example": "note"
+        },
+        {
+          "name": "target_id",
+          "type": "string",
+          "required": true,
+          "description": "Identifier of the targeted entity — typically the vault-relative POSIX path for notes/declarations, or a rid for typed entities",
+          "example": "notes/2026-05-30-thought-yai-lyt.md"
+        },
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": true,
+          "description": "ISO 8601 UTC timestamp the write occurred",
+          "example": "2026-05-30T14:30:00.000Z"
+        },
+        {
+          "name": "src",
+          "type": "string",
+          "required": true,
+          "description": "Who attribution — conventionally 'automator:<name>/v<ver>' (e.g. 'automator:metadata-filler/v0.1.0'); also accepts 'user:<handle>', 'system:lyt', 'agent:<name>'",
+          "example": "automator:metadata-filler/v0.1.0"
+        },
+        {
+          "name": "method",
+          "type": "string",
+          "required": false,
+          "description": "Archetype-ish method label — filler, rollup, ingest, ai-relay, byok, etc.",
+          "example": "filler"
+        },
+        {
+          "name": "confidence",
+          "type": "float",
+          "required": false,
+          "range": [0.0, 1.0],
+          "description": "Provenance confidence — 1.0 for deterministic writes, lower for LLM-attributed writes",
+          "example": "1.0"
+        },
+        {
+          "name": "hash",
+          "type": "string",
+          "required": false,
+          "description": "Content hash of the written payload — conventionally 'sha256:<hex>' (64 hex chars after the prefix)",
+          "example": "sha256:abc123def456…"
+        },
+        {
+          "name": "tokens",
+          "type": "int",
+          "required": false,
+          "range": [0, 10000000],
+          "description": "Tokens consumed by an LLM call that produced this write (0 or omitted for deterministic writes)",
+          "example": "0"
+        },
+        {
+          "name": "cost_usd",
+          "type": "float",
+          "required": false,
+          "range": [0.0, 1000.0],
+          "description": "USD cost of the LLM call that produced this write (0 or omitted for deterministic writes)",
+          "example": "0.0"
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "required": false,
+          "description": "LLM model identifier that produced this write (omitted for deterministic writes)",
+          "example": "claude-opus-4-7"
+        },
+        {
+          "name": "approver",
+          "type": "string",
+          "required": false,
+          "description": "When the write required HIL approval (via @ESCALATE), the approver's rid is recorded here",
+          "example": "user:acme-handler"
+        },
+        {
+          "name": "details_json",
+          "type": "string",
+          "required": false,
+          "description": "JSON-encoded extra context (fields_changed, input_note_hash, mesh_context, etc.)",
+          "example": "{\"fields_changed\":[\"topic\",\"purpose\"]}"
+        }
+      ]
+    },
+    {
+      "tag": "ROTATION",
+      "description": "Month-boundary rotation event — `lyt housekeep` emits one @ROTATION record into the FRESH current-month ledger after renaming the prior file into the archive subdirectory. Followed by a chained @STAMP. The rotated archive is sealed; the new file opens with @DOC + @META key=month | value=<to_month> + @ROTATION + @STAMP.",
+      "fields": [
+        {
+          "name": "from_month",
+          "type": "string",
+          "required": true,
+          "description": "Month-key of the archived file — YYYY-MM (UTC)",
+          "example": "2026-04"
+        },
+        {
+          "name": "to_month",
+          "type": "string",
+          "required": true,
+          "description": "Month-key of the fresh current-month file — YYYY-MM (UTC); always > from_month",
+          "example": "2026-05"
+        },
+        {
+          "name": "archived_path",
+          "type": "string",
+          "required": true,
+          "description": "Absolute filesystem path where the prior current-month file was renamed — conventionally <vault>/.lyt/ledgers/<name>/<from_month>.yon",
+          "example": "C:/.../vault/.lyt/ledgers/audit/2026-04.yon"
+        }
+      ]
+    },
+    {
+      "tag": "MESH",
+      "description": "Mesh declaration — a named group of vaults sharing a GitHub push target. Lives in the main vault's `.lyt/mesh.yon` as the source of truth for the mesh's identity, push target, and main vault binding. One record per mesh.",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^mesh:",
+          "description": "Mesh rid — UUIDv7 in canonical 8-4-4-4-12 dashed form, prefixed mesh:",
+          "example": "mesh:0190abcd-1234-7000-8abc-def012345678"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "description": "Mesh name — slug-safe segment (lowercase, [a-z0-9-]+, no Windows reserved names, no slashes; bare names, NOT owner/repo)",
+          "example": "personal"
+        },
+        {
+          "name": "push_target",
+          "type": "string",
+          "required": false,
+          "description": "GitHub push target — handle or org name. Omitted when the mesh was created with `--no-push`.",
+          "example": "acme-org"
+        },
+        {
+          "name": "push_kind",
+          "type": "string",
+          "required": false,
+          "enum": ["handle", "org"],
+          "description": "How push_target resolves — `handle` for personal GitHub accounts; `org` for GitHub organizations. Omitted under `--no-push`.",
+          "example": "handle"
+        },
+        {
+          "name": "main_vault_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^vault:",
+          "description": "Rid of this mesh's main vault. Structurally invariant — the main vault is named `main` and cannot be renamed.",
+          "example": "vault:0190abcd-1234-7000-8abc-def012345679"
+        },
+        {
+          "name": "created_at",
+          "type": "ts",
+          "required": true,
+          "description": "ISO 8601 UTC timestamp when the mesh was provisioned via `lyt mesh init`",
+          "example": "2026-05-28T12:00:00Z"
+        },
+        {
+          "name": "default_vault_update_cadence",
+          "type": "string",
+          "required": false,
+          "description": "Mesh-level default sync cadence for home vaults that don't have their own @UPDATE_CADENCE record. Cron expression (5-field POSIX); applied per-vault as a fallback by subscribers' sync schedulers. Set via `lyt mesh update-cadence <mesh> --default-vault-cadence <spec>`. Omitted when no default is declared.",
+          "example": "0 9 * * 1"
+        }
+      ]
+    },
+    {
+      "tag": "MESH_HOME",
+      "description": "Mesh home-vault membership — one record per vault the mesh OWNS (vs references via @MESH_EDGE / @MESH_SUBSCRIPTION). The mesh's main vault always appears as a @MESH_HOME; additional homes accumulate as `lyt vault init <mesh>/<name>` lands non-main vaults.",
+      "fields": [
+        {
+          "name": "mesh_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^mesh:",
+          "description": "Rid of the mesh this home belongs to (matches the parent @MESH.rid)",
+          "example": "mesh:0190abcd-1234-7000-8abc-def012345678"
+        },
+        {
+          "name": "vault_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^vault:",
+          "description": "Rid of the home vault",
+          "example": "vault:0190abcd-1234-7000-8abc-def012345679"
+        },
+        {
+          "name": "vault_name",
+          "type": "string",
+          "required": true,
+          "description": "Human-facing vault name — the leaf segment after the mesh/slash (e.g. main, journal, lyt). The main vault always has name=main.",
+          "example": "main"
+        }
+      ]
+    },
+    {
+      "tag": "MESH_EDGE",
+      "description": "Cross-mesh parent-child edge with rollup propagation — recorded in the REFERENCING mesh's mesh.yon (asymmetric awareness; the home mesh is unaware). Created by `lyt mesh add-edge --child <ref-vault> --parent <home-vault>`. Rollup propagates from child to parent.",
+      "fields": [
+        {
+          "name": "ref_mesh_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^mesh:",
+          "description": "Rid of the mesh recording this edge (the referencing mesh — the one whose mesh.yon contains this record)",
+          "example": "mesh:0190abcd-1234-7000-8abc-def012345678"
+        },
+        {
+          "name": "ref_vault_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^vault:",
+          "description": "Rid of the home vault in ref_mesh_rid that acts as the PARENT in the parent-child relationship",
+          "example": "vault:0190abcd-1234-7000-8abc-def012345679"
+        },
+        {
+          "name": "home_mesh_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^mesh:",
+          "description": "Rid of the mesh that owns the CHILD vault (the home mesh of the referenced vault — may be the same as ref_mesh_rid for intra-mesh edges)",
+          "example": "mesh:0190abcd-1234-7000-8abc-defabc012345"
+        },
+        {
+          "name": "home_vault_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^vault:",
+          "description": "Rid of the CHILD vault (the referenced vault, owned by home_mesh_rid)",
+          "example": "vault:0190abcd-1234-7000-8abc-defabc012346"
+        },
+        {
+          "name": "kind",
+          "type": "string",
+          "required": true,
+          "enum": ["parent"],
+          "description": "Edge kind — `parent` in v1; future kinds reserved",
+          "example": "parent"
+        }
+      ]
+    },
+    {
+      "tag": "MESH_SUBSCRIPTION",
+      "description": "Flat cross-mesh reference — recorded in the SUBSCRIBING mesh's mesh.yon. The subscribed vault becomes searchable in the subscribing mesh's mesh-scoped queries but NO rollup propagates (compare @MESH_EDGE). Created by `lyt mesh subscribe --vault <ref-vault>`.",
+      "fields": [
+        {
+          "name": "mesh_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^mesh:",
+          "description": "Rid of the subscribing mesh (the one whose mesh.yon contains this record)",
+          "example": "mesh:0190abcd-1234-7000-8abc-def012345678"
+        },
+        {
+          "name": "external_vault_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^vault:",
+          "description": "Rid of the subscribed vault (owned by external_mesh_rid)",
+          "example": "vault:0190abcd-1234-7000-8abc-defabc01234a"
+        },
+        {
+          "name": "external_mesh_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^mesh:",
+          "description": "Rid of the mesh that owns the subscribed vault",
+          "example": "mesh:0190abcd-1234-7000-8abc-defabc01234b"
+        },
+        {
+          "name": "external_mesh_name",
+          "type": "string",
+          "required": true,
+          "description": "Human-facing name of the external mesh — denormalized into the subscription record for fast list display without joining the registry",
+          "example": "acme"
+        }
+      ]
+    },
+    {
+      "tag": "MESH_PUBLIC",
+      "description": "Publisher-declared discoverable metadata for a mesh advertised as a public mesh. Lives in the mesh's `.lyt/mesh.yon` alongside the @MESH header. Surfaced by `lyt mesh info` + `lyt mesh info --remote` (peek without cloning, via `gh api repos/{owner}/{mesh-main}/contents/.lyt/mesh.yon`). One record per mesh (the publish surface is a property of the mesh's identity). Absence = mesh is not publicly published; presence = publisher has run `lyt mesh publish`. Emitted in canonical key order for deterministic output.",
+      "fields": [
+        {
+          "name": "mesh_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^mesh:",
+          "description": "Rid of the mesh this public-metadata record belongs to (matches the parent @MESH.rid in the same mesh.yon)",
+          "example": "mesh:0190abcd-1234-7000-8abc-def012345678"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": true,
+          "description": "Short human-readable description of the mesh — what knowledge it publishes, who it's for. Surfaced in `lyt mesh info`.",
+          "example": "Acme's open-source documentation and team handbook"
+        },
+        {
+          "name": "topics",
+          "type": "string",
+          "required": false,
+          "description": "Comma-separated GitHub-style topic tags (publisher-declared; mirrors gh repo topics convention). Used for discovery filtering by `gh search repos --topic`.",
+          "example": "docs,handbook,open-source"
+        },
+        {
+          "name": "maintainer_contact",
+          "type": "string",
+          "required": false,
+          "description": "Maintainer contact — typically an email address, but may be any contact URL (mailto:, https://, etc.). Used by subscribers reporting issues with the published content.",
+          "example": "docs-team@acme.com"
+        },
+        {
+          "name": "maintainer_handle",
+          "type": "string",
+          "required": false,
+          "description": "Maintainer GitHub handle (or org name) — denormalised display label for the mesh's primary maintainer. May differ from @MESH.push_target (e.g. handle is the human; push_target is the org).",
+          "example": "acme-docs"
+        },
+        {
+          "name": "license_override",
+          "type": "string",
+          "required": false,
+          "description": "SPDX-like license identifier overriding the LICENSE file at the main vault's root. Used when the mesh has a content license distinct from the repo license (e.g. CC-BY-4.0 for content; Apache-2.0 for the surrounding tooling). Omitted when the LICENSE file is canonical.",
+          "example": "CC-BY-4.0"
+        },
+        {
+          "name": "accept_contributions",
+          "type": "bool",
+          "required": false,
+          "description": "Whether the publisher accepts external contributions via the standard OSS PR flow. Default semantics if omitted: true (contributions accepted on a best-effort basis). Explicit false signals a read-only publication posture.",
+          "example": "true"
+        },
+        {
+          "name": "contribution_url",
+          "type": "string",
+          "required": false,
+          "description": "URL to the publisher's contribution guidelines (typically CONTRIBUTING.md in the main vault repo). Required only when accept_contributions=true and contribution shape differs from standard OSS PR.",
+          "example": "https://github.com/acme/acme-public-main/CONTRIBUTING.md"
+        },
+        {
+          "name": "homepage_url",
+          "type": "string",
+          "required": false,
+          "description": "Publisher's main homepage URL — surfaced in `lyt mesh info`. Differs from the GitHub repo URL: homepage is the human-facing landing page.",
+          "example": "https://docs.acme.com"
+        },
+        {
+          "name": "chat_url",
+          "type": "string",
+          "required": false,
+          "description": "Publisher's primary chat/community channel URL — Discord, Slack, Matrix, IRC, etc. Used by subscribers seeking real-time help.",
+          "example": "https://discord.gg/acme-docs"
+        },
+        {
+          "name": "created_at",
+          "type": "ts",
+          "required": false,
+          "description": "ISO 8601 UTC timestamp when the mesh was first published (when `lyt mesh publish` first ran). Distinct from @MESH.created_at (which records when the mesh itself was provisioned). Defaults to mesh-publish run time when omitted at first write.",
+          "example": "2026-05-31T10:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "tag": "UPDATE_CADENCE",
+      "description": "Publisher-declared sync rhythm for a specific home vault in a public mesh. Lives in the mesh's `.lyt/mesh.yon`. Subscribers consume this record to drive their sync scheduler so they don't hammer GitHub polling. Zero-or-more records per mesh; sorted deterministically by vault_rid. Absence for a given vault = subscribers fall back to @MESH.default_vault_update_cadence (if set) or their local default. Cadence types: cron (POSIX 5-field), interval (seconds), on-demand (sync only when explicitly triggered).",
+      "fields": [
+        {
+          "name": "vault_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^vault:",
+          "description": "Rid of the home vault this cadence applies to (matches a @MESH_HOME.vault_rid in the same mesh.yon)",
+          "example": "vault:0190abcd-1234-7000-8abc-def012345679"
+        },
+        {
+          "name": "cadence_type",
+          "type": "string",
+          "required": true,
+          "enum": ["cron", "interval", "on-demand"],
+          "description": "How the cadence is expressed — `cron` requires the cron field; `interval` requires interval_seconds; `on-demand` requires neither (subscribers sync only on explicit trigger).",
+          "example": "cron"
+        },
+        {
+          "name": "cron",
+          "type": "string",
+          "required": false,
+          "description": "POSIX 5-field cron expression (minute hour day-of-month month day-of-week). Required when cadence_type=cron; omitted otherwise.",
+          "example": "0 9 * * 1"
+        },
+        {
+          "name": "interval_seconds",
+          "type": "int",
+          "required": false,
+          "description": "Interval between syncs in seconds. Required when cadence_type=interval; omitted otherwise. Common values: 3600 (hourly), 86400 (daily), 604800 (weekly).",
+          "example": "86400"
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "description": "IANA timezone identifier (e.g. Europe/Bucharest, America/New_York, UTC) — applied when interpreting the cron expression. Defaults to UTC when omitted.",
+          "example": "Europe/Bucharest"
+        },
+        {
+          "name": "peak_hours",
+          "type": "string",
+          "required": false,
+          "description": "Comma-separated list of local-time hours (0-23) during which the publisher prefers subscribers to sync. Advisory only — subscribers may ignore. Empty / omitted = no restriction.",
+          "example": "9,18"
+        },
+        {
+          "name": "on_demand_allowed",
+          "type": "bool",
+          "required": false,
+          "description": "Whether subscribers may force-sync outside the declared cadence window. Default semantics if omitted: true (subscribers free to override). Explicit false signals a strict cadence the publisher wants honored.",
+          "example": "true"
+        }
+      ]
+    },
+    {
+      "tag": "VAULT_HOME_MESH",
+      "description": "Per-vault home-mesh assignment — declares which mesh OWNS this vault. Emitted into the vault's own `.lyt/vault.yon` alongside the @VAULT record. Companion to @MESH_HOME (which is the mesh-side view of the same binding, living in the home mesh's `.lyt/mesh.yon`). Emitted when `lyt vault init`, `lyt vault clone --to-mesh`, or `lyt vault move` assigns a vault to a mesh.",
+      "fields": [
+        {
+          "name": "vault_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^vault:",
+          "description": "Rid of this vault (matches the sibling @VAULT.rid in the same vault.yon file — round-trip self-reference)",
+          "example": "vault:0190abcd-1234-7000-8abc-def012345679"
+        },
+        {
+          "name": "mesh_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^mesh:",
+          "description": "Rid of the mesh that owns this vault. Matches a @MESH.rid in some main vault's mesh.yon.",
+          "example": "mesh:0190abcd-1234-7000-8abc-def012345678"
+        },
+        {
+          "name": "mesh_name",
+          "type": "string",
+          "required": true,
+          "description": "Human-facing mesh name — denormalised cache so a vault can name its home mesh without a registry lookup",
+          "example": "personal"
+        },
+        {
+          "name": "assigned_at",
+          "type": "ts",
+          "required": true,
+          "description": "ISO 8601 UTC timestamp when the vault was assigned to (or moved into) the home mesh",
+          "example": "2026-05-31T12:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "tag": "FEDERATION",
+      "description": "Per-handler GitHub federation declaration — the source of truth for `{handle}/lyt-federation`, the per-user repo anchoring which meshes a handler participates in. Surfaced to handlers as 'Your Pod'. One record per federation; lives at `~/lyt/federation/{handle}/federation.yon`.",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^fed:",
+          "description": "Federation rid — UUIDv7 in hex (no dashes), prefixed fed:. Stable across rebuilds.",
+          "example": "fed:0190abcd12347000abcdef0123456789"
+        },
+        {
+          "name": "handle",
+          "type": "string",
+          "required": true,
+          "description": "GitHub handle that owns this federation repo. The federation repo full name is conventionally `{handle}/lyt-federation`.",
+          "example": "acme-handler"
+        },
+        {
+          "name": "visibility",
+          "type": "string",
+          "required": true,
+          "enum": ["private", "public"],
+          "description": "GitHub repo visibility. Defaults to `private`; `public` is explicit opt-in.",
+          "example": "private"
+        },
+        {
+          "name": "created_at",
+          "type": "ts",
+          "required": true,
+          "description": "ISO 8601 UTC timestamp when the federation was forged via `lyt federation init`",
+          "example": "2026-05-29T12:00:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "FED_MESH",
+      "description": "Per-federation joined-mesh record — one per mesh the handler participates in (own or join). Sorted deterministically by mesh_name (tiebreak by mesh_rid hex) in the emitted federation.yon.",
+      "fields": [
+        {
+          "name": "fed_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^fed:",
+          "description": "Rid of the federation this mesh-membership belongs to (matches the parent @FEDERATION.rid)",
+          "example": "fed:0190abcd12347000abcdef0123456789"
+        },
+        {
+          "name": "mesh_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^mesh:",
+          "description": "Rid of the joined mesh",
+          "example": "mesh:0190abcd12347000abcdef01234567aa"
+        },
+        {
+          "name": "mesh_name",
+          "type": "string",
+          "required": true,
+          "description": "Human-facing mesh name — denormalized for fast list display; primary sort key in deterministic output",
+          "example": "personal"
+        },
+        {
+          "name": "push_target",
+          "type": "string",
+          "required": true,
+          "description": "GitHub push target for the mesh's main vault repo (handle or org name)",
+          "example": "acme-org"
+        },
+        {
+          "name": "push_kind",
+          "type": "string",
+          "required": true,
+          "enum": ["handle", "org"],
+          "description": "How push_target resolves",
+          "example": "handle"
+        },
+        {
+          "name": "role",
+          "type": "string",
+          "required": true,
+          "enum": ["own", "join"],
+          "description": "Handler's relationship to this mesh — `own` if they hold push access to the mesh's main vault; `join` if they participate as a referencer/subscriber only",
+          "example": "own"
+        },
+        {
+          "name": "added_at",
+          "type": "ts",
+          "required": true,
+          "description": "ISO 8601 UTC timestamp when this mesh joined the federation",
+          "example": "2026-05-29T12:05:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "FED_AUTOMATOR",
+      "description": "Per-federation automator registration — declares an automator visible across the handler's pod.",
+      "fields": [
+        {
+          "name": "fed_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^fed:",
+          "description": "Rid of the federation owning this automator registration",
+          "example": "fed:0190abcd12347000abcdef0123456789"
+        },
+        {
+          "name": "automator_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^automator:",
+          "description": "Rid of the @AUTOMATOR record being registered (defined inline in a vault's `.lyt/automators/*.yon`)",
+          "example": "automator:metadata-filler"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "description": "Kebab-case automator name (matches the @AUTOMATOR.name field)",
+          "example": "metadata-filler"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": true,
+          "description": "Semver version of the registered automator",
+          "example": "0.1.0"
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "enum": ["system", "user", "mesh", "marketplace"],
+          "description": "Provenance category — `system` (first-party signed_by=system:lyt); `user` (handler-authored); `mesh` (mesh-published); `marketplace` (third-party distribution channel)",
+          "example": "system"
+        },
+        {
+          "name": "enabled",
+          "type": "bool",
+          "required": false,
+          "description": "Whether the automator is currently active (default true)",
+          "example": "true"
+        },
+        {
+          "name": "added_at",
+          "type": "ts",
+          "required": true,
+          "description": "ISO 8601 UTC timestamp when the automator joined the federation",
+          "example": "2026-05-29T12:10:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "FED_PRIMER",
+      "description": "Per-federation primer document pointer — declares a federation-scope primer (the agent-priming markdown that orients a fresh agent session to the handler's pod).",
+      "fields": [
+        {
+          "name": "fed_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^fed:",
+          "description": "Rid of the federation owning this primer reference",
+          "example": "fed:0190abcd12347000abcdef0123456789"
+        },
+        {
+          "name": "primer_path",
+          "type": "string",
+          "required": true,
+          "description": "POSIX path to the primer markdown relative to the federation-repo root",
+          "example": "primers/federation.md"
+        },
+        {
+          "name": "scope",
+          "type": "string",
+          "required": true,
+          "enum": ["vault", "mesh", "federation"],
+          "description": "Primer-coverage scope — `federation` is the cross-mesh handler-pod-wide variant; `mesh` is per-mesh; `vault` is per-vault",
+          "example": "federation"
+        },
+        {
+          "name": "cadence",
+          "type": "string",
+          "required": false,
+          "description": "Regeneration cadence — cron string, ISO-8601 duration interval, `manual`, or `event:<trigger>`. Drives primer-generator scheduling.",
+          "example": "0 6 * * *"
+        },
+        {
+          "name": "generated_at",
+          "type": "ts",
+          "required": true,
+          "description": "ISO 8601 UTC timestamp of last primer generation",
+          "example": "2026-05-29T06:00:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "FED_CANVAS",
+      "description": "Per-federation canvas pointer — declares a federation-scope JSON Canvas document (cross-mesh visual map of the handler's pod).",
+      "fields": [
+        {
+          "name": "fed_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^fed:",
+          "description": "Rid of the federation owning this canvas reference",
+          "example": "fed:0190abcd12347000abcdef0123456789"
+        },
+        {
+          "name": "canvas_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^canvas:",
+          "description": "Rid of the canvas document — UUIDv7 prefixed canvas:",
+          "example": "canvas:0190abcd12347000abcdef0123456eee"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "Human-facing canvas title shown in `lyt federation list --canvases` and similar surfaces",
+          "example": "Pod overview"
+        },
+        {
+          "name": "canvas_path",
+          "type": "string",
+          "required": true,
+          "description": "POSIX path to the .canvas file relative to the federation-repo root",
+          "example": "canvases/pod-overview.canvas"
+        },
+        {
+          "name": "kind",
+          "type": "string",
+          "required": false,
+          "enum": ["mesh-tree", "automator-graph", "lifecycle-flow", "custom"],
+          "description": "Canvas archetype — used for renderer hints + filter views; `custom` for handler-authored canvases",
+          "example": "mesh-tree"
+        },
+        {
+          "name": "created_at",
+          "type": "ts",
+          "required": true,
+          "description": "ISO 8601 UTC timestamp when the canvas was first registered with the federation",
+          "example": "2026-05-29T12:15:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "LANE",
+      "description": "Per-vault tag-frequency lane — a cluster of figments that share a source keyword (frontmatter tag). Emitted by `lyt vault rebuild-lanes` and by the lane-builder automator into `<vault>/.lyt/indexes/lanes.yon` (YON is the source of truth). Membership is materialised via companion @LANE_MEMBER records. Lanes use single-keyword-per-lane clustering (each tag with ≥threshold member notes becomes one @LANE with source_keywords=[tag]).",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^lane:",
+          "description": "Stable rid within a vault — `lane:<slugified-keyword>`. Slug = lowercase tag with non-alphanumeric runs replaced by `-`; e.g. `lane:software-design` for tag 'Software Design'.",
+          "example": "lane:thinking"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "description": "Human-readable lane name — the original tag string verbatim (preserves casing + spacing for display).",
+          "example": "Thinking"
+        },
+        {
+          "name": "source_keywords",
+          "type": "string",
+          "required": true,
+          "description": "Tags / keywords this lane clusters — emitted as a YON inline string-array (e.g. `source_keywords=[\"thinking\",\"writing\"]`). Single-element arrays (one lane per tag). Typed `string` at the schema level because the canonical type system enumerates only string|int|float|bool|ts atomics; composite shapes are described inline.",
+          "example": "[\"thinking\"]"
+        },
+        {
+          "name": "mem_count",
+          "type": "int",
+          "required": true,
+          "range": [0, 1000000],
+          "description": "Number of figments that belong to this lane. Equals the count of companion @LANE_MEMBER records.",
+          "example": "5"
+        },
+        {
+          "name": "last_built",
+          "type": "ts",
+          "required": true,
+          "description": "ISO 8601 UTC timestamp the lane was last rebuilt — caller-controlled so test rebuilds round-trip byte-identically.",
+          "example": "2026-05-31T14:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "tag": "LANE_MEMBER",
+      "description": "Membership row linking one figment to one @LANE — companion to @LANE. figment_rid is stored as a vault-relative POSIX path string. The companion cache schema in lyt.db uses TEXT for the figment_rid column accordingly.",
+      "fields": [
+        {
+          "name": "lane_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^lane:",
+          "description": "Rid of the @LANE this membership belongs to.",
+          "example": "lane:thinking"
+        },
+        {
+          "name": "figment_rid",
+          "type": "string",
+          "required": true,
+          "description": "Vault-relative POSIX path to the figment markdown file.",
+          "example": "notes/2026-05-30-thought-tag-frequency.md"
+        }
+      ]
+    },
+    {
+      "tag": "ARC",
+      "description": "Per-vault position-ordered narrative arc — a sequence of figments that share a narrative thread (e.g. a writing series, a project thread, a thinking arc). Emitted by `lyt vault rebuild-arcs` and by the arc-builder automator into `<vault>/.lyt/indexes/arcs.yon` (YON is the source of truth). Membership is materialised via companion @ARC_MEMBER records whose `position:int` field carries 1-based ordering. Detection is two-source: (1) frontmatter `arcs: [name1, name2, ...]` arrays — each figment declares which arcs it belongs to; (2) manual @ARC + @ARC_MEMBER records embedded in figment markdown bodies — handler-authored records win over frontmatter-derived auto-assignment for the same (arc, figment) pair. Unlike @LANE (clustered by tag frequency), @ARC is always explicit — there is no threshold.",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^arc:",
+          "description": "Stable rid within a vault — `arc:<slugified-name>`. Slug = lowercase arc name with non-alphanumeric runs replaced by `-`; e.g. `arc:writing-the-paper` for name 'Writing the Paper'. Uses the same slugification as @LANE rids.",
+          "example": "arc:writing-the-paper"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "description": "Human-readable arc name — preserves casing + spacing for display. Frontmatter-declared arcs use the verbatim string from the `arcs:` array; manual @ARC declarations override with their explicit name (handler-customised display label).",
+          "example": "Writing the Paper"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": true,
+          "description": "Arc category — handler-supplied label that groups arcs by kind (e.g. 'writing', 'thinking', 'project', 'series'). Defaults to 'uncategorized' when no manual @ARC declaration provides a category. Multiple manual declarations with conflicting categories resolve last-by-deterministic-file-path-order, emitting a warning rather than an error.",
+          "example": "writing"
+        },
+        {
+          "name": "last_touched",
+          "type": "ts",
+          "required": true,
+          "description": "ISO 8601 UTC timestamp of the most-recently-modified member figment (max(mtime) across all members + any figment that declared the @ARC). Used by the primer-generator to surface recently-active arcs in cross-vault overviews.",
+          "example": "2026-05-31T14:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "tag": "ARC_MEMBER",
+      "description": "Membership row linking one figment to one @ARC at a specific 1-based position — companion to @ARC. figment_rid is stored as a vault-relative POSIX path string. Position resolution: manual @ARC_MEMBER records pinned in figment markdown bodies reserve their explicit positions; frontmatter-derived members auto-assign positions starting at 1 in deterministic file-path order, skipping reserved slots. Position collision (two distinct figments claiming the same (arc, position) pair via manual records) is a fatal build error. The companion cache schema in lyt.db uses TEXT for the figment_rid column accordingly.",
+      "fields": [
+        {
+          "name": "arc_rid",
+          "type": "string",
+          "required": true,
+          "pattern": "^arc:",
+          "description": "Rid of the @ARC this membership belongs to.",
+          "example": "arc:writing-the-paper"
+        },
+        {
+          "name": "figment_rid",
+          "type": "string",
+          "required": true,
+          "description": "Vault-relative POSIX path to the figment markdown file.",
+          "example": "notes/2026-05-30-paper-intro.md"
+        },
+        {
+          "name": "position",
+          "type": "int",
+          "required": true,
+          "range": [1, 1000000],
+          "description": "1-based ordinal position within the @ARC. Manual records carry explicit positions; frontmatter-derived members auto-assign in file-path order, skipping reserved-manual slots.",
+          "example": "3"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Lyt storage architecture — per-vault append-only ledger family (audit, provenance, rotation) anchoring the YON-as-SoT contract",
+    "highlights": ["AUDIT", "PROVENANCE", "ROTATION"],
+    "use_cases": [
+      {
+        "id": "audit-trail",
+        "title": "Per-vault append-only audit trail",
+        "steps": [
+          "Every Lyt verb that touches state routes through `recordAudit`",
+          "`recordAudit` appends an @AUDIT record + chained @STAMP to <vault>/.lyt/ledgers/audit.yon (atomic tmp+rename, fatal on YON failure)",
+          "Then INSERTs a row into <vault>/.lyt/indexes/audit.db (best-effort; rebuild-index reconstructs from YON on failure)",
+          "`lyt audit export` reads cache first, walks YON on cache-miss"
+        ],
+        "example": "@AUDIT ts:ts=2026-05-30T14:30:00Z | actor=\"user:acme-handler\" | action=\"vault.init\" | target_type=\"vault\" | target_id=\"personal-vault\" | result=\"success\"",
+        "tags_used": ["AUDIT"],
+        "description": "Markdown + YON are the source of truth, libSQL is a regenerable cache; the YON write is fatal-on-failure, the .db upsert is best-effort with a rebuild fallback.",
+        "tags": ["AUDIT"]
+      },
+      {
+        "id": "provenance-attribution",
+        "title": "Automator-driven write provenance",
+        "steps": [
+          "lyt-runner pre-write hook (`writeMarkdownWithStamp` / `writeYonWithStamp`) fires whenever an automator writes to a vault path under an active runContext",
+          "Markdown writes: `last_provenance:` frontmatter scalar upserted with the most-recent stamp",
+          "YON declaration writes: inline `@STAMP` record prepended before the new declaration",
+          "Hook appends a full @PROVENANCE record + chained @STAMP to <vault>/.lyt/ledgers/provenance.yon (fatal-on-failure)",
+          "Hook then INSERTs a row into <vault>/.lyt/indexes/provenance.db (best-effort)",
+          "Hook ALSO emits a companion @AUDIT record into audit.yon (action=automator.write, target_id=<provenance-id-hex>)"
+        ],
+        "example": "@PROVENANCE target_type=\"note\" | target_id=\"notes/2026-05-30-thought.md\" | ts:ts=2026-05-30T14:30:00Z | src=\"automator:metadata-filler/v0.1.0\" | method=\"filler\" | confidence:float=1.0 | hash=\"sha256:abc…\" | tokens:int=0 | cost_usd:float=0.0",
+        "tags_used": ["PROVENANCE", "AUDIT"],
+        "description": "Six-step write contract: handler edits get an inert pass-through (runContext=null); automator writes get full provenance + audit emission.",
+        "tags": ["PROVENANCE", "AUDIT"]
+      },
+      {
+        "id": "month-boundary-rotation",
+        "title": "Month-boundary ledger rotation via `lyt housekeep`",
+        "steps": [
+          "`lyt housekeep [--ledger <name>] [--rotate-now]` runs across every active vault × every known ledger",
+          "Reads `@META key=month | value=YYYY-MM` header (fallback: first @STAMP ts); compares to current UTC month",
+          "On boundary (or `--rotate-now`): atomically renames `<vault>/.lyt/ledgers/<name>.yon` → `<vault>/.lyt/ledgers/<name>/<YYYY-MM>.yon`",
+          "Creates fresh current-month file with header (@DOC + @META month) and emits one @ROTATION record + chained @STAMP",
+          "`--dry-run` reports proposed renames without mutating; `--json` emits deterministic output"
+        ],
+        "example": "@ROTATION from_month=\"2026-04\" | to_month=\"2026-05\" | archived_path=\"C:/.../vault/.lyt/ledgers/audit/2026-04.yon\"",
+        "tags_used": ["ROTATION"],
+        "description": "The rotation event lives in the FRESH file (not the archive) so the archive's terminal @STAMP closes a chain that the rotation marker doesn't perturb.",
+        "tags": ["ROTATION"]
+      }
+    ],
+    "tag_context": {
+      "AUDIT": {
+        "purpose": "Per-vault append-only audit log entry — Lyt's compliance / SoC2-track ledger of every state-touching action. Records who did what to which entity, when, with optional structured details. The .db cache (audit_log table) is regenerable from YON.",
+        "when_to_use": "Emitted by every Lyt verb that mutates state — directly via `recordAudit(vaultPath, db, args)` for handler-triggered actions, or indirectly via the lyt-runner pre-write hook for automator-triggered writes (which emits an @AUDIT companion alongside the @PROVENANCE).",
+        "related_standards": [
+          "SOC 2 audit log requirements",
+          "W3C PROV-O (provenance ontology, sibling concept)",
+          "RFC 5424 syslog severity vocabulary (action verb conventions)"
+        ]
+      },
+      "PROVENANCE": {
+        "purpose": "Per-vault append-only attribution ledger — the durable WHO-DID-WHAT-HOW record of every automator-driven write. Carries content hash, confidence, LLM token/cost/model metadata, and optional HIL approver. Distinct from inline @STAMP (which is the per-write CARRIER attached to the written artifact); @PROVENANCE is the ledger-shape ARCHIVE walked by `lyt provenance trace` and rebuild-index.",
+        "when_to_use": "Emitted automatically by the lyt-runner pre-write hook (writeMarkdownWithStamp / writeYonWithStamp) when an automator writes under an active runContext. Handler-written notes (runContext=null) pass through with no @PROVENANCE emission — the ledger does not record every handler keystroke.",
+        "related_standards": [
+          "W3C PROV-O (provenance ontology)",
+          "in-toto attestation schema",
+          "Sigstore transparency log (chain-hash analogue via @STAMP)"
+        ]
+      },
+      "ROTATION": {
+        "purpose": "Month-boundary rotation marker — a one-line ledger event recording that the current-month file was archived and a fresh file opened. Lives in the FRESH file (after @DOC + @META month header), so the archive ledger's terminal @STAMP closes a complete chain at the boundary moment.",
+        "when_to_use": "Emitted by `lyt housekeep` when a month boundary is detected OR `--rotate-now` forces rotation. NOT emitted on the no-op same-month path. Read by the `lyt vault rebuild-index --ledger <name>` walker to stitch archive + current files chronologically.",
+        "related_standards": [
+          "logrotate(8) Unix conventions (archive naming + boundary semantics)",
+          "AWS S3 Glacier lifecycle transitions (boundary metadata)",
+          "RFC 5322 calendar-month / RFC 7231 date format"
+        ]
+      }
+    },
+    "ledger_header_convention": {
+      "name": "@LEDGER (a @DOC id-convention, not a separate tag)",
+      "description": "Every Lyt ledger file opens with a @DOC header whose id field encodes the ledger name + month. The @LEDGER 'tag' is implemented as this @DOC id-convention rather than a separate tag — it carries no fields of its own.",
+      "header_template": "@DOC ver=2.0 | id=ledger:<name>:YYYY-MM | domain=yai.lyt@1.0 | kind=cfg | profile=audit",
+      "id_pattern": "^ledger:[a-z][a-z0-9_-]*:[0-9]{4}-[0-9]{2}$",
+      "examples": [
+        "@DOC ver=2.0 | id=ledger:audit:2026-05 | domain=yai.lyt@1.0 | kind=cfg | profile=audit",
+        "@DOC ver=2.0 | id=ledger:provenance:2026-05 | domain=yai.lyt@1.0 | kind=cfg | profile=audit"
+      ],
+      "rationale": "Reusing core @DOC keeps the yai.lyt vocabulary smaller (convention over extension) and gets schema-level enforcement of the id slug shape for free via the core spec."
+    },
+    "stamp_dual_role": {
+      "description": "Lyt uses core @STAMP in TWO distinct roles:",
+      "role_carrier_inline": {
+        "name": "Inline per-write provenance carrier",
+        "where": "Note frontmatter (`last_provenance:` scalar) AND pre-declaration position in YON files",
+        "fields_used": "ts, src, method, confidence, hash, tokens, cost_usd, model",
+        "emitter": "lyt-runner pre-write hook (formatYonStampRecord / upsertLastProvenance)"
+      },
+      "role_chain_ledger": {
+        "name": "Per-record chain-hash carrier in ledger files",
+        "where": "Following every @AUDIT / @PROVENANCE / @ROTATION record in the ledger files",
+        "fields_used": "ts, src, hash (sha256 of prior file bytes; '-' for the first record)",
+        "emitter": "ledger append-record writer"
+      },
+      "rationale": "The INLINE per-write role is carried by @STAMP (the carrier role above). The ledger-shape @PROVENANCE record-type is a DIFFERENT shape — a per-ledger append archive. Both shapes coexist; @STAMP is reused for both chain-hash and inline carrier roles."
+    },
+    "related_standards": [
+      "YON-as-source-of-truth with a regenerable libSQL cache",
+      "POSIX rename(2) + NTFS MoveFileEx MOVEFILE_REPLACE_EXISTING (atomic file replacement)",
+      "RFC 9562 UUIDv7 (rid generation across Lyt + sibling tables)",
+      "SOC 2 audit log requirements",
+      "W3C PROV-O provenance ontology"
+    ],
+    "related": [
+      {
+        "domain": "yai.sai",
+        "relationship": "downstream consumer",
+        "reason": "SAI ingests Lyt vault content (Figments → @MEMORY); SAI-emitted writes flow through the Lyt provenance ledger when SAI is a registered automator"
+      },
+      {
+        "domain": "yai.yonpa",
+        "relationship": "sibling automator runtime",
+        "reason": "YONPA's work-graph records can be pushed into a Lyt vault; YONPA-attributed writes appear in @PROVENANCE.src as 'automator:yonpa-<flow>/v<ver>'"
+      },
+      {
+        "domain": "yai.compliance",
+        "relationship": "governance overlap",
+        "reason": "@AUDIT records satisfy basic SOC2 audit-log requirements; audit-log governance overlaps with yai.compliance"
+      }
+    ],
+    "capacityTier": "official"
+  }
+}

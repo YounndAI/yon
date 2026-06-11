@@ -1,0 +1,3 @@
+@DOC ver=2.0 | id=hedging-cat1-cta-design | title="CTA and Layout Design" | kind=rule | profile=decl | fmt=ultra
+@MAP id=CTADesign | pairs=["cta"->"probably purple or vibrant","dialog"->"I think save dialog needed, not 100% sure if annoying"]
+@MAP id=Layout | pairs=["responsive"->"maybe responsive, I guess mobile-first"]

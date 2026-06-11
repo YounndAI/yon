@@ -1,0 +1,28 @@
+@DOC ver=2.0 | id=invoiceflow-validation | title="InvoiceFlow Validation Rules" | kind=rule | profile=decl | fmt=canon
+
+@SEC name="Invoice Field Validation"
+@RULE lvl=MUST | when="creating invoice" | then="customer_id must be valid UUID"
+@RULE lvl=MUST | when="creating invoice" | then="line_items array must have at least 1 item"
+@RULE lvl=MUST | when="line_item present" | then="each item must have description (string max 200), quantity (int min 1), unit_price (decimal min 0.01)"
+@RULE lvl=MUST | when="setting currency" | then="must be valid ISO 4217 code (3 uppercase letters), default USD"
+@RULE lvl=MUST | when="calculating total" | then="auto-calculated as sum of (quantity × unit_price). Must be > 0. Cannot be set manually."
+@RULE lvl=MUST | when="setting due_date" | then="must be a future date. Required before invoice can be sent."
+@RULE lvl=SHOULD | when="setting notes" | then="max 2000 characters"
+@RULE lvl=MUST | when="setting payment_method" | then="only admin role. Allowed: bank_transfer, credit_card, wire, check"
+
+@SEC name="Invoice Business Rules"
+@RULE lvl=MUST_NOT | when="invoice status is sent, paid, or overdue" | then="allow updates"
+@RULE lvl=MUST_NOT | when="invoice has no due_date" | then="allow sending"
+@RULE lvl=MUST_NOT | when="invoice total is 0 or negative" | then="allow creation"
+@RULE lvl=MUST | when="modifying payment_method" | then="require admin role"
+
+@SEC name="Payment Field Validation"
+@RULE lvl=MUST | when="recording payment" | then="invoice_id must reference invoice with status sent or overdue"
+@RULE lvl=MUST_NOT | when="invoice status is draft or paid" | then="accept payment"
+@RULE lvl=MUST | when="setting amount" | then="must be > 0 and not exceed remaining balance"
+@RULE lvl=MUST | when="setting payment_method" | then="required. Allowed: bank_transfer, credit_card, wire, check"
+@RULE lvl=MUST | when="setting reference" | then="required and unique per invoice"
+
+@SEC name="Payment Business Rules"
+@RULE lvl=MUST | when="total payments equal invoice total" | then="auto-transition status to paid"
+@NOTE text="Partial payments allowed but do not change status. Overpayment rejected."

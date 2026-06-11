@@ -1,0 +1,10 @@
+[
+  { "id": 1, "question": "What is the designer's name?", "answer": "Kai Tanaka" },
+  { "id": 2, "question": "What is the gradient color scheme in the hero?", "answer": "deep navy (#0A1628) to electric purple (#6C3CE1)" },
+  { "id": 3, "question": "How many featured projects are in the showcase?", "answer": "4" },
+  { "id": 4, "question": "What is the name of the SaaS dashboard project?", "answer": "Prism Analytics" },
+  { "id": 5, "question": "Where is the designer based?", "answer": "Tokyo" },
+  { "id": 6, "question": "What is the CTA button text?", "answer": "Let's Create Together" },
+  { "id": 7, "question": "What font is used for headings?", "answer": "Satoshi" },
+  { "id": 8, "question": "What is the budget range option for the highest tier?", "answer": "$50K+" }
+]

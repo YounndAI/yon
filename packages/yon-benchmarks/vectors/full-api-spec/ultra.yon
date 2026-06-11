@@ -1,0 +1,36 @@
+@DOC ver=2.0 | id=billing-api | title="Billing API v2" | kind=spec | profile=decl | fmt=ultra
+@SEC name="Auth"
+@CFG key=auth | value="Bearer,1h,30d-refresh"
+@CFG key=rate | value="500/m,10k/h"
+@SEC name="Conv"
+@CFG key=base | value="api.acmebilling.io/v2"
+@CFG key=pg | value="cursor,max100,def25"
+@CFG key=$ | value="cents+currency"
+@CFG key=idemp | value="header,24h"
+@SEC name="Cust"
+@MAP id=c | pairs=["POST"->"name!,email!(uniq),phone?,tax?,meta?(20k)","GET"->"?email,?created_*,?sort","PATCH"->"all-email","DEL"->"soft,410-if-archived"]
+@SEC name="Prod"
+@MAP id=p | pairs=["POST"->"name!(255),desc?(2k),active?","GET"->"?active","PATCH"->"active=false→no-new-subs"]
+@RULE lvl=MUST | when="sub" | then="≥1 price"
+@SEC name="Price"
+@MAP id=pr | pairs=["amt"->"cents!","cur"->"USD|EUR|GBP|CAD|AUD|JPY","int"->"mo|q|yr","type"->"rec|once","scheme"->"unit|tiered"]
+@NOTE text="prices immutable post-create"
+@SEC name="Sub"
+@MAP id=s | pairs=["cust"->"!","items"->"[{price,qty}]","trial"->"0-365d","pm"->"!unless-trial","prorate"->"create|none|always"]
+@MAP id=flow | pairs=["trial"->"active","active"->"past_due|cancel","past_due"->"active|cancel"]
+@SEC name="Inv"
+@MAP id=inv | pairs=["GET"->"?cust,?sub,?status","pay"->"402-on-fail","void"->"open-only"]
+@SEC name="Evt"
+@MAP id=e | pairs=["cust"->"c/u/arch","prod"->"c/u","price"->"c/deact","sub"->"c/u/cancel/trial3d","inv"->"c/paid/fail/void","pm"->"attach/detach/exp30d"]
+@SEC name="Err"
+@MAP id=err | pairs=["AUTH"->"bad-token","AUTHZ"->"no-perm","404"->"missing","VAL"->"body","CONFLICT"->"dup","429"->"rate","PAY"->"fail","INACTIVE"->"canceled","IMMUT"->"price","IDEMP"->"mismatch"]
+@SEC name="Ver"
+@CFG key=fmt | value="date(2024-01-01)"
+@CFG key=hdr | value="X-API-Version"
+@CFG key=dep | value:int=6
+@SEC name="SDK"
+@MAP id=sdk | pairs=["js"->"@acme/billing-sdk","py"->"acme-billing","rb"->"acme-billing","go"->"go.acme.io/billing"]
+@SEC name="Sandbox"
+@CFG key=url | value="sandbox.api.acmebilling.io/v2"
+@CFG key=pfx | value="sk_test_"
+@MAP id=tp | pairs=["success"->"ok","decline"->"fail","insuf"->"nsf"]

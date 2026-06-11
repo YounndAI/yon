@@ -1,0 +1,41 @@
+@DOC ver=2.0 | id=platform-risks-enforced | title="E-Commerce Platform Risk Assessment (Enforced)" | kind=rule | profile=decl | fmt=min
+
+@SEC name="Payment Processing"
+@RULE lvl=MUST | when="transaction > $10,000" | then="Report to FinCEN within 24 hours"
+@RULE lvl=MUST | when="new account" | then="Complete KYC verification before first transaction"
+@RULE lvl=MUST | when="cross-border transfer" | then="Validate sanctions list clearance"
+@MAP name="Chargeback Risk" | id=ChargebackMetrics | pairs=["current_rate"->"2.1%","visa_threshold"->"1.0%","status"->"BREACH — acquiring bank review imminent"]
+@RULE lvl=MUST | when="chargeback rate exceeds 1.5%" | then="Enable enhanced fraud screening immediately"
+@CHECK rid="check:chargeback" | assert="chargeback_rate below visa_threshold 1.0%" | fail=ABORT | msg="Chargeback rate 2.1% exceeds Visa threshold — acquiring bank action required"
+@CHECK rid="check:fraud-screen" | assert="fraud_screening enabled when chargeback_rate above 1.5%" | fail=WARN | msg="Enhanced fraud screening should be active at current chargeback level"
+
+@SEC name="Infrastructure & Scaling"
+@MAP name="Capacity Status" | id=InfraMetrics | pairs=["db_storage"->"92% (full in 45 days)","auto_scale_trigger"->"80% CPU","cold_start_latency"->"12s spike on scale-out","disaster_recovery"->"NO DR site — RTO 4h UNTESTED"]
+@RULE lvl=MUST | when="deploying to production" | then="Run canary deployment with 5% traffic for 30 minutes"
+@RULE lvl=MUST_NOT | when="incident in progress" | then="Deploy new code until incident resolved"
+@RULE lvl=MUST | when="db_storage exceeds 85%" | then="Initiate capacity expansion or archival within 7 days"
+@RULE lvl=MUST | when="disaster recovery" | then="Establish DR site and validate RTO quarterly"
+@CHECK rid="check:db-capacity" | assert="db_storage below 85%" | fail=ABORT | msg="Database at 92% — will be full in 45 days without intervention"
+@CHECK rid="check:dr-site" | assert="disaster_recovery_site exists and tested" | fail=ABORT | msg="No DR site — 4-hour RTO target is unverified"
+@CHECK rid="check:cold-start" | assert="cold_start_latency below 3s" | fail=WARN | msg="12s cold start defeats auto-scaling purpose"
+
+@SEC name="Data Pipeline"
+@MAP name="Pipeline Health" | id=PipelineMetrics | pairs=["etl_failures"->"3-4 per week (silent)","data_freshness_sla"->"1 hour","data_freshness_actual"->"6+ hours","pii_exposure"->"DETECTED in analytics warehouse","storage_growth"->"15% month-over-month"]
+@RULE lvl=MUST | when="processing PII" | then="Apply pseudonymization before loading to analytics"
+@RULE lvl=MUST | when="data retention exceeds 24 months" | then="Trigger automated deletion workflow"
+@RULE lvl=MUST | when="PII detected in analytics" | then="Remediate immediately — GDPR Article 5 violation risk"
+@RULE lvl=MUST | when="ETL failure rate exceeds 1 per week" | then="Implement alerting and auto-retry with dead-letter queue"
+@CHECK rid="check:pii" | assert="no PII in analytics warehouse" | fail=ABORT | msg="PII detected in analytics — GDPR Article 5 violation"
+@CHECK rid="check:data-freshness" | assert="data_freshness below 1 hour SLA" | fail=WARN | msg="Data freshness at 6+ hours vs 1-hour SLA"
+@CHECK rid="check:etl" | assert="etl_failure_rate below 1 per week" | fail=WARN | msg="ETL failing silently 3-4 times per week"
+
+@SEC name="Security & Access Control"
+@RULE lvl=MUST | when="API communication" | then="TLS 1.3 for all endpoints"
+@RULE lvl=MUST_NOT | when="storing credentials" | then="No plaintext credential storage"
+@MAP name="Access Control Status" | id=SecurityMetrics | pairs=["admin_service_accounts"->"23 (principle of least privilege VIOLATED)","last_pen_test"->"14 months ago (annual standard BREACHED)","internal_api_throttling"->"NONE — abuse vector open"]
+@RULE lvl=MUST | when="service account audit" | then="Reduce admin-privileged accounts to minimum required"
+@RULE lvl=MUST | when="penetration testing" | then="Conduct annual pen test — overdue by 2 months"
+@RULE lvl=MUST | when="internal API" | then="Apply rate limiting to all internal endpoints"
+@CHECK rid="check:admin-accounts" | assert="admin_service_accounts below 5" | fail=WARN | msg="23 admin service accounts — principle of least privilege violated"
+@CHECK rid="check:pen-test" | assert="last_pen_test within 12 months" | fail=WARN | msg="Last pen test 14 months ago — annual standard breached"
+@CHECK rid="check:rate-limit" | assert="rate_limiting on all APIs" | fail=WARN | msg="Internal APIs have no throttling — abuse vector open"

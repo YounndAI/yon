@@ -1,0 +1,69 @@
+@DOC ver=2.0 | kind=rule | id=eu-data-privacy | title="EU Employee Data Privacy — Multi-Region" | profile=decl | fmt=MIN
+
+@SEC name="Germany (BDSG)"
+
+@SEC name="Works Council"
+@NOTE text="Betriebsrat konsultieren vor Einführung von Überwachungssystemen."
+@RULE lvl=MUST | when="monitoring" | then="consult Betriebsrat + secure Betriebsvereinbarung"
+@MAP id=de_scope | pairs=["email"->"BVG required","web"->"BVG required","GPS"->"BVG required","video"->"BVG required"]
+@CFG key=de_penalty | value="€300,000/violation"
+
+@SEC name="Retention (DE)"
+@MAP id=de_ret | pairs=["personnel"->"3yr post-employment (§195 BGB)","payroll"->"6yr (§257 HGB)","tax"->"10yr (§147 AO)","rejected_candidates"->"6mo then delete","Krankheitstage"->"12mo active, 6yr payroll"]
+
+@SEC name="DPO (DE)"
+@RULE lvl=MUST | when=">20 employees" | then="appoint Datenschutzbeauftragter"
+@RULE lvl=MUST_NOT | when="any" | then="terminate DPO for duties (§38 BDSG)"
+
+@SEC name="France (CNIL)"
+
+@SEC name="Disconnect"
+@NOTE text="Droit à la déconnexion: >50 salariés doivent négocier."
+@RULE lvl=MUST | when=">50 employees" | then="negotiate disconnect rights, include in Règlement Intérieur"
+@CFG key=no_response | value="20:00–08:00"
+
+@SEC name="Monitoring (FR)"
+@RULE lvl=MUST | when="monitoring" | then="inform CSE + notify each employee in writing"
+@RULE lvl=MUST_NOT | when="monitoring" | then="use keyloggers (Délibération n°2013-001)"
+@RULE lvl=MAY | when="internet" | then="monitor volume, not specific sites"
+@RULE lvl=MUST_NOT | when="video" | then="install in salles de repos, changing areas, toilets"
+
+@SEC name="Retention (FR)"
+@MAP id=fr_ret | pairs=["active"->"employment+5yr","paie"->"5yr","candidates"->"2yr from contact","access_logs"->"6mo"]
+
+@SEC name="Netherlands (UAVG)"
+
+@SEC name="Works Council (NL)"
+@NOTE text="Ondernemingsraad heeft instemmingsrecht (Art 27 WOR)."
+@RULE lvl=MUST | when="monitoring decisions" | then="obtain explicit consent (not consultation), documented with signatures"
+
+@SEC name="Medical (NL)"
+@RULE lvl=MUST_NOT | when="any" | then="ask nature of illness"
+@RULE lvl=MUST | when="medical info" | then="route to bedrijfsarts only"
+@RULE lvl=MUST_NOT | when="manager" | then="store medical details (sick/not-sick only)"
+@CFG key=nl_penalty | value="€820,000"
+
+@SEC name="Retention (NL)"
+@MAP id=nl_ret | pairs=["personnel"->"2yr","payroll"->"7yr (fiscale bewaarplicht)","absence"->"2yr","rejected"->"4wk (1yr with consent)"]
+
+@SEC name="Spain (LOPDGDD)"
+
+@SEC name="Jornada"
+@NOTE text="Registrar jornada laboral diaria obligatorio desde 2019."
+@RULE lvl=MUST | when="all companies" | then="register daily hours (start, end, total)"
+@CFG key=retention:int | value:int=4
+@CFG key=fine | value="€626–€6,250"
+
+@SEC name="Digital Rights (ES)"
+@RULE lvl=MUST | when="digital usage" | then="worker participation in criteria"
+@RULE lvl=MUST_NOT | when="BYOD" | then="access personal content"
+@NOTE text="Desconexión digital: collective agreement or internal protocol."
+
+@SEC name="Retention (ES)"
+@MAP id=es_ret | pairs=["contracts"->"4yr","nóminas"->"4yr","medical"->"employment+5yr","training"->"4yr","video"->"30 days"]
+
+@SEC name="Technical"
+@MAP id=tech | pairs=["storage"->"EU-only (Schrems II)","encrypt_rest"->"AES-256","encrypt_transit"->"TLS 1.2+","anonymization"->"k-anonymity k≥5","portability"->"JSON/CSV, 30 days"]
+@RULE lvl=MUST | when="data access" | then="log timestamp, user, action, justification"
+@RULE lvl=MUST | when="breach" | then="notify authority within 72h"
+@RULE lvl=MUST | when="high-risk processing" | then="PIA required"

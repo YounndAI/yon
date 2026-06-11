@@ -1,0 +1,17 @@
+@DOC ver=2.0 | id=invoiceflow-logging | title="InvoiceFlow Logging Policy" | kind=rule | profile=exec | fmt=min
+@MAP id=l1 | ep="POST /invoices" | level=INFO | body="redacted(count only)"
+@MAP id=l2 | ep="GET /invoices" | level=DEBUG | body=no
+@MAP id=l3 | ep="GET /invoices/:id" | level=DEBUG | body=no
+@MAP id=l4 | ep="PUT /invoices/:id" | level=INFO | body="changed fields only"
+@MAP id=l5 | ep="POST /invoices/:id/send" | level=WARN | body=no
+@MAP id=l6 | ep="POST /payments" | level=INFO | body="redacted(amount+method)"
+@MAP id=l7 | ep="GET /payments" | level=DEBUG | body=no
+@MAP id=l8 | ep="GET /health" | level=none
+@RULE lvl=MUST | when="email" | then="→ ***@domain.com"
+@RULE lvl=MUST | when="full_name" | then="→ [REDACTED]"
+@RULE lvl=MUST | when="phone" | then="→ [REDACTED]"
+@RULE lvl=MUST | when="payment ref" | then="→ ref-***(last 4)"
+@RULE lvl=MUST_NOT | when="any log/trace" | then="contain PII"
+@CFG key=info_warn_ret | val="90d"
+@CFG key=debug_ret | val="7d"
+@CFG key=audit_ret | val=indefinite

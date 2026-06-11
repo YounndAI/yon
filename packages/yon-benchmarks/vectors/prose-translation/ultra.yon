@@ -1,0 +1,7 @@
+@DOC ver=2.0 | id=q3-budget-meeting-notes | title="Q3 Budget Meeting Notes" | profile=decl | fmt=ultra
+@MAP id=MarketingBudget | pairs=["cut"->"probably ~15% marketing cut","digital"->"increase ~10%, CAC $42 (from $67 Q2)"]
+@MAP id=NewHireBudget | pairs=["positions"->"HR 12, finance 8, possibly 9","atlanta"->"might save approximately $180K","breakdown"->"4 eng, 2 sales, 1 CS, 1 DA"]
+@MAP id=PlatformMigration | pairs=["progress"->"roughly 60% complete, Q4 deadline","blocker"->"Oracle DB, ~2.3M of 8.5M records","timeline"->"probably February, maybe March"]
+@MAP id=RevenueProjections | pairs=["q4"->"$4.2M, up ~12% from Q3","pipeline"->"Acme $340K, Pinnacle $520K, Lighthouse probably >$800K"]
+@MAP id=CustomerChurn | pairs=["rate"->"3.2% to 4.1% September","cause"->"might correlate with price increase $29 to $39/month"]
+@MAP id=OfficeUpdates | pairs=["sf"->"AC replacement ~$45K","nyc"->"expansion on hold","portland"->"consider fully remote, lease up April, ~40% utilization"]

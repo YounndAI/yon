@@ -1,0 +1,17 @@
+@DOC ver=2.0 | id=greenpulse-brainstorm | title="GreenPulse Brainstorm" | kind=note | profile=decl | fmt=ultra
+@NOTE text="Pure ideation. Nothing decided."
+@SEC name="1: Carbon Dashboard"
+@NOTE text="Mint-for-carbon. Plaid→bank, Climatiq/CarbonInterface for CO2. Need custom mapping."
+@MAP id=f | pairs=["budget"->"CO2 counter","trends"->"weekly/monthly","social"->"anon avg","gamify"->"badges,streaks","ar"->"scan→score(hard)"]
+@NOTE text="Privacy(bank trust), accuracy(rough), UX(intervals confusing)."
+@SEC name="2: Sustainability Map"
+@NOTE text="UGC pins: green biz,gardens,EV,recycle,compost. OSM-style. Needs moderation."
+@MAP id=r | pairs=["pins"->"eco-check(biz pay)","gov"->"sponsor","grants"->"nonprofit","geo"->"visit 5→discount"]
+@SEC name="3: Food Waste Timer"
+@NOTE text="Receipt→spoilage predict→push notify with recipes. Spoonacular/TGTG/OLIO."
+@NOTE text="V2: combine with #1 as sustainability score. MVP scope creep."
+@SEC name="4: Anti-Fashion Closet"
+@NOTE text="Photo→AI categorize→outfit from existing. Anti-shop stylist. GPT-4V."
+@MAP id=b | pairs=["rev"->"affiliate/sub","ext"->"closet-sharing(own startup)"]
+@SEC name="Next"
+@MAP id=a | pairs=["vote"->"top2 Fri","dive"->"next wk","Alex"->"carbon API","Sarah"->"wireframes","Mark"->"comp(Joro,Commons,CoGo,Oroeco)"]

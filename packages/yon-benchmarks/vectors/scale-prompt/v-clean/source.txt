@@ -1,0 +1,34 @@
+Auth: Bearer token OAuth2. Token TTL: 3600s. Refresh: 30-day, single-use (invalidated after use, new one issued with access token).
+Rate limit: 500 req/min global. On exceed: 429 + Retry-After header.
+Scope: admin tokens → all orgs. User tokens → own org only.
+All requests require Authorization header. Token endpoint: /auth/token (client credentials or auth code flow).
+
+Users CRUD:
+- POST /users — create. Required: name, email, role. Email unique per org. Roles: admin|member|viewer (default: member).
+- GET /users — paginated list (cursor-based). Default limit: 25, max: 100.
+- GET /users/:id — single user or 404. Includes last_login, created_at.
+- PATCH /users/:id — partial update, merge semantics. Email change requires verification.
+- DELETE /users/:id — soft-delete (status→archived, login disabled). 410 if already archived.
+
+Orders API:
+- POST /orders — create. Required: customer_id, items[], total, currency.
+  Items: each needs product_id, quantity, unit_price. Total must equal Σ(qty × unit_price).
+  Currency: ISO 4217 (USD, EUR, GBP, CAD, AUD, JPY). No mixed currencies per order.
+- GET /orders — filter by customer_id, status, date range, min total.
+- Lifecycle: draft → confirmed → processing → shipped → delivered. Cancelable before shipped.
+- PATCH /orders/:id — update items only in draft status. Status changes via dedicated endpoints.
+- POST /orders/:id/confirm — draft→confirmed, triggers payment auth.
+- POST /orders/:id/cancel — marks canceled, triggers refund if captured.
+- DELETE not supported — use cancel.
+
+Error codes (consistent pattern):
+- ERR_AUTH: invalid/expired token
+- ERR_NOT_FOUND: resource doesn't exist
+- ERR_VALIDATION: request body failed schema validation
+- ERR_CONFLICT: duplicate resource (e.g., duplicate email)
+- ERR_RATE_LIMIT: too many requests
+- ERR_PAYMENT_FAILED: payment provider rejected
+- ERR_INSUFFICIENT_FUNDS: account balance too low
+- ERR_PERMISSION_DENIED: token lacks required scope
+- ERR_RESOURCE_LOCKED: concurrent modification in progress
+All error responses include: request_id (debugging) + human-readable message.

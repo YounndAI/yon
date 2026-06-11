@@ -1,0 +1,13 @@
+@DOC ver=2.0 | id=media-content-pipeline | title="Media Content Pipeline" | domain=yai.media@1.0 | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Ingest raw media, transcode, generate thumbnails, and publish to CDN."
+
+@STEP n:int=1 | rid=upload | op=domain:media.ingest@v1 | out=[ref:asset]
+@STEP n:int=2 | rid=transcode | op=domain:media.transcode@v1 | in=[ref:asset] | out=[ref:variants]
+@STEP n:int=3 | rid=thumbnail | op=domain:media.thumbnail@v1 | in=[ref:asset] | out=[ref:thumbs]
+@STEP n:int=4 | rid=metadata | op=domain:media.extract-meta@v1 | in=[ref:asset] | out=[ref:meta]
+
+@CHECK rid=gate:format | assert="ref:variants.count >= 3" | fail=WARN | msg="Expected at least 3 format variants"
+
+@STEP n:int=5 | rid=publish | op=domain:cdn.deploy@v1 | in=[ref:variants, ref:thumbs, ref:meta]
+@STEP n:int=6 | rid=index | op=domain:search.index@v1 | in=[ref:meta]

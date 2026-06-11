@@ -1,0 +1,28 @@
+@DOC ver=2.0 | id=api-rules | title="API Rules and Structure" | kind=rule | profile=exec | fmt=min
+
+@SEC name=Authentication
+@NOTE text="Bearer token OAuth2, TTL 3600s, 30-day refresh"
+@RULE lvl=must | when="Rate limit exceeded" | then="Rate limit 500 req/min, 429 on exceed"
+@NOTE text="Admin: all orgs, User: own org"
+@RULE lvl=must | when="Making requests" | then="Require Authorization header"
+@NOTE text="Token endpoint: /auth/token"
+
+@SEC name="Users CRUD"
+@RULE lvl=must | when="Creating user" | then="POST /users, name, email, role"
+@NOTE text="GET /users, paginated, limit 25-100"
+@NOTE text="GET /users/:id, 404 if not found"
+@RULE lvl=must | when="Updating user" | then="PATCH /users/:id, email verification"
+@RULE lvl=must | when="Deleting user" | then="DELETE /users/:id, soft-delete"
+
+@SEC name="Orders API"
+@RULE lvl=must | when="Creating order" | then="POST /orders, customer_id, items[], total, currency [4217]"
+@NOTE text="GET /orders, filter options"
+@NOTE text="Order lifecycle, cancelable before shipped"
+@RULE lvl=must | when="Updating order" | then="PATCH /orders/:id, draft only"
+@RULE lvl=must | when="Confirming order" | then="POST /orders/:id/confirm, payment auth"
+@RULE lvl=must | when="Canceling order" | then="POST /orders/:id/cancel, refund if captured"
+@RULE lvl=must | when="Deleting order" | then="DELETE not supported, use cancel"
+
+@SEC name="Error Codes"
+@MAP id=Error Codes | pairs=["ERR_AUTH"->"invalid/expired token","ERR_NOT_FOUND"->"resource doesn't exist","ERR_VALIDATION"->"request body failed schema validation","ERR_CONFLICT"->"duplicate resource (e.g., duplicate email)","ERR_RATE_LIMIT"->"too many requests","ERR_PAYMENT_FAILED"->"payment provider rejected","ERR_INSUFFICIENT_FUNDS"->"account balance too low","ERR_PERMISSION_DENIED"->"token lacks required scope","ERR_RESOURCE_LOCKED"->"concurrent modification in progress"]
+@NOTE text="Error responses include request_id, message"

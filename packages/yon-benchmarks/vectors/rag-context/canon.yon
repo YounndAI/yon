@@ -1,0 +1,55 @@
+@DOC ver=2.0 | id=financial-policy | title="Financial Policy" | kind=policy | profile=decl | fmt=canon
+
+@INTENT goal="Define compliance rules for financial operations, trading, and data handling" | audience="Compliance officers, trading desk personnel, operations staff"
+@SCOPE context="financial services firm" | compliance="SEC, FinCEN, FATF"
+
+@SEC name="Financial Transactions"
+@RULE lvl=MUST | when="transaction above $10,000" | then="report to compliance officer within 24 hours"
+@RULE lvl=MUST | when="processing international wire transfers" | then="sender must provide valid LEI for corporate accounts"
+@RULE lvl=MUST | when="individual accounts" | then="require government-issued ID verification completed within 12 months"
+@CHECK rid=chk:txn-reporting | assert="transactions > $10,000 trigger 24h reporting" | fail=ABORT | msg="High-value transaction reporting is a regulatory requirement"
+
+@SEC name="Investment Recommendations"
+@RULE lvl=MUST | when="issuing client-facing investment recommendations" | then="include risk disclosure statement with specific risk category and 3-year historical performance"
+@CHECK rid=chk:risk-disclosure | assert="every recommendation includes risk disclosure" | fail=ABORT | msg="Missing risk disclosure violates investor protection rules"
+
+@SEC name="Trading Desk"
+@RULE lvl=MUST_NOT | when="personal trades" | then="execute in any security on the firm's restricted list"
+@NOTE text="Restricted list updated every Monday at 9:00 AM ET via compliance portal."
+
+@SEC name="Customer Complaints"
+@RULE lvl=MUST | when="receiving customer complaint" | then="log in CRM within 4 business hours with unique tracking number and handler employee ID"
+@RULE lvl=MUST | when="complaint logged" | then="send initial response within 48 hours"
+
+@SEC name="Stress Testing"
+@RULE lvl=MUST | when="quarterly stress testing" | then="use scenarios from Appendix C of risk management manual"
+@RULE lvl=MUST | when="position exceeds 15% of portfolio under worst-case scenario" | then="flag for immediate remediation"
+@CHECK rid=chk:concentration | assert="no single position exceeds 15% under worst-case" | fail=ABORT | msg="Portfolio concentration risk breach"
+
+@SEC name="AML Training"
+@RULE lvl=MUST | when="annually" | then="all employees complete anti-money laundering training"
+@RULE lvl=MUST | when="new hire" | then="complete AML training within 30 days of start date"
+@RULE lvl=MUST | when="refresher course" | then="cover latest FinCEN and FATF regulatory updates"
+
+@SEC name="Data Retention"
+@RULE lvl=MUST | when="trade records" | then="retain for minimum 7 years"
+@RULE lvl=MUST | when="electronic communications related to trading" | then="archive for 5 years"
+@RULE lvl=MUST | when="physical documents" | then="scan and store digitally within 90 days"
+
+@SEC name="Chinese Wall Policy"
+@RULE lvl=MUST_NOT | when="research analysts and investment bankers" | then="share non-public information"
+@RULE lvl=MUST | when="crossing the wall" | then="obtain written approval from Chief Compliance Officer"
+
+@SEC name="Account Reconciliation"
+@RULE lvl=MUST | when="monthly client account reconciliation" | then="complete by 5th business day of following month"
+@RULE lvl=MUST | when="discrepancy exceeds $500" | then="escalate to operations manager within 24 hours"
+
+@SEC name="Marketing Materials"
+@RULE lvl=MUST | when="referencing investment returns" | then="use net-of-fees performance data"
+@RULE lvl=MUST | when="any marketing material" | then="include disclaimer: Past performance does not guarantee future results"
+@RULE lvl=MUST | when="distributing materials" | then="obtain compliance review approval first"
+
+@SEC name="Whistleblower Reports"
+@RULE lvl=MUST | when="whistleblower report" | then="accept via ethics hotline or compliance portal, anonymous submission permissible"
+@RULE lvl=MUST_NOT | when="good-faith report" | then="retaliate against reporter"
+@RULE lvl=MUST | when="report received" | then="initiate investigation within 7 business days"

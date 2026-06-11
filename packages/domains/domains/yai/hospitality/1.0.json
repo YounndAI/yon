@@ -1,0 +1,868 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.hospitality",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Hotel operations, reservation management, guest profiles, revenue optimization, and guest satisfaction analytics",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "PROPERTY",
+      "description": "Hotel property — OpenTravel-aligned accommodation with star rating, chain, and geolocation",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "prop:hilton-ams-01"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Property Name",
+          "example": "Hilton Amsterdam"
+        },
+        {
+          "name": "brand",
+          "type": "string",
+          "required": false,
+          "description": "Brand",
+          "example": "Hilton Hotels & Resorts"
+        },
+        {
+          "name": "chain",
+          "type": "string",
+          "required": false,
+          "description": "Chain",
+          "example": "Hilton"
+        },
+        {
+          "name": "star_rating",
+          "type": "int",
+          "required": false,
+          "range": [
+            1,
+            5
+          ],
+          "description": "Star Rating (1–5)",
+          "example": "5"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "hotel",
+            "resort",
+            "motel",
+            "hostel",
+            "apartment",
+            "villa",
+            "boutique",
+            "bed-breakfast",
+            "lodge",
+            "capsule"
+          ],
+          "description": "Property Type (10 allowed values)",
+          "example": "hotel"
+        },
+        {
+          "name": "rooms_total",
+          "type": "int",
+          "required": false,
+          "description": "Total Rooms",
+          "example": "271"
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "required": false,
+          "description": "Address",
+          "example": "Apollolaan 138, Amsterdam"
+        },
+        {
+          "name": "lat",
+          "type": "float",
+          "required": false,
+          "range": [
+            -90,
+            90
+          ],
+          "description": "Latitude in ° (-90–90)",
+          "unit": "°",
+          "example": "52.3508"
+        },
+        {
+          "name": "lon",
+          "type": "float",
+          "required": false,
+          "range": [
+            -180,
+            180
+          ],
+          "description": "Longitude in ° (-180–180)",
+          "unit": "°",
+          "example": "4.8751"
+        },
+        {
+          "name": "amenities",
+          "type": "string",
+          "required": false,
+          "description": "Amenities",
+          "example": "spa, pool, gym, restaurant"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "active",
+            "pre-opening",
+            "renovating",
+            "seasonal-closed",
+            "permanently-closed"
+          ],
+          "description": "Property Status: active, pre-opening, renovating, seasonal-closed, permanently-closed",
+          "example": "active"
+        }
+      ]
+    },
+    {
+      "tag": "ROOM_TYPE",
+      "description": "Room category — OpenTravel room type with bedding, occupancy, and amenity attributes",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "rt:dlx-king"
+        },
+        {
+          "name": "property_ref",
+          "type": "string",
+          "required": false,
+          "description": "Property Reference",
+          "example": "prop:hilton-ams-01"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Room Type Name",
+          "example": "Deluxe King"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "standard",
+            "superior",
+            "deluxe",
+            "suite",
+            "junior-suite",
+            "studio",
+            "penthouse",
+            "presidential",
+            "accessible",
+            "family"
+          ],
+          "description": "Room Category (10 allowed values)",
+          "example": "deluxe"
+        },
+        {
+          "name": "bedding",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "single",
+            "double",
+            "twin",
+            "queen",
+            "king",
+            "bunk",
+            "sofa-bed",
+            "murphy"
+          ],
+          "description": "Bedding (8 allowed values)",
+          "example": "king"
+        },
+        {
+          "name": "max_occupancy",
+          "type": "int",
+          "required": false,
+          "description": "Max Occupancy",
+          "example": "2"
+        },
+        {
+          "name": "area_sqm",
+          "type": "float",
+          "required": false,
+          "description": "Room Area in sqm",
+          "unit": "sqm",
+          "example": "35.0"
+        },
+        {
+          "name": "floor",
+          "type": "int",
+          "required": false,
+          "description": "Floor",
+          "example": "8"
+        },
+        {
+          "name": "view",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "city",
+            "sea",
+            "garden",
+            "pool",
+            "mountain",
+            "river",
+            "courtyard",
+            "none"
+          ],
+          "description": "View (8 allowed values)",
+          "example": "city"
+        },
+        {
+          "name": "base_rate",
+          "type": "float",
+          "required": false,
+          "description": "Base Rate in per night",
+          "unit": "per night",
+          "example": "289.0"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "pattern": "^[A-Z]{3}$",
+          "description": "Currency",
+          "example": "EUR"
+        }
+      ]
+    },
+    {
+      "tag": "RESERVATION",
+      "description": "Guest reservation — OpenTravel booking with check-in/check-out, channel, and status tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "res:2026-04521"
+        },
+        {
+          "name": "confirmation_no",
+          "type": "string",
+          "required": false,
+          "description": "Confirmation Number",
+          "example": "HLT-2026-04521"
+        },
+        {
+          "name": "property_ref",
+          "type": "string",
+          "required": false,
+          "description": "Property Reference",
+          "example": "prop:hilton-ams-01"
+        },
+        {
+          "name": "room_ref",
+          "type": "string",
+          "required": false,
+          "description": "Room Reference",
+          "example": "rt:dlx-king"
+        },
+        {
+          "name": "guest_encrypted",
+          "type": "string",
+          "required": false,
+          "description": "Guest (Encrypted)",
+          "example": "enc:aes256:..."
+        },
+        {
+          "name": "check_in",
+          "type": "ts",
+          "required": false,
+          "description": "Check-In Date as ISO 8601 timestamp",
+          "example": "2026-04-10"
+        },
+        {
+          "name": "check_out",
+          "type": "ts",
+          "required": false,
+          "description": "Check-Out Date as ISO 8601 timestamp",
+          "example": "2026-04-13"
+        },
+        {
+          "name": "nights",
+          "type": "int",
+          "required": false,
+          "description": "Nights",
+          "unit": "nights",
+          "example": "3"
+        },
+        {
+          "name": "guests",
+          "type": "int",
+          "required": false,
+          "description": "Number of Guests",
+          "example": "2"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "confirmed",
+            "guaranteed",
+            "checked-in",
+            "checked-out",
+            "cancelled",
+            "no-show",
+            "waitlisted"
+          ],
+          "description": "Reservation Status (7 allowed values)",
+          "example": "confirmed"
+        },
+        {
+          "name": "rate",
+          "type": "float",
+          "required": false,
+          "description": "Nightly Rate in per night",
+          "unit": "per night",
+          "example": "289.0"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "pattern": "^[A-Z]{3}$",
+          "description": "Currency",
+          "example": "EUR"
+        },
+        {
+          "name": "channel",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "direct",
+            "ota",
+            "gds",
+            "corporate",
+            "group",
+            "travel-agent",
+            "walk-in"
+          ],
+          "description": "Booking Channel (7 allowed values)",
+          "example": "ota"
+        }
+      ]
+    },
+    {
+      "tag": "RATE_PLAN",
+      "description": "Rate plan — HEDNA pricing strategy with meal plan, restrictions, and channel distribution",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "rp:summer-2026"
+        },
+        {
+          "name": "property_ref",
+          "type": "string",
+          "required": false,
+          "description": "Property Reference",
+          "example": "prop:hilton-ams-01"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Rate Plan Name",
+          "example": "Summer Escape"
+        },
+        {
+          "name": "base_rate",
+          "type": "float",
+          "required": false,
+          "description": "Base Rate in per night",
+          "unit": "per night",
+          "example": "249.0"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "pattern": "^[A-Z]{3}$",
+          "description": "Currency",
+          "example": "EUR"
+        },
+        {
+          "name": "meal_plan",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "room-only",
+            "bed-breakfast",
+            "half-board",
+            "full-board",
+            "all-inclusive"
+          ],
+          "description": "Meal Plan: room-only, bed-breakfast, half-board, full-board, all-inclusive",
+          "example": "bed-breakfast"
+        },
+        {
+          "name": "cancellation_policy",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "free",
+            "24h",
+            "48h",
+            "72h",
+            "non-refundable",
+            "deposit-required"
+          ],
+          "description": "Cancellation Policy (6 allowed values)",
+          "example": "48h"
+        },
+        {
+          "name": "min_stay",
+          "type": "int",
+          "required": false,
+          "description": "Minimum Stay in nights",
+          "unit": "nights",
+          "example": "2"
+        },
+        {
+          "name": "max_stay",
+          "type": "int",
+          "required": false,
+          "description": "Maximum Stay in nights",
+          "unit": "nights",
+          "example": "14"
+        },
+        {
+          "name": "valid_from",
+          "type": "ts",
+          "required": false,
+          "description": "Valid From as ISO 8601 timestamp",
+          "example": "2026-06-01"
+        },
+        {
+          "name": "valid_until",
+          "type": "ts",
+          "required": false,
+          "description": "Valid Until as ISO 8601 timestamp",
+          "example": "2026-08-31"
+        },
+        {
+          "name": "channel_restricted",
+          "type": "bool",
+          "required": false,
+          "description": "Channel Restricted indicator",
+          "example": "false"
+        }
+      ]
+    },
+    {
+      "tag": "GUEST_PROFILE",
+      "description": "Guest profile — HTNG loyalty and preference data with encrypted PII",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "gst:enc-42"
+        },
+        {
+          "name": "loyalty_tier",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "member",
+            "silver",
+            "gold",
+            "platinum",
+            "diamond",
+            "ambassador"
+          ],
+          "description": "Loyalty Tier (6 allowed values)",
+          "example": "gold"
+        },
+        {
+          "name": "loyalty_id",
+          "type": "string",
+          "required": false,
+          "description": "Loyalty ID",
+          "example": "HLT-GOLD-00042"
+        },
+        {
+          "name": "visit_count",
+          "type": "int",
+          "required": false,
+          "description": "Visit Count",
+          "example": "12"
+        },
+        {
+          "name": "total_spend",
+          "type": "float",
+          "required": false,
+          "description": "Total Spend in EUR",
+          "unit": "EUR",
+          "example": "18450.0"
+        },
+        {
+          "name": "preferences_encrypted",
+          "type": "string",
+          "required": false,
+          "description": "Preferences (Encrypted)",
+          "example": "enc:aes256:..."
+        },
+        {
+          "name": "nationality",
+          "type": "string",
+          "required": false,
+          "description": "Nationality",
+          "example": "NL"
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "required": false,
+          "description": "Language",
+          "example": "en"
+        },
+        {
+          "name": "vip",
+          "type": "bool",
+          "required": false,
+          "description": "VIP Flag",
+          "example": "true"
+        },
+        {
+          "name": "do_not_disturb",
+          "type": "bool",
+          "required": false,
+          "description": "Do Not Disturb indicator",
+          "example": "false"
+        }
+      ]
+    },
+    {
+      "tag": "REVIEW",
+      "description": "Guest review — satisfaction metrics with multi-dimensional scoring and sentiment analysis",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "rev:2026-0891"
+        },
+        {
+          "name": "property_ref",
+          "type": "string",
+          "required": false,
+          "description": "Property Reference",
+          "example": "prop:hilton-ams-01"
+        },
+        {
+          "name": "reservation_ref",
+          "type": "string",
+          "required": false,
+          "description": "Reservation Reference",
+          "example": "res:2026-04521"
+        },
+        {
+          "name": "overall_score",
+          "type": "float",
+          "required": false,
+          "range": [
+            1,
+            10
+          ],
+          "description": "Overall Score (1–10)",
+          "example": "8.5"
+        },
+        {
+          "name": "cleanliness",
+          "type": "float",
+          "required": false,
+          "range": [
+            1,
+            10
+          ],
+          "description": "Cleanliness Score (1–10)",
+          "example": "9.0"
+        },
+        {
+          "name": "service",
+          "type": "float",
+          "required": false,
+          "range": [
+            1,
+            10
+          ],
+          "description": "Service Score (1–10)",
+          "example": "8.2"
+        },
+        {
+          "name": "location",
+          "type": "float",
+          "required": false,
+          "range": [
+            1,
+            10
+          ],
+          "description": "Location Score (1–10)",
+          "example": "9.5"
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "required": false,
+          "range": [
+            1,
+            10
+          ],
+          "description": "Value Score (1–10)",
+          "example": "7.8"
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "direct",
+            "tripadvisor",
+            "booking",
+            "google",
+            "expedia",
+            "hotels-com",
+            "agoda"
+          ],
+          "description": "Review Source (7 allowed values)",
+          "example": "tripadvisor"
+        },
+        {
+          "name": "sentiment",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "positive",
+            "neutral",
+            "negative",
+            "mixed"
+          ],
+          "description": "Sentiment: positive, neutral, negative, mixed",
+          "example": "positive"
+        },
+        {
+          "name": "verified",
+          "type": "bool",
+          "required": false,
+          "description": "Verified Guest indicator",
+          "example": "true"
+        },
+        {
+          "name": "date",
+          "type": "ts",
+          "required": false,
+          "description": "Review Date as ISO 8601 timestamp",
+          "example": "2026-04-15T10:30:00Z"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Hotel operations and guest experience for hospitality AI",
+    "highlights": [
+      "PROPERTY",
+      "RESERVATION",
+      "REVIEW"
+    ],
+    "use_cases": [
+      {
+        "id": "guest-journey",
+        "title": "End-to-End Guest Journey Orchestration",
+        "steps": [
+          "Create @RESERVATION with room type, dates, and rate plan",
+          "Build @GUEST profile with preferences and loyalty tier",
+          "Assign @ROOM based on availability and guest preference",
+          "Track charges on @FOLIO throughout the stay",
+          "Trigger @HOUSEKEEPING workflow on checkout"
+        ],
+        "example": "@RESERVATION rid=res:1 | guest_ref=\"gst:42\" | room_type=\"deluxe\" | check_in=\"2026-03-10\" | check_out=\"2026-03-14\" | status=\"confirmed\"",
+        "tags_used": [
+          "RESERVATION"
+        ],
+        "description": "Manage the complete guest lifecycle from reservation through checkout, including room allocation, amenity requests, dining, and loyalty program integration.",
+        "tags": [
+          "RESERVATION",
+          "GUEST",
+          "ROOM",
+          "AMENITY",
+          "DINING",
+          "REVIEW"
+        ],
+        "tags_planned": [
+          "GUEST",
+          "ROOM",
+          "FOLIO",
+          "HOUSEKEEPING"
+        ]
+      },
+      {
+        "id": "revenue-optimization",
+        "title": "Revenue Management and Optimization",
+        "steps": [
+          "Analyze @RESERVATION demand patterns by season and channel",
+          "Adjust @ROOM pricing using yield management algorithms",
+          "Upsell @AMENITY packages during booking and check-in",
+          "Monitor @FOLIO average daily rate (ADR) and RevPAR",
+          "Forecast occupancy from @RESERVATION pipeline"
+        ],
+        "example": "@ROOM rid=rm:1 | number=\"1204\" | type=\"suite\" | rate:float=450.0 | status=\"available\" | floor:int=12",
+        "tags_used": [
+          "RESERVATION"
+        ],
+        "description": "Analyze booking patterns, occupancy rates, and competitive pricing to dynamically adjust room rates. Factor in seasonal demand, events, and channel mix for yield optimization.",
+        "tags": [
+          "RESERVATION",
+          "ROOM",
+          "GUEST",
+          "REVIEW"
+        ],
+        "tags_planned": [
+          "ROOM",
+          "AMENITY",
+          "FOLIO"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "OpenTravel (OTA)",
+        "url": "https://opentravel.org/",
+        "type": "standard"
+      },
+      {
+        "label": "HTNG",
+        "url": "https://www.ahla.com/htng",
+        "type": "standard"
+      },
+      {
+        "label": "HEDNA",
+        "url": "https://www.hedna.org/",
+        "type": "standard"
+      },
+      {
+        "label": "STR (Smith Travel)",
+        "url": "https://str.com/",
+        "type": "standard"
+      },
+      {
+        "label": "Schema.org Hotel",
+        "url": "https://schema.org/Hotel",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.ecommerce",
+        "relationship": "data overlap",
+        "reason": "Booking and payment processing"
+      },
+      {
+        "domain": "yai.transportation",
+        "relationship": "often paired",
+        "reason": "Travel and mobility integration"
+      },
+      {
+        "domain": "yai.realestate",
+        "relationship": "data overlap",
+        "reason": "Property management and valuation"
+      }
+    ],
+    "tag_context": {
+      "PROPERTY": {
+        "purpose": "OpenTravel-aligned accommodation with star rating, chain affiliation, and geolocation",
+        "when_to_use": "Hotel registration, chain portfolio management, OTA distribution, star classification, site mapping",
+        "related_standards": [
+          "OTA PropertyInfo",
+          "HTNG Property",
+          "Schema.org Hotel"
+        ]
+      },
+      "ROOM_TYPE": {
+        "purpose": "OpenTravel room type with bedding configuration, max occupancy, and amenity attributes",
+        "when_to_use": "Inventory setup, OTA mapping, rate plan association, availability management, revenue optimization",
+        "related_standards": [
+          "OTA Room Types",
+          "HTNG Room Type",
+          "Schema.org HotelRoom"
+        ]
+      },
+      "RESERVATION": {
+        "purpose": "OpenTravel booking with check-in/check-out, channel source, and confirmation tracking",
+        "when_to_use": "Booking creation, channel manager integration, occupancy forecasting, revenue management, guest communication",
+        "related_standards": [
+          "OTA (OpenTravel Alliance)",
+          "HTNG 2.0",
+          "Schema.org LodgingReservation"
+        ]
+      },
+      "RATE_PLAN": {
+        "purpose": "HEDNA pricing strategy with meal plan, restriction rules, and channel distribution controls",
+        "when_to_use": "Revenue management, seasonal pricing, channel-specific rates, package bundling, promotional campaigns",
+        "related_standards": [
+          "OTA Rate Plan",
+          "HTNG Rate",
+          "Schema.org PriceSpecification"
+        ]
+      },
+      "GUEST_PROFILE": {
+        "purpose": "HTNG loyalty and preference data with encrypted PII for personalization and CRM",
+        "when_to_use": "Guest recognition, loyalty tier management, preference tracking, VIP handling, GDPR-compliant CRM",
+        "related_standards": [
+          "HTNG Guest Profile",
+          "PMS OPERA",
+          "GDPR Art. 6"
+        ]
+      },
+      "REVIEW": {
+        "purpose": "Guest satisfaction metrics with multi-dimensional scoring and NLP sentiment analysis",
+        "when_to_use": "Reputation management, service quality tracking, OTA response management, competitive benchmarking",
+        "related_standards": [
+          "TripAdvisor Content API",
+          "Google Business Profile",
+          "ReviewPro"
+        ]
+      }
+    },
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

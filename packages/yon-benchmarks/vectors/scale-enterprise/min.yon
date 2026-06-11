@@ -1,0 +1,108 @@
+@DOC ver=2.0 | id=chunk-1-2 | title="API and Endpoint Rules" | kind=rule | profile=exec | fmt=min
+@INTENT goal="Outline compliance and API requirements" | audience="system architects and developers"
+
+@SEC name=Authentication
+@RULE lvl=must | when="Authentication uses Bearer token OAuth2" | then="Bearer token OAuth2, 3600s TTL, 30d refresh"
+@RULE lvl=must | when="rate limited" | then="Rate limit 500/min, 429 on limit"
+@RULE lvl=must | when="Admin tokens" | then="Admin tokens access all orgs"
+@RULE lvl=must | when="User tokens" | then="User tokens own org access"
+@RULE lvl=must | when="API requests" | then="API requests need Authorization header"
+@RULE lvl=must | when="Tokens issued" | then="Tokens from /auth/token"
+@RULE lvl=must | when="Refresh tokens used" | then="Refresh tokens single-use"
+
+@SEC name="Users Endpoint"
+@RULE lvl=must | when="POST /users" | then="POST /users creates user"
+@RULE lvl=must | when=Email | then="Email unique per org"
+@RULE lvl=must | when=Roles | then="Roles: admin, member, viewer"
+@RULE lvl=must | when="GET /users" | then="GET /users paginated"
+@RULE lvl=must | when="GET /users/:id" | then="GET /users/:id single user"
+@RULE lvl=must | when="PATCH /users/:id" | then="PATCH /users/:id partial update"
+@RULE lvl=must | when="DELETE /users/:id" | then="DELETE /users/:id soft-delete"
+@RULE lvl=must | when="user already archived" | then="Archived user 410 Gone"
+
+@SEC name="Orders Endpoint"
+@RULE lvl=must | when="POST /orders" | then="POST /orders creates order"
+@RULE lvl=must | when="Each item" | then="Items need product_id, quantity, unit_price"
+@RULE lvl=must | when=Currency | then="Currency ISO 4217"
+@RULE lvl=must | when="GET /orders" | then="GET /orders filtering"
+@RULE lvl=must | when="Orders lifecycle" | then="Orders lifecycle"
+@RULE lvl=must | when="PATCH /orders/:id" | then="PATCH /orders/:id draft only"
+@RULE lvl=must | when="POST /orders/:id/confirm" | then="Confirm order triggers payment"
+@RULE lvl=must | when="POST /orders/:id/cancel" | then="Cancel order triggers refund"
+@RULE lvl=must | when="DELETE /orders/:id" | then="DELETE /orders not supported"
+
+@SEC name="Error Codes"
+@MAP id=Error Codes | pairs=["ERR_AUTH"->"invalid or expired token","ERR_NOT_FOUND"->"requested resource does not exist","ERR_VALIDATION"->"request body failed schema validation","ERR_CONFLICT"->"duplicate resource detected","ERR_RATE_LIMIT"->"too many requests","ERR_PAYMENT_FAILED"->"payment provider rejected transaction","ERR_INSUFFICIENT_FUNDS"->"account balance too low","ERR_PERMISSION_DENIED"->"token does not have required scope","ERR_RESOURCE_LOCKED"->"resource being modified by another process"]
+
+@SEC name="Subscriptions Endpoint"
+@NOTE text="POST /subscriptions, fields: customer_id, plan_id, trial_days, payment_method_id"
+@NOTE text="Start immediately or post-trial, auto-invoice unless trial"
+@NOTE text="Billing cycle anchor: specific date or creation date"
+@NOTE text="Proration: create_prorations, none, always_invoice"
+@NOTE text="Status: trialing → active → past_due → canceled"
+@NOTE text="PATCH /subscriptions/:id updates, mid-cycle prorations"
+@NOTE text="DELETE /subscriptions/:id, cancel, ?at=now for immediate"
+
+@SEC name="Payments Endpoint"
+@NOTE text="POST /payments, fields: amount, currency, method_id, description [4217]"
+@NOTE text="Synchronous, 200 on success, 402 on failure"
+@NOTE text="Card authorization, 3D Secure when required"
+@NOTE text="POST /payments/:id/refund, partial/full refunds"
+@NOTE text="Methods: cards, bank transfers, digital wallets"
+
+@SEC name="GDPR Compliance"
+@RULE lvl=must | then="Encrypt PII: AES-256, TLS 1.3"
+@RULE lvl=must | then="Right to erasure: 30 days"
+@RULE lvl=must | then="Maintain records for audit"
+@RULE lvl=must | then="Report breaches: 72 hours"
+@RULE lvl=must | then="Impact assessments: annually"
+@RULE lvl=must | then="Appoint DPO, publish contact"
+@RULE lvl=must | then="Obtain explicit consent"
+@RULE lvl=must | then="Portability: JSON/CSV, 30 days"
+@RULE lvl=must | then="Cross-border: Standard Contractual Clauses"
+
+@SEC name="SOC 2 Type II Compliance"
+@RULE lvl=must | then="Least privilege access"
+@RULE lvl=must | then="Record access events"
+@RULE lvl=must | then="Monthly vulnerability scans"
+@RULE lvl=must | then="Annual penetration testing"
+@RULE lvl=must | then="Incident response phases"
+@RULE lvl=must | then="Test continuity plans semi-annually"
+@RULE lvl=must | then="Encrypt backups, test quarterly"
+@RULE lvl=must | then="Require MFA for admin access"
+@RULE lvl=must | then="Background checks before access"
+@RULE lvl=must | then="Annual vendor assessments"
+
+@SEC name="PCI-DSS Level 1 Compliance"
+@RULE lvl=must | then="Never store full card numbers"
+@RULE lvl=must | then="Tokenize payment data"
+@RULE lvl=must | then="Segment payment network"
+@RULE lvl=must | then="Monitor payment traffic"
+@RULE lvl=must | then="Rotate keys annually"
+@RULE lvl=must | then="Restrict physical access"
+@RULE lvl=must | then="Review code before deployment"
+@RULE lvl=must | then="Quarterly ASV scans"
+
+@SEC name="Rate Limiting"
+@NOTE text="Rate limiting: global, per-user, per-endpoint"
+@NOTE text="Global: 1000/min, Per-user: 100/min"
+@NOTE text="Burst: 50/1s window"
+@NOTE text="Throttle: sliding window"
+@NOTE text="Headers: X-RateLimit-*"
+@NOTE text="Retry-After header specifies wait time"
+@NOTE text="Higher limits for authenticated"
+@NOTE text="Webhooks not counted"
+@NOTE text="Batch: per item limits"
+@NOTE text=HMAC-SHA256
+@NOTE text=order.created
+@NOTE text=order.updated
+@NOTE text=order.completed
+@NOTE text=payment.succeeded
+@NOTE text=payment.failed
+@NOTE text=invoice.paid
+@NOTE text=2000
+@NOTE text=5322
+@NOTE text=1234567890
+@NOTE text=8601
+@NOTE text=2026
+@NOTE text=UTC

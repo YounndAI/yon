@@ -1,0 +1,27 @@
+@DOC ver=2.0 | id=reasoning-trace | title="Reasoning Trace" | kind=trace | profile=cognitive | features=[cognition] | fmt=canon
+
+@NOTE text="Demonstrate structured reasoning with hypothesis generation, observation, reflection, and pruning."
+
+@SEC name="Initial Analysis"
+
+@THOUGHT rid=t:1 | type=analysis | content="The user reports elevated latency on the /api/search endpoint. Possible causes: database query regression, cache miss spike, or upstream service degradation."
+
+@HYPOTHESIS rid=h:db | claim="Database query regression is the primary cause" | confidence:float=0.6 | based_on=[rid:t:1]
+
+@HYPOTHESIS rid=h:cache | claim="Cache hit rate dropped below threshold" | confidence:float=0.3 | based_on=[rid:t:1]
+
+@SEC name="Investigation"
+
+@OBSERVATION rid=o:metrics | note="Query latency p99 is 450ms (baseline: 120ms). Cache hit rate is 94% (normal)." | from=monitoring-dashboard
+
+@INTROSPECT rid=intro:1 | query="Should I investigate the upstream service despite low prior probability?" | scope=completeness | finding="Yes — eliminate all hypotheses systematically."
+
+@SEC name="Revision"
+
+@REFLECTION rid=r:1 | revises=rid:h:cache | because="Cache hit rate is 94%, within normal range. Cache is not the issue." | new_confidence:float=0.05
+
+@PRUNE target=rid:h:cache | mode=soft | because="Evidence contradicts cache hypothesis"
+
+@SEC name="Resolution"
+
+@DECISION rid=d:1 | selected=rid:h:db | alternatives=[rid:h:cache] | rationale="Query latency 3.75x baseline with normal cache — database is the bottleneck." | confidence:float=0.92 | trace=[rid:t:1,rid:o:metrics,rid:r:1]

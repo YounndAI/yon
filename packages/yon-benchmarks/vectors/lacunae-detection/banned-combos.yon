@@ -1,0 +1,12 @@
+@DOC ver=2.0 | id=api-safety | title="API Safety Rules" | kind=rule | mode=text | profile=decl | fmt=min
+
+@INTENT goal="Prevent dangerous operation combinations that risk data loss or corruption" | audience="API developers, gateway engineers"
+
+@SEC name="API Constraints"
+@RULE lvl=MUST_NOT | when="calling APIs" | then="combine destructive and constructive operations in the same transaction"
+
+@SEC name="Banned Combinations"
+@MAP id=BannedCombos | pairs=["DELETE+bulk-import"->"Destructive then mass-create risks orphaned references","TRUNCATE+INSERT"->"Data loss if INSERT fails mid-batch","DROP+CREATE"->"Schema recreation may lose constraints and indices"]
+@NOTE text="Any combination matching a BannedCombo pattern MUST be rejected at the API gateway level."
+
+@CHECK rid=chk:gateway-reject | assert="banned combinations are rejected at the API gateway" | fail=ABORT | msg="Gateway must enforce banned operation combinations"

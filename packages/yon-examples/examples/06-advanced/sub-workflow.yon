@@ -1,0 +1,13 @@
+@DOC ver=2.0 | id=sub-workflow | title="Sub-Workflow Composition" | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Compose workflows by referencing external sub-workflows. The runner resolves references at execution time."
+
+@STEP n:int=1 | rid=validate | op=std:schema.validate@v1 | out=[ref:input]
+
+@SEC name="Sub-Workflows"
+@REF id=auth-flow | href=workflows/auth.yon | rel=sub-workflow
+@REF id=payment-flow | href=workflows/payment.yon | rel=sub-workflow
+
+@STEP n:int=2 | rid=authenticate | op=ref:auth-flow | in=[ref:input] | out=[ref:session]
+@STEP n:int=3 | rid=charge | op=ref:payment-flow | in=[ref:session] | out=[ref:receipt]
+@STEP n:int=4 | rid=confirm | op=std:notify.email@v1 | in=[ref:receipt]

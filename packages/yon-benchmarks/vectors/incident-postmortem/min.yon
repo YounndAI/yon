@@ -1,0 +1,42 @@
+@DOC ver=2.0 | kind=context | id=inc-2024-0892 | title="INC-2024-0892: Auth Service Outage" | profile=decl | fmt=MIN
+
+@STAMP ts:ts=2024-11-08T14:23:00Z | src=system:pagerduty | label=SEV-1
+@STAMP ts:ts=2024-11-08T17:10:00Z | src=human | label=Resolved
+
+@META key=severity | value=SEV-1
+@META key=duration | value="2h47m (14:23–17:10 UTC)"
+@META key=author | value="Maria Torres, SRE"
+
+@SEC name="Summary"
+@NOTE text="Auth outage: 94k users blocked, 12k sessions expired. $186k revenue impact. Root cause: cert rotation deployed expired TLS cert (test profile, 0-day validity) to 3/4 pods. Health check + monitoring gaps."
+
+@SEC name="Timeline"
+@MAP id=tl | pairs=["13:45"->"Cert rotation runs. PR #4782: test profile (0-day) instead of prod (90-day). Certs expire at creation.","13:47"->"Pods 1-3 refresh. Pod 4 skipped (rolling restart).","14:15"->"First user report. Dismissed as individual.","14:23"->"PagerDuty: error rate >5%. On-call acks.","14:28"->"Error 0.1%→67%. 3/4 pods TLS handshake fail. Pod 4 healthy.","14:35"->"SEV-1. War room open. Maria Torres IC.","14:42"->"x509 cert expired in logs.","14:50"->"Pod restart: same expired certs from store.","14:55"->"Store check: all certs expired at creation time.","15:10"->"Manual cert gen with correct profile.","15:15"->"Rolling restart all pods.","15:20"->"All pods up. Error 67%→2%.","15:35"->"Normal (0.1%). 12k sessions need re-auth.","16:00"->"Hotfix PR #4891 merged.","17:10"->"Resolved."]
+
+@SEC name="Impact"
+@MAP id=user | pairs=["blocked:int"->"94,000","expired_sessions:int"->"12,000","tickets:int"->"2,340 (89% auto-resolved)"]
+@MAP id=rev | pairs=["transactions"->"$186,000","renewals"->"$23,000 (recovered 24h)","sla_credits"->"$42,000"]
+@MAP id=sla | pairs=["target"->"99.95%","consumed"->"2h47m of 21.9min budget","breach"->"yes, November"]
+@MAP id=int | pairs=["engineers:int"->"7","person_hrs"->"19.5","teams:int"->"3"]
+
+@SEC name="Root Cause"
+@MAP id=rca | pairs=["primary"->"PR #4782: cert-profile-test-0d used instead of cert-profile-prod-90d. 1 reviewer missed.","contributing_1"->"readinessProbe checks port, not TLS validity. Written for ALB-TLS, not updated for pod-TLS (June 2024).","contributing_2"->"cert expiry alerts on ALB only, not pods. Gap since pod-TLS migration (5 months)."]
+
+@SEC name="Actions"
+
+@SEC name="Immediate (Nov 15)"
+@MAP id=imm | pairs=["AI-1"->"Revert profile (DONE, PR #4891)","AI-2"->"TLS handshake in readiness probe — Rajesh","AI-3"->"Pod cert expiry monitoring — Maria","AI-4"->"Audit pod-TLS health checks — Aisha"]
+
+@SEC name="Short-term (Nov 30)"
+@MAP id=st | pairs=["AI-5"->"CI/CD reject test profiles in prod — David","AI-6"->"Cert rotation dry-run — Tom","AI-7"->"Cert failures = SEV-1 in playbook — Maria","AI-8"->"Cert refresh 2min→30s — Rajesh"]
+
+@SEC name="Long-term (Dec 31)"
+@MAP id=lt | pairs=["AI-9"->"Auto-rollback on handshake fail — Platform","AI-10"->"E2E TLS monitoring (external probes) — SRE","AI-11"->"Cert runbook + profile checklist — Tom","AI-12"->"Incident training (TLS/cert) — Maria"]
+
+@SEC name="Review"
+@MAP id=good | pairs=["PagerDuty"->"8min detection","war room"->"12min","root cause"->"20min","pod 4"->"canary prevented zero avail","comms"->"status page 14:40, email 15:00"]
+@MAP id=bad | pairs=["review"->"1 reviewer (need 2 for infra)","health"->"no TLS validation","monitoring"->"5-month gap","triage"->"first report dismissed (−8min)","docs"->"no cert rotation runbook"]
+
+@SEC name="Metrics"
+@MAP id=det | pairs=["detect"->"38min","mitigate"->"57min","resolve"->"2h47m"]
+@MAP id=targets | pairs=["rotation_success"->"100%","failure_detect"->"<30s","MTTD_TLS"->"<5min","health_coverage"->"100%"]

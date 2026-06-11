@@ -1,0 +1,23 @@
+@DOC ver=2.0 | id=temporal-collaboration | title="Temporal Collaboration" | kind=workflow | profile=agent | features=[temporal,collaboration,composition] | fmt=canon
+
+@NOTE text="Demonstrate timeline-scoped events, shared workspaces, collaborative editing, and sub-workflow invocation."
+
+@AGENT rid=a:analyst | name="Data Analyst"
+@AGENT rid=a:reviewer | name="Peer Reviewer"
+
+@SEC name="Temporal Context"
+
+@TIMELINE rid=tl:sprint | span="2026-03-01/2026-03-14" | label="Sprint 42"
+@EVENT rid=ev:kickoff | timeline=rid:tl:sprint | at=2026-03-01T09:00:00Z | activity="Sprint planning completed"
+@EVENT rid=ev:review | timeline=rid:tl:sprint | at=2026-03-07T14:00:00Z | activity="Mid-sprint review with stakeholders"
+@EVENT rid=ev:ship | timeline=rid:tl:sprint | at=2026-03-14T17:00:00Z | activity="Sprint deliverables shipped"
+
+@SEC name="Collaborative Workspace"
+
+@WORKSPACE rid=ws:report | agents=[rid:a:analyst,rid:a:reviewer] | artifact="quarterly-analysis-q1-2026.md"
+@EDIT rid=ed:1 | workspace=rid:ws:report | by=rid:a:analyst | patch="Added executive summary section" | ts=2026-03-05T10:30:00Z
+@EDIT rid=ed:2 | workspace=rid:ws:report | by=rid:a:reviewer | patch="Revised methodology section for clarity" | ts=2026-03-06T15:45:00Z
+
+@SEC name="Sub-Workflow Invocation"
+
+@CALL rid=call:validate | ref="workflows/data-validation.yon" | args=[source=rid:ws:report]

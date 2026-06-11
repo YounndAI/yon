@@ -1,0 +1,67 @@
+Auth: Bearer token OAuth2. Token TTL: 3600s. Refresh: 30-day, single-use (invalidated after use, new one issued with access token).
+Rate limit: 500 req/min global. On exceed: 429 + Retry-After header.
+Scope: admin tokens → all orgs. User tokens → own org only.
+All requests require Authorization header. Token endpoint: /auth/token (client credentials or auth code flow).
+
+Users CRUD:
+- POST /users — create. Required: name, email, role. Email unique per org. Roles: admin|member|viewer (default: member).
+- GET /users — paginated list (cursor-based). Default limit: 25, max: 100.
+- GET /users/:id — single user or 404. Includes last_login, created_at.
+- PATCH /users/:id — partial update, merge semantics. Email change requires verification.
+- DELETE /users/:id — soft-delete (status→archived, login disabled). 410 if already archived.
+
+Orders API:
+- POST /orders — create. Required: customer_id, items[], total, currency.
+  Items: each needs product_id, quantity, unit_price. Total must equal Σ(qty × unit_price).
+  Currency: ISO 4217 (USD, EUR, GBP, CAD, AUD, JPY). No mixed currencies per order.
+- GET /orders — filter by customer_id, status, date range, min total.
+- Lifecycle: draft → confirmed → processing → shipped → delivered. Cancelable before shipped.
+- PATCH /orders/:id — update items only in draft status. Status changes via dedicated endpoints.
+- POST /orders/:id/confirm — draft→confirmed, triggers payment auth.
+- POST /orders/:id/cancel — marks canceled, triggers refund if captured.
+- DELETE not supported — use cancel.
+
+Error codes (consistent pattern):
+- ERR_AUTH: invalid/expired token
+- ERR_NOT_FOUND: resource doesn't exist
+- ERR_VALIDATION: request body failed schema validation
+- ERR_CONFLICT: duplicate resource (e.g., duplicate email)
+- ERR_RATE_LIMIT: too many requests
+- ERR_PAYMENT_FAILED: payment provider rejected
+- ERR_INSUFFICIENT_FUNDS: account balance too low
+- ERR_PERMISSION_DENIED: token lacks required scope
+- ERR_RESOURCE_LOCKED: concurrent modification in progress
+All error responses include: request_id (debugging) + human-readable message.
+
+Products API:
+- POST /products — create. Required: name (max 255), description (max 2000), price (cents), category, active.
+  Categories: software|hardware|service|subscription|addon. No custom categories.
+- GET /products — filter: category, active, price range. Includes price count, not full price objects.
+- PATCH /products/:id — update any field. active=false blocks new orders, doesn't affect existing.
+- DELETE — blocked if active orders exist. Deactivate first.
+- Multi-price: each product can have prices for different currencies and billing intervals.
+
+Invoices API:
+- POST /invoices — create from order or subscription. Required: customer_id, items, due_date, payment_terms (net-15|net-30|net-60).
+- Lifecycle: draft → open → paid|void. Draft: editable. Open: locked.
+- POST /invoices/:id/pay — charge default method. 402 on failure.
+- POST /invoices/:id/void — mark void. Cannot void paid invoices.
+- GET /invoices — filter: customer_id, status, date range, amount range.
+- Overdue reminders: auto emails at 1, 7, 14 days past due_date (open status).
+
+Global validation rules:
+- Email: RFC 5322. Phone: E.164 (+1234567890). Money: positive int cents.
+- Dates: ISO 8601 UTC (2026-01-15T00:00:00Z). No timezone abbreviations.
+- Metadata: optional, max 20 keys, keys+values must be strings ≤500 chars.
+- Arrays: max 100 items/request. Larger batches → bulk import endpoint.
+- Strings: auto-trimmed. Empty → null.
+- Booleans: true/false, 1/0, yes/no accepted. All others rejected.
+- Enums: case-insensitive input, stored lowercase.
+
+Webhooks — real-time event notifications:
+Events: order.created, order.updated, order.completed, payment.succeeded, payment.failed, invoice.paid.
+Security: HMAC-SHA256 signed payloads. Verify signature before processing.
+Delivery: must respond 200 within 30s. Failed → retry (exponential backoff: 1m, 5m, 25m, 2h, 10h = 5 attempts).
+After exhausted retries: webhook marked failing, owner notified by email.
+Register: POST /webhooks — url (HTTPS required), events[], optional secret.
+History: GET /webhooks/:id/deliveries — last 30 days (status, response code, timing).

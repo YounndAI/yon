@@ -1,0 +1,7 @@
+{
+  "parse": "ok",
+  "validate_strict": "error",
+  "validate_lenient": "warn",
+  "error_code": null,
+  "notes": "@AUTOMATOR.yonpa_schema_version='1.0.0-beta' does not match the required pattern ^\\d+\\.\\d+$ (major.minor only). Strict validation fails. The pattern intentionally rejects patch and pre-release suffixes — the schema-version pin is for schema-format compatibility, not for fine-grained release tracking. Semantic ≤-bundled-version check is YONPA-linter territory and is covered by YONPA's own tests."
+}

@@ -1,0 +1,27 @@
+@DOC ver=2.0 | id=q3-budget-meeting-notes | title="Q3 Budget Meeting Notes" | profile=decl | fmt=min
+
+@SEC name="Marketing Budget"
+@NOTE text="Tom: probably cut marketing budget ~15% next quarter"
+@NOTE text="Maria: CAC dropped to $42 (from $67 Q2), probably increase digital ~10%"
+
+@SEC name="New Hire Budget"
+@NOTE text="HR wants 12 positions, finance approves 8, possibly 9 if Atlanta lease savings"
+@NOTE text="Atlanta lease might save approximately $180K annually"
+@NOTE text="Breakdown: 4 eng, 2 sales, 1 CS, 1 data analyst"
+
+@SEC name="Platform Migration"
+@NOTE text="Roughly 60% complete, Q4 deadline, probably February or March"
+@NOTE text="Blocker: Oracle DB migration, ~2.3M of 8.5M records processed"
+
+@SEC name="Revenue Projections"
+@NOTE text="Q4: $4.2M, up ~12% from Q3"
+@NOTE text="Pipeline: Acme $340K, Pinnacle $520K, Lighthouse probably >$800K"
+
+@SEC name="Customer Churn"
+@NOTE text="Churn: 3.2% to 4.1% September"
+@NOTE text="Might correlate with price increase $29 to $39/month"
+
+@SEC name="Office Updates"
+@NOTE text="SF AC replacement ~$45K"
+@NOTE text="NYC expansion on hold pending Atlanta savings"
+@NOTE text="Consider Portland fully remote, lease up April, ~40% utilization"

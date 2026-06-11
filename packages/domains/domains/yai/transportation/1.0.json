@@ -1,0 +1,808 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.transportation",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Public transit operations, route planning, real-time vehicle tracking, and fare management",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "ROUTE",
+      "description": "Transit route — GTFS route definition with agency, mode, and branding",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "rt:M15"
+        },
+        {
+          "name": "agency",
+          "type": "string",
+          "required": false,
+          "description": "Transit Agency",
+          "example": "MTA"
+        },
+        {
+          "name": "route_type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "tram",
+            "metro",
+            "rail",
+            "bus",
+            "ferry",
+            "cable-car",
+            "gondola",
+            "funicular",
+            "trolleybus",
+            "monorail"
+          ],
+          "description": "Transit Mode (10 allowed values)",
+          "example": "bus"
+        },
+        {
+          "name": "short_name",
+          "type": "string",
+          "required": false,
+          "description": "Route Short Name",
+          "example": "M15"
+        },
+        {
+          "name": "long_name",
+          "type": "string",
+          "required": false,
+          "description": "Route Long Name",
+          "example": "First/Second Avenue"
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "required": false,
+          "pattern": "^[0-9A-Fa-f]{6}$",
+          "description": "Route Color (Hex)",
+          "example": "0039A6"
+        },
+        {
+          "name": "text_color",
+          "type": "string",
+          "required": false,
+          "pattern": "^[0-9A-Fa-f]{6}$",
+          "description": "Text Color (Hex)",
+          "example": "FFFFFF"
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": false,
+          "description": "Route URL",
+          "example": "https://mta.info/m15"
+        },
+        {
+          "name": "continuous_pickup",
+          "type": "bool",
+          "required": false,
+          "description": "Continuous Pickup indicator",
+          "example": "false"
+        }
+      ]
+    },
+    {
+      "tag": "STOP",
+      "description": "Transit stop or station — GTFS stop with geolocation, accessibility, and platform data",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "stop:34ST-PENN"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Stop Name",
+          "example": "34 St - Penn Station"
+        },
+        {
+          "name": "lat",
+          "type": "float",
+          "required": false,
+          "range": [
+            -90,
+            90
+          ],
+          "description": "Latitude in ° (-90–90)",
+          "unit": "°",
+          "example": "40.7506"
+        },
+        {
+          "name": "lon",
+          "type": "float",
+          "required": false,
+          "range": [
+            -180,
+            180
+          ],
+          "description": "Longitude in ° (-180–180)",
+          "unit": "°",
+          "example": "-73.9935"
+        },
+        {
+          "name": "zone_id",
+          "type": "string",
+          "required": false,
+          "description": "Fare Zone ID",
+          "example": "A"
+        },
+        {
+          "name": "wheelchair_accessible",
+          "type": "bool",
+          "required": false,
+          "description": "Wheelchair Accessible indicator",
+          "example": "true"
+        },
+        {
+          "name": "location_type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "stop",
+            "station",
+            "entrance-exit",
+            "generic-node",
+            "boarding-area"
+          ],
+          "description": "Location Type: stop, station, entrance-exit, generic-node, boarding-area",
+          "example": "station"
+        },
+        {
+          "name": "parent_station",
+          "type": "string",
+          "required": false,
+          "description": "Parent Station",
+          "example": "stop:34ST"
+        },
+        {
+          "name": "platform_code",
+          "type": "string",
+          "required": false,
+          "description": "Platform Code",
+          "example": "2"
+        }
+      ]
+    },
+    {
+      "tag": "TIMETABLE",
+      "description": "Scheduled service — GTFS trip and stop time with direction, headsign, and sequencing",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "tt:M15-AM-001"
+        },
+        {
+          "name": "route_ref",
+          "type": "string",
+          "required": false,
+          "description": "Route Reference",
+          "example": "rt:M15"
+        },
+        {
+          "name": "service_id",
+          "type": "string",
+          "required": false,
+          "description": "Service Calendar ID",
+          "example": "weekday"
+        },
+        {
+          "name": "direction",
+          "type": "int",
+          "required": false,
+          "range": [
+            0,
+            1
+          ],
+          "description": "Direction ID (0–1)",
+          "example": "0"
+        },
+        {
+          "name": "headsign",
+          "type": "string",
+          "required": false,
+          "description": "Trip Headsign",
+          "example": "South Ferry"
+        },
+        {
+          "name": "departure_time",
+          "type": "string",
+          "required": false,
+          "description": "Departure Time",
+          "example": "07:15:00"
+        },
+        {
+          "name": "arrival_time",
+          "type": "string",
+          "required": false,
+          "description": "Arrival Time",
+          "example": "07:16:00"
+        },
+        {
+          "name": "stop_ref",
+          "type": "string",
+          "required": false,
+          "description": "Stop Reference",
+          "example": "stop:34ST-PENN"
+        },
+        {
+          "name": "stop_sequence",
+          "type": "int",
+          "required": false,
+          "description": "Stop Sequence",
+          "example": "5"
+        },
+        {
+          "name": "pickup_type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "regular",
+            "no-pickup",
+            "phone-agency",
+            "coordinate-driver"
+          ],
+          "description": "Pickup Type: regular, no-pickup, phone-agency, coordinate-driver",
+          "example": "regular"
+        },
+        {
+          "name": "drop_off_type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "regular",
+            "no-drop-off",
+            "phone-agency",
+            "coordinate-driver"
+          ],
+          "description": "Drop-Off Type: regular, no-drop-off, phone-agency, coordinate-driver",
+          "example": "regular"
+        }
+      ]
+    },
+    {
+      "tag": "VEHICLE_POSITION",
+      "description": "Real-time vehicle position — GTFS Realtime feed with occupancy and congestion data",
+      "fields": [
+        {
+          "name": "vehicle_id",
+          "type": "string",
+          "required": false,
+          "description": "Vehicle ID",
+          "example": "BUS-4521"
+        },
+        {
+          "name": "route_ref",
+          "type": "string",
+          "required": false,
+          "description": "Route Reference",
+          "example": "rt:M15"
+        },
+        {
+          "name": "trip_ref",
+          "type": "string",
+          "required": false,
+          "description": "Trip Reference",
+          "example": "tt:M15-AM-001"
+        },
+        {
+          "name": "lat",
+          "type": "float",
+          "required": false,
+          "range": [
+            -90,
+            90
+          ],
+          "description": "Latitude in ° (-90–90)",
+          "unit": "°",
+          "example": "40.7484"
+        },
+        {
+          "name": "lon",
+          "type": "float",
+          "required": false,
+          "range": [
+            -180,
+            180
+          ],
+          "description": "Longitude in ° (-180–180)",
+          "unit": "°",
+          "example": "-73.9857"
+        },
+        {
+          "name": "bearing",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            360
+          ],
+          "description": "Bearing in ° (0–360)",
+          "unit": "°",
+          "example": "180.0"
+        },
+        {
+          "name": "speed_mps",
+          "type": "float",
+          "required": false,
+          "description": "Speed in m/s",
+          "unit": "m/s",
+          "example": "8.5"
+        },
+        {
+          "name": "occupancy",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "empty",
+            "many-seats",
+            "few-seats",
+            "standing-only",
+            "crushed",
+            "full",
+            "not-accepting"
+          ],
+          "description": "Occupancy Level (7 allowed values)",
+          "example": "few-seats"
+        },
+        {
+          "name": "current_status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "incoming-at",
+            "stopped-at",
+            "in-transit-to"
+          ],
+          "description": "Current Status: incoming-at, stopped-at, in-transit-to",
+          "example": "in-transit-to"
+        },
+        {
+          "name": "stop_ref",
+          "type": "string",
+          "required": false,
+          "description": "Next Stop Reference",
+          "example": "stop:28ST"
+        },
+        {
+          "name": "congestion",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "unknown",
+            "running-smoothly",
+            "stop-and-go",
+            "congestion",
+            "severe-congestion"
+          ],
+          "description": "Congestion Level: unknown, running-smoothly, stop-and-go, congestion, severe-congestion",
+          "example": "running-smoothly"
+        },
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": false,
+          "description": "Position Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-01T07:18:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "ALERT",
+      "description": "Service alert — GTFS Realtime disruption notice with cause, effect, and active period",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "alert:2026-001"
+        },
+        {
+          "name": "cause",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "unknown",
+            "strike",
+            "technical-problem",
+            "weather",
+            "accident",
+            "construction",
+            "police-activity",
+            "demonstration",
+            "medical-emergency",
+            "other"
+          ],
+          "description": "Alert Cause (10 allowed values)",
+          "example": "technical-problem"
+        },
+        {
+          "name": "effect",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "no-service",
+            "reduced-service",
+            "significant-delays",
+            "detour",
+            "additional-service",
+            "modified-service",
+            "stop-moved",
+            "other",
+            "unknown"
+          ],
+          "description": "Service Effect (9 allowed values)",
+          "example": "significant-delays"
+        },
+        {
+          "name": "severity",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "info",
+            "warning",
+            "severe"
+          ],
+          "description": "Severity: info, warning, severe",
+          "example": "warning"
+        },
+        {
+          "name": "active_from",
+          "type": "ts",
+          "required": false,
+          "description": "Active From as ISO 8601 timestamp",
+          "example": "2026-03-01T06:00:00Z"
+        },
+        {
+          "name": "active_until",
+          "type": "ts",
+          "required": false,
+          "description": "Active Until as ISO 8601 timestamp",
+          "example": "2026-03-01T12:00:00Z"
+        },
+        {
+          "name": "route_ref",
+          "type": "string",
+          "required": false,
+          "description": "Affected Route",
+          "example": "rt:L-7"
+        },
+        {
+          "name": "stop_ref",
+          "type": "string",
+          "required": false,
+          "description": "Affected Stop",
+          "example": "stop:CENTRAL"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Alert Description",
+          "example": "Signal failure at Central Station"
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": false,
+          "description": "Detail URL",
+          "example": "https://transit.example.com/alert/2026-001"
+        }
+      ]
+    },
+    {
+      "tag": "FARE",
+      "description": "Fare product — GTFS fare structure with payment methods, transfers, and zone pricing",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "fare:ZAB-adult"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Fare Product Name",
+          "example": "Zone A-B Adult"
+        },
+        {
+          "name": "price",
+          "type": "float",
+          "required": false,
+          "description": "Price in USD",
+          "unit": "USD",
+          "example": "2.75"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "pattern": "^[A-Z]{3}$",
+          "description": "Currency",
+          "example": "USD"
+        },
+        {
+          "name": "payment_method",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "onboard",
+            "before-boarding",
+            "both",
+            "contactless",
+            "mobile-app"
+          ],
+          "description": "Payment Method: onboard, before-boarding, both, contactless, mobile-app",
+          "example": "contactless"
+        },
+        {
+          "name": "transfers",
+          "type": "int",
+          "required": false,
+          "description": "Allowed Transfers",
+          "example": "2"
+        },
+        {
+          "name": "transfer_duration_sec",
+          "type": "int",
+          "required": false,
+          "description": "Transfer Duration in seconds",
+          "unit": "seconds",
+          "example": "7200"
+        },
+        {
+          "name": "zone_from",
+          "type": "string",
+          "required": false,
+          "description": "Origin Zone",
+          "example": "A"
+        },
+        {
+          "name": "zone_to",
+          "type": "string",
+          "required": false,
+          "description": "Destination Zone",
+          "example": "B"
+        },
+        {
+          "name": "rider_category",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "adult",
+            "child",
+            "senior",
+            "student",
+            "disabled",
+            "military"
+          ],
+          "description": "Rider Category (6 allowed values)",
+          "example": "adult"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Public transit and mobility data for smart city AI",
+    "highlights": [
+      "ROUTE",
+      "VEHICLE_POSITION",
+      "ALERT"
+    ],
+    "use_cases": [
+      {
+        "id": "transit-operations",
+        "title": "Real-Time Transit Operations",
+        "steps": [
+          "Define @ROUTE network with transit mode and branding colors",
+          "Catalog @STOP locations with accessibility and zone data",
+          "Publish @TIMETABLE with scheduled departures and stop sequences",
+          "Stream @VEHICLE_POSITION via GTFS Realtime for live tracking",
+          "Issue @ALERT for service disruptions with cause and effect"
+        ],
+        "example": "@VEHICLE_POSITION vehicle_id=\"BUS-4521\" | route_ref=\"M15\" | lat:float=40.7484 | lon:float=-73.9857 | occupancy=\"few-seats\" | current_status=\"in-transit-to\"",
+        "tags_used": [
+          "ROUTE",
+          "STOP",
+          "TIMETABLE",
+          "VEHICLE_POSITION",
+          "ALERT"
+        ],
+        "description": "Track vehicle positions on routes, monitor schedule adherence, and dispatch responses to service disruptions. Provide passenger arrival predictions using GTFS-RT feeds.",
+        "tags": [
+          "ROUTE",
+          "VEHICLE",
+          "STOP",
+          "TRIP",
+          "INCIDENT"
+        ]
+      },
+      {
+        "id": "fare-management",
+        "title": "Zone-Based Fare Management",
+        "steps": [
+          "Define @FARE products with per-zone pricing and rider categories",
+          "Map zone boundaries via @STOP zone_id assignments",
+          "Configure transfer rules with transfer count and duration window",
+          "Process @FARE validation against @ROUTE and journey segments",
+          "Generate revenue reports per rider category and payment method"
+        ],
+        "example": "@FARE rid=f:1 | name=\"Zone A-B Adult\" | price:float=2.75 | currency=\"USD\" | payment_method=\"contactless\" | transfers:int=2 | zone_from=\"A\" | zone_to=\"B\"",
+        "tags_used": [
+          "FARE",
+          "STOP",
+          "ROUTE"
+        ],
+        "description": "Calculate fares based on origin-destination zones, apply concession discounts, and reconcile revenue across payment methods including contactless, mobile, and smartcard.",
+        "tags": [
+          "FARE",
+          "TRIP",
+          "ROUTE",
+          "STOP"
+        ]
+      },
+      {
+        "id": "disruption-management",
+        "title": "Service Disruption and Passenger Information",
+        "steps": [
+          "Detect delay via @VEHICLE_POSITION deviation from @TIMETABLE",
+          "Create @ALERT with cause, effect, and active period",
+          "Associate alert with affected @ROUTE and @STOP references",
+          "Push real-time passenger information through GTFS Realtime feeds",
+          "Resolve alert and restore normal @TIMETABLE operations"
+        ],
+        "example": "@ALERT rid=a:1 | cause=\"technical-problem\" | effect=\"significant-delays\" | severity=\"warning\" | route_ref=\"L-7\" | description=\"Signal failure at Central Station\"",
+        "tags_used": [
+          "ALERT",
+          "VEHICLE_POSITION",
+          "TIMETABLE",
+          "ROUTE",
+          "STOP"
+        ],
+        "description": "Detect service disruptions, calculate passenger impact, coordinate alternative transport, and push real-time alerts through multi-channel notification systems.",
+        "tags": [
+          "INCIDENT",
+          "ROUTE",
+          "VEHICLE",
+          "STOP"
+        ]
+      }
+    ],
+    "tag_context": {
+      "ROUTE": {
+        "purpose": "Transit route identity with mode, agency, and visual branding for passenger-facing systems",
+        "when_to_use": "Network definition, GTFS feed publishing, route maps, timetable association",
+        "related_standards": [
+          "GTFS routes.txt",
+          "NeTEx Line",
+          "SIRI LineRef"
+        ]
+      },
+      "STOP": {
+        "purpose": "Physical stop or station location with accessibility, zone, and platform hierarchy",
+        "when_to_use": "Stop catalogs, accessibility audits, fare zone mapping, interchange planning",
+        "related_standards": [
+          "GTFS stops.txt",
+          "NeTEx StopPlace",
+          "IFOPT"
+        ]
+      },
+      "TIMETABLE": {
+        "purpose": "Scheduled trip with stop-by-stop departure and arrival times",
+        "when_to_use": "Schedule publishing, headway analysis, service frequency planning, connection timing",
+        "related_standards": [
+          "GTFS stop_times.txt",
+          "NeTEx Timetable",
+          "SIRI EstimatedTimetable"
+        ]
+      },
+      "VEHICLE_POSITION": {
+        "purpose": "Real-time GPS position of a transit vehicle with occupancy and congestion status",
+        "when_to_use": "Live vehicle tracking, arrival prediction, crowding alerts, fleet management",
+        "related_standards": [
+          "GTFS Realtime VehiclePosition",
+          "SIRI VehicleMonitoring",
+          "MDS"
+        ]
+      },
+      "ALERT": {
+        "purpose": "Service disruption notice with structured cause, effect, severity, and temporal scope",
+        "when_to_use": "Delay notifications, detour announcements, service suspensions, planned engineering works",
+        "related_standards": [
+          "GTFS Realtime Alert",
+          "SIRI SituationExchange",
+          "TPEG"
+        ]
+      },
+      "FARE": {
+        "purpose": "Fare product with zone-based pricing, rider categories, and transfer policies",
+        "when_to_use": "Fare calculation, ticket validation, revenue analysis, concession management",
+        "related_standards": [
+          "GTFS fare_products.txt",
+          "NeTEx FareFrame",
+          "APDS"
+        ]
+      }
+    },
+    "links": [
+      {
+        "label": "GTFS",
+        "url": "https://gtfs.org/",
+        "type": "standard"
+      },
+      {
+        "label": "GTFS Realtime",
+        "url": "https://gtfs.org/realtime/",
+        "type": "standard"
+      },
+      {
+        "label": "SIRI",
+        "url": "https://www.siri-cen.eu/",
+        "type": "standard"
+      },
+      {
+        "label": "NeTEx",
+        "url": "https://netex-cen.eu/",
+        "type": "standard"
+      },
+      {
+        "label": "DATEX II",
+        "url": "https://datex2.eu/",
+        "type": "standard"
+      },
+      {
+        "label": "MDS",
+        "url": "https://www.openmobilityfoundation.org/about-mds/",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.logistics",
+        "relationship": "data overlap",
+        "reason": "Route optimization and freight transit"
+      },
+      {
+        "domain": "yai.automotive",
+        "relationship": "often paired",
+        "reason": "Vehicle telematics and fleet operations"
+      },
+      {
+        "domain": "yai.environmental",
+        "relationship": "data overlap",
+        "reason": "Transport emissions and sustainability"
+      }
+    ],
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

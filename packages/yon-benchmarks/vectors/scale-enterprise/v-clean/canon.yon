@@ -1,0 +1,89 @@
+@DOC ver=2.0 | id=chunk-1-2 | title="API and Compliance Rules" | domain=technical | kind=rule | profile=exec | fmt=canon
+
+@INTENT goal="Outline compliance and rate limiting requirements" | audience="system administrators"
+
+@SEC name="Authentication and Rate Limiting"
+@RULE lvl=must | when="Bearer token OAuth2" | then="Bearer token OAuth2. Token TTL: 3600s."
+@RULE lvl=must | when="Rate limit exceeded" | then="Rate limit: 500 req/min global. On exceed: 429 + Retry-After header."
+
+@SEC name="Users API"
+@RULE lvl=must | when="POST /users" | then="POST /users — create. Required: name, email, role."
+@RULE lvl=must | when="GET /users/:id" | then="GET /users/:id — single user or 404. Includes last_login, created_at."
+
+@SEC name="Orders API"
+@RULE lvl=must | when="POST /orders" | then="POST /orders — create. Required: customer_id, items[], total, currency."
+@RULE lvl=must | when=Currency | then="Currency: ISO 4217 (USD, EUR, GBP, CAD, AUD, JPY)."
+
+@SEC name="Error Codes"
+@MAP id=Error Codes name="Error Codes" | pairs=["ERR_AUTH"->"invalid/expired token","ERR_NOT_FOUND"->"resource doesn't exist","ERR_VALIDATION"->"request body failed schema validation","ERR_CONFLICT"->"duplicate resource","ERR_RATE_LIMIT"->"too many requests","ERR_PAYMENT_FAILED"->"payment provider rejected","ERR_INSUFFICIENT_FUNDS"->"account balance too low","ERR_PERMISSION_DENIED"->"token lacks required scope","ERR_RESOURCE_LOCKED"->"concurrent modification in progress"]
+
+@SEC name="Products API"
+@RULE lvl=must | when="POST /products" | then="POST /products — create. Required: name (max 255), description (max 2000), price (cents), category, active."
+
+@SEC name="Invoices API"
+@RULE lvl=must | when="POST /invoices" | then="POST /invoices — create from order or subscription. Required: customer_id, items, due_date, payment_terms (net-15|net-30|net-60)."
+
+@SEC name="Global Validation Rules"
+@RULE lvl=must | when=Email | then="Email: RFC 5322."
+@RULE lvl=must | when=Dates | then="Dates: ISO 8601 UTC (2026-01-15T00:00:00Z)."
+
+@SEC name=Webhooks
+@RULE lvl=must | when=Security | then="Security: HMAC-SHA256 signed payloads."
+
+@SEC name=Subscriptions
+@RULE lvl=must | when="POST /subscriptions" | then="POST /subscriptions creates a new subscription. Required fields are customer_id, plan_id, trial_days (0-365), and payment_method_id (required unless trial)."
+
+@SEC name=Payments
+@RULE lvl=must | when="POST /payments" | then="POST /payments creates a payment. Required fields are amount (integer cents), currency (ISO 4217), method_id, and description."
+
+@SEC name="GDPR Compliance"
+@RULE lvl=must | when="PII at rest" | then="You must encrypt all PII at rest using AES-256."
+@RULE lvl=must | when="Data breaches" | then="Data breaches must be reported to the supervisory authority within 72 hours of becoming aware."
+
+@SEC name="SOC 2 Type II Compliance"
+@RULE lvl=must | when="Access controls are configured" | then="Access controls must follow the principle of least privilege."
+@RULE lvl=must | when="Audit logs are configured" | then="Audit logs must record all data access events including who accessed what, when, and from where."
+@RULE lvl=must | when="Vulnerability scans are conducted" | then="Vulnerability scans must be conducted monthly using automated tools."
+@RULE lvl=must | when="Critical findings are identified" | then="Critical findings must be remediated within 48 hours."
+@RULE lvl=must | when="Penetration testing is performed" | then="Penetration testing must be performed annually by an independent third party."
+@RULE lvl=must | when="Incident response procedures are executed" | then="Incident response procedures must include detection, triage, containment, eradication, and post-mortem phases."
+@RULE lvl=must | when="Business continuity plans are tested" | then="Business continuity plans must be tested semi-annually."
+@RULE lvl=must | when="Tier 1 services are recovered" | then="Recovery time objective is 4 hours for Tier 1 services."
+@RULE lvl=must | when="Backups are managed" | then="Backups must be encrypted at rest and tested for recoverability quarterly."
+@RULE lvl=must | when="Administrative access is granted" | then="Multi-factor authentication is required for all administrative access."
+@RULE lvl=must | when="SMS-based MFA is used" | then="SMS-based MFA is deprecated in favor of TOTP or hardware keys."
+@RULE lvl=must | when="System access is granted" | then="Employee background checks must be completed before granting system access."
+@RULE lvl=must | when="Vendor security assessments are conducted" | then="Vendor security assessments must be conducted annually for all third-party services that process customer data."
+
+@SEC name="PCI-DSS Level 1 Compliance"
+@RULE lvl=must | when="Card numbers are stored" | then="Full card numbers must never be stored after authorization."
+@RULE lvl=must | when="Payment data is stored" | then="Payment data must be tokenized before storage using a PCI-compliant tokenization service."
+@RULE lvl=must | when="Payment processing network is configured" | then="The payment processing network must be segmented from other internal networks with firewall rules."
+@RULE lvl=must | when="Network traffic is monitored" | then="Intrusion detection systems must monitor all network traffic in the payment segment in real-time."
+@RULE lvl=must | when="Encryption keys are managed" | then="Encryption keys must be rotated annually. Compromised keys must be rotated immediately."
+@RULE lvl=must | when="Physical access to servers is controlled" | then="Physical access to servers processing cardholder data must be restricted to authorized personnel only."
+@RULE lvl=must | when="Payment processing code is deployed" | then="All payment processing code must undergo security review before deployment."
+@RULE lvl=must | when="ASV scans are conducted" | then="Quarterly ASV scans must be conducted by an approved scanning vendor."
+
+@SEC name="Rate Limiting"
+@RULE lvl=must | when="Rate limiting is configured" | then="Global rate limit is 1000 requests per minute."
+@RULE lvl=must | when="Rate limiting is configured" | then="Per-user rate limit is 100 requests per minute."
+@RULE lvl=must | when="Burst limit is configured" | then="Burst limit allows 50 requests in a 1-second window before throttling kicks in."
+@RULE lvl=must | when="Throttle strategy is configured" | then="The throttle strategy is sliding window to prevent thundering herd problems."
+@RULE lvl=must | when="Rate limit headers are included" | then="Rate limit headers are included in all responses: X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset."
+@RULE lvl=must | when="Rate limited" | then="When rate limited, the Retry-After header specifies the number of seconds to wait."
+@RULE lvl=must | when="Authenticated requests are made" | then="Authenticated requests have higher limits than anonymous requests."
+@RULE lvl=must | when="Webhook deliveries are made" | then="Webhook deliveries do not count against rate limits."
+@RULE lvl=must | when="Batch endpoints are used" | then="Batch endpoints have separate rate limits calculated per item, not per request."
+@NOTE text=order.created
+@NOTE text=order.updated
+@NOTE text=order.completed
+@NOTE text=payment.succeeded
+@NOTE text=payment.failed
+@NOTE text=invoice.paid
+@NOTE text=402
+@NOTE text=1234567890
+@NOTE text=30s
+@NOTE text=1.3
+@NOTE text="Standard Contractual Clauses"
+@NOTE text=JSON

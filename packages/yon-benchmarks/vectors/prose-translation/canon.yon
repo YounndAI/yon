@@ -1,0 +1,27 @@
+@DOC ver=2.0 | id=q3-budget-meeting-notes | title="Q3 Budget Meeting Notes" | profile=decl | fmt=canon
+
+@SEC name="Marketing Budget"
+@NOTE text="Tom from finance said we probably need to cut the marketing budget by about 15% next quarter."
+@NOTE text="Maria pushed back — CAC on paid social has dropped to $42, compared to $67 in Q2. She thinks we should probably increase digital by maybe 10% and cut print/outdoor instead."
+
+@SEC name="New Hire Budget"
+@NOTE text="HR wants 12 new positions but finance says we can realistically approve 8, possibly 9 if the Atlanta office lease negotiations go well."
+@NOTE text="Atlanta lease might save us approximately $180K annually, which could fund another position or two."
+@NOTE text="Suggested breakdown: 4 engineering, 2 sales, 1 customer success, 1 data analyst. Engineering really wants a 5th person because the platform migration is behind schedule."
+
+@SEC name="Platform Migration"
+@NOTE text="Jake mentioned the platform migration is roughly 60% complete. Deadline is end of Q4 but he's not confident they'll make it — his best guess is probably February, maybe March."
+@NOTE text="Main blocker is data migration from the legacy Oracle DB. They've processed about 2.3 million records out of an estimated 8.5 million total."
+
+@SEC name="Revenue Projections"
+@NOTE text="Q4 projected revenue is $4.2M, up around 12% from Q3."
+@NOTE text="Enterprise pipeline has 3 deals in final stages: Acme Corp ($340K ARR), Pinnacle Industries ($520K ARR), and something called 'Project Lighthouse' which is apparently quite large, probably north of $800K."
+
+@SEC name="Customer Churn"
+@NOTE text="Customer churn rate ticked up from 3.2% to 4.1% in September."
+@NOTE text="Lisa from CS suspects it's related to the price increase in August for the basic tier (from $29 to $39/month). There might be some correlation there."
+
+@SEC name="Office Updates"
+@NOTE text="SF office AC system needs replacing, estimated cost around $45K. Getting 3 quotes."
+@NOTE text="NYC office expansion is on hold until we know about the Atlanta savings."
+@NOTE text="Someone mentioned we should consider going fully remote for the Portland team since the lease is up in April and the utilization is only about 40%."

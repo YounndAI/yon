@@ -1,0 +1,643 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.aerospace",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Flight operations, navigation, satellite telemetry, and safety-critical aerospace systems",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "WAYPOINT",
+      "description": "Navigation waypoint — geographic fix with altitude, speed, and ETA for flight planning",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "wp:KATL-01"
+        },
+        {
+          "name": "lat",
+          "type": "float",
+          "required": false,
+          "range": [
+            -90,
+            90
+          ],
+          "description": "Latitude in ° (-90–90)",
+          "unit": "°",
+          "example": "33.6407"
+        },
+        {
+          "name": "lon",
+          "type": "float",
+          "required": false,
+          "range": [
+            -180,
+            180
+          ],
+          "description": "Longitude in ° (-180–180)",
+          "unit": "°",
+          "example": "-84.4277"
+        },
+        {
+          "name": "alt_ft",
+          "type": "int",
+          "required": false,
+          "description": "Altitude in ft",
+          "unit": "ft",
+          "example": "35000"
+        },
+        {
+          "name": "speed_kts",
+          "type": "int",
+          "required": false,
+          "description": "Speed in kts",
+          "unit": "kts",
+          "example": "250"
+        },
+        {
+          "name": "eta",
+          "type": "ts",
+          "required": false,
+          "description": "Estimated Time of Arrival",
+          "example": "2026-03-01T14:30:00Z"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "fix",
+            "vor",
+            "ndb",
+            "airport",
+            "intersection",
+            "custom"
+          ],
+          "description": "Waypoint Type (6 allowed values)",
+          "example": "fix"
+        }
+      ]
+    },
+    {
+      "tag": "TELEMETRY",
+      "description": "Satellite or vehicle telemetry — periodic sensor readings with signal quality",
+      "fields": [
+        {
+          "name": "subsystem",
+          "type": "string",
+          "required": false,
+          "description": "Subsystem Name",
+          "example": "solar-array"
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "required": false,
+          "description": "Sensor Value",
+          "example": "14.2"
+        },
+        {
+          "name": "unit",
+          "type": "string",
+          "required": false,
+          "description": "Unit of Measure",
+          "example": "V"
+        },
+        {
+          "name": "health",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "nominal",
+            "degraded",
+            "critical",
+            "offline"
+          ],
+          "description": "Health Status: nominal, degraded, critical, offline",
+          "example": "nominal"
+        },
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": false,
+          "description": "Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-01T12:00:00Z"
+        },
+        {
+          "name": "snr",
+          "type": "float",
+          "required": false,
+          "description": "Signal-to-Noise Ratio in dB",
+          "unit": "dB",
+          "example": "18.5"
+        }
+      ]
+    },
+    {
+      "tag": "FLIGHT_PLAN",
+      "description": "Flight plan — route definition with departure, arrival, and alternate airports",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "fp:1"
+        },
+        {
+          "name": "callsign",
+          "type": "string",
+          "required": false,
+          "description": "Callsign",
+          "example": "UAL442"
+        },
+        {
+          "name": "departure",
+          "type": "string",
+          "required": true,
+          "description": "Departure Airport (ICAO)",
+          "example": "KJFK"
+        },
+        {
+          "name": "arrival",
+          "type": "string",
+          "required": false,
+          "description": "Arrival Airport (ICAO)",
+          "example": "KLAX"
+        },
+        {
+          "name": "altitude",
+          "type": "int",
+          "required": false,
+          "description": "Cruise Altitude in ft",
+          "unit": "ft",
+          "example": "35000"
+        },
+        {
+          "name": "route",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "direct",
+            "airways",
+            "rnav",
+            "rvsm",
+            "customs"
+          ],
+          "description": "Route String: direct, airways, rnav, rvsm, customs",
+          "example": "DEEZZ5 J80 RBV J42 SBJ"
+        },
+        {
+          "name": "fuel_kg",
+          "type": "float",
+          "required": false,
+          "description": "Fuel Load in kg",
+          "unit": "kg",
+          "example": "45200.0"
+        },
+        {
+          "name": "pax",
+          "type": "int",
+          "required": false,
+          "description": "Passenger Count",
+          "example": "182"
+        }
+      ]
+    },
+    {
+      "tag": "ANOMALY",
+      "description": "System anomaly — out-of-range condition requiring investigation or corrective action",
+      "fields": [
+        {
+          "name": "subsystem",
+          "type": "string",
+          "required": false,
+          "description": "Affected Subsystem",
+          "example": "hydraulic-system-1"
+        },
+        {
+          "name": "severity",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "info",
+            "warning",
+            "caution",
+            "alert"
+          ],
+          "description": "Severity Level: info, warning, caution, alert",
+          "example": "caution"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Anomaly Description",
+          "example": "Hydraulic pressure below minimum threshold"
+        },
+        {
+          "name": "auto_response",
+          "type": "string",
+          "required": false,
+          "description": "Automated Response",
+          "example": "Switched to backup system"
+        },
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": false,
+          "description": "Detection Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-01T14:22:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "SAFETY_EVENT",
+      "description": "Safety event — hazard report for aviation safety management systems",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "se:1"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "hazard",
+            "incident",
+            "accident",
+            "near-miss",
+            "report"
+          ],
+          "description": "Event Category: hazard, incident, accident, near-miss, report",
+          "example": "near-miss"
+        },
+        {
+          "name": "severity",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "minimal",
+            "minor",
+            "major",
+            "hazardous",
+            "catastrophic"
+          ],
+          "description": "Severity: minimal, minor, major, hazardous, catastrophic",
+          "example": "major"
+        },
+        {
+          "name": "probability",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "improbable",
+            "remote",
+            "occasional",
+            "probable",
+            "frequent"
+          ],
+          "description": "Probability: improbable, remote, occasional, probable, frequent",
+          "example": "remote"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Event Description",
+          "example": "TCAS RA during approach"
+        },
+        {
+          "name": "corrective_action",
+          "type": "string",
+          "required": false,
+          "description": "Corrective Action",
+          "example": "Revised approach procedure"
+        }
+      ]
+    },
+    {
+      "tag": "MAINTENANCE",
+      "description": "Maintenance action — scheduled or unscheduled work on aircraft or spacecraft components",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "mx:WO-2026-001"
+        },
+        {
+          "name": "component",
+          "type": "string",
+          "required": false,
+          "description": "Component",
+          "example": "Left engine fuel pump"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "scheduled",
+            "unscheduled",
+            "ad",
+            "sb",
+            "inspection"
+          ],
+          "description": "Maintenance Type: scheduled, unscheduled, ad, sb, inspection",
+          "example": "scheduled"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "open",
+            "in-progress",
+            "completed",
+            "deferred"
+          ],
+          "description": "Work Order Status: open, in-progress, completed, deferred",
+          "example": "in-progress"
+        },
+        {
+          "name": "mechanic",
+          "type": "string",
+          "required": false,
+          "description": "Assigned Mechanic",
+          "example": "J. Rodriguez, AME-4521"
+        },
+        {
+          "name": "hours_remaining",
+          "type": "float",
+          "required": false,
+          "description": "Hours Remaining to Limit",
+          "unit": "hours",
+          "example": "250.0"
+        }
+      ]
+    },
+    {
+      "tag": "CLEARANCE",
+      "description": "ATC clearance — air traffic control instructions with altitude and heading assignments",
+      "fields": [
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "departure",
+            "enroute",
+            "approach",
+            "landing",
+            "taxi",
+            "hold"
+          ],
+          "description": "Clearance Type (6 allowed values)",
+          "example": "departure"
+        },
+        {
+          "name": "altitude",
+          "type": "int",
+          "required": false,
+          "description": "Assigned Altitude in ft",
+          "unit": "ft",
+          "example": "10000"
+        },
+        {
+          "name": "heading",
+          "type": "int",
+          "required": false,
+          "range": [
+            0,
+            360
+          ],
+          "description": "Assigned Heading in ° (0–360)",
+          "unit": "°",
+          "example": "270"
+        },
+        {
+          "name": "speed_kts",
+          "type": "int",
+          "required": false,
+          "description": "Assigned Speed in kts",
+          "unit": "kts",
+          "example": "250"
+        },
+        {
+          "name": "frequency",
+          "type": "string",
+          "required": false,
+          "description": "ATC Frequency",
+          "example": "124.85"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Safety-critical aerospace operations for flight and space AI",
+    "highlights": [
+      "WAYPOINT",
+      "TELEMETRY",
+      "SAFETY_EVENT"
+    ],
+    "use_cases": [
+      {
+        "id": "flight-ops",
+        "title": "Flight Operations Management",
+        "steps": [
+          "Define route via @FLIGHT_PLAN with departure, arrival, and fuel load",
+          "Populate route waypoints via @WAYPOINT with coordinates and ETAs",
+          "Monitor in-flight @TELEMETRY from avionics subsystems",
+          "Process @CLEARANCE instructions from ATC",
+          "Log @ANOMALY for any deviation from normal parameters"
+        ],
+        "example": "@FLIGHT_PLAN rid=fp:1 | callsign=\"UAL442\" | departure=\"KJFK\" | arrival=\"KLAX\" | altitude:int=35000 | fuel_kg:float=45200.0",
+        "tags_used": [
+          "FLIGHT_PLAN",
+          "WAYPOINT",
+          "TELEMETRY",
+          "CLEARANCE",
+          "ANOMALY"
+        ],
+        "description": "Coordinate flight planning, waypoint sequencing, and fuel management for commercial and military aviation operations with real-time route optimization.",
+        "tags": [
+          "FLIGHT_PLAN",
+          "WAYPOINT",
+          "GROUND_TRACK",
+          "TELEMETRY"
+        ]
+      },
+      {
+        "id": "satellite-monitoring",
+        "title": "Satellite Health Monitoring",
+        "steps": [
+          "Receive periodic @TELEMETRY readings from satellite subsystems",
+          "Flag @ANOMALY when sensor values exceed operational thresholds",
+          "Schedule @MAINTENANCE for degraded components",
+          "File @SAFETY_EVENT if anomaly poses risk to mission objectives"
+        ],
+        "example": "@TELEMETRY subsystem=\"solar-array\" | value:float=14.2 | unit=\"V\" | health=\"degraded\" | snr:float=18.5",
+        "tags_used": [
+          "TELEMETRY",
+          "ANOMALY",
+          "MAINTENANCE",
+          "SAFETY_EVENT"
+        ],
+        "description": "Monitor satellite subsystem telemetry, detect anomalies, and schedule orbital maneuvers. Track ground station contacts and payload utilization across constellations.",
+        "tags": [
+          "TELEMETRY",
+          "ANOMALY",
+          "GROUND_TRACK",
+          "WAYPOINT"
+        ]
+      },
+      {
+        "id": "safety-reporting",
+        "title": "Aviation Safety Management",
+        "steps": [
+          "Agents report hazards and near-misses via @SAFETY_EVENT",
+          "Classify severity using ICAO risk matrix (probability × severity)",
+          "Track corrective actions assigned per event",
+          "Cross-reference with @MAINTENANCE records for component history"
+        ],
+        "example": "@SAFETY_EVENT rid=se:1 | category=\"near-miss\" | severity=\"major\" | probability=\"remote\" | description=\"TCAS RA during approach\"",
+        "tags_used": [
+          "SAFETY_EVENT",
+          "MAINTENANCE"
+        ],
+        "description": "Implement Safety Management Systems (SMS) with structured event reporting, risk probability matrices, and corrective action tracking aligned with ICAO Annex 19.",
+        "tags": [
+          "SAFETY_EVENT",
+          "ANOMALY",
+          "FLIGHT_PLAN"
+        ]
+      }
+    ],
+    "tag_context": {
+      "WAYPOINT": {
+        "purpose": "Geographic navigation fix for flight planning and route tracking",
+        "when_to_use": "Flight planning, route computation, GPS navigation, approach procedures",
+        "related_standards": [
+          "ARINC 424",
+          "ICAO PANS-OPS",
+          "WGS 84"
+        ]
+      },
+      "TELEMETRY": {
+        "purpose": "Periodic sensor data from aircraft or spacecraft subsystems with health and signal quality",
+        "when_to_use": "In-flight monitoring, satellite operations, ground station data collection, real-time health assessment",
+        "related_standards": [
+          "CCSDS TM",
+          "ARINC 429",
+          "MIL-STD-1553"
+        ]
+      },
+      "FLIGHT_PLAN": {
+        "purpose": "Complete route definition linking departure and arrival with fuel, passengers, and routing",
+        "when_to_use": "Pre-departure planning, dispatch coordination, ATC filing, fuel optimization",
+        "related_standards": [
+          "ICAO Flight Plan (FPL)",
+          "FAA Form 7233-1",
+          "EUROCONTROL NM"
+        ]
+      },
+      "ANOMALY": {
+        "purpose": "Out-of-range or unexpected condition flagged for investigation by crew or ground control",
+        "when_to_use": "Deviations from nominal parameters, sensor threshold exceedances, system faults",
+        "related_standards": [
+          "DO-178C",
+          "ARP 4761",
+          "NASA FMEA"
+        ]
+      },
+      "SAFETY_EVENT": {
+        "purpose": "Structured hazard report aligned with aviation safety management system requirements",
+        "when_to_use": "Incident reporting, near-miss documentation, hazard identification, risk assessment",
+        "related_standards": [
+          "ICAO Annex 19",
+          "FAA SMS",
+          "EASA Part-ORO"
+        ]
+      },
+      "MAINTENANCE": {
+        "purpose": "Scheduled or unscheduled maintenance action tracked against component lifecycle",
+        "when_to_use": "MRO workflows, airworthiness directives, service bulletins, inspection tracking",
+        "related_standards": [
+          "ATA iSpec 2200",
+          "MSG-3",
+          "EASA Part-145"
+        ]
+      },
+      "CLEARANCE": {
+        "purpose": "Air traffic control instruction with altitude, heading, and speed assignments",
+        "when_to_use": "Departure clearance, enroute instructions, approach vectors, holding patterns",
+        "related_standards": [
+          "ICAO Doc 4444 PANS-ATM",
+          "FAA 7110.65",
+          "EUROCONTROL ATFM"
+        ]
+      }
+    },
+    "links": [
+      {
+        "label": "ARINC Standards",
+        "url": "https://www.aviation-ia.com/",
+        "type": "standard"
+      },
+      {
+        "label": "ICAO",
+        "url": "https://www.icao.int/",
+        "type": "standard"
+      },
+      {
+        "label": "DO-178C",
+        "url": "https://www.rtca.org/",
+        "type": "standard"
+      },
+      {
+        "label": "CCSDS",
+        "url": "https://public.ccsds.org/",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.security",
+        "relationship": "data overlap",
+        "reason": "Cybersecurity for avionics and ground systems"
+      },
+      {
+        "domain": "yai.manufacturing",
+        "relationship": "often paired",
+        "reason": "Aircraft manufacturing and MRO"
+      },
+      {
+        "domain": "yai.maritime",
+        "relationship": "operational overlap",
+        "reason": "Shared navigation and safety reporting patterns"
+      }
+    ],
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

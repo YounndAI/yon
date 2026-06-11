@@ -1,0 +1,4 @@
+Auth: Bearer token OAuth2. Token TTL: 3600s. Refresh: 30-day, single-use (invalidated after use, new one issued with access token).
+Rate limit: 500 req/min global. On exceed: 429 + Retry-After header.
+Scope: admin tokens → all orgs. User tokens → own org only.
+All requests require Authorization header. Token endpoint: /auth/token (client credentials or auth code flow).

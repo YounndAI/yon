@@ -1,0 +1,46 @@
+Project: Internal Task Management System (working title: "TaskFlow")
+
+Status: Early requirements gathering. Most of these are preliminary and subject to change.
+
+Core Features (pretty sure about these):
+- Task creation with title, description, assignee, and due date
+- Kanban board view with columns: To Do, In Progress, Review, Done
+- Basic search and filtering by assignee, status, and tags
+- We probably need real-time updates via WebSocket, but maybe polling is fine for v1?
+
+Database:
+- PostgreSQL seems like the right choice, but we might switch to something else if scale demands it
+- Estimated table count: around 8-12 tables
+- Main entities: users, teams, projects, tasks, comments, attachments, labels, activity_log
+- We're not sure about the attachment storage yet - maybe S3, maybe local filesystem for now
+- Retention policy: TBD, probably 2 years for active data? compliance team hasn't weighed in
+
+API Design:
+- REST for now, though we could move to GraphQL later if the frontend team pushes for it
+- Authentication: JWT tokens, maybe with refresh tokens? haven't decided on the expiry - probably 15 minutes for access, something like a week for refresh
+- Rate limiting: around 100 requests per minute per user, roughly. this is negotiable
+- API versioning: /api/v1/ prefix, I think. unless there's a better pattern
+
+Performance Requirements (estimates, not commitments):
+- Page load: under 2 seconds, ideally under 1.5
+- API response time: probably around 200ms for most endpoints, maybe 500ms for complex queries
+- Concurrent users: we're expecting maybe 50-100 initially, could grow to 500 if adoption goes well
+- Database queries should return in under 100ms typically, though some aggregate reports might take longer
+
+Integration Points (uncertain):
+- Slack notifications: almost certainly need this, but we might use email as fallback initially
+- Calendar sync: apparently some teams want Google Calendar integration, supposedly for due date syncing
+- SSO: eventually yes, probably SAML. not in v1 though
+- Import/export: CSV import for sure, maybe JIRA import if there's demand
+
+Non-Functional Requirements:
+- Uptime SLA: aiming for 99.9% but honestly 99.5% is probably realistic for v1
+- Backup frequency: at least daily, maybe every 6 hours? not entirely clear on the recovery time objective
+- Monitoring: we should probably use Datadog or something similar. Grafana could work too
+- Logging: structured JSON logs, I think. retention period: around 30 days, give or take
+
+Open Questions:
+- Do we need multi-tenancy? some stakeholders think so, others say single-tenant is fine for now
+- Mobile app - at some point, yes. responsive web first though
+- Offline support - probably not for v1, maybe v2 if users ask for it
+- AI features - we might want to add smart task assignment eventually, using something like GPT-4 or Claude for prioritization. this is a "nice to have" at best right now

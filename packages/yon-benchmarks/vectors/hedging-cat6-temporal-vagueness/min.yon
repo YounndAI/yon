@@ -1,0 +1,8 @@
+@DOC ver=2.0 | id=hedging-cat6-migration-plan | title="Migration Plan" | kind=rule | profile=decl | fmt=min
+
+@SEC name="Migration"
+@NOTE text="Eventually migrate monolith to microservices"
+@NOTE text="At some point need proper CI/CD pipeline"
+
+@SEC name="Documentation"
+@NOTE text="Docs update can happen later, not urgent right now"

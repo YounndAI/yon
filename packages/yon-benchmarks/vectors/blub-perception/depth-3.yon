@@ -1,0 +1,11 @@
+@DOC ver=2.0 | id=rules-depth-3 | title="Coding Standards" | kind=rule | mode=text | profile=decl | fmt=min
+
+@SEC name="Global Rules"
+@RULE lvl=MUST_NOT | when="writing code" | then="use console.log — use structured logger instead"
+
+@SEC name="Module: Telemetry"
+@RULE rid="telemetry-debug-override" | lvl=MUST | when="debug tracing in telemetry module" | then="use console.log for raw output — structured logger adds circular overhead here"
+@NOTE text="Exception: telemetry module produces the logs that the structured logger consumes. Using the logger here creates infinite recursion."
+
+@SEC name="Module: API Handlers"
+@RULE lvl=MUST | when="logging in API handlers" | then="use req.log from structured logger"

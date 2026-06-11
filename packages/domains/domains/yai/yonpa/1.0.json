@@ -1,0 +1,286 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.yonpa",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1.0,
+  "notice": null,
+  "description": "YONPA — embeddable, triggered, per-project codebase-maintenance system. YON workflows ('automators') composed into 'clusters' on @younndai/yon-runner, persisted in a per-project libSQL substrate. The two YONPA-specific records below (@AUTOMATOR, @CLUSTER) are runtime-expanded by YONPA; pure-spec parser-validation is shape-only.",
+  "defaultMode": "struct",
+  "defaultProfile": "exec",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "AUTOMATOR",
+      "description": "YONPA automator — typed identity + registry fields for a YON workflow that yon-runner executes under YONPA's HIL discipline. Runtime-expanded by YONPA into @AGENT + adjacent @META records; pure-spec parser-validation covers shape only. See yai.yonpa metadata.use_cases for expansion semantics.",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Automator identifier — kebab-case, conventionally y-prefixed",
+          "example": "yTrim",
+          "pattern": "^[a-zA-Z][a-zA-Z0-9-]*$"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "description": "Human-readable display name",
+          "example": "yTrim"
+        },
+        {
+          "name": "mission",
+          "type": "string",
+          "required": true,
+          "description": "One-line statement of what this automator does",
+          "example": "Reduce verbosity within a single file"
+        },
+        {
+          "name": "layer",
+          "type": "string",
+          "required": true,
+          "enum": [
+            "overseers",
+            "cartographers",
+            "refactor",
+            "quality",
+            "knowledge",
+            "action"
+          ],
+          "description": "YONPA library layer",
+          "example": "refactor"
+        },
+        {
+          "name": "tier",
+          "type": "string",
+          "required": true,
+          "enum": [
+            "deterministic",
+            "reasoning",
+            "mixed"
+          ],
+          "description": "Execution tier — what the automator needs to run. Distinct from `protection_tier` (impact friction).",
+          "example": "reasoning"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": true,
+          "description": "Automator semver (independent of YONPA's own version)",
+          "example": "0.1.0",
+          "pattern": "^\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?$"
+        },
+        {
+          "name": "yonpa_schema_version",
+          "type": "string",
+          "required": true,
+          "description": "Which yai.yonpa schema version this automator is authored against. YONPA's convention linter refuses authoring against fields not present in the bundled schema at this version. Addresses silent partial-propagation drift across the automator chain.",
+          "example": "1.0",
+          "pattern": "^\\d+\\.\\d+$"
+        },
+        {
+          "name": "protection_tier",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "high",
+            "medium",
+            "normal"
+          ],
+          "description": "Impact-friction tier. Distinct from execution `tier`. Default `normal` if omitted. High-tier edits require a hybrid cooling-off period on top of standard HIL gates.",
+          "example": "normal"
+        },
+        {
+          "name": "delegates_to",
+          "type": "string",
+          "required": false,
+          "description": "Harness-skill reference this automator wraps (e.g. a Claude Code or Codex skill name). Nullable; many automators are native YONPA workflows with no delegation.",
+          "example": "/simplify"
+        },
+        {
+          "name": "confidence_threshold",
+          "type": "float",
+          "required": false,
+          "description": "Per-automator confidence floor. Below this threshold the automator auto-escalates via @ESCALATE rather than auto-applying. Defaults per harm-class if omitted: read-only=0.6, mutators=0.75, high-impact mutators=0.85, verification=0.9, overseers=0.7.",
+          "example": "0.7",
+          "range": [0.0, 1.0]
+        },
+        {
+          "name": "hil_gates",
+          "type": "string",
+          "required": false,
+          "description": "Declarative list of @STEP rids that require HIL approval (comma-separated). Documentation in v1 (YONPA convention linter validates the rids resolve); future runtime injection of @ESCALATE is a v2 capability. If tier=mixed|reasoning, the linter expects at least one entry.",
+          "example": "step:approve,step:commit"
+        },
+        {
+          "name": "consumes_directives",
+          "type": "string",
+          "required": false,
+          "description": "Which directive levels this automator consults at run time (comma-separated subset of L0,L1,L2,L3). Default: all four.",
+          "example": "L0,L1,L2"
+        },
+        {
+          "name": "install_scope",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "global",
+            "local"
+          ],
+          "description": "Registry scope: `global` (user-level, all projects) or `local` (this repo only). Local overrides global by id.",
+          "example": "global"
+        }
+      ]
+    },
+    {
+      "tag": "CLUSTER",
+      "description": "YONPA cluster — composed workflow expanded at run time into a coordinated set of automator invocations. A pre-existing sugar tag, now formalized as a yai.yonpa record. The `phases` field is encoded as a string because the schema format doesn't support nested object arrays — YONPA's convention linter validates the phases structure (see metadata.use_cases for the workaround).",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Cluster identifier — kebab-case",
+          "example": "onboarding",
+          "pattern": "^[a-zA-Z][a-zA-Z0-9-]*$"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Human-readable display name; defaults to capitalized id",
+          "example": "Onboarding cluster"
+        },
+        {
+          "name": "yonpa_schema_version",
+          "type": "string",
+          "required": true,
+          "description": "Schema-version pin (same purpose as on @AUTOMATOR). Linter-enforced.",
+          "example": "1.0",
+          "pattern": "^\\d+\\.\\d+$"
+        },
+        {
+          "name": "members",
+          "type": "string",
+          "required": true,
+          "description": "Member automator ids (comma-separated). YONPA convention linter validates each id resolves in the automator registry.",
+          "example": "yPrime,yAtlas,yScribe"
+        },
+        {
+          "name": "phases",
+          "type": "string",
+          "required": true,
+          "description": "Phase definitions as a YON-encoded structure. Pure-spec parser-validation only checks that the field is present as a string. YONPA's convention linter parses and validates the nested structure (n:int, agents:[...], mode:enum, scope, role, gate:bool, etc.) per Appendix A of YON-MAPPING.md. The nested-object limitation in schema-format.md is tracked as a yon-spec RFC candidate.",
+          "example": "[{n:int=1,agents=[yAtlas],mode=sequential,scope=per-file},{n:int=2,agents=[HIL],mode=human-gate}]"
+        },
+        {
+          "name": "success",
+          "type": "string",
+          "required": false,
+          "description": "Free-text success criterion expression; evaluated by yPrime at cluster completion",
+          "example": "patches verified + no directive violations + report archived"
+        },
+        {
+          "name": "install_scope",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "global",
+            "local"
+          ],
+          "description": "Same semantics as on @AUTOMATOR.",
+          "example": "global"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Per-project codebase-maintenance system built on YON workflows",
+    "highlights": ["AUTOMATOR", "CLUSTER"],
+    "use_cases": [
+      {
+        "id": "schema-precedes-product",
+        "title": "Schema precedes product — preview status",
+        "description": "yai.yonpa is registered BEFORE YONPA itself ships. As of 2026-05-24 YONPA is design-locked but the build has not started; @younndai/yonpa is not yet npm-published. This domain is a forward-looking schema authority claim, not a description of shipping behavior. Authors discovering @AUTOMATOR/@CLUSTER through the domain registry should treat them as 'preview — runtime expansion requires the YONPA runtime, which is not yet released.'",
+        "steps": [
+          "Read yai.yonpa schema — see @AUTOMATOR + @CLUSTER fields",
+          "Note: parser validates shape only; no public runtime exists yet to expand the records",
+          "Wait for YONPA v1 publication (gated on @younndai/yon-runner publication AND a YONPA v1 build per PT-4) before authoring against this schema for production use"
+        ],
+        "example": "@AUTOMATOR id=example | name=\"Example\" | mission=\"shape preview\" | layer=refactor | tier=reasoning | version=\"0.1.0\" | yonpa_schema_version=\"1.0\"",
+        "tags_used": ["AUTOMATOR"]
+      },
+      {
+        "id": "runtime-expansion-requirement",
+        "title": "Runtime expansion requirement — pure-spec validation is shape-only",
+        "description": "Both @AUTOMATOR and @CLUSTER are runtime-expanded by YONPA. A pure-spec yon-parser (with @younndai/domains loaded) validates field shape — required fields, enum values, patterns, types — but does NOT execute the expansion. The records remain in unexpanded form unless YONPA's runtime processes them. Consumer parsers that report a YONPA file as 'valid' are reporting shape-validity, not operational completeness. Do not infer behavior from validation alone.",
+        "steps": [
+          "Parser validates @AUTOMATOR/@CLUSTER field shape (free, via bundled domains)",
+          "YONPA convention linter validates cross-record rules (hil_gates rids resolve to @STEP rids; phases nested structure parses)",
+          "YONPA runtime expands @AUTOMATOR → @AGENT + adjacent @META; @CLUSTER → full @WORKFLOW (per YON-MAPPING.md Appendix A; ≈15× expansion for clusters)",
+          "Without YONPA's runtime, the records are valid YON but operationally inert"
+        ],
+        "example": "@CLUSTER id=onboarding | yonpa_schema_version=\"1.0\" | members=\"yPrime,yAtlas\" | phases=\"[{n:int=1,agents=[yAtlas]}]\"",
+        "tags_used": ["AUTOMATOR", "CLUSTER"]
+      },
+      {
+        "id": "yonpa-schema-version-pin",
+        "title": "yonpa_schema_version pin — silent-drift prevention",
+        "description": "Every @AUTOMATOR and @CLUSTER record MUST carry a `yonpa_schema_version` field. The YONPA convention linter enforces that the value is ≤ the bundled yai.yonpa schema version. This catches a silent partial-propagation failure mode: a yai.yonpa schema bump propagated to some links in the chain but not others would otherwise let unknown fields preserve silently under YON forward-compat — bypassing security-sensitive fields like `protection_tier=high`. Parser-level refusal of mismatched-version unknowns would require a yon-spec RFC against the forward-compat preservation rule; tracked separately as a future enhancement. The linter-primary path covers this case without a spec change.",
+        "steps": [
+          "Author writes @AUTOMATOR with yonpa_schema_version=\"1.2\"",
+          "Author's bundled yai.yonpa is at 1.1 — convention linter refuses (author needs to upgrade their YONPA install)",
+          "Author's bundled yai.yonpa is at 1.2+ — linter accepts; fields validated normally"
+        ],
+        "example": "@AUTOMATOR id=yTrim | yonpa_schema_version=\"1.0\" | layer=refactor | tier=reasoning",
+        "tags_used": ["AUTOMATOR", "CLUSTER"]
+      }
+    ],
+    "tag_context": {
+      "AUTOMATOR": {
+        "purpose": "Typed identity + registry fields for a YONPA automator. Replaces the prior @AGENT + adjacent @META convention for YONPA automator authoring.",
+        "when_to_use": "Authoring a YONPA automator .yon file. Materialize directly into a yon-runner workflow via YONPA's runtime expander.",
+        "related_standards": ["YON v2.0 @AGENT", "YON v2.0 @WORKFLOW"]
+      },
+      "CLUSTER": {
+        "purpose": "Composed workflow shorthand expanded at run time into a coordinated set of automator invocations. The original YONPA sugar tag, now formalized as a domain record.",
+        "when_to_use": "Authoring a YONPA cluster file as shorthand for several automators that should run together under one coordination pattern.",
+        "related_standards": ["YON v2.0 @WORKFLOW", "YON v2.0 @ROUTE / @SUBSCRIBE"]
+      }
+    },
+    "links": [
+      {
+        "label": "YONPA design document",
+        "url": "https://github.com/younndai/yonpa",
+        "type": "reference"
+      },
+      {
+        "label": "YONPA release coordination runbook",
+        "url": "https://github.com/younndai/yonpa#release-coordination",
+        "type": "reference"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.devops",
+        "relationship": "adjacent",
+        "reason": "YONPA acts on codebases; some automators wrap build / lint / test operations via the yonpa:shell plugin"
+      },
+      {
+        "domain": "yai.sai",
+        "relationship": "deliberately disjoint",
+        "reason": "YONPA has memory but no soul (no cognition loop, no autonomy). A hard design line keeps it strictly distinct from SAI, which is the system that does have those."
+      }
+    ],
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-05-24T00:00:00Z"
+  }
+}

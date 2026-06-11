@@ -1,0 +1,62 @@
+{
+  "patient": {
+    "name": "Sarah Okonkwo",
+    "dateOfBirth": "1988-03-15",
+    "gender": "female",
+    "address": "4210 Birch Lane, Apt 3B, Asheville, NC 28801",
+    "phone": "(828) 555-0147",
+    "email": "s.okonkwo@email.com",
+    "emergencyContact": {
+      "name": "James Okonkwo",
+      "relationship": "husband",
+      "phone": "(828) 555-0291"
+    }
+  },
+  "insurance": {
+    "provider": "BlueCross BlueShield",
+    "policyNumber": "BCB-4401882",
+    "groupNumber": "GRP-7720"
+  },
+  "physicians": {
+    "primaryCare": "Dr. Linda Patel",
+    "referring": "none (self-referred)"
+  },
+  "allergies": [
+    { "substance": "penicillin", "reaction": "causes rash" },
+    { "substance": "shellfish", "reaction": "anaphylaxis", "note": "carries epipen" },
+    { "substance": "seasonal pollen", "reaction": "mild", "treatment": "Zyrtec" }
+  ],
+  "medications": [
+    { "name": "Metformin", "dose": "500mg", "frequency": "twice daily", "reason": "type 2 diabetes", "since": 2022 },
+    { "name": "Lisinopril", "dose": "10mg", "frequency": "daily", "reason": "blood pressure", "since": 2023 },
+    { "name": "Vitamin D", "dose": "2000 IU", "frequency": "daily", "note": "recommended by PCP" },
+    { "name": "Lo Loestrin Fe", "type": "birth control", "since": 2019 }
+  ],
+  "medicalHistory": [
+    { "condition": "type 2 diabetes", "diagnosed": 2022, "management": "diet and metformin", "lastA1C": "6.8", "a1cDate": "January 2026" },
+    { "condition": "hypertension", "diagnosed": 2023, "status": "controlled with medication" },
+    { "procedure": "appendectomy", "year": 2015, "complications": "none" },
+    { "injury": "fractured left wrist", "year": 2019, "cause": "cycling accident", "status": "fully healed" }
+  ],
+  "familyHistory": {
+    "father": "type 2 diabetes and high cholesterol",
+    "mother": "breast cancer at age 58, in remission",
+    "maternalGrandmother": "Alzheimer's"
+  },
+  "socialHistory": {
+    "smoking": "non-smoker",
+    "alcohol": "occasional, 2-3 drinks per week",
+    "exercise": "3x per week (yoga, hiking)",
+    "occupation": "graphic designer, works from home",
+    "drugs": "no recreational drug use"
+  },
+  "reasonForVisit": {
+    "primary": "annual physical plus follow-up on diabetes management",
+    "secondary": "recurring headaches, started about 3 months ago, behind the right eye, 2-3 times per week, last about 4 hours"
+  },
+  "vaccinations": [
+    { "name": "COVID", "status": "fully vaccinated plus boosters", "lastDose": "September 2025" },
+    { "name": "flu shot", "date": "October 2025" },
+    { "name": "Tdap", "year": 2021 }
+  ]
+}

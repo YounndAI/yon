@@ -1,0 +1,11 @@
+Auth: Bearer token OAuth2. Token TTL: 3600s. Refresh: 30-day, single-use (invalidated after use, new one issued with access token).
+Rate limit: 500 req/min global. On exceed: 429 + Retry-After header.
+Scope: admin tokens → all orgs. User tokens → own org only.
+All requests require Authorization header. Token endpoint: /auth/token (client credentials or auth code flow).
+
+Users CRUD:
+- POST /users — create. Required: name, email, role. Email unique per org. Roles: admin|member|viewer (default: member).
+- GET /users — paginated list (cursor-based). Default limit: 25, max: 100.
+- GET /users/:id — single user or 404. Includes last_login, created_at.
+- PATCH /users/:id — partial update, merge semantics. Email change requires verification.
+- DELETE /users/:id — soft-delete (status→archived, login disabled). 410 if already archived.

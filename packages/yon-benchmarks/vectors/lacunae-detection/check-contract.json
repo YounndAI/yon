@@ -1,0 +1,14 @@
+{
+  "id": "access-checks",
+  "title": "Access Control Checks",
+  "intent": "Define checkpoint contracts with explicit failure behaviors",
+  "sections": {
+    "Access Control": {
+      "checks": [
+        { "id": "chk:auth", "assertion": "user.role == admin", "onFailure": "abort", "message": "Admin access required — request halted" },
+        { "id": "chk:quota", "assertion": "request_count < 1000", "onFailure": "warn", "message": "Approaching rate limit — monitor usage" },
+        { "id": "chk:format", "assertion": "payload.type in [json,xml]", "onFailure": "skip", "message": "Unsupported format ignored — proceeding without processing" }
+      ]
+    }
+  }
+}

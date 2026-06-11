@@ -1,0 +1,9 @@
+@DOC ver=2.0 | kind=test | id=yonpa-05 | title="Cluster — valid minimal" | profile=exec | fmt=min | with=[yonpa]
+
+@CLUSTER id=onboarding
+  | yonpa_schema_version="1.0"
+  | members="yPrime,yAtlas,yScribe"
+  | phases="[{n:int=1,agents=[yAtlas],mode=sequential,scope=per-file},{n:int=2,agents=[yPrime,HIL],mode=human-gate},{n:int=3,agents=[yScribe],mode=sequential,role=\"report\"}]"
+  | success="repo mapped, HIL approved, report archived"
+
+@NOTE text="Minimal valid @CLUSTER — required fields (id, yonpa_schema_version, members, phases) present. The `phases` field is a string encoding YONPA's nested structure; parser-validates as string only; YONPA convention linter parses + validates the structure."

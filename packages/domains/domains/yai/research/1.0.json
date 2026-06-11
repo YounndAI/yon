@@ -1,0 +1,698 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.research",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Scientific research, academic publishing, dataset management, and peer review workflows",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "EXPERIMENT",
+      "description": "Experiment record — research activity with hypothesis, methodology, and IRB status",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "exp:2026-042"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Experiment Title",
+          "example": "Neural Scaling Laws in LLMs"
+        },
+        {
+          "name": "hypothesis",
+          "type": "string",
+          "required": false,
+          "description": "Hypothesis",
+          "example": "Loss decreases predictably with model scale"
+        },
+        {
+          "name": "methodology",
+          "type": "string",
+          "required": false,
+          "description": "Methodology",
+          "example": "controlled, randomized, double-blind"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "planned",
+            "in-progress",
+            "completed",
+            "published",
+            "retracted"
+          ],
+          "description": "Status: planned, in-progress, completed, published, retracted",
+          "example": "in-progress"
+        },
+        {
+          "name": "pi",
+          "type": "string",
+          "required": false,
+          "description": "Principal Investigator",
+          "example": "Dr. A. Smith"
+        },
+        {
+          "name": "irb_approved",
+          "type": "bool",
+          "required": false,
+          "description": "IRB Approved indicator",
+          "example": "true"
+        },
+        {
+          "name": "funding",
+          "type": "string",
+          "required": false,
+          "description": "Funding Source",
+          "example": "grant:NSF-2026-001"
+        },
+        {
+          "name": "institution",
+          "type": "string",
+          "required": false,
+          "description": "Institution",
+          "example": "MIT CSAIL"
+        },
+        {
+          "name": "start_date",
+          "type": "ts",
+          "required": false,
+          "description": "Start Date as ISO 8601 timestamp",
+          "example": "2026-01-15T00:00:00Z"
+        },
+        {
+          "name": "end_date",
+          "type": "ts",
+          "required": false,
+          "description": "End Date as ISO 8601 timestamp",
+          "example": "2026-12-31T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "DATASET",
+      "description": "Research dataset — FAIR-principled data with DOI and access level",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "ds:scaling-2026"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Dataset Title",
+          "example": "LLM Scaling Benchmark Corpus"
+        },
+        {
+          "name": "doi",
+          "type": "string",
+          "required": false,
+          "description": "DOI",
+          "example": "10.5281/zenodo.1234567"
+        },
+        {
+          "name": "format",
+          "type": "string",
+          "required": false,
+          "description": "Format",
+          "example": "parquet"
+        },
+        {
+          "name": "records",
+          "type": "int",
+          "required": false,
+          "description": "Record Count",
+          "example": "1250000"
+        },
+        {
+          "name": "size_bytes",
+          "type": "int",
+          "required": false,
+          "description": "Size in bytes",
+          "unit": "bytes",
+          "example": "4294967296"
+        },
+        {
+          "name": "license",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "CC-BY-4.0",
+            "CC-BY-SA-4.0",
+            "CC0",
+            "MIT",
+            "proprietary",
+            "restricted"
+          ],
+          "description": "License (6 allowed values)",
+          "example": "CC-BY-4.0"
+        },
+        {
+          "name": "citation",
+          "type": "string",
+          "required": false,
+          "description": "Citation",
+          "example": "Smith et al. (2026). LLM Scaling. Zenodo."
+        },
+        {
+          "name": "repository",
+          "type": "string",
+          "required": false,
+          "description": "Repository",
+          "example": "Zenodo"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": false,
+          "description": "Version",
+          "example": "2.1"
+        },
+        {
+          "name": "access_level",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "open",
+            "restricted",
+            "embargoed",
+            "closed"
+          ],
+          "description": "Access Level: open, restricted, embargoed, closed",
+          "example": "open"
+        }
+      ]
+    },
+    {
+      "tag": "PUBLICATION",
+      "description": "Academic publication — journal article with DOI and submission lifecycle",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "pub:2026-scaling"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Title",
+          "example": "Neural Scaling Laws in Large Language Models"
+        },
+        {
+          "name": "doi",
+          "type": "string",
+          "required": false,
+          "description": "DOI",
+          "example": "10.1234/example.2026.001"
+        },
+        {
+          "name": "journal",
+          "type": "string",
+          "required": false,
+          "description": "Journal",
+          "example": "Nature Machine Intelligence"
+        },
+        {
+          "name": "authors",
+          "type": "string",
+          "required": false,
+          "description": "Authors",
+          "example": "Smith, A.; Jones, B.; Chen, C."
+        },
+        {
+          "name": "submitted",
+          "type": "ts",
+          "required": false,
+          "description": "Submitted as ISO 8601 timestamp",
+          "example": "2026-02-01T00:00:00Z"
+        },
+        {
+          "name": "accepted",
+          "type": "ts",
+          "required": false,
+          "description": "Accepted as ISO 8601 timestamp",
+          "example": "2026-05-15T00:00:00Z"
+        },
+        {
+          "name": "published",
+          "type": "ts",
+          "required": false,
+          "description": "Published as ISO 8601 timestamp",
+          "example": "2026-06-01T00:00:00Z"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "draft",
+            "submitted",
+            "under-review",
+            "revision",
+            "accepted",
+            "published",
+            "retracted"
+          ],
+          "description": "Status (7 allowed values)",
+          "example": "under-review"
+        },
+        {
+          "name": "keywords",
+          "type": "string",
+          "required": false,
+          "description": "Keywords",
+          "example": "scaling laws, LLM, neural networks"
+        },
+        {
+          "name": "abstract",
+          "type": "string",
+          "required": false,
+          "description": "Abstract",
+          "example": "We study the predictable relationship..."
+        },
+        {
+          "name": "volume",
+          "type": "string",
+          "required": false,
+          "description": "Volume in issue",
+          "unit": "issue",
+          "example": "8"
+        },
+        {
+          "name": "issue",
+          "type": "string",
+          "required": false,
+          "description": "Issue",
+          "example": "3"
+        },
+        {
+          "name": "pages",
+          "type": "string",
+          "required": false,
+          "description": "Pages",
+          "example": "245-261"
+        }
+      ]
+    },
+    {
+      "tag": "SAMPLE",
+      "description": "Sample or specimen — research material with chain of custody",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "smp:2026-0042"
+        },
+        {
+          "name": "experiment_ref",
+          "type": "string",
+          "required": false,
+          "description": "Experiment Reference",
+          "example": "exp:2026-042"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "description": "Sample Type",
+          "example": "tissue"
+        },
+        {
+          "name": "collected_date",
+          "type": "ts",
+          "required": false,
+          "description": "Collected Date as ISO 8601 timestamp",
+          "example": "2026-03-15T09:00:00Z"
+        },
+        {
+          "name": "conditions",
+          "type": "string",
+          "required": false,
+          "description": "Conditions",
+          "example": "temperature:4C, humidity:60%"
+        },
+        {
+          "name": "measurements",
+          "type": "int",
+          "required": false,
+          "description": "Measurements",
+          "example": "48"
+        },
+        {
+          "name": "integrity",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "intact",
+            "degraded",
+            "compromised"
+          ],
+          "description": "Integrity: intact, degraded, compromised",
+          "example": "intact"
+        },
+        {
+          "name": "storage",
+          "type": "string",
+          "required": false,
+          "description": "Storage Location",
+          "example": "Biobank-A, Shelf-3, Box-12"
+        },
+        {
+          "name": "chain_of_custody",
+          "type": "string",
+          "required": false,
+          "description": "Chain of Custody",
+          "example": "Dr. Smith → Lab Tech Jones → Biobank"
+        }
+      ]
+    },
+    {
+      "tag": "PEER_REVIEW",
+      "description": "Peer review — confidential evaluation with recommendation and revision round",
+      "fields": [
+        {
+          "name": "publication_ref",
+          "type": "string",
+          "required": false,
+          "description": "Publication Reference",
+          "example": "pub:2026-scaling"
+        },
+        {
+          "name": "reviewer_anon",
+          "type": "string",
+          "required": false,
+          "description": "Reviewer (Anonymous)",
+          "example": "Reviewer-2"
+        },
+        {
+          "name": "recommendation",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "accept",
+            "minor-revision",
+            "major-revision",
+            "reject"
+          ],
+          "description": "Recommendation: accept, minor-revision, major-revision, reject",
+          "example": "minor-revision"
+        },
+        {
+          "name": "confidence",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            1
+          ],
+          "description": "Confidence (0–1)",
+          "example": "0.85"
+        },
+        {
+          "name": "revision",
+          "type": "int",
+          "required": false,
+          "description": "Revision Round",
+          "example": "1"
+        },
+        {
+          "name": "comments",
+          "type": "string",
+          "required": false,
+          "description": "Comments",
+          "example": "Methodology sound, minor clarifications needed"
+        },
+        {
+          "name": "decision_date",
+          "type": "ts",
+          "required": false,
+          "description": "Decision Date as ISO 8601 timestamp",
+          "example": "2026-04-20T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "GRANT",
+      "description": "Research grant — funding award with PI and program details",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "grant:NSF-2026-001"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Grant Title",
+          "example": "Scaling Laws for AI Safety"
+        },
+        {
+          "name": "funder",
+          "type": "string",
+          "required": false,
+          "description": "Funder",
+          "example": "National Science Foundation"
+        },
+        {
+          "name": "amount",
+          "type": "float",
+          "required": false,
+          "description": "Amount in USD",
+          "unit": "USD",
+          "example": "750000.0"
+        },
+        {
+          "name": "pi",
+          "type": "string",
+          "required": false,
+          "description": "Principal Investigator",
+          "example": "Dr. A. Smith"
+        },
+        {
+          "name": "start_date",
+          "type": "ts",
+          "required": false,
+          "description": "Start Date as ISO 8601 timestamp",
+          "example": "2026-01-01T00:00:00Z"
+        },
+        {
+          "name": "end_date",
+          "type": "ts",
+          "required": false,
+          "description": "End Date as ISO 8601 timestamp",
+          "example": "2028-12-31T00:00:00Z"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "applied",
+            "funded",
+            "active",
+            "closed",
+            "declined"
+          ],
+          "description": "Grant Status: applied, funded, active, closed, declined",
+          "example": "active"
+        },
+        {
+          "name": "program",
+          "type": "string",
+          "required": false,
+          "description": "Program",
+          "example": "NSF CAREER"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Scientific research and academic publishing for research AI",
+    "highlights": [
+      "EXPERIMENT",
+      "DATASET",
+      "PUBLICATION"
+    ],
+    "use_cases": [
+      {
+        "id": "bibliometric-analysis",
+        "title": "Research Impact Bibliometrics",
+        "steps": [
+          "Index @PAPER metadata from CrossRef/OpenAlex feeds",
+          "Build @CITATION network graph with edge weights",
+          "Calculate h-index and impact metrics per author",
+          "Map @GRANT funding to research output @PAPER counts",
+          "Identify emerging @DATASET reuse patterns across fields"
+        ],
+        "example": "@CITATION rid=cit:1 | citing_doi=\"10.1234/a\" | cited_doi=\"10.5678/b\" | context=\"methodology\" | sentiment=\"supportive\"",
+        "tags_used": [
+          "GRANT",
+          "DATASET"
+        ],
+        "description": "Track publication citations, h-index metrics, and grant success rates across researchers and institutions. Generate funding agency reports with impact narratives.",
+        "tags": [
+          "PUBLICATION",
+          "GRANT",
+          "PEER_REVIEW",
+          "DATASET"
+        ],
+        "tags_planned": [
+          "PAPER",
+          "CITATION"
+        ]
+      },
+      {
+        "id": "open-science",
+        "title": "Open Science Research Workflow",
+        "steps": [
+          "Formulate @HYPOTHESIS with pre-registration protocol",
+          "Secure @GRANT funding with budget and timeline",
+          "Design @EXPERIMENT methodology and data collection",
+          "Publish @DATASET with FAIR metadata to repository",
+          "Write @PAPER with inline @CITATION references"
+        ],
+        "example": "@PAPER rid=pap:1 | doi=\"10.1234/example.2026\" | title=\"Neural Scaling Laws\" | status=\"peer-review\"",
+        "tags_used": [
+          "GRANT",
+          "EXPERIMENT",
+          "DATASET"
+        ],
+        "description": "Manage experiments from hypothesis through publication, ensuring data reproducibility with versioned datasets, sample chain-of-custody, and peer review tracking.",
+        "tags": [
+          "EXPERIMENT",
+          "DATASET",
+          "SAMPLE",
+          "PUBLICATION",
+          "PEER_REVIEW"
+        ],
+        "tags_planned": [
+          "HYPOTHESIS",
+          "PAPER",
+          "CITATION"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "DataCite",
+        "url": "https://datacite.org/",
+        "type": "standard"
+      },
+      {
+        "label": "FAIR Principles",
+        "url": "https://www.go-fair.org/fair-principles/",
+        "type": "standard"
+      },
+      {
+        "label": "CRediT Taxonomy",
+        "url": "https://credit.niso.org/",
+        "type": "standard"
+      },
+      {
+        "label": "Dublin Core",
+        "url": "https://www.dublincore.org/",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.education",
+        "relationship": "often paired",
+        "reason": "Academic credentials and teaching"
+      },
+      {
+        "domain": "yai.health",
+        "relationship": "data overlap",
+        "reason": "Clinical research and trials"
+      }
+    ],
+    "tag_context": {
+      "EXPERIMENT": {
+        "purpose": "Research activity with hypothesis, methodology, IRB status, and principal investigator",
+        "when_to_use": "Experiment registration, pre-registration, lab notebook digitization, grant reporting, reproducibility tracking",
+        "related_standards": [
+          "ISA-Tab (ISA Framework)",
+          "MIAPPE",
+          "MIAME"
+        ]
+      },
+      "DATASET": {
+        "purpose": "FAIR-principled research data with DOI, access level, and repository linkage",
+        "when_to_use": "Data publishing, repository deposit, citation generation, FAIR assessment, data sharing agreement",
+        "related_standards": [
+          "DCAT 3 (W3C)",
+          "Schema.org Dataset",
+          "DataCite 4.5"
+        ]
+      },
+      "PUBLICATION": {
+        "purpose": "Academic journal article with DOI, submission lifecycle, and bibliographic metadata",
+        "when_to_use": "Manuscript submission, publication tracking, citation indexing, impact assessment, open access compliance",
+        "related_standards": [
+          "Dublin Core",
+          "JATS XML",
+          "CrossRef DOI"
+        ]
+      },
+      "SAMPLE": {
+        "purpose": "Research specimen or material with chain of custody, storage conditions, and integrity status",
+        "when_to_use": "Sample collection, biobank management, chain of custody documentation, lab inventory, quality assurance",
+        "related_standards": [
+          "ISA-Tab",
+          "MIAME",
+          "BRISQ (Biospecimen)"
+        ]
+      },
+      "PEER_REVIEW": {
+        "purpose": "Confidential evaluation with recommendation, confidence score, and revision round tracking",
+        "when_to_use": "Editorial workflow, reviewer assignment, revision tracking, decision documentation, review quality assessment",
+        "related_standards": [
+          "COPE Guidelines",
+          "OpenReview",
+          "Publons/WoS"
+        ]
+      },
+      "GRANT": {
+        "purpose": "Research funding award with PI assignment, program details, and lifecycle status",
+        "when_to_use": "Grant application, award tracking, budget management, reporting compliance, PI portfolio overview",
+        "related_standards": [
+          "RAiSE (NSF)",
+          "Horizon Europe MGA",
+          "NIH SF424"
+        ]
+      }
+    },
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

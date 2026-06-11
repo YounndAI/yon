@@ -1,0 +1,76 @@
+From: Sarah Chen <sarah@designstudio.co>
+Date: Oct 15, 2024
+
+Hey team, here are my notes from the client kickoff about the Meridian rebrand. They want a "premium but approachable" look. Colors should feel "like sunset over water" — whatever that means lol. Key deadline: board presentation December 5. Budget: $180,000 total.
+
+---
+
+JIRA Ticket DES-412: Meridian Financial — Brand Refresh
+
+Reporter: Mark Volkov
+Priority: High
+Sprint: Sprint 14 (Oct 14-25)
+
+Requirements from client brief document (attached as PDF):
+- Logo refresh, not complete redesign. Retain the "M" monogram but modernize.
+- Primary palette: warm gold (#D4AF37 or similar), deep navy (#1B2A4A), clean white
+- Secondary palette: soft sage green, warm gray
+- Typography: transitional serif for headings (like Freight Big Pro or similar), geometric sans for body (like Aktiv Grotesk)
+- Brand voice: "confident, clear, advisory" — not stuffy or old-money
+- Deliverables: logo suite, color system, typography scale, icon set (40 icons), brand guidelines document (60+ pages), social media templates (Instagram, LinkedIn, Twitter), email signature, PowerPoint template, letterhead, business cards
+- Must pass WCAG 2.1 AA contrast ratios for all color combinations
+
+---
+
+Meeting Notes — Brand Workshop (Oct 18, 2024)
+Facilitator: Lisa Park, Creative Director
+
+Attendees: Sarah Chen, Mark Volkov, Alex (dev), Jennifer Wu (client, CMO), Robert Tran (client, CEO), David Kim (client, Head of Product)
+
+Key decisions:
+1. Jennifer strongly prefers the warm gold direction. Robert wants to make sure it doesn't look "too flashy" — needs to feel trustworthy for institutional clients.
+2. The "M" monogram will evolve to be more geometric, less script. David showed examples from Mastercard and Mailchimp rebrands as inspiration. NOT those brands specifically — just the "simplify without losing soul" approach.
+3. Icon set expanded to 48 icons (was 40). Additional 8 for their new mobile app section.
+4. Brand guidelines need a digital-first section covering UI components, dark mode variants, and motion principles.
+5. Robert approved a secondary animation budget of $15,000 for logo reveal and UI micro-interactions.
+6. Timeline slip agreed: design concepts due Nov 1 (was Oct 28), not a big deal since board presentation moved to Dec 12 (was Dec 5).
+
+Action items from meeting:
+- Sarah: 3 logo concepts by Oct 25
+- Mark: moodboard with color explorations by Oct 22
+- Alex: audit current brand assets for anything salvageable
+- Lisa: schedule mid-point review with Jennifer for Nov 8
+
+---
+
+Slack thread #meridian-rebrand, Oct 20:
+
+[Sarah 10:14 AM] btw after sleeping on it I think we should push the serif direction harder. Freight Big Pro licensing is $450/year commercial, which is fine. Alternative: Tiempos which is $600 but has better language support and more weights.
+
+[Mark 10:22 AM] agreed on serif push. re: gold — I've been testing #C5952C against navy backgrounds and it reads much better on screen than the brighter #D4AF37 from the brief. Passes WCAG AA at 18px+ on navy.
+
+[Lisa 10:45 AM] @mark that's great. Let's formalize: #C5952C as "Meridian Gold", #1B2A4A as "Meridian Navy". Get the sage green figured out too — I'm thinking something like #8B9E84 or #7D8E76.
+
+[Sarah 11:02 AM] also worth noting — Jennifer mentioned in a side convo that they're planning to launch a robo-advisor product Q2 2025. Brand system needs to be flexible enough for product sub-brands. Not in scope now but let's design with that in mind.
+
+[Alex 11:15 AM] FYI current site uses Inter for everything. If we switch to Aktiv Grotesk we need to check CDN licensing. Google Fonts only has Inter/Work Sans/etc. Aktiv is via Adobe Fonts or direct license (~$300/yr for web). Tiempos is definitely not on Google Fonts.
+
+[Lisa 11:30 AM] budget-wise we're fine. $180K total, $15K animation, font licensing ~$1000/yr. Plenty of room. Let's not penny-pinch the typography — it's the backbone.
+
+---
+
+From: Jennifer Wu <jennifer.wu@meridianfin.com>
+To: Lisa Park <lisa@designstudio.co>
+Date: Oct 21, 2024
+Subject: RE: Color direction update
+
+Lisa,
+
+Thanks for the updated palette. Robert and I reviewed #C5952C and we both prefer it over the original gold. One concern: our compliance team flags that we need high contrast for all financial disclosures and legal text. Can you ensure the body text combinations pass WCAG AAA (not just AA)?
+
+Also, I forgot to mention — we have a co-branded partnership with Northern Trust that launches in January. The brand system needs guidelines for co-brand lockups. Can you add that to the deliverables? No additional budget needed, but it's important.
+
+Best,
+Jennifer
+
+P.S. Robert loves the Mastercard-inspired monogram direction. He keeps saying "clean and confident." Those are now his two favorite words apparently.

@@ -1,0 +1,22 @@
+@DOC ver=2.0 | id=analytics-cluster | title="Analytics K8s Cluster" | kind=rule | fmt=min
+@INTENT goal="Private GKE cluster for analytics"
+@SEC name=Cluster
+@MAP id=cluster | region=us-east1 | k8s=1.29 | type=private | authorized="office + VPN 10.0.0.0/8"
+@MAP id=general | nodes:int=4 | machine=e2-standard-4
+@MAP id=compute | nodes:int=2 | machine=n2-highmem-8 | spot=true
+@MAP id=gpu | nodes:int=1 | machine=a100-40gb | spot=false
+@SEC name=Storage
+@MAP id=db | type=SSD | size=500GB | purpose="PostgreSQL 16"
+@MAP id=archive | type=StandardPD | size=2TB
+@RULE lvl=MUST | then="daily snapshots, retain 30d"
+@SEC name=Networking
+@RULE lvl=MUST | then="deny all ingress by default"
+@RULE lvl=MUST | then="analytics API reachable only from 10.128.0.0/16"
+@MAP id=endpoints | pairs=["internal LB"->"analytics API","public"->"webhook receiver (Let's Encrypt)"]
+@SEC name=Monitoring
+@NOTE text="kube-prometheus-stack: CPU>80%/5m, restarts>3/10m, PV>85%"
+@MAP id=alerts | pairs=["Slack"->"#infra-alerts","PagerDuty"->"P1 only"]
+@SEC name=Secrets
+@MAP id=secrets | backend="GCP Secret Manager" | db_rotation="90 days" | tls=cert-manager
+@SEC name=RBAC
+@MAP id=rbac | pairs=["analytics"->"ns edit","platform"->"cluster-admin","CI/CD"->"deploy+read"]

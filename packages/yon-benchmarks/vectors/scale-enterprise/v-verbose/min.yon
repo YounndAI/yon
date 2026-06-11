@@ -1,0 +1,129 @@
+@DOC ver=2.0 | id=chunk-1-auth-api | title="Authentication and API Rules" | domain=technical | kind=rule | profile=exec | fmt=min
+@INTENT goal="Extract rules and structure for authentication and API usage" | audience=developers
+
+@SEC name=Authentication
+@RULE lvl=must | when="using OAuth2" | then="OAuth2 with Bearer tokens"
+@RULE lvl=must | when="using tokens" | then="Token TTL 3600s"
+@RULE lvl=must | when="using refresh tokens" | then="Refresh tokens 30d"
+@RULE lvl=must | when="exceeding rate limit" | then="429 with Retry-After on limit"
+@RULE lvl=must | when="using admin tokens" | then="Admin tokens access all orgs"
+@RULE lvl=must | when="using regular user tokens" | then="User tokens own org only"
+@RULE lvl=must | when="making API requests" | then="Auth header required"
+@RULE lvl=must | when="using refresh tokens" | then="Invalidate refresh tokens after use"
+
+@SEC name="User API"
+@RULE lvl=must | when="creating a user" | then="POST /users requires fields"
+@RULE lvl=must | when="assigning roles" | then="Default role: member"
+@RULE lvl=must | when="email address" | then="Unique email per org"
+@RULE lvl=must | when="getting users" | then="Cursor pagination"
+@RULE lvl=must | when="updating user" | then="Email change needs verification"
+@RULE lvl=must | when="deleting user" | then="Soft delete users"
+@RULE lvl=must | when="deleting archived user" | then="410 on archived delete"
+
+@SEC name="Order API"
+@RULE lvl=must | when="creating order" | then="Order requires fields"
+@RULE lvl=must | when="validating order" | then="Total equals item sum"
+@RULE lvl=must | when="using currency" | then="Valid ISO 4217 currency"
+@RULE lvl=must | when="using single order" | then="No mixed currencies"
+@RULE lvl=must | when="modifying order" | then="Modify in draft only"
+@RULE lvl=must | when="deleting order" | then="Use cancel for delete"
+
+@SEC name="Error Codes"
+@RULE lvl=must | when="authentication fails" | then="ERR_AUTH on auth fail"
+@RULE lvl=must | when="resource not found" | then="ERR_NOT_FOUND on missing resource"
+@RULE lvl=must | when="validation fails" | then="ERR_VALIDATION on schema fail"
+@RULE lvl=must | when="conflict detected" | then="ERR_CONFLICT on conflict"
+@RULE lvl=must | when="rate limit exceeded" | then="ERR_RATE_LIMIT on limit exceed"
+@RULE lvl=must | when="payment fails" | then="ERR_PAYMENT_FAILED on payment fail"
+@RULE lvl=must | when="insufficient funds" | then="ERR_INSUFFICIENT_FUNDS on low balance"
+@RULE lvl=must | when="permission denied" | then="ERR_PERMISSION_DENIED on permission fail"
+@RULE lvl=must | when="resource locked" | then="ERR_RESOURCE_LOCKED on lock"
+
+@SEC name="Products API"
+@RULE lvl=must | when="POST /products" | then="POST /products creates product"
+@RULE lvl=must | when="name field" | then="Name max 255 chars"
+@RULE lvl=must | when="description field" | then="Description max 2000 chars"
+@RULE lvl=must | when=price | then="Price in smallest unit"
+@RULE lvl=must | when="GET /products" | then="Filter by category, status, price"
+@RULE lvl=must | when="PATCH /products/:id" | then="PATCH updates product"
+@RULE lvl=must | when="active field set to false" | then="Active false excludes from orders"
+@RULE lvl=must | when="delete product" | then="Deactivate before delete"
+
+@SEC name="Invoices API"
+@RULE lvl=must | when="POST /invoices" | then="POST /invoices creates invoice"
+@RULE lvl=must | when="invoice status open" | then="Open invoice locked"
+@RULE lvl=must | when="POST /invoices/:id/pay" | then="Charge default payment method"
+@RULE lvl=must | when="payment fails" | then="Payment fail 402"
+@RULE lvl=must | when="POST /invoices/:id/void" | then="Void invoice"
+@RULE lvl=must | when="invoice paid" | then="Paid invoice refund"
+
+@SEC name="Input Validation"
+@RULE lvl=must | when="email field" | then="Email RFC 5322"
+@RULE lvl=must | when="phone number field" | then="Phone E.164"
+@RULE lvl=must | when="monetary amounts" | then="Money in cents"
+@RULE lvl=must | when="date fields" | then="Date ISO 8601 UTC"
+@RULE lvl=must | when="metadata objects" | then="Metadata 20 keys, 500 chars"
+@RULE lvl=must | when="array fields" | then="Array max 100 items"
+@RULE lvl=must | when="string fields" | then="Trim strings, empty as null"
+@RULE lvl=must | when="boolean fields" | then="Boolean true/false, 1/0, yes/no"
+@RULE lvl=must | when="enum fields" | then="Enum case-insensitive, lowercase"
+
+@SEC name=Webhooks
+@NOTE text="Webhooks for order and payment events [order.created] [order.updated] [order.completed] [payment.succeeded] [payment.failed] [invoice.paid]"
+@RULE lvl=must | then="Verify HMAC-SHA256 signature"
+@RULE lvl=must | then="Respond 200 in 30s"
+@NOTE text="Retry with exponential backoff"
+@RULE lvl=must | then="HTTPS for webhooks"
+
+@SEC name=Subscriptions
+@RULE lvl=must | then="Required fields for subscriptions"
+@NOTE text="Proration options"
+@RULE lvl=must | then="PATCH for subscription updates"
+
+@SEC name=Payments
+@RULE lvl=must | then="Required fields for payments"
+@RULE lvl=must | then="Return codes for payments [200] [402]"
+
+@SEC name="GDPR Compliance"
+@RULE lvl=must | then="Encrypt PII with AES-256 and TLS 1.3"
+@RULE lvl=must | then="Right to erasure in 30 days"
+@RULE lvl=must | then="Report breaches in 72h"
+@RULE lvl=must | then="Annual DPIAs"
+@RULE lvl=must | then="Explicit consent required"
+
+@SEC name="SOC 2 Type II Compliance"
+@RULE lvl=must | then="Least privilege access"
+@RULE lvl=must | then="Monthly vulnerability scans"
+@RULE lvl=must | then="Annual penetration testing"
+@RULE lvl=must | then="MFA for admin access"
+
+@SEC name="PCI-DSS Compliance"
+@RULE lvl=must | when="processing payments" | then="Comply with PCI-DSS Level 1"
+@RULE lvl=must | when="storing card numbers" | then="Store only last four digits and fingerprint"
+@RULE lvl=must | when="storing payment data" | then="Tokenize payment data"
+@RULE lvl=must | when="networking payment processing" | then="Segment network with firewall"
+@RULE lvl=must | when="monitoring network traffic" | then="Real-time IDS monitoring"
+@RULE lvl=must | when="managing encryption keys" | then="Rotate keys annually"
+@RULE lvl=must | when="accessing servers" | then="Restrict server access"
+@RULE lvl=must | when="deploying payment processing code" | then="Security review before deployment"
+@RULE lvl=must | when="conducting ASV scans" | then="Quarterly ASV scans"
+
+@SEC name="Rate Limiting"
+@RULE lvl=must | when="configuring rate limits" | then="Multi-level rate limiting"
+@RULE lvl=must | when="applying global rate limit" | then="Global limit 1000/min"
+@RULE lvl=must | when="applying per-user rate limit" | then="Per-user limit 100/min"
+@RULE lvl=must | when="applying burst limit" | then="Burst limit 50/1s"
+@RULE lvl=must | when="preventing thundering herd" | then="Sliding window strategy"
+@RULE lvl=must | when="including rate limit headers" | then="Include rate limit headers [RateLimit]"
+@RULE lvl=must | when="rate limited" | then="Use Retry-After header"
+@RULE lvl=must | when="handling authenticated requests" | then="Higher limits for authenticated"
+@RULE lvl=must | when="delivering webhooks" | then="Webhooks not counted"
+@RULE lvl=must | when="using batch endpoints" | then="Batch limits per item"
+@NOTE text=1999
+@NOTE text=1234567890
+@NOTE text=2026
+@NOTE text=19.99
+@NOTE text="Standard Contractual Clauses"
+@NOTE text=JSON
+@NOTE text=EST
+@NOTE text=PST

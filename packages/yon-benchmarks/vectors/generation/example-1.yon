@@ -1,0 +1,15 @@
+@DOC ver=2.0 | id=deploy-plan | title="Deployment Checklist" | kind=rule | profile=exec | fmt=canon
+
+@SEC name="Pre-Deployment"
+@RULE lvl=MUST | when="before deployment" | then="run full test suite with coverage above 80%"
+@RULE lvl=SHOULD | when="deploying to production" | then="notify ops channel 30 minutes before"
+
+@SEC name="Deployment Steps"
+@STEP seq:int=1 | action="pull latest from main branch"
+@STEP seq:int=2 | action="run database migrations"
+@STEP seq:int=3 | action="deploy application containers"
+@STEP seq:int=4 | action="verify health endpoints respond 200"
+
+@SEC name="Rollback"
+@RULE lvl=MUST | when="health check fails within 5 minutes" | then="revert to previous deployment"
+@CFG id=rollback | set=[max_attempts:int=3, timeout_seconds:int=300]

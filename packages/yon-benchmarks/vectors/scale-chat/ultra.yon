@@ -1,0 +1,10 @@
+@DOC ver=2.0 | id=api-authentication-rules | title="API Authentication Rules" | kind=rule | profile=exec | fmt=ultra
+@SEC name=Authentication
+@RULE lvl=must | when="making API requests" | then="Include Authorization header with bearer token"
+@SEC name="Rate Limiting"
+@RULE lvl=must | when="rate limited" | then="Return 429 with Retry-After when rate limited"
+@MAP id=Authentication | pairs=["auth"->"Bearer token OAuth2, 3600s TTL, 30d refresh"]
+@MAP id=RateLimiting | pairs=["rate_limit"->"500 requests/min globally"]
+@MAP id=TokenAccess | pairs=["token_access"->"Admin tokens: all orgs, User tokens: own org"]
+@MAP id=TokenIssuance | pairs=["token_issuance"->"Tokens issued by /auth/token"]
+@MAP id=RefreshTokens | pairs=["refresh_tokens"->"Refresh tokens single-use, new issued with access token"]

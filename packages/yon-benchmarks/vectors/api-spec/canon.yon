@@ -1,0 +1,26 @@
+@DOC ver=2.0 | id=webhook-system | title="Webhook System API" | kind=rule | profile=exec | fmt=canon
+
+@INTENT goal="Build a webhook subscription and delivery system"
+
+@SEC name="Create Webhook"
+@NOTE text="POST /webhooks — creates a new webhook subscription"
+@MAP id=create-body | pairs=["url"->"required, must be HTTPS","events"->"array of event types (user.created, payment.completed, invoice.sent)","secret"->"optional, auto-generated if omitted","active"->"boolean, default true","metadata"->"optional object, max 10 keys","retry_policy"->"exponential (default) or linear, max_retries 1–10 (default 5)"]
+
+@SEC name="Delivery"
+@MAP id=delivery-headers | pairs=["X-Webhook-ID"->"unique delivery ID","X-Webhook-Timestamp"->"Unix timestamp","X-Webhook-Signature"->"HMAC-SHA256 signature","Content-Type"->"application/json"]
+@NOTE text="Body shape: { id, type, created_at, data: { ... } }"
+@RULE lvl=MUST | when="HTTP 5xx or timeout" | then="retry delivery"
+@RULE lvl=MUST_NOT | when="HTTP 4xx" | then="retry delivery"
+@MAP id=backoff-schedule | pairs=["attempt 1"->"1 min","attempt 2"->"5 min","attempt 3"->"25 min","attempt 4"->"2 hours","attempt 5"->"10 hours"]
+@NOTE text="Timeout: 30 seconds per delivery attempt"
+@RULE lvl=MUST | when="all retries exhausted" | then="mark webhook as failing, email account owner"
+
+@SEC name="Endpoints"
+@MAP id=endpoints | pairs=["GET /webhooks"->"list all, paginated (20/page)","GET /webhooks/:id"->"get single webhook","PATCH /webhooks/:id"->"update url, events, active, metadata","DELETE /webhooks/:id"->"soft delete (mark inactive, stop deliveries)","GET /webhooks/:id/deliveries"->"delivery attempts (last 30 days)","POST /webhooks/:id/test"->"send test event"]
+
+@SEC name="Rate Limits"
+@RULE lvl=MUST | when="per account" | then="max 100 webhooks"
+@RULE lvl=MUST | when="per webhook" | then="max 1000 deliveries/minute"
+
+@SEC name="Signature Verification"
+@NOTE text="Client verification: HMAC-SHA256(secret, timestamp + '.' + raw_body) → compare with X-Webhook-Signature header"

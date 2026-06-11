@@ -1,0 +1,16 @@
+@DOC ver=2.0 | id=release-policy | title="Release Approval Policy" | kind=rule | mode=text | profile=exec | fmt=min
+
+@SEC name="Release Gates"
+@RULE rid=rule:staging-test | lvl=MUST | when="releasing to production" | then="pass all integration tests on staging environment"
+@RULE rid=rule:review-count | lvl=MUST | when="merging release branch" | then="require 2 code reviewer approvals"
+@RULE rid=rule:deploy-window | lvl=SHOULD | when="deploying" | then="deploy only during business hours (09:00-17:00 UTC)"
+
+@SEC name="Change History"
+@STAMP who="engineering-lead" | ts:ts="2026-01-10T08:00:00Z" | text="Initial release policy v1 — all 3 gates active."
+@STAMP who="qa-manager" | ts:ts="2026-01-20T14:30:00Z" | text="Staging tests now include load testing suite per QA-2026-012."
+@PATCH ts:ts="2026-02-05T11:00:00Z" | target=rid:rule:review-count | set=[then="require 3 code reviewer approvals"]
+@STAMP who="vp-engineering" | ts:ts="2026-02-05T11:15:00Z" | text="Increased reviewer count from 2 to 3 after incident INC-2026-0044."
+@PATCH ts:ts="2026-02-15T09:00:00Z" | target=rid:rule:deploy-window | set=[lvl=MUST,then="deploy only during business hours (09:00-17:00 UTC) — no exceptions"]
+@STAMP who="cto" | ts:ts="2026-02-15T09:05:00Z" | text="Deploy window upgraded from SHOULD to MUST after Friday night outage."
+@VOID ts:ts="2026-03-01T16:00:00Z" | target=rid:rule:staging-test | because="Staging environment decommissioned — replaced by canary deployment pipeline"
+@STAMP who="platform-team" | ts:ts="2026-03-01T16:30:00Z" | text="Staging gate voided. Canary pipeline now serves as production gate."

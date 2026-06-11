@@ -1,0 +1,8 @@
+@DOC ver=2.0 | id=federation:example-user | domain=yai.lyt@1.0 | kind=cfg | profile=agent
+
+@FEDERATION rid=fed:0190abcd12347000abcdef0123456789
+  | handle="example-user"
+  | visibility=private
+  | created_at:ts=2026-05-29T12:00:00Z
+
+@META key=last_synced_at | value=2026-05-29T12:00:00Z

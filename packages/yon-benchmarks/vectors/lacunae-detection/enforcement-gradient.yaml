@@ -1,0 +1,13 @@
+document: Code Quality Standards
+sections:
+  - name: TypeScript Standards
+    rules:
+      - level: MUST
+        when: configuring TypeScript
+        then: enable strict mode in tsconfig.json
+      - level: SHOULD
+        when: writing public functions
+        then: add JSDoc comments with parameter descriptions
+      - level: MUST_NOT
+        when: any code
+        then: use eval() or Function() constructor — security vulnerability

@@ -1,0 +1,7 @@
+{
+  "parse": "ok",
+  "validate_strict": "ok",
+  "validate_lenient": "ok",
+  "error_code": null,
+  "notes": "Minimal valid @AUTOMATOR with all required yai.yonpa fields (id, name, mission, layer, tier, version, yonpa_schema_version). Optional fields omitted."
+}

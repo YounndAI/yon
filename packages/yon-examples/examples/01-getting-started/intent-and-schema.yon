@@ -1,0 +1,16 @@
+@DOC ver=2.0 | id=intent-and-schema | title="Intent and Schema" | kind=spec | profile=decl | fmt=canon
+
+@NOTE text="Declare document intent, scope boundaries, and validation schemas."
+
+@INTENT goal="Define configuration standards for a microservices platform" | audience=platform-team
+
+@SCOPE context="cloud-native" | region="eu-west-1" | compliance=gdpr
+
+@SEC name="Port Schema"
+@SCHEMA key=service_port | opts=[min:int=1024,max:int=65535] | default:int=8080
+
+@SEC name="Environment Schema"
+@SCHEMA key=environment | opts=[allowed=[development,staging,production]] | default=development
+
+@SEC name="Timeout Schema"
+@SCHEMA key=request_timeout_ms | opts=[min:int=100,max:int=30000] | default:int=5000

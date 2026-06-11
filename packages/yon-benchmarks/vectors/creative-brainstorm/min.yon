@@ -1,0 +1,24 @@
+@DOC ver=2.0 | kind=note | id=greenpulse-brainstorm | title="GreenPulse Mobile App Brainstorm" | profile=decl | fmt=MIN
+
+@NOTE text="Pure ideation. Nothing decided."
+
+@SEC name="Idea 1: Carbon Dashboard"
+@NOTE text="Mint-for-carbon. Bank connect via Plaid, auto-categorize into CO2 impact. Carbon APIs (Climatiq, CarbonInterface) not great for individual transactions — need custom mapping."
+@MAP id=feat | pairs=["budget"->"CO2 calorie counter","trends"->"weekly/monthly charts","social"->"anonymous friend avg","gamification"->"badges, streaks, challenges","ar"->"scan product → carbon score (hard)"]
+@NOTE text="Concerns: privacy (bank data trust barrier), accuracy (rough estimates), UX (confidence intervals confusing)."
+
+@SEC name="Idea 2: Sustainability Map"
+@NOTE text="User-generated pins: green biz, gardens, EV, recycling, compost. OpenStreetMap-style. Low cost, needs moderation."
+@MAP id=rev | pairs=["verified_pins"->"eco-checkmark (biz pay)","gov"->"sponsor boards","grants"->"nonprofit","geo_challenges"->"visit 5 → discount bundle"]
+
+@SEC name="Idea 3: Food Waste Timer"
+@NOTE text="Scan receipt, predict spoilage, push notify. 'Avocados peak tomorrow — recipes.' Integrate Spoonacular/Edamam + TGTG/OLIO."
+@NOTE text="V2: combine with Idea 1 as single sustainability score. Scope creep for MVP."
+
+@SEC name="Idea 4: Anti-Fast-Fashion Closet"
+@NOTE text="Digital wardrobe: photo→AI categorize→suggest outfits from existing. Anti-shopping stylist. Discourages buying, suggests thrift/ethical. GPT-4V for styling."
+@MAP id=biz | pairs=["revenue"->"affiliate sustainable brands or subscription","extension"->"social closet-sharing (own startup)"]
+
+@SEC name="Next Steps"
+@MAP id=act | pairs=["vote"->"top 2 by Friday","deep_dive"->"next week","Alex"->"carbon API research","Sarah"->"wireframes","Mark"->"comp analysis (Joro,Commons,CoGo,Oroeco)"]
+@NOTE text="No budget decisions — exploratory."

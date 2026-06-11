@@ -1,0 +1,14 @@
+@DOC ver=2.0 | id=pattern-match | title="Pattern Match" | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Route documents based on type using rules. Demonstrates pattern-matching logic."
+
+@STEP n:int=1 | rid=classify | op=std:ai.classify@v1 | out=[ref:doc_type]
+
+@SEC name="Routing Rules"
+@RULE lvl=MUST | when="doc_type is invoice" | then="route to accounting"
+@RULE lvl=MUST | when="doc_type is contract" | then="route to legal"
+@RULE lvl=SHOULD | when="doc_type is memo" | then="route to archive"
+
+@STEP n:int=2 | rid=route-invoice | op=std:queue.push@v1 | in=[ref:doc_type] | args=[queue=accounting]
+@STEP n:int=3 | rid=route-contract | op=std:queue.push@v1 | in=[ref:doc_type] | args=[queue=legal]
+@STEP n:int=4 | rid=route-memo | op=std:queue.push@v1 | in=[ref:doc_type] | args=[queue=archive]

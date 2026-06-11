@@ -1,0 +1,702 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.hr",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Workforce management, recruitment, performance tracking, and employee lifecycle operations",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "REQUISITION",
+      "description": "Job requisition — headcount request with salary range and remote eligibility",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "req:2026-042"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Job Title",
+          "example": "Senior Data Engineer"
+        },
+        {
+          "name": "department",
+          "type": "string",
+          "required": false,
+          "description": "Department",
+          "example": "Engineering"
+        },
+        {
+          "name": "hiring_manager",
+          "type": "string",
+          "required": false,
+          "description": "Hiring Manager",
+          "example": "Sarah Chen"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "draft",
+            "open",
+            "interviewing",
+            "offer",
+            "filled",
+            "cancelled"
+          ],
+          "description": "Requisition Status (6 allowed values)",
+          "example": "open"
+        },
+        {
+          "name": "headcount",
+          "type": "int",
+          "required": false,
+          "description": "Headcount",
+          "example": "2"
+        },
+        {
+          "name": "priority",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "low",
+            "normal",
+            "high",
+            "urgent"
+          ],
+          "description": "Priority: low, normal, high, urgent",
+          "example": "high"
+        },
+        {
+          "name": "location",
+          "type": "string",
+          "required": false,
+          "description": "Location",
+          "example": "Berlin, Germany"
+        },
+        {
+          "name": "remote",
+          "type": "bool",
+          "required": false,
+          "description": "Remote Eligible indicator",
+          "example": "true"
+        },
+        {
+          "name": "salary_min",
+          "type": "float",
+          "required": false,
+          "description": "Salary Min in EUR/year",
+          "unit": "EUR/year",
+          "example": "75000.0"
+        },
+        {
+          "name": "salary_max",
+          "type": "float",
+          "required": false,
+          "description": "Salary Max in EUR/year",
+          "unit": "EUR/year",
+          "example": "95000.0"
+        }
+      ]
+    },
+    {
+      "tag": "APPLICANT",
+      "description": "Job applicant — candidate tracking through hiring pipeline stages",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "app:2026-1234"
+        },
+        {
+          "name": "requisition_ref",
+          "type": "string",
+          "required": false,
+          "description": "Requisition Reference",
+          "example": "req:2026-042"
+        },
+        {
+          "name": "name_encrypted",
+          "type": "string",
+          "required": false,
+          "description": "Name (Encrypted)",
+          "example": "enc:aes256:..."
+        },
+        {
+          "name": "stage",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "applied",
+            "screening",
+            "phone-screen",
+            "interview",
+            "assessment",
+            "offer",
+            "hired",
+            "rejected"
+          ],
+          "description": "Pipeline Stage (8 allowed values)",
+          "example": "interview"
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "direct",
+            "referral",
+            "agency",
+            "linkedin",
+            "job-board",
+            "internal"
+          ],
+          "description": "Source (6 allowed values)",
+          "example": "linkedin"
+        },
+        {
+          "name": "applied_date",
+          "type": "ts",
+          "required": false,
+          "description": "Applied Date as ISO 8601 timestamp",
+          "example": "2026-03-01T00:00:00Z"
+        },
+        {
+          "name": "rating",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            5
+          ],
+          "description": "Rating (0–5)",
+          "example": "4.2"
+        },
+        {
+          "name": "resume_ref",
+          "type": "string",
+          "required": false,
+          "description": "Resume Reference",
+          "example": "doc:resume-1234"
+        },
+        {
+          "name": "referrer",
+          "type": "string",
+          "required": false,
+          "description": "Referrer",
+          "example": "emp:42"
+        }
+      ]
+    },
+    {
+      "tag": "EMPLOYEE",
+      "description": "Employee record — workforce roster with department, level, and FTE status",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "emp:42"
+        },
+        {
+          "name": "name_encrypted",
+          "type": "string",
+          "required": false,
+          "description": "Name (Encrypted)",
+          "example": "enc:aes256:..."
+        },
+        {
+          "name": "department",
+          "type": "string",
+          "required": false,
+          "description": "Department",
+          "example": "Engineering"
+        },
+        {
+          "name": "role",
+          "type": "string",
+          "required": false,
+          "description": "Role",
+          "example": "Senior Data Engineer"
+        },
+        {
+          "name": "start_date",
+          "type": "ts",
+          "required": false,
+          "description": "Start Date as ISO 8601 timestamp",
+          "example": "2026-01-15T00:00:00Z"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "active",
+            "on-leave",
+            "terminated",
+            "retired"
+          ],
+          "description": "Employee Status: active, on-leave, terminated, retired",
+          "example": "active"
+        },
+        {
+          "name": "manager_ref",
+          "type": "string",
+          "required": false,
+          "description": "Manager Reference",
+          "example": "emp:12"
+        },
+        {
+          "name": "location",
+          "type": "string",
+          "required": false,
+          "description": "Location",
+          "example": "Berlin, Germany"
+        },
+        {
+          "name": "fte",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            1
+          ],
+          "description": "FTE (0–1)",
+          "example": "1.0"
+        },
+        {
+          "name": "level",
+          "type": "string",
+          "required": false,
+          "description": "Level",
+          "example": "IC4"
+        }
+      ]
+    },
+    {
+      "tag": "REVIEW",
+      "description": "Performance review — periodic evaluation with goal tracking and competency assessment",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "rev:2026-q1-042"
+        },
+        {
+          "name": "employee_ref",
+          "type": "string",
+          "required": false,
+          "description": "Employee Reference",
+          "example": "emp:42"
+        },
+        {
+          "name": "period",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "Q1",
+            "Q2",
+            "Q3",
+            "Q4",
+            "H1",
+            "H2",
+            "annual",
+            "probation",
+            "mid-year"
+          ],
+          "description": "Review Period (9 allowed values)",
+          "example": "2026-Q1"
+        },
+        {
+          "name": "rating",
+          "type": "float",
+          "required": false,
+          "range": [
+            1,
+            5
+          ],
+          "description": "Rating (1–5)",
+          "example": "4.0"
+        },
+        {
+          "name": "reviewer",
+          "type": "string",
+          "required": false,
+          "description": "Reviewer",
+          "example": "emp:12"
+        },
+        {
+          "name": "goals_met",
+          "type": "int",
+          "required": false,
+          "description": "Goals Met",
+          "example": "4"
+        },
+        {
+          "name": "goals_total",
+          "type": "int",
+          "required": false,
+          "description": "Goals Total",
+          "example": "5"
+        },
+        {
+          "name": "competencies",
+          "type": "string",
+          "required": false,
+          "description": "Competencies",
+          "example": "technical:4, leadership:3, communication:4"
+        },
+        {
+          "name": "next_review",
+          "type": "ts",
+          "required": false,
+          "description": "Next Review as ISO 8601 timestamp",
+          "example": "2026-07-01T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "POSITION",
+      "description": "Job position — organizational chart node with grade, band, and budget",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "pos:eng-042"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Position Title",
+          "example": "Senior Data Engineer"
+        },
+        {
+          "name": "department",
+          "type": "string",
+          "required": false,
+          "description": "Department",
+          "example": "Engineering"
+        },
+        {
+          "name": "grade",
+          "type": "string",
+          "required": false,
+          "description": "Grade",
+          "example": "IC4"
+        },
+        {
+          "name": "band",
+          "type": "string",
+          "required": false,
+          "description": "Compensation Band",
+          "example": "Band-C"
+        },
+        {
+          "name": "reports_to",
+          "type": "string",
+          "required": false,
+          "description": "Reports To",
+          "example": "pos:eng-mgr-01"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "filled",
+            "vacant",
+            "frozen",
+            "new"
+          ],
+          "description": "Position Status: filled, vacant, frozen, new",
+          "example": "filled"
+        },
+        {
+          "name": "fte",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            1
+          ],
+          "description": "FTE (0–1)",
+          "example": "1.0"
+        },
+        {
+          "name": "cost_center",
+          "type": "string",
+          "required": false,
+          "description": "Cost Center",
+          "example": "CC-ENG-042"
+        },
+        {
+          "name": "budget",
+          "type": "float",
+          "required": false,
+          "description": "Budget in EUR/year",
+          "unit": "EUR/year",
+          "example": "95000.0"
+        }
+      ]
+    },
+    {
+      "tag": "LEAVE",
+      "description": "Leave record — time-off request with approval workflow",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "lv:2026-0315"
+        },
+        {
+          "name": "employee_ref",
+          "type": "string",
+          "required": false,
+          "description": "Employee Reference",
+          "example": "emp:42"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "vacation",
+            "sick",
+            "personal",
+            "parental",
+            "bereavement",
+            "unpaid",
+            "sabbatical"
+          ],
+          "description": "Leave Type (7 allowed values)",
+          "example": "vacation"
+        },
+        {
+          "name": "start_date",
+          "type": "ts",
+          "required": false,
+          "description": "Start Date as ISO 8601 timestamp",
+          "example": "2026-03-15T00:00:00Z"
+        },
+        {
+          "name": "end_date",
+          "type": "ts",
+          "required": false,
+          "description": "End Date as ISO 8601 timestamp",
+          "example": "2026-03-19T00:00:00Z"
+        },
+        {
+          "name": "days",
+          "type": "int",
+          "required": false,
+          "description": "Days",
+          "unit": "days",
+          "example": "5"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "requested",
+            "approved",
+            "denied",
+            "cancelled"
+          ],
+          "description": "Leave Status: requested, approved, denied, cancelled",
+          "example": "approved"
+        },
+        {
+          "name": "approved_by",
+          "type": "string",
+          "required": false,
+          "description": "Approved By",
+          "example": "emp:12"
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "required": false,
+          "description": "Reason",
+          "example": "Family vacation"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Workforce management and recruitment for HR AI",
+    "highlights": [
+      "REQUISITION",
+      "EMPLOYEE",
+      "REVIEW"
+    ],
+    "use_cases": [
+      {
+        "id": "employee-lifecycle",
+        "title": "Employee Lifecycle Management",
+        "steps": [
+          "Open @POSITION with job description and compensation band",
+          "Onboard @EMPLOYEE with benefits enrollment",
+          "Configure @BENEFIT elections (health, retirement, PTO)",
+          "Process monthly @PAYROLL with tax and deduction calculations",
+          "Conduct quarterly @PERFORMANCE reviews with goal tracking"
+        ],
+        "example": "@EMPLOYEE rid=emp:1 | name=\"Jane Doe\" | position_ref=\"pos:42\" | hire_date=\"2026-01-15\" | status=\"active\"",
+        "tags_used": [
+          "POSITION",
+          "EMPLOYEE"
+        ],
+        "description": "Track employees from onboarding through offboarding, including position changes, benefits enrollment, leave management, and performance review cycles.",
+        "tags": [
+          "EMPLOYEE",
+          "POSITION",
+          "BENEFIT",
+          "LEAVE",
+          "REVIEW"
+        ],
+        "tags_planned": [
+          "BENEFIT",
+          "PAYROLL",
+          "PERFORMANCE"
+        ]
+      },
+      {
+        "id": "workforce-analytics",
+        "title": "Workforce Planning and Analytics",
+        "steps": [
+          "Analyze @POSITION fill rates and time-to-hire",
+          "Track @LEAVE patterns for staffing forecasts",
+          "Correlate @PERFORMANCE ratings with retention risk",
+          "Model @PAYROLL cost projections for headcount",
+          "Benchmark @BENEFIT utilization across departments"
+        ],
+        "example": "@LEAVE rid=lv:1 | employee_ref=\"emp:1\" | type=\"annual\" | start=\"2026-03-01\" | end=\"2026-03-05\" | status=\"approved\"",
+        "tags_used": [
+          "POSITION",
+          "LEAVE"
+        ],
+        "description": "Analyze headcount trends, compensation benchmarks, attrition patterns, and skills gaps to inform hiring plans, retention strategies, and organizational design.",
+        "tags": [
+          "EMPLOYEE",
+          "POSITION",
+          "PAYROLL",
+          "REVIEW"
+        ],
+        "tags_planned": [
+          "PERFORMANCE",
+          "PAYROLL",
+          "BENEFIT"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "HR Open Standards",
+        "url": "https://hropenstandards.org/",
+        "type": "standard"
+      },
+      {
+        "label": "Schema.org JobPosting",
+        "url": "https://schema.org/JobPosting",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.education",
+        "relationship": "often paired",
+        "reason": "Training and development"
+      },
+      {
+        "domain": "yai.compliance",
+        "relationship": "regulatory overlap",
+        "reason": "Labor law compliance"
+      }
+    ],
+    "tag_context": {
+      "REQUISITION": {
+        "purpose": "Headcount request with salary range, location, and remote eligibility for ATS integration",
+        "when_to_use": "Job opening creation, ATS pipeline, headcount planning, hiring manager approval, budget allocation",
+        "related_standards": [
+          "HR-XML Recruiting",
+          "Schema.org JobPosting",
+          "O*NET-SOC"
+        ]
+      },
+      "APPLICANT": {
+        "purpose": "Candidate tracking through hiring pipeline stages with source attribution and encrypted PII",
+        "when_to_use": "Application intake, pipeline tracking, interview scheduling, offer management, GDPR-compliant candidate data",
+        "related_standards": [
+          "HR-XML Candidate",
+          "Schema.org Person",
+          "GDPR Art. 13"
+        ]
+      },
+      "EMPLOYEE": {
+        "purpose": "Workforce roster entry with department, level, FTE status, and reporting chain",
+        "when_to_use": "Onboarding, org chart management, headcount reporting, payroll integration, workforce analytics",
+        "related_standards": [
+          "HR-XML (HR Open Standards)",
+          "Schema.org Person",
+          "ISO 6346 JT"
+        ]
+      },
+      "REVIEW": {
+        "purpose": "Periodic performance evaluation with goal tracking, competency assessment, and calibration",
+        "when_to_use": "Annual/quarterly reviews, promotion decisions, PIP documentation, goal setting, talent calibration",
+        "related_standards": [
+          "SHRM Competency Model",
+          "OKR Framework",
+          "ISO 10015"
+        ]
+      },
+      "POSITION": {
+        "purpose": "Organizational chart node with grade, compensation band, and budget allocation",
+        "when_to_use": "Org design, headcount budgeting, job architecture, grade mapping, succession planning",
+        "related_standards": [
+          "O*NET-SOC (US)",
+          "ISCO-08 (ILO)",
+          "ESCO (EU)"
+        ]
+      },
+      "LEAVE": {
+        "purpose": "Time-off request with approval workflow, type classification, and balance tracking",
+        "when_to_use": "Leave requests, approval workflows, absence tracking, staffing forecasts, payroll adjustments",
+        "related_standards": [
+          "ISO 8601 Duration",
+          "xCal (OASIS)",
+          "FMLA (US)"
+        ]
+      }
+    },
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

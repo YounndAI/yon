@@ -1,0 +1,33 @@
+{
+  "name": "yon",
+  "private": true,
+  "version": "0.0.0",
+  "description": "The YON toolchain — parser, generator, runner, converter, examples, benchmarks, domains, and AI relay for the YON block format.",
+  "license": "Apache-2.0",
+  "author": "MARLINK TRADING SRL (YounndAI)",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YounndAI/yon.git"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build -w @younndai/ai-relay && npm run build -w @younndai/domains && npm run build -w @younndai/yon-parser && npm run build -w @younndai/yon-generator && npm run build -w @younndai/yon-runner && npm run build -w @younndai/yon-converter && npm run build -w @younndai/yon-examples && npm run build -w @younndai/yon-benchmarks",
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "overrides": {
+    "@younndai/yon-spec": "file:../yon-spec"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.31.0",
+    "@types/node": "^25.9.1",
+    "typescript": "^6.0.3",
+    "vitest": "^4.0.18"
+  },
+  "engines": {
+    "node": ">=20.9"
+  }
+}

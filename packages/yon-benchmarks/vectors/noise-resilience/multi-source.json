@@ -1,0 +1,40 @@
+{
+  "id": "api-standards",
+  "title": "API Standards Compilation",
+  "sources": ["Slack #engineering (Feb)", "Architecture RFC-12", "Q1 security audit report"],
+  "sections": [
+    {
+      "name": "Versioning",
+      "rules": [
+        { "level": "MUST", "when": "publishing new API", "requirement": "use URL path versioning with /v{N}/ prefix" },
+        { "level": "MUST_NOT", "when": "any version", "requirement": "remove endpoints without 6 month deprecation notice" }
+      ],
+      "notes": ["from RFC-12: header-based versioning rejected due to CDN caching issues"]
+    },
+    {
+      "name": "Authentication",
+      "rules": [
+        { "level": "MUST", "when": "all endpoints", "requirement": "require OAuth 2.0 bearer tokens" },
+        { "level": "MUST", "when": "token validation", "requirement": "verify issuer, audience, and expiry on every request" },
+        { "level": "MUST_NOT", "when": "any endpoint", "requirement": "accept API keys as sole authentication method" }
+      ],
+      "notes": ["security audit finding SA-2026-03: 12% of endpoints were missing audience validation"]
+    },
+    {
+      "name": "Rate Limiting",
+      "rules": [
+        { "level": "MUST", "when": "public endpoints", "requirement": "enforce 1000 requests per minute per client" },
+        { "level": "SHOULD", "when": "internal endpoints", "requirement": "enforce 5000 requests per minute per service" },
+        { "level": "MAY", "when": "batch endpoints", "requirement": "allow burst up to 2x limit for 30 second windows" }
+      ],
+      "notes": ["Slack discussion: team agreed on these numbers after the March 3 incident"]
+    },
+    {
+      "name": "Error Handling",
+      "rules": [
+        { "level": "MUST", "when": "error response", "requirement": "return RFC 7807 Problem Details format" },
+        { "level": "MUST_NOT", "when": "5xx error", "requirement": "expose internal stack traces or database errors" }
+      ]
+    }
+  ]
+}

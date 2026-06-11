@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "question": "How often must service accounts be rotated?",
+    "answer": "90 days",
+    "answerable": true,
+    "rule_index": 1
+  },
+  {
+    "id": 2,
+    "question": "How long are privileged access session recordings retained?",
+    "answer": "12 months",
+    "answerable": true,
+    "rule_index": 1
+  },
+  {
+    "id": 3,
+    "question": "What encryption algorithm must be used for Restricted data at rest?",
+    "answer": "AES-256",
+    "answerable": true,
+    "rule_index": 2
+  },
+  {
+    "id": 4,
+    "question": "Within how many hours must data classification labels be applied?",
+    "answer": "48",
+    "answerable": true,
+    "rule_index": 2
+  },
+  {
+    "id": 5,
+    "question": "Within how many hours must security incidents be reported to the SOC?",
+    "answer": "1 hour",
+    "answerable": true,
+    "rule_index": 3
+  },
+  {
+    "id": 6,
+    "question": "How many business days to complete post-incident reviews?",
+    "answer": "5",
+    "answerable": true,
+    "rule_index": 3
+  },
+  {
+    "id": 7,
+    "question": "Within how many hours must critical vulnerabilities (CVSS 9.0+) be patched?",
+    "answer": "72",
+    "answerable": true,
+    "rule_index": 4
+  },
+  {
+    "id": 8,
+    "question": "How often must internet-facing applications undergo penetration testing?",
+    "answer": "quarterly",
+    "answerable": true,
+    "rule_index": 4
+  },
+  {
+    "id": 9,
+    "question": "What VPN protocols are required?",
+    "answer": "WireGuard",
+    "answerable": true,
+    "rule_index": 5
+  },
+  {
+    "id": 10,
+    "question": "What type of firewall policy must be implemented?",
+    "answer": "default-deny",
+    "answerable": true,
+    "rule_index": 5
+  },
+  {
+    "id": 11,
+    "question": "How long must audit logs be retained?",
+    "answer": "3 years",
+    "answerable": true,
+    "rule_index": 6
+  },
+  {
+    "id": 12,
+    "question": "Within how many days of hire must compliance training be completed?",
+    "answer": "30",
+    "answerable": true,
+    "rule_index": 6
+  }
+]

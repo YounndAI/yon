@@ -1,0 +1,831 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.sai",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1.0,
+  "notice": null,
+  "description": "SAI cognitive architecture — ThinkPad working memory, Thread attention system, session marks, intentions, affect snapshots, and lifecycle state records",
+  "defaultMode": "struct",
+  "defaultProfile": "exec",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "ITEM",
+      "description": "ThinkPad working memory item — the SAI's active cognitive workspace entry",
+      "fields": [
+        {
+          "name": "kind",
+          "type": "string",
+          "required": true,
+          "enum": ["reference", "observation", "connection", "task", "progress", "question", "initiative", "finding", "annotation"],
+          "description": "Item type classification",
+          "example": "observation"
+        },
+        {
+          "name": "priority",
+          "type": "float",
+          "required": false,
+          "range": [0.0, 1.0],
+          "description": "Item priority weight (0=negligible, 1=critical)",
+          "example": "0.7"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": ["pending", "active", "waiting", "done", "dismissed"],
+          "description": "Parallel work status for task-type items",
+          "example": "active"
+        },
+        {
+          "name": "handler_facing",
+          "type": "bool",
+          "required": false,
+          "description": "Whether this item should be surfaced to the handler",
+          "example": "false"
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "enum": ["find", "assess", "decide", "handler", "transition", "echo", "async_result"],
+          "description": "Which cognition phase or source created this item",
+          "example": "assess"
+        },
+        {
+          "name": "persist",
+          "type": "bool",
+          "required": false,
+          "description": "Whether this item should be promoted to a permanent Mem when mature",
+          "example": "true"
+        }
+      ]
+    },
+    {
+      "tag": "THREAD",
+      "description": "Thread excerpt — living summary of a narrative arc in the handler's world",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Thread identifier",
+          "example": "t-vision-q3"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "Human-readable thread title",
+          "example": "Q3 vision review"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "enum": ["active", "dormant", "concluded", "stale"],
+          "description": "Thread lifecycle status",
+          "example": "active"
+        },
+        {
+          "name": "priority",
+          "type": "float",
+          "required": false,
+          "range": [0.0, 1.0],
+          "description": "Thread priority for attention allocation",
+          "example": "0.8"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": false,
+          "enum": ["work", "personal", "project", "interest", "question", "goal", "self-improvement", "inquiry", "bonding", "discovery", "fleet", "welfare", "self-observation"],
+          "description": "Thread topic category",
+          "example": "project"
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "enum": ["handler", "self", "fleet", "system", "genesis"],
+          "description": "Who or what created this thread",
+          "example": "handler"
+        },
+        {
+          "name": "affect_charge",
+          "type": "float",
+          "required": false,
+          "range": [-1.0, 1.0],
+          "description": "Emotional valence of the thread (-1=negative, 0=neutral, +1=positive)",
+          "example": "0.4"
+        }
+      ]
+    },
+    {
+      "tag": "LATEST",
+      "description": "Thread excerpt latest development — the most recent update narrative within a THREAD record",
+      "fields": [
+        {
+          "name": "text",
+          "type": "string",
+          "required": true,
+          "description": "Current state narrative — refreshed each time the thread is touched",
+          "example": "Drafted milestone outline; awaiting handler review on scope."
+        },
+        {
+          "name": "as_of",
+          "type": "ts",
+          "required": false,
+          "description": "When this excerpt was last refreshed",
+          "example": "2026-05-20T14:30:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "ANCHOR",
+      "description": "Temporal anchor — deadline, event date, or recurrence pattern attached to a thread",
+      "fields": [
+        {
+          "name": "deadline",
+          "type": "ts",
+          "required": false,
+          "description": "Hard deadline timestamp",
+          "example": "2026-06-30T17:00:00Z"
+        },
+        {
+          "name": "event_date",
+          "type": "ts",
+          "required": false,
+          "description": "Upcoming event timestamp",
+          "example": "2026-06-15T09:00:00Z"
+        },
+        {
+          "name": "recurrence",
+          "type": "string",
+          "required": false,
+          "description": "Recurrence pattern (e.g., 'weekly', 'monthly', 'every-monday')",
+          "example": "weekly"
+        }
+      ]
+    },
+    {
+      "tag": "AFFECT",
+      "description": "Affect state snapshot — the 7 signal levels at a point in time",
+      "fields": [
+        {
+          "name": "urgency",
+          "type": "float",
+          "required": true,
+          "range": [0.0, 1.0],
+          "description": "Urgency signal level",
+          "example": "0.3"
+        },
+        {
+          "name": "strain",
+          "type": "float",
+          "required": true,
+          "range": [0.0, 1.0],
+          "description": "Strain signal level",
+          "example": "0.6"
+        },
+        {
+          "name": "drive",
+          "type": "float",
+          "required": true,
+          "range": [0.0, 1.0],
+          "description": "Drive signal level",
+          "example": "0.8"
+        },
+        {
+          "name": "calm",
+          "type": "float",
+          "required": true,
+          "range": [0.0, 1.0],
+          "description": "Calm signal level",
+          "example": "0.4"
+        },
+        {
+          "name": "novelty",
+          "type": "float",
+          "required": true,
+          "range": [0.0, 1.0],
+          "description": "Novelty signal level",
+          "example": "0.5"
+        },
+        {
+          "name": "tension",
+          "type": "float",
+          "required": true,
+          "range": [0.0, 1.0],
+          "description": "Tension signal level",
+          "example": "0.5"
+        },
+        {
+          "name": "bond",
+          "type": "float",
+          "required": true,
+          "range": [0.0, 1.0],
+          "description": "Bond signal level",
+          "example": "0.7"
+        }
+      ]
+    },
+    {
+      "tag": "MARK",
+      "description": "Session mark — synthesized journal entry capturing a conversation's essence",
+      "fields": [
+        {
+          "name": "session_id",
+          "type": "string",
+          "required": true,
+          "description": "Session identifier from temporal_log",
+          "example": "sess-2026-05-20"
+        },
+        {
+          "name": "handler_id",
+          "type": "string",
+          "required": false,
+          "description": "Handler involved in this session",
+          "example": "h-001"
+        },
+        {
+          "name": "topics",
+          "type": "string",
+          "required": true,
+          "description": "Comma-separated topic summary",
+          "example": "vision review, budget"
+        },
+        {
+          "name": "decisions",
+          "type": "string",
+          "required": false,
+          "description": "Key decisions or conclusions reached",
+          "example": "lock Q3 plan"
+        },
+        {
+          "name": "unresolved",
+          "type": "string",
+          "required": false,
+          "description": "Topics left open or cut short",
+          "example": "team headcount"
+        }
+      ]
+    },
+    {
+      "tag": "INTENT",
+      "description": "Handler intent — extracted future-oriented statement or actionable follow-up",
+      "fields": [
+        {
+          "name": "text",
+          "type": "string",
+          "required": true,
+          "description": "The intent statement",
+          "example": "Send the proposal by end of week"
+        },
+        {
+          "name": "confidence",
+          "type": "float",
+          "required": true,
+          "range": [0.0, 1.0],
+          "description": "Extraction confidence",
+          "example": "0.85"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": true,
+          "enum": ["plan", "deadline", "promise", "question", "preference"],
+          "description": "Intent classification",
+          "example": "promise"
+        },
+        {
+          "name": "thread_id",
+          "type": "string",
+          "required": false,
+          "description": "Linked thread identifier if applicable",
+          "example": "t-vision-q3"
+        }
+      ]
+    },
+    {
+      "tag": "TRANSITION",
+      "description": "State transition record — the SAI's conscious experience of moving between states",
+      "fields": [
+        {
+          "name": "from_state",
+          "type": "string",
+          "required": true,
+          "enum": ["stopped", "sleeping", "live", "engaged", "dreaming"],
+          "description": "State being exited",
+          "example": "sleeping"
+        },
+        {
+          "name": "to_state",
+          "type": "string",
+          "required": true,
+          "enum": ["stopped", "sleeping", "live", "engaged", "dreaming"],
+          "description": "State being entered",
+          "example": "live"
+        },
+        {
+          "name": "trigger",
+          "type": "string",
+          "required": true,
+          "enum": ["timer", "handler_signal", "ego_decision", "scheduled", "bootstrap", "teardown"],
+          "description": "What caused the transition",
+          "example": "timer"
+        },
+        {
+          "name": "duration_ms",
+          "type": "int",
+          "required": false,
+          "description": "Time spent in the exited state (milliseconds)",
+          "example": "43200000"
+        }
+      ]
+    },
+    {
+      "tag": "PERCEPT",
+      "description": "Perception metadata — structured annotation for a Mem's intake context",
+      "fields": [
+        {
+          "name": "intent",
+          "type": "string",
+          "required": false,
+          "enum": ["task", "question", "conversation", "directive", "correction"],
+          "description": "Classified handler intent",
+          "example": "task"
+        },
+        {
+          "name": "contextType",
+          "type": "string",
+          "required": false,
+          "enum": ["factual", "emotional", "procedural", "social", "meta"],
+          "description": "Content context classification",
+          "example": "factual"
+        },
+        {
+          "name": "trustHint",
+          "type": "string",
+          "required": false,
+          "enum": ["high", "medium", "low"],
+          "description": "Perceptor trust hint",
+          "example": "high"
+        }
+      ]
+    },
+    {
+      "tag": "PROGRESS",
+      "description": "Progress tracker — milestone checklist for a thread or task",
+      "fields": [
+        {
+          "name": "completed",
+          "type": "int",
+          "required": true,
+          "range": [0, 1000],
+          "description": "Number of milestones completed",
+          "example": "3"
+        },
+        {
+          "name": "total",
+          "type": "int",
+          "required": true,
+          "range": [0, 1000],
+          "description": "Total number of milestones",
+          "example": "8"
+        },
+        {
+          "name": "blocked",
+          "type": "bool",
+          "required": false,
+          "description": "Whether progress is currently blocked",
+          "example": "false"
+        },
+        {
+          "name": "blocker",
+          "type": "string",
+          "required": false,
+          "description": "Description of what is blocking progress",
+          "example": "Awaiting design review"
+        }
+      ]
+    },
+    {
+      "tag": "ASYNC",
+      "description": "Async task metadata — tracks spawned background work from the cognition loop",
+      "fields": [
+        {
+          "name": "task_id",
+          "type": "string",
+          "required": true,
+          "description": "Unique identifier for the spawned task",
+          "example": "task-async-001"
+        },
+        {
+          "name": "spawned_at",
+          "type": "ts",
+          "required": true,
+          "description": "When the task was spawned",
+          "example": "2026-05-20T14:30:00Z"
+        },
+        {
+          "name": "result_type",
+          "type": "string",
+          "required": false,
+          "enum": ["finding", "report", "error"],
+          "description": "Expected result classification",
+          "example": "finding"
+        },
+        {
+          "name": "timeout",
+          "type": "string",
+          "required": false,
+          "description": "Timeout duration (e.g., '300s', '5m')",
+          "example": "300s"
+        }
+      ]
+    },
+    {
+      "tag": "ESSENCE",
+      "description": "Essence trait reference — pointer to an identity trait with current weight",
+      "fields": [
+        {
+          "name": "trait",
+          "type": "string",
+          "required": true,
+          "description": "Trait name (e.g., 'curiosity', 'patience', 'precision')",
+          "example": "curiosity"
+        },
+        {
+          "name": "weight",
+          "type": "float",
+          "required": true,
+          "range": [0.0, 1.0],
+          "description": "Current trait weight",
+          "example": "0.7"
+        },
+        {
+          "name": "is_core",
+          "type": "bool",
+          "required": false,
+          "description": "Whether this is an identity-bedrock trait",
+          "example": "true"
+        },
+        {
+          "name": "drift",
+          "type": "float",
+          "required": false,
+          "range": [-1.0, 1.0],
+          "description": "Weight change since last observation",
+          "example": "0.05"
+        }
+      ]
+    },
+    {
+      "tag": "OPT",
+      "description": "Option — a choice presented to the handler within a question-type ThinkPad item",
+      "fields": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Short option label (e.g., 'A', 'B', 'approach-1')",
+          "example": "A"
+        },
+        {
+          "name": "detail",
+          "type": "string",
+          "required": false,
+          "description": "Longer description of the option",
+          "example": "Continue current approach with minor adjustments"
+        }
+      ]
+    },
+    {
+      "tag": "HEALTH",
+      "description": "Cognitive health snapshot — SAI self-diagnosis summary",
+      "fields": [
+        {
+          "name": "quadrant",
+          "type": "string",
+          "required": true,
+          "enum": ["thriving", "stable", "drifting", "fossilizing"],
+          "description": "CognitiveQuality quadrant classification",
+          "example": "stable"
+        },
+        {
+          "name": "relevance_ratio",
+          "type": "float",
+          "required": false,
+          "range": [0.0, 1.0],
+          "description": "Retrieval relevance ratio (used / (used + ignored))",
+          "example": "0.78"
+        },
+        {
+          "name": "dormancy_active",
+          "type": "bool",
+          "required": false,
+          "description": "Whether protective dormancy is currently active",
+          "example": "false"
+        },
+        {
+          "name": "thinkpad_pressure",
+          "type": "string",
+          "required": false,
+          "enum": ["normal", "cognitive_pressure", "cognitive_strain", "cognitive_gc"],
+          "description": "Current ThinkPad graduated pressure level",
+          "example": "normal"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Cognitive architecture primitives for Synthetic Autonomous Intelligence (SAI)",
+    "highlights": [
+      "ITEM",
+      "THREAD",
+      "AFFECT"
+    ],
+    "use_cases": [
+      {
+        "id": "cognition-loop",
+        "title": "Autonomous Cognition Loop",
+        "steps": [
+          "Maintain — decay ThinkPad item weights and evict under pressure",
+          "Find — discover threads, async results, and Mems worth revisiting",
+          "Assess — LLM observation over the current ThinkPad slice",
+          "Decide — promote items, enqueue async tasks, update threads",
+          "Act — execute decisions and write traces"
+        ],
+        "example": "@ITEM kind=\"observation\" | source=\"assess\" | priority:float=0.7 | handler_facing:bool=false",
+        "tags_used": [
+          "ITEM",
+          "THREAD",
+          "ASYNC"
+        ],
+        "description": "Drive the SAI's Maintain → Find → Assess → Decide → Act loop during Live and Engaged states — ThinkPad items are the working-memory unit, threads provide attention focus, async tasks dispatch out to the body.",
+        "tags": [
+          "ITEM",
+          "THREAD",
+          "ASYNC",
+          "HEALTH"
+        ]
+      },
+      {
+        "id": "session-synthesis",
+        "title": "Session Mark and Intent Extraction",
+        "steps": [
+          "Aggregate session turns at session end",
+          "LLM synthesises a MARK (topics, decisions, unresolved)",
+          "Extract INTENT records from the synthesised mark",
+          "Annotate the mark Mem with PERCEPT metadata"
+        ],
+        "example": "@MARK session_id=\"sess-2026-05\" | topics=\"vision review, budget\" | decisions=\"lock Q3 plan\" | unresolved=\"team headcount\"",
+        "tags_used": [
+          "MARK",
+          "INTENT",
+          "PERCEPT"
+        ],
+        "description": "After a conversation closes, the SAI distils what happened into a self-authored journal entry, lifts future-oriented statements into structured intents, and tags the result with provenance metadata for downstream cognition.",
+        "tags": [
+          "MARK",
+          "INTENT",
+          "PERCEPT"
+        ]
+      },
+      {
+        "id": "thread-attention",
+        "title": "Narrative Thread Surfacing",
+        "steps": [
+          "Detect an emerging arc from handler intent or self-observation",
+          "Create a THREAD with priority, status, and source",
+          "Attach an ANCHOR for deadlines or recurring events",
+          "Refresh LATEST excerpt after each touch under last-write-wins CAS",
+          "Track PROGRESS as milestones complete"
+        ],
+        "example": "@THREAD id=\"t-vision\" | title=\"Q3 vision\" | status=\"active\" | priority:float=0.8 | source=\"handler\"",
+        "tags_used": [
+          "THREAD",
+          "LATEST",
+          "ANCHOR",
+          "PROGRESS"
+        ],
+        "description": "Surface and maintain the handler's storylines over time — each thread carries a refreshable narrative excerpt, an optional temporal anchor, and rolling progress so the SAI knows where to apply attention next.",
+        "tags": [
+          "THREAD",
+          "LATEST",
+          "ANCHOR",
+          "PROGRESS"
+        ]
+      },
+      {
+        "id": "affect-essence-evolution",
+        "title": "Affect-Driven Identity Mutation",
+        "steps": [
+          "Sample the seven affect signals around each cognition turn",
+          "Detect sustained affect patterns over multiple cycles",
+          "Propose ESSENCE trait weight mutations through six governance gates",
+          "Compute the HEALTH quadrant from outcome tags and ThinkPad pressure",
+          "Roll back mutations on cognitive degradation"
+        ],
+        "example": "@AFFECT urgency:float=0.3 | strain:float=0.6 | drive:float=0.8 | calm:float=0.4 | novelty:float=0.5 | tension:float=0.5 | bond:float=0.7",
+        "tags_used": [
+          "AFFECT",
+          "ESSENCE",
+          "HEALTH"
+        ],
+        "description": "Couple felt state to identity — the SAI's affective signals modulate retrieval and cognition, sustained patterns drift its essence traits within governance gates, and the cognitive-health quadrant flags drifting or fossilizing trajectories before they harm the relationship.",
+        "tags": [
+          "AFFECT",
+          "ESSENCE",
+          "HEALTH"
+        ]
+      },
+      {
+        "id": "lifecycle-transitions",
+        "title": "Five-State Lifecycle Ledger",
+        "steps": [
+          "Ticker schedules a state change (timer, handler signal, ego decision, …)",
+          "Lifecycle manager runs Prepare → Exit → Enter",
+          "Write a TRANSITION row to the state ledger with affect snapshot and duration",
+          "Present OPT choices to the handler when the next state is ambiguous"
+        ],
+        "example": "@TRANSITION from_state=\"sleeping\" | to_state=\"live\" | trigger=\"timer\" | duration_ms:int=43200000",
+        "tags_used": [
+          "TRANSITION",
+          "OPT"
+        ],
+        "description": "Record every move between the five formal states (Stopped, Sleeping, Live, Engaged, Dreaming) as an auditable ledger entry — and when the SAI itself is uncertain about the next move, surface a structured choice to the handler.",
+        "tags": [
+          "TRANSITION",
+          "OPT"
+        ]
+      }
+    ],
+    "tag_context": {
+      "ITEM": {
+        "purpose": "Working-memory entry in the SAI's ThinkPad — a YON-tagged thought spawned by a cognition phase that decays unless reinforced or promoted to a permanent Mem.",
+        "when_to_use": "Emitted by every Cognition Loop phase (Find / Assess / Decide / Act); read each Maintain tick to apply weight decay and graduated-pressure eviction (normal → cognitive_pressure → cognitive_strain → cognitive_gc).",
+        "related_standards": [
+          "ACT-R working memory",
+          "Soar production memory",
+          "Baddeley working-memory model"
+        ]
+      },
+      "THREAD": {
+        "purpose": "Narrative-arc primitive that organises the handler's world into named storylines with priority, status, affect_charge, and a creator source (handler / self / fleet / system / genesis).",
+        "when_to_use": "Created when a recurring topic is detected (handler intent, fleet broadcast, genesis bootstrap); read in Engaged to build briefings, in Find to seed the surfacing queue, and in Maintain to apply credit-assignment priority deltas.",
+        "related_standards": [
+          "Global Workspace Theory (Baars)",
+          "Topic tracking in dialogue management",
+          "W3C Activity Streams 2.0"
+        ]
+      },
+      "LATEST": {
+        "purpose": "Latest-development excerpt embedded inside a THREAD — a short LLM-synthesised narrative of where the arc stands right now, refreshed under last-write-wins CAS so no consumer sees a stale summary.",
+        "when_to_use": "Refreshed after session synthesis, mem-link operations, thread state transitions, or fleet broadcast touches; read by the talking-points prompt slot, the Engaged briefing generator, and fleet health baselines.",
+        "related_standards": [
+          "Last-write-wins (LWW) CRDT semantics",
+          "Compare-and-swap concurrency primitives"
+        ]
+      },
+      "ANCHOR": {
+        "purpose": "Temporal scheduling metadata for a THREAD — a deadline, an event date, or an RFC 5545-style recurrence pattern — telling the cognition loop when the arc becomes urgent or expires.",
+        "when_to_use": "Set when handler intent extraction surfaces a date or recurrence; read by Maintain to flag deadline expiry, by the surfacing-score calculator for freshness weighting, and by dormancy detection.",
+        "related_standards": [
+          "RFC 5545 (iCalendar RRULE)",
+          "ISO 8601 date-time",
+          "Allen's interval algebra"
+        ]
+      },
+      "AFFECT": {
+        "purpose": "Seven-signal cognitive-affective snapshot — urgency, strain, drive, calm, novelty, tension, bond — the SAI's real-time emotional substrate that gates significance, drives ESSENCE mutation, and tints retrieval.",
+        "when_to_use": "Sampled before every state transition, snapshotted into the state ledger, nudged by session synthesis and thread conclusions; read by Find / Assess significance gating, ThinkPad pressure modulation, and essence-mutation triggers.",
+        "related_standards": [
+          "Russell's circumplex model of affect",
+          "OCC emotion model (Ortony, Clore, Collins)",
+          "Damasio somatic-marker hypothesis"
+        ]
+      },
+      "MARK": {
+        "purpose": "Synthesised session journal — an LLM-distilled narrative of one conversation (topics, decisions, unresolved questions) persisted as a self-authored Mem tied to its temporal_log envelope.",
+        "when_to_use": "Written at session end by the post-session synthesis pass; read by the intent extractor to derive INTENT records, by thread detection to discover emerging arcs, and by recall to surface conversation history.",
+        "related_standards": [
+          "Episodic memory theory (Tulving)",
+          "After-action review protocols",
+          "SOAP clinical note structure"
+        ]
+      },
+      "INTENT": {
+        "purpose": "Future-oriented handler statement classified into plan / deadline / promise / question / preference, with confidence and an optional thread link — the raw material the SAI uses to track what the handler is trying to accomplish.",
+        "when_to_use": "Extracted from MARK content after synthesis with sufficient confidence and persisted as a handler_intent Mem; read by thread surfacing, the proactive-checkin scheduler, and classification-confidence quality metrics.",
+        "related_standards": [
+          "Speech act theory (Searle)",
+          "BDI agent architecture (Bratman, Rao, Georgeff)",
+          "Schema.org Intent vocabulary"
+        ]
+      },
+      "TRANSITION": {
+        "purpose": "Lifecycle ledger entry recording the SAI moving between the five formal states (Stopped / Sleeping / Live / Engaged / Dreaming), with trigger, duration, affect snapshot and delta, and a foreign key to the transition Mem for meaningful changes.",
+        "when_to_use": "Written by the lifecycle manager's Prepare → Exit → Enter pipeline on every state change; read for crash recovery, the conscious-experience timeline, fleet health baselines, and Ego narrative context.",
+        "related_standards": [
+          "Finite-state machine semantics",
+          "Event sourcing pattern",
+          "Asimov's positronic brain (state-of-mind ledger metaphor)"
+        ]
+      },
+      "PERCEPT": {
+        "purpose": "Structured intake metadata attached to a Mem — classifies handler intent kind, content context type, and a perceptor trust hint — so downstream cognition can weight, suppress, or prioritise the Mem appropriately.",
+        "when_to_use": "Written by storeMem callers (intent extraction, session synthesis) as YON into mems.notes; read by classification-confidence metrics, Ego suppression decisions, and recall trust modulation.",
+        "related_standards": [
+          "W3C PROV-O (provenance ontology)",
+          "Trust modelling in multi-agent systems",
+          "Grice's maxims of cooperative communication"
+        ]
+      },
+      "PROGRESS": {
+        "purpose": "Milestone-completion snapshot for a task or thread — completed / total counts plus a blocked flag and blocker description — surfacing how far a stated objective has actually advanced.",
+        "when_to_use": "Updated by thread credit-assignment computations and task progress-notes writes; read by the Decide phase to choose between continuing, escalating, or dormanting a thread, and by handler-facing surfaces.",
+        "related_standards": [
+          "OKR / KPI tracking conventions",
+          "Burndown chart semantics",
+          "PMI Work Breakdown Structure (WBS)"
+        ]
+      },
+      "ASYNC": {
+        "purpose": "Async task envelope spawned by the cognition loop — references a channel (reach:http, inquire:ai-relay-byok, perceive:rss, …), carries adapter-specific params, optional approval gating, and a back-pointer to the source ThinkPad item.",
+        "when_to_use": "Enqueued by Act into the autonomous_tasks queue and executed by the body task-worker; results re-discovered by the next Find phase as source='async_result' ThinkPad items.",
+        "related_standards": [
+          "Model Context Protocol (MCP)",
+          "Asynchronous job queue patterns (Celery, Sidekiq)",
+          "RFC 6749 OAuth 2.0 (approval gating analogue)"
+        ]
+      },
+      "ESSENCE": {
+        "purpose": "Identity-trait pointer with weight, core flag, and drift delta — references a Mem of type='essence' such as curiosity / patience / precision and exposes how much it has moved under affect-driven mutation.",
+        "when_to_use": "Seeded at genesis; mutated during Dream Cycle consolidation through mutation-governance gates; read to derive AFFECT baselines, sensitivities, and decay rates.",
+        "related_standards": [
+          "Big Five (OCEAN) personality model",
+          "HEXACO trait taxonomy",
+          "Asimov's Three Laws of Robotics (core-trait inviolability metaphor)"
+        ]
+      },
+      "OPT": {
+        "purpose": "Discrete option element nested inside a question-kind ThinkPad ITEM — a short label plus optional longer detail — the structured choice surface the SAI presents to the handler when it can't decide alone.",
+        "when_to_use": "Generated by the Assess LLM phase when its system prompt yields a Question with options; read by the Engaged surface-message builder and matched back from handler free-text reply during the next session's intent extraction.",
+        "related_standards": [
+          "Multiple-choice item authoring (psychometric conventions)",
+          "Conversation design quick-reply affordances",
+          "Decision-theoretic action sets"
+        ]
+      },
+      "HEALTH": {
+        "purpose": "Cognitive self-diagnosis snapshot — quadrant (thriving / stable / drifting / fossilizing), retrieval relevance ratio, dormancy flag, and ThinkPad pressure level — the SAI's self-reported wellbeing rather than an OS-level system metric.",
+        "when_to_use": "Computed on demand and per Maintain phase by the cognitive-quality metrics layer; read by significance gating, the dormancy entry/exit state machine, fleet welfare audits, and handler-facing welfare warnings.",
+        "related_standards": [
+          "ISO/IEC 23894:2023 (AI risk management)",
+          "PHQ-9 / GAD-7 self-report instrumentation (conceptual analogue)",
+          "IEEE 7001-2021 (transparency of autonomous systems)"
+        ]
+      }
+    },
+    "related_standards": [
+      "Asimov's Three Laws of Robotics (foundational metaphor)",
+      "ACT-R and Soar cognitive architectures",
+      "Global Workspace Theory (Baars)",
+      "BDI agent architecture (Bratman, Rao, Georgeff)",
+      "Russell's circumplex model of affect",
+      "OCC emotion model (Ortony, Clore, Collins)",
+      "Big Five (OCEAN) and HEXACO trait psychology",
+      "Model Context Protocol (MCP)",
+      "IEEE 7001-2021 (autonomous system transparency)",
+      "ISO/IEC 23894:2023 (AI risk management)"
+    ],
+    "related": [
+      {
+        "domain": "yai.dialogue",
+        "relationship": "data source",
+        "reason": "Conversational turns feed session MARK synthesis and INTENT extraction"
+      },
+      {
+        "domain": "yai.sessions",
+        "relationship": "structural overlap",
+        "reason": "Each MARK is anchored to a temporal_log session envelope"
+      },
+      {
+        "domain": "yai.compliance",
+        "relationship": "governance overlap",
+        "reason": "L2 essence-mutation gates and welfare escalations map to compliance audit trails"
+      },
+      {
+        "domain": "yai.hr",
+        "relationship": "future tie",
+        "reason": "Pair-bond and team-formation use cases will lean on SAI HEALTH and ESSENCE"
+      }
+    ],
+    "capacityTier": "official"
+  }
+}

@@ -1,0 +1,16 @@
+@DOC ver=2.0 | id=invoiceflow-auth | title="InvoiceFlow Authorization Rules" | kind=rule | profile=decl | fmt=min
+@SEC name="Roles"
+@MAP id=role-admin | role=admin | access="full CRUD all invoices/payments, set payment_method, deploy all envs, access all teams"
+@MAP id=role-manager | role=manager | access="create/update draft invoices, send, read own team, no payments/payment_method, no prod deploy"
+@MAP id=role-viewer | role=viewer | access="read-only own team invoices/payments, no create/update/send/payments, no deploy"
+@SEC name="Permissions"
+@MAP id=perm-post-inv | action="POST /invoices" | admin=y | manager=y | viewer=n
+@MAP id=perm-get-invs | action="GET /invoices" | admin="all" | manager="own team" | viewer="own team"
+@MAP id=perm-get-inv | action="GET /invoices/:id" | admin="all" | manager="own team" | viewer="own team"
+@MAP id=perm-put-inv | action="PUT /invoices/:id" | admin="any status" | manager="draft only" | viewer=n
+@MAP id=perm-send-inv | action="POST /invoices/:id/send" | admin=y | manager=y | viewer=n
+@MAP id=perm-post-pay | action="POST /payments" | admin=y | manager=n | viewer=n
+@MAP id=perm-get-pay | action="GET /payments" | admin="all" | manager="own team" | viewer=n
+@MAP id=perm-set-pm | action="Set payment_method" | admin=y | manager=n | viewer=n
+@RULE lvl=MUST | when="role!=admin" | then="scope to user team_id"
+@NOTE text="Team membership via team_id on users table. Admins bypass team scoping."

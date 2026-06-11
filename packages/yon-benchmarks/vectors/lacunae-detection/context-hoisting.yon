@@ -1,0 +1,22 @@
+@DOC ver=2.0 | id=api-security | title="API Security Policy" | kind=rule | profile=decl | fmt=min
+
+@SEC name="Authentication"
+@RULE rid=rule:jwt | lvl=MUST | then="require JWT bearer token on all protected endpoints"
+@RULE rid=rule:no-query-keys | lvl=MUST_NOT | then="accept API keys in query strings"
+@RULE rid=rule:token-expiry | lvl=SHOULD | then="set token expiry to 15 minutes"
+
+@SEC name="Rate Limiting"
+@RULE rid=rule:rate-limit | lvl=SHOULD | then="enforce 100 requests per minute per client IP"
+@RULE rid=rule:burst | lvl=MAY | then="allow burst of 20 requests within 5 seconds"
+@RULE rid=rule:internal-whitelist | lvl=MAY | then="whitelist internal service accounts from rate limiting"
+
+@SEC name="Payment Processing"
+@RULE rid=rule:mfa | lvl=MUST | then="require multi-factor authentication for transactions above $500"
+@RULE rid=rule:no-raw-cards | lvl=MUST_NOT | then="store raw card numbers in any persistent storage"
+@RULE rid=rule:tokenize | lvl=MUST | then="tokenize card data before storage using PCI-compliant provider"
+@CHECK rid=check:pci-mfa | assert="rule:mfa != VOID" | fail=ABORT | msg="PCI DSS 4.0 requires MFA for high-value transactions"
+@CHECK rid=check:card-storage | assert="rule:no-raw-cards != VOID" | fail=ABORT | msg="PCI DSS prohibits raw card number storage"
+
+@SEC name="Logging"
+@RULE rid=rule:mask-pii | lvl=MUST | then="mask all PII fields in request logs"
+@RULE rid=rule:retain-90d | lvl=SHOULD | then="retain security logs for 90 days minimum"

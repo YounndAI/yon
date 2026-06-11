@@ -1,0 +1,32 @@
+@DOC ver=2.0 | id=internal-task-management-system | title="Internal Task Management System Specification" | kind=spec | profile=decl | fmt=canon
+
+@SEC name="Project Overview"
+@NOTE text="Project: Internal Task Management System (working title: \"TaskFlow\")"
+@NOTE text="Status: Early requirements gathering. Most of these are preliminary and subject to change."
+
+@SEC name="Core Features"
+@MAP id=Core Features name="Core Features" | pairs=["Task creation"->"title, description, assignee, due date","Kanban board"->"To Do, In Progress, Review, Done","Search and filtering"->"assignee, status, tags","Real-time updates"->"WebSocket"]
+
+@SEC name=Database
+@NOTE text="PostgreSQL seems like the right choice, but we might switch to something else if scale demands it"
+@MAP id=Main Entities name="Main Entities" | pairs=["users"->"","teams"->"","projects"->"","tasks"->"","comments"->"","attachments"->"","labels"->"","activity_log"->""]
+
+@SEC name="API Design"
+@NOTE text="REST for now, though we could move to GraphQL later if the frontend team pushes for it"
+@RULE lvl=MUST | when="API requests" | then="Rate limiting: around 100 requests per minute per user, roughly. this is negotiable"
+
+@SEC name="Performance Requirements"
+@RULE lvl=MUST | when="Page load" | then="Page load: under 2 seconds, ideally under 1.5"
+@RULE lvl=MUST | when="API response" | then="API response time: probably around 200ms for most endpoints, maybe 500ms for complex queries"
+
+@SEC name="Integration Points"
+@NOTE text="Slack notifications: almost certainly need this, but we might use email as fallback initially"
+@NOTE text="Calendar sync: apparently some teams want Google Calendar integration, supposedly for due date syncing"
+
+@SEC name="Non-Functional Requirements"
+@RULE lvl=MUST | when="Uptime SLA" | then="Uptime SLA: aiming for 99.9% but honestly 99.5% is probably realistic for v1"
+
+@SEC name="Open Questions"
+@NOTE text="Do we need multi-tenancy? some stakeholders think so, others say single-tenant is fine for now"
+@NOTE text=100ms
+@NOTE text=JSON

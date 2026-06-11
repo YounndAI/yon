@@ -1,0 +1,6 @@
+Authentication uses Bearer token OAuth2 with a 3600 second TTL and 30-day refresh.
+Rate limit is 500 requests per minute globally. When rate limited, return 429 with Retry-After header.
+Admin tokens can access all organizations. User tokens can only access their own organization.
+All API requests must include the Authorization header with a valid bearer token.
+Tokens are issued by the /auth/token endpoint using client credentials or authorization code flow.
+Refresh tokens can be used once and are invalidated after use. A new refresh token is issued with each access token.

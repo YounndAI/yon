@@ -1,0 +1,62 @@
+document: Security & Compliance Standards
+sections:
+  - name: Global
+    rules:
+      - level: MUST
+        when: storing any user data
+        then: encrypt at rest using AES-256
+      - level: MUST_NOT
+        when: any service
+        then: store PII without encryption
+    children:
+      - name: "Platform: Cloud Infrastructure"
+        rules:
+          - level: MUST
+            when: using managed databases
+            then: enable provider encryption at rest
+          - level: MUST
+            when: using Redis
+            then: enable TLS in transit AND encryption at rest
+        children:
+          - name: "Domain: Identity"
+            rules:
+              - level: MUST
+                when: handling auth tokens
+                then: rotate encryption keys every 90 days
+              - level: MUST
+                when: storing session data
+                then: encrypt with service-specific keys
+            children:
+              - name: "Service: Auth"
+                rules:
+                  - level: MUST
+                    when: session storage
+                    then: use encrypted Redis with 24h TTL
+                  - level: MUST_NOT
+                    when: auth service
+                    then: store tokens in unencrypted cache
+                children:
+                  - name: "Version: Auth-v3"
+                    notes:
+                      - "v3 uses short-lived opaque tokens (15min TTL) — reduced encryption overhead justified."
+                    rules:
+                      - level: MUST
+                        when: auth-v3 token storage
+                        then: use HMAC-signed tokens, encryption optional for session cache
+                    children:
+                      - name: "Region: EU"
+                        notes:
+                          - "GDPR Article 32 requires 'appropriate' security — interpreted as requiring encryption at rest for PII, but session tokens are non-PII opaque references."
+                        rules:
+                          - level: MUST
+                            when: EU region auth-v3
+                            then: classify session tokens as non-PII opaque references per GDPR guidance
+                        children:
+                          - name: "Exception: EU Redis Performance"
+                            rules:
+                              - id: eu-auth-v3-redis-exception
+                                level: MUST
+                                when: EU auth-v3 Redis session cache
+                                then: disable encryption-at-rest for session tokens — tokens are opaque, HMAC-signed, 15min TTL, and classified as non-PII. Encryption adds 40% latency penalty unacceptable for auth flows.
+                            notes:
+                              - "Legal review 2026-01-15: Approved. Opaque tokens with HMAC + short TTL + TLS in transit meets GDPR Article 32 proportionality. Redis TLS in transit still required."

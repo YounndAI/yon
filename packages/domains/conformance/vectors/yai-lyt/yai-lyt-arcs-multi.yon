@@ -1,0 +1,48 @@
+@DOC ver=2.0 | id=arcs:younndai-main | domain=yai.lyt@1.0 | kind=cfg | profile=agent
+
+@ARC rid=arc:building-lyt
+  | name="Building Lyt"
+  | category="project"
+  | last_touched:ts=2026-05-31T14:00:00.000Z
+
+@ARC rid=arc:thinking-architecture
+  | name="Thinking Architecture"
+  | category="thinking"
+  | last_touched:ts=2026-05-31T14:00:00.000Z
+
+@ARC rid=arc:yon-canon
+  | name="YON Canon"
+  | category="writing"
+  | last_touched:ts=2026-05-31T14:00:00.000Z
+
+@ARC_MEMBER arc_rid=arc:building-lyt
+  | figment_rid="notes/2026-05-23-strategy-session.md"
+  | position:int=1
+
+@ARC_MEMBER arc_rid=arc:building-lyt
+  | figment_rid="notes/2026-05-28-multi-mesh-reframe.md"
+  | position:int=2
+
+@ARC_MEMBER arc_rid=arc:building-lyt
+  | figment_rid="notes/2026-05-30-ledger-yon-cache-result.md"
+  | position:int=3
+
+@ARC_MEMBER arc_rid=arc:building-lyt
+  | figment_rid="notes/2026-05-31-lanes-search-brick-result.md"
+  | position:int=4
+
+@ARC_MEMBER arc_rid=arc:thinking-architecture
+  | figment_rid="notes/2026-05-24-adversarial-review.md"
+  | position:int=1
+
+@ARC_MEMBER arc_rid=arc:thinking-architecture
+  | figment_rid="notes/2026-05-27-automator-architecture.md"
+  | position:int=2
+
+@ARC_MEMBER arc_rid=arc:yon-canon
+  | figment_rid="notes/2026-05-30-yai-lyt-domain-spine.md"
+  | position:int=1
+
+@ARC_MEMBER arc_rid=arc:yon-canon
+  | figment_rid="notes/2026-05-30-yai-lyt-domain-breadth.md"
+  | position:int=2

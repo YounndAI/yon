@@ -1,0 +1,12 @@
+@DOC ver=2.0 | id=npc-dialogue | title="NPC Dialogue System" | scenario=npc | domain=yai.gaming | kind=workflow | profile=core | fmt=min
+
+@NOTE text="Game NPC dialogue tree."
+
+@META character=innkeeper | mood=friendly
+
+@BEGIN TXT | id=greeting | mime=text/plain | boundary=bnd_greeting
+Welcome, traveler! The road from the mountains is rough this time of year.
+Care for some warm stew? Only 5 gold coins.
+@END TXT | boundary=bnd_greeting
+
+@MAP id=Responses | pairs=["accept"->"Excellent choice! Here you go.","decline"->"Suit yourself. The offer stands.","haggle"->"Ha! You drive a hard bargain. 3 coins, final offer."]

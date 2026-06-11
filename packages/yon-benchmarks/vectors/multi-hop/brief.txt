@@ -1,0 +1,17 @@
+Build a designer portfolio landing page with these 8 requirements:
+
+1. Hero section with the designer's name "Kai Tanaka", tagline "Where function meets beauty", and a dark background with an animated gradient from deep navy (#0A1628) to electric purple (#6C3CE1)
+
+2. A project showcase grid with exactly 4 featured projects: "Solstice App" (mobile UI for a meditation app), "Harbor Coffee" (brand identity for a specialty roastery), "Prism Analytics" (dashboard design for a SaaS product), and "Atlas Travel" (responsive website for a luxury travel agency)
+
+3. A skills section listing: UI/UX Design, Brand Identity, Motion Graphics, Illustration, and Design Systems — each with a proficiency indicator (percentage or bar)
+
+4. An about section: Kai is based in Tokyo, has 9 years of experience, previously worked at a major design agency called "StudioNorth", now freelance since 2024. Studied at Tama Art University.
+
+5. Contact form with fields for name, email, project type (dropdown: Brand, Web, App, Other), budget range (dropdown: <$5K, $5-15K, $15-50K, $50K+), and message textarea
+
+6. The CTA button text must be "Let's Create Together" in the primary accent color electric purple
+
+7. Footer with links to Behance, Twitter/X, LinkedIn, and a "Download Resume" button
+
+8. The page must use the font "Satoshi" for headings and "Inter" for body text

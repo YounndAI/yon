@@ -1,0 +1,33 @@
+alright so we need to set up a new kubernetes cluster for the analytics team. here's what they need:
+
+cluster specs:
+- 3 node pools: general (4 nodes, e2-standard-4), compute (2 nodes, n2-highmem-8, spot instances ok), gpu (1 node, a100-40gb, on-demand only)
+- region: us-east1 (they want low latency to our main DB which is in us-east1-b)
+- kubernetes version: 1.29 (latest stable)
+- private cluster with authorized networks only (our office IPs + VPN range 10.0.0.0/8)
+
+storage:
+- need a 500GB SSD persistent volume for the main analytics database (PostgreSQL 16)
+- also want a 2TB standard PD for archival data
+- backups: daily snapshots retained for 30 days
+
+networking:
+- internal load balancer for the API (no public exposure)
+- but we DO need a public endpoint for the webhook receiver (with SSL cert from let's encrypt)
+- network policy: deny all ingress by default, then whitelist specific services
+- the analytics API should only be reachable from the main app cluster (10.128.0.0/16)
+
+monitoring:
+- prometheus + grafana stack (use the kube-prometheus-stack helm chart)
+- alert on: node CPU > 80% for 5 min, pod restarts > 3 in 10 min, PV usage > 85%
+- send alerts to #infra-alerts slack channel and pagerduty for P1s
+
+secrets:
+- use external secrets operator with GCP secret manager
+- rotate DB credentials every 90 days
+- TLS certs managed by cert-manager
+
+oh and make sure to set up proper RBAC:
+- analytics team gets namespace-scoped edit access
+- platform team gets cluster-admin
+- CI/CD service account gets deploy + read access only

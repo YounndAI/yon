@@ -1,0 +1,608 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.devops",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Deployment pipelines, infrastructure observability, incident management, and SRE workflows with SLO tracking",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "DEPLOY",
+      "description": "Deployment event — tracks version rollout with commit and status state machine",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "dep:api-gw-v2.4.1"
+        },
+        {
+          "name": "service",
+          "type": "string",
+          "required": false,
+          "description": "Service Name",
+          "example": "api-gateway"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": false,
+          "description": "Version",
+          "example": "v2.4.1"
+        },
+        {
+          "name": "commit",
+          "type": "string",
+          "required": false,
+          "description": "Commit SHA",
+          "example": "a1b2c3d"
+        },
+        {
+          "name": "environment",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "dev",
+            "staging",
+            "production",
+            "canary"
+          ],
+          "description": "Target Environment: dev, staging, production, canary",
+          "example": "production"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "pending",
+            "running",
+            "success",
+            "failed",
+            "rollback"
+          ],
+          "description": "Deploy Status: pending, running, success, failed, rollback",
+          "example": "success"
+        }
+      ]
+    },
+    {
+      "tag": "PIPELINE",
+      "description": "CI/CD pipeline execution — stage-level tracking with duration and artifacts",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "pipe:main-4521"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Pipeline Name",
+          "example": "deploy-production"
+        },
+        {
+          "name": "stage",
+          "type": "string",
+          "required": false,
+          "description": "Current Stage",
+          "example": "integration-test"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "queued",
+            "running",
+            "passed",
+            "failed",
+            "skipped"
+          ],
+          "description": "Stage Status: queued, running, passed, failed, skipped",
+          "example": "passed"
+        },
+        {
+          "name": "duration_sec",
+          "type": "int",
+          "required": false,
+          "description": "Duration in sec",
+          "unit": "sec",
+          "example": "342"
+        },
+        {
+          "name": "trigger",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "push",
+            "merge",
+            "schedule",
+            "manual",
+            "api"
+          ],
+          "description": "Trigger Type: push, merge, schedule, manual, api",
+          "example": "merge"
+        }
+      ]
+    },
+    {
+      "tag": "METRIC",
+      "description": "Infrastructure metric — time-series observation with unit and threshold alerting",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Metric Name",
+          "example": "http_request_latency_p99"
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "required": false,
+          "description": "Metric Value",
+          "example": "142.5"
+        },
+        {
+          "name": "unit",
+          "type": "string",
+          "required": false,
+          "description": "Unit",
+          "example": "ms"
+        },
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": false,
+          "description": "Observation Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-01T14:00:00Z"
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "prometheus",
+            "datadog",
+            "cloudwatch",
+            "grafana",
+            "custom",
+            "opentelemetry"
+          ],
+          "description": "Source (6 allowed values)",
+          "example": "api-gateway-prod"
+        },
+        {
+          "name": "threshold",
+          "type": "float",
+          "required": false,
+          "description": "Alert Threshold",
+          "example": "200.0"
+        }
+      ]
+    },
+    {
+      "tag": "INCIDENT",
+      "description": "Operational incident — severity-classified event with SLO impact tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "inc:2026-0042"
+        },
+        {
+          "name": "severity",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "sev1",
+            "sev2",
+            "sev3",
+            "sev4"
+          ],
+          "description": "Severity: sev1, sev2, sev3, sev4",
+          "example": "sev1"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Incident Title",
+          "example": "API latency spike >500ms"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "detected",
+            "investigating",
+            "mitigated",
+            "resolved",
+            "postmortem"
+          ],
+          "description": "Incident Status: detected, investigating, mitigated, resolved, postmortem",
+          "example": "investigating"
+        },
+        {
+          "name": "commander",
+          "type": "string",
+          "required": false,
+          "description": "Incident Commander",
+          "example": "on-call:platform"
+        },
+        {
+          "name": "ttd_min",
+          "type": "int",
+          "required": false,
+          "description": "Time to Detect in min",
+          "unit": "min",
+          "example": "3"
+        },
+        {
+          "name": "ttr_min",
+          "type": "int",
+          "required": false,
+          "description": "Time to Resolve in min",
+          "unit": "min",
+          "example": "47"
+        }
+      ]
+    },
+    {
+      "tag": "SLO",
+      "description": "Service level objective — error budget tracking with burn-rate alerting",
+      "fields": [
+        {
+          "name": "service",
+          "type": "string",
+          "required": false,
+          "description": "Service Name",
+          "example": "api-gateway"
+        },
+        {
+          "name": "objective",
+          "type": "string",
+          "required": false,
+          "description": "Objective",
+          "example": "availability"
+        },
+        {
+          "name": "target_pct",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Target in % (0–100)",
+          "unit": "%",
+          "example": "99.95"
+        },
+        {
+          "name": "current_pct",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Current in % (0–100)",
+          "unit": "%",
+          "example": "99.97"
+        },
+        {
+          "name": "window",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "1h",
+            "6h",
+            "24h",
+            "7d",
+            "28d",
+            "30d"
+          ],
+          "description": "Measurement Window (6 allowed values)",
+          "example": "30d"
+        },
+        {
+          "name": "budget_remaining",
+          "type": "float",
+          "required": false,
+          "description": "Budget Remaining in %",
+          "unit": "%",
+          "example": "0.62"
+        }
+      ]
+    },
+    {
+      "tag": "CHANGE",
+      "description": "Change management record — ITIL-aligned change tracking with risk assessment",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "chg:CHG-2026-0087"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "standard",
+            "normal",
+            "emergency"
+          ],
+          "description": "Change Type: standard, normal, emergency",
+          "example": "normal"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Description",
+          "example": "Database schema migration v42"
+        },
+        {
+          "name": "risk_level",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "description": "Risk Level: low, medium, high",
+          "example": "medium"
+        },
+        {
+          "name": "approver",
+          "type": "string",
+          "required": false,
+          "description": "Approver",
+          "example": "VP Engineering"
+        },
+        {
+          "name": "rollback_plan",
+          "type": "string",
+          "required": false,
+          "description": "Rollback Plan",
+          "example": "Revert migration via flyway undo"
+        }
+      ]
+    },
+    {
+      "tag": "RUNBOOK",
+      "description": "Runbook step — executable operational procedure for incident response or maintenance",
+      "fields": [
+        {
+          "name": "step",
+          "type": "int",
+          "required": false,
+          "description": "Step Number",
+          "example": "1"
+        },
+        {
+          "name": "action",
+          "type": "string",
+          "required": false,
+          "description": "Action Description",
+          "example": "Check API gateway error rate"
+        },
+        {
+          "name": "command",
+          "type": "string",
+          "required": false,
+          "description": "Command",
+          "example": "kubectl get pods -n api-gateway"
+        },
+        {
+          "name": "expected",
+          "type": "string",
+          "required": false,
+          "description": "Expected Output",
+          "example": "All pods Running, 0 restarts"
+        },
+        {
+          "name": "automated",
+          "type": "bool",
+          "required": false,
+          "description": "Automated indicator",
+          "example": "false"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Deployment pipelines and SRE observability for infrastructure AI",
+    "highlights": [
+      "DEPLOY",
+      "INCIDENT",
+      "SLO"
+    ],
+    "use_cases": [
+      {
+        "id": "cicd-pipeline",
+        "title": "CI/CD Pipeline Observability",
+        "steps": [
+          "Trigger @BUILD from commit with artifact versioning",
+          "Execute @PIPELINE stages (lint, test, security scan)",
+          "Promote @DEPLOY to staging with canary release strategy",
+          "Monitor @METRIC (latency, error rate, saturation) post-deploy",
+          "Roll back @DEPLOY if @METRIC SLO breach detected"
+        ],
+        "example": "@DEPLOY rid=dep:1 | service=\"api-gateway\" | version=\"v2.4.1\" | environment=\"production\" | strategy=\"canary\" | status=\"healthy\"",
+        "tags_used": [
+          "PIPELINE",
+          "DEPLOY",
+          "METRIC"
+        ],
+        "description": "Correlate deployments, incidents, and metric anomalies to measure DORA metrics (lead time, deployment frequency, MTTR, change failure rate) and identify bottlenecks.",
+        "tags": [
+          "DEPLOY",
+          "INCIDENT",
+          "METRIC",
+          "CHANGE"
+        ],
+        "tags_planned": [
+          "BUILD"
+        ]
+      },
+      {
+        "id": "incident-response",
+        "title": "Automated Incident Response",
+        "steps": [
+          "Detect anomaly from @METRIC threshold or ML model",
+          "Create @INCIDENT with severity, affected services, and timeline",
+          "Correlate @LOG entries across services for root cause",
+          "Review recent @DEPLOY and @CONFIG changes in blast radius",
+          "Resolve @INCIDENT and publish blameless post-mortem"
+        ],
+        "example": "@INCIDENT rid=inc:1 | severity=\"P1\" | title=\"API latency spike >500ms\" | status=\"investigating\" | affected_services=\"api-gateway,auth\"",
+        "tags_used": [
+          "METRIC",
+          "INCIDENT",
+          "DEPLOY"
+        ],
+        "description": "Detect incidents from metric anomalies and alerts, auto-page on-call responders, and track resolution timelines. Link incidents to deployments for root cause analysis.",
+        "tags": [
+          "INCIDENT",
+          "METRIC",
+          "DEPLOY",
+          "CHANGE",
+          "CONFIG"
+        ],
+        "tags_planned": [
+          "LOG",
+          "CONFIG"
+        ]
+      }
+    ],
+    "tag_context": {
+      "DEPLOY": {
+        "purpose": "Deployment event tracking version rollout across environments with commit lineage",
+        "when_to_use": "Release recording, rollback documentation, canary promotion, deployment frequency (DORA) measurement",
+        "related_standards": [
+          "OCI Image Spec",
+          "Kubernetes API",
+          "ArgoCD GitOps"
+        ]
+      },
+      "PIPELINE": {
+        "purpose": "CI/CD pipeline execution with stage-level tracking, duration metrics, and trigger source",
+        "when_to_use": "Build observability, stage failure analysis, pipeline optimization, lead time measurement",
+        "related_standards": [
+          "Tekton Pipeline CRD",
+          "GitHub Actions Workflow",
+          "Jenkins Pipeline"
+        ]
+      },
+      "METRIC": {
+        "purpose": "Infrastructure time-series metric with unit, source, and threshold for alert evaluation",
+        "when_to_use": "Observability dashboards, threshold alerting, capacity planning, SLI measurement",
+        "related_standards": [
+          "OpenTelemetry Metrics",
+          "Prometheus Exposition",
+          "StatsD"
+        ]
+      },
+      "INCIDENT": {
+        "purpose": "Operational incident with severity, lifecycle status, commander assignment, and time-to-resolve",
+        "when_to_use": "Incident declaration, on-call response, postmortem documentation, MTTR tracking, SLO budget burn",
+        "related_standards": [
+          "PagerDuty Events API v2",
+          "ITIL Incident Mgmt",
+          "ISO 27035"
+        ]
+      },
+      "SLO": {
+        "purpose": "Service level objective with target percentage, current measurement, and error budget tracking",
+        "when_to_use": "SLO definition, burn-rate alerting, reliability review meetings, error budget policy enforcement",
+        "related_standards": [
+          "Google SRE Book (Ch. 4)",
+          "OpenSLO"
+        ]
+      },
+      "CHANGE": {
+        "purpose": "ITIL-aligned change management record with risk level, approval, and rollback plan",
+        "when_to_use": "Change advisory board submissions, emergency change logging, risk assessment, audit trails",
+        "related_standards": [
+          "ITIL Change Enablement",
+          "ISO 20000-1",
+          "IEEE 828 SCM"
+        ]
+      },
+      "RUNBOOK": {
+        "purpose": "Executable operational procedure step for incident response, maintenance, or toil automation",
+        "when_to_use": "Incident response playbooks, operational procedure documentation, toil automation candidates, knowledge capture",
+        "related_standards": [
+          "ITIL Knowledge Mgmt",
+          "Ansible Playbook",
+          "PagerDuty Runbook"
+        ]
+      }
+    },
+    "links": [
+      {
+        "label": "DORA Metrics",
+        "url": "https://dora.dev/",
+        "type": "standard"
+      },
+      {
+        "label": "OpenSLO",
+        "url": "https://openslo.com/",
+        "type": "standard"
+      },
+      {
+        "label": "Google SRE Book",
+        "url": "https://sre.google/sre-book/table-of-contents/",
+        "type": "reference"
+      },
+      {
+        "label": "OpenTelemetry",
+        "url": "https://opentelemetry.io/",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.infrastructure",
+        "relationship": "often paired",
+        "reason": "Infrastructure metrics and topology"
+      },
+      {
+        "domain": "yai.security",
+        "relationship": "data overlap",
+        "reason": "Security incident response shares lifecycle"
+      },
+      {
+        "domain": "yai.compliance",
+        "relationship": "regulatory overlap",
+        "reason": "Change management audit requirements"
+      }
+    ],
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

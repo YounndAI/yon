@@ -1,0 +1,1 @@
+The main CTA should probably be purple or something vibrant. I think we need a save confirmation dialog too, but I'm not 100% sure if users will find it annoying. The layout should maybe be responsive, I guess mobile-first would be best.

@@ -1,0 +1,9 @@
+@DOC ver=2.0 | id=invoiceflow-api | title="InvoiceFlow API Specification" | kind=data | profile=exec | fmt=min
+@MAP id=create-invoice | method=POST | path="/invoices" | roles="manager,admin" | body="customer_id,line_items[],currency" | returns="invoice(draft)" | auth=bearer
+@MAP id=list-invoices | method=GET | path="/invoices" | roles="viewer,manager,admin" | filters="status,customer_id" | page_size:int=25 | max_page:int=100
+@MAP id=get-invoice | method=GET | path="/invoices/:id" | roles="viewer,manager,admin" | returns="full detail+payments+audit" | scope="own team unless admin"
+@MAP id=update-invoice | method=PUT | path="/invoices/:id" | roles="manager,admin" | status_req=draft | fields="line_items,currency,notes,due_date" | payment_method="admin only"
+@MAP id=send-invoice | method=POST | path="/invoices/:id/send" | roles="manager,admin" | effect="draft→sent, triggers email, irreversible"
+@MAP id=create-payment | method=POST | path="/payments" | roles=admin | body="invoice_id,amount,payment_method,reference" | effect="if amount=total→paid; partial tracked"
+@MAP id=list-payments | method=GET | path="/payments" | roles="manager,admin" | filters=invoice_id
+@MAP id=health | method=GET | path="/health" | roles=public | auth=none | returns="status,version,uptime" | http:int=200

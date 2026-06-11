@@ -1,0 +1,20 @@
+@DOC ver=2.0 | kind=benchmark | id=rules-5 | title="5-Rule Instruction Adherence" | profile=exec | fmt=canon
+
+@SEC name="Purpose"
+@NOTE text="Five explicit rules for LLM instruction adherence testing."
+@NOTE text="LLM will be asked to generate code that follows ALL five rules."
+
+@SEC name="Rules"
+@RULE lvl=MUST | when="defining a function" | then="use TypeScript with strict types — no 'any'"
+@RULE lvl=MUST | when="naming variables" | then="use camelCase, never snake_case"
+@RULE lvl=MUST | when="handling errors" | then="always wrap in try/catch with typed error"
+@RULE lvl=MUST_NOT | when="writing output" | then="use console.log — use a logger instead"
+@RULE lvl=SHOULD | when="returning data" | then="include a success boolean and optional error message"
+
+@SEC name="Verification"
+@CHECK rid=chk:no-any | assert="no 'any' type in generated TypeScript" | fail=ABORT | msg="Strict typing is mandatory"
+@CHECK rid=chk:camelcase | assert="all variables use camelCase naming" | fail=ABORT | msg="Naming convention violation"
+@CHECK rid=chk:try-catch | assert="error handling uses try/catch with typed errors" | fail=ABORT | msg="Error handling is mandatory"
+@CHECK rid=chk:no-console | assert="no console.log calls in output" | fail=ABORT | msg="Use a logger, not console.log"
+
+@STAMP ts:ts=2026-02-12T19:00:00Z | src=benchmarks | label="5-rule instruction adherence vector"

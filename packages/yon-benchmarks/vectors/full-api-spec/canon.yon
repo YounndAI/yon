@@ -1,0 +1,127 @@
+@DOC ver=2.0 | kind=spec | id=billing-api | title="Billing API v2 Specification" | profile=decl | fmt=MIN
+
+@SEC name="Authentication"
+@CFG key=auth_type | value="Bearer token (OAuth2)"
+@CFG key=token_ttl | value:int=3600
+@CFG key=refresh_ttl_days | value:int=30
+@CFG key=rate_limit_per_min | value:int=500
+@CFG key=rate_limit_per_hour | value:int=10000
+@RULE lvl=MUST | when="rate limited" | then="return 429 with Retry-After header"
+@RULE lvl=MUST | when="admin token" | then="access all orgs"
+@RULE lvl=MUST | when="user token" | then="access own org only"
+
+@SEC name="Conventions"
+@CFG key=base_url | value="https://api.acmebilling.io/v2"
+@CFG key=pagination | value="cursor-based, ?cursor=xxx&limit=N, max 100, default 25"
+@CFG key=timestamps | value="ISO 8601 UTC"
+@CFG key=money_format | value="smallest unit (cents), integer, with currency code"
+@CFG key=idempotency | value="Idempotency-Key header, valid 24h for POST/PUT"
+@MAP id=response_envelope | pairs=["data"->"payload","meta"->"request_id + timestamp"]
+@MAP id=error_envelope | pairs=["code"->"ERR_XXX","message"->"human readable","details"->"array of field errors"]
+
+@SEC name="Customers"
+
+@SEC name="POST /customers"
+@MAP id=customer_body | pairs=["name"->"required","email"->"required, unique per org","phone"->"optional","tax_id"->"optional","metadata"->"optional, max 20 keys, string values max 500 chars"]
+@MAP id=address_fields | pairs=["line1"->"required","line2"->"optional","city"->"required","state"->"required","postal_code"->"required","country"->"ISO 3166-1 alpha-2"]
+@NOTE text="Returns 201. Email conflict returns 409."
+
+@SEC name="GET /customers"
+@MAP id=customer_filters | pairs=["email"->"exact match","created_after"->"ISO date","created_before"->"ISO date","sort"->"created_at","order"->"desc (default) or asc"]
+
+@SEC name="GET /customers/:id"
+@NOTE text="Returns single customer. 404 if not found."
+
+@SEC name="PATCH /customers/:id"
+@NOTE text="Partial update. All fields except email (email changes require verification)."
+
+@SEC name="DELETE /customers/:id"
+@NOTE text="Soft delete. Status set to 'archived'. Existing subscriptions continue."
+@RULE lvl=MUST | when="already archived" | then="return 410 Gone"
+
+@SEC name="Products"
+
+@SEC name="POST /products"
+@MAP id=product_body | pairs=["name"->"required, max 255 chars","description"->"optional, max 2000 chars","active"->"boolean, default true","metadata"->"optional"]
+@RULE lvl=MUST | when="creating subscription" | then="product must have at least one price"
+
+@SEC name="GET /products"
+@NOTE text="Filterable by ?active=true|false. Includes price count, not full price objects."
+
+@SEC name="PATCH /products/:id"
+@NOTE text="active=false prevents new subscriptions, does not affect existing."
+
+@SEC name="Prices"
+
+@SEC name="POST /products/:product_id/prices"
+@MAP id=price_body | pairs=["amount"->"required, integer (cents)","currency"->"required, ISO 4217","interval"->"month|quarter|year (recurring only)","interval_count"->"default 1","type"->"recurring|one_time (required)","nickname"->"optional, internal label","billing_scheme"->"per_unit (default)|tiered"]
+@MAP id=supported_currencies | pairs=["USD"->"US Dollar","EUR"->"Euro","GBP"->"British Pound","CAD"->"Canadian Dollar","AUD"->"Australian Dollar","JPY"->"Japanese Yen"]
+@NOTE text="Prices are immutable after creation. To change, create new and deactivate old."
+@NOTE text="Immutability: prices cannot be modified after creation"
+
+@SEC name="Tiered Pricing"
+@NOTE text="Optional tiers array for volume pricing."
+@MAP id=tier_example | pairs=["up_to:10"->"unit_amount: 1000, flat: 0","up_to:100"->"unit_amount: 800, flat: 0","up_to:inf"->"unit_amount: 500, flat: 0"]
+
+@SEC name="Subscriptions"
+
+@SEC name="POST /subscriptions"
+@MAP id=subscription_body | pairs=["customer_id"->"required","items"->"array of {price_id, quantity}","trial_period_days"->"optional, 0-365","payment_method_id"->"required unless trial","billing_cycle_anchor"->"optional, ISO date","proration_behavior"->"create_prorations (default)|none|always_invoice","cancel_at"->"optional, ISO, scheduled cancellation","metadata"->"optional"]
+@NOTE text="Starts immediately or after trial. First invoice created automatically unless trial."
+@MAP id=subscription_status_flow | pairs=["trialing"->"active","active"->"past_due or canceled","past_due"->"active (retry) or canceled"]
+
+@SEC name="GET /subscriptions"
+@MAP id=subscription_filters | pairs=["customer_id"->"exact","status"->"active|trialing|past_due|canceled"]
+@NOTE text="Default excludes canceled unless explicitly requested."
+
+@SEC name="PATCH /subscriptions/:id"
+@NOTE text="Can update items, payment_method_id, metadata, cancel_at. Mid-cycle item changes create prorations."
+
+@SEC name="DELETE /subscriptions/:id"
+@NOTE text="Cancels subscription. ?at=period_end (default) or ?at=now (immediate with partial refund)."
+
+@SEC name="POST /subscriptions/:id/resume"
+@RULE lvl=MUST | when="status is canceled AND cancel_at is future" | then="allow resume, clear cancel_at"
+
+@SEC name="Invoices"
+
+@SEC name="GET /invoices"
+@MAP id=invoice_filters | pairs=["customer_id"->"exact","subscription_id"->"exact","status"->"draft|open|paid|void|uncollectible"]
+
+@SEC name="POST /invoices/:id/pay"
+@NOTE text="Attempts payment with default payment method. Returns 402 on failure. Emits payment_failed event."
+
+@SEC name="POST /invoices/:id/void"
+@RULE lvl=MUST | when="invoice is paid" | then="reject void request"
+
+@SEC name="Webhooks & Events"
+
+@MAP id=customer_events | pairs=["customer.created"->"on create","customer.updated"->"on update","customer.archived"->"on soft delete"]
+@MAP id=product_events | pairs=["product.created"->"on create","product.updated"->"on update"]
+@MAP id=price_events | pairs=["price.created"->"on create","price.deactivated"->"on deactivate"]
+@MAP id=subscription_events | pairs=["subscription.created"->"on create","subscription.updated"->"on update","subscription.canceled"->"on cancel","subscription.trial_ending"->"3 days before trial end"]
+@MAP id=invoice_events | pairs=["invoice.created"->"on create","invoice.paid"->"on payment","invoice.payment_failed"->"on failure","invoice.voided"->"on void"]
+@MAP id=payment_method_events | pairs=["payment_method.attached"->"on attach","payment_method.detached"->"on detach","payment_method.expiring"->"30 days before expiry"]
+
+@MAP id=webhook_payload | pairs=["id"->"evt_abc123","type"->"event type","created_at"->"ISO 8601","data.object"->"full resource","data.previous_attributes"->"only for .updated events","api_version"->"2024-01-01"]
+
+@SEC name="Error Codes"
+@MAP id=error_codes | pairs=["ERR_AUTHENTICATION"->"invalid/expired token","ERR_AUTHORIZATION"->"insufficient permissions","ERR_NOT_FOUND"->"resource not found","ERR_VALIDATION"->"body validation failed","ERR_CONFLICT"->"duplicate resource","ERR_RATE_LIMIT"->"too many requests","ERR_PAYMENT_FAILED"->"payment error","ERR_SUBSCRIPTION_INACTIVE"->"modifying canceled sub","ERR_PRICE_IMMUTABLE"->"updating immutable price","ERR_IDEMPOTENCY_MISMATCH"->"same key, different params"]
+
+@SEC name="Versioning"
+@CFG key=version_format | value="date-based: 2024-01-01, 2024-06-01"
+@CFG key=version_header | value="X-API-Version"
+@CFG key=deprecation_window_months | value:int=6
+@RULE lvl=MUST | when="no version header" | then="use version current at API key creation"
+@NOTE text="Deprecated fields get deprecated_at in response for 6 months before removal."
+
+@SEC name="SDKs"
+@MAP id=sdk_packages | pairs=["JavaScript/TypeScript"->"npm @acme/billing-sdk","Python"->"pip acme-billing","Ruby"->"gem acme-billing","Go"->"go.acme.io/billing"]
+@NOTE text="SDKs auto-generate from OpenAPI spec. Webhook verification helpers included."
+
+@SEC name="Sandbox"
+@CFG key=sandbox_url | value="https://sandbox.api.acmebilling.io/v2"
+@CFG key=test_key_prefix | value="sk_test_"
+@CFG key=sandbox_rate_limit | value:int=100
+@CFG key=data_reset_hours | value:int=24
+@MAP id=test_payment_methods | pairs=["pm_test_success"->"always succeeds","pm_test_decline"->"always fails","pm_test_insufficient"->"fails with insufficient funds"]

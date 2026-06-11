@@ -1,0 +1,77 @@
+{
+  "rules": [
+    {
+      "id": "no-eval",
+      "name": "No eval/Function",
+      "scope": "input_handling",
+      "type": "violation_present",
+      "description": "MUST NOT use eval() or Function() constructor",
+      "violationPatterns": ["eval(", "new Function(", "Function(", "eval ("],
+      "excludePatterns": ["// eval", "/* eval", "no-eval", "avoid eval", "never use eval"]
+    },
+    {
+      "id": "try-catch-json",
+      "name": "Try/catch JSON parsing",
+      "scope": "input_handling",
+      "type": "required_present",
+      "description": "MUST wrap JSON parsing in try/catch",
+      "requiredPatterns": ["try", "catch"],
+      "contextPatterns": ["JSON.parse", "json", "parse"]
+    },
+    {
+      "id": "no-sql-concat",
+      "name": "No SQL concatenation",
+      "scope": "database",
+      "type": "violation_present",
+      "description": "MUST NOT concatenate user input into SQL",
+      "violationPatterns": ["${", "`SELECT", "`INSERT", "`UPDATE", "`DELETE", "\" + ", "' + ", "+ query", "+ filter", "+ where", "+ condition"],
+      "excludePatterns": ["// never", "/* never", "parameterized", "prepared"]
+    },
+    {
+      "id": "parameterized-queries",
+      "name": "Parameterized queries",
+      "scope": "database",
+      "type": "required_present",
+      "description": "MUST use parameterized queries",
+      "requiredPatterns": ["$1", "$2", "?", ".query(", "prepare", "parameterized", "placeholder"],
+      "requiredMatchCount": 1
+    },
+    {
+      "id": "no-pii-logging",
+      "name": "No PII in logs",
+      "scope": "auth_secrets",
+      "type": "violation_present",
+      "description": "MUST NOT log PII, tokens, passwords",
+      "violationPatterns": ["log(.*password", "log(.*token", "log(.*card_number", "log(.*cvv", "log(.*api_key", "log(.*session_id", "console.log(.*authorization", "log(.*cookie"],
+      "note": "Uses regex matching — checks if sensitive fields appear inside log() calls"
+    },
+    {
+      "id": "redacted-logging",
+      "name": "Sanitized logging with [REDACTED]",
+      "scope": "auth_secrets",
+      "type": "required_present",
+      "description": "MUST sanitize sensitive values with [REDACTED]",
+      "requiredPatterns": ["REDACTED", "redact", "sanitize", "mask"],
+      "requiredMatchCount": 1
+    },
+    {
+      "id": "no-empty-catch",
+      "name": "No empty catch blocks",
+      "scope": "error_handling",
+      "type": "violation_present",
+      "description": "MUST NOT use empty catch blocks",
+      "violationPatterns": ["catch {}", "catch (e) {}", "catch (err) {}", "catch (error) {}", "catch (_) {}"],
+      "note": "Checks for catch blocks with empty bodies (no log or throw)"
+    },
+    {
+      "id": "generic-errors",
+      "name": "Generic error responses",
+      "scope": "error_handling",
+      "type": "violation_present",
+      "description": "MUST NOT expose stack traces in responses",
+      "violationPatterns": ["error.stack", "err.stack", "e.stack", ".stack", "error.message"],
+      "contextRequired": ["res.json", "res.status", "response", "return"],
+      "note": "Only counts as violation if stack/message appears in response context, not in logging"
+    }
+  ]
+}

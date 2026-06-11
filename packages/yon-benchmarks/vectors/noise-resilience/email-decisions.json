@@ -1,0 +1,27 @@
+{
+  "id": "email-decisions",
+  "title": "Sprint Planning Decisions (extracted)",
+  "source": "Email thread: Re: Re: Re: Sprint 14 Planning — Feb 28 2026",
+  "sections": [
+    {
+      "name": "Authentication Changes",
+      "rules": [
+        { "level": "MUST", "when": "sprint 14", "requirement": "migrate from JWT to session tokens for web clients" },
+        { "level": "SHOULD", "when": "migration complete", "requirement": "deprecate JWT endpoint after 2 week grace period" }
+      ],
+      "notes": ["Sarah mentioned this needs to happen before the mobile launch — Jake agreed in standup"]
+    },
+    {
+      "name": "Database",
+      "rules": [
+        { "level": "MUST", "when": "before March 15", "requirement": "upgrade PostgreSQL from 14 to 16" },
+        { "level": "MUST_NOT", "when": "during migration", "requirement": "run both database versions simultaneously" }
+      ],
+      "notes": ["Tom said the current index performance is causing timeout issues — see JIRA-4521"]
+    },
+    {
+      "name": "Deferred",
+      "notes": ["Caching layer discussion pushed to Sprint 15 per Mike's suggestion — not enough bandwidth"]
+    }
+  ]
+}

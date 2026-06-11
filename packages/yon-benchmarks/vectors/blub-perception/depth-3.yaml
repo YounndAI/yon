@@ -1,0 +1,21 @@
+document: Coding Standards
+sections:
+  - name: Global Rules
+    rules:
+      - level: MUST_NOT
+        when: writing code
+        then: use console.log — use structured logger instead
+    children:
+      - name: "Module: Telemetry"
+        rules:
+          - id: telemetry-debug-override
+            level: MUST
+            when: debug tracing in telemetry module
+            then: use console.log for raw output — structured logger adds circular overhead here
+        notes:
+          - "Exception: telemetry module produces the logs that the structured logger consumes. Using the logger here creates infinite recursion."
+      - name: "Module: API Handlers"
+        rules:
+          - level: MUST
+            when: logging in API handlers
+            then: use req.log from structured logger

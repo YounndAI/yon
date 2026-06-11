@@ -1,0 +1,7 @@
+@DOC ver=2.0 | id=hedging-cat2-api-limits | title="API Limits and Capacity" | kind=rule | profile=decl | fmt=canon
+
+@SEC name="Timeouts"
+@NOTE text="The API timeout should be around 30 seconds for standard requests, maybe 45 for file uploads."
+
+@SEC name="Capacity"
+@NOTE text="We're expecting roughly 200 concurrent users at peak, approximately 500 requests per minute."

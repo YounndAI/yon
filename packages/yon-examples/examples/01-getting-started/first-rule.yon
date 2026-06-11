@@ -1,0 +1,8 @@
+@DOC ver=2.0 | id=first-rule | title="First Rule" | kind=rule | profile=decl | fmt=canon
+
+@NOTE text="A simple policy document with three rule levels."
+
+@SEC name="API Guidelines"
+@RULE lvl=MUST | when="handling user data" | then="encrypt at rest"
+@RULE lvl=SHOULD | when="returning errors" | then="include a correlation ID"
+@RULE lvl=MAY | when="logging requests" | then="include request body for debugging"

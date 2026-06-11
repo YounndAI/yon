@@ -1,0 +1,16 @@
+Engineering Standup Notes — Mar 10
+
+(captured live, might be missing stuff)
+
+Backend:
+- We HAVE to fix the N+1 query thing in user-search before Wed's deploy. Jake saw 3 second response times in staging when we hit 500 concurrent users so it's pretty bad.
+- Would be good to get Redis caching in for session lookups this sprint if we can
+- The auth middleware could probably use some DI refactoring too but that's lower priority, only if someone has time
+
+Frontend:
+- The Safari dropdown z-index bug needs to be fixed before we hand off to QA. Lisa found it on iOS 17.4 — it only shows up when the modal is already open for some reason
+- Also reminder: nobody should be merging PRs without the visual regression suite running. That's a hard rule.
+
+DevOps:
+- SSL certs need rotating by end of sprint — they expire April 2nd. Mike has the runbook for it.
+- After that's done we should probably update the alertmanager thresholds in monitoring

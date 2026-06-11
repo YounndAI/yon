@@ -1,0 +1,111 @@
+YON Reading Card (v2.0)
+https://yon.younndai.com
+
+YON is a line-oriented data format. Every line is independently parseable.
+
+RECORD ANATOMY:
+@TAG field1=value1 | field2="quoted value" | key:type=typed_value
+- Separator: ` | ` (space, pipe, space) between fields.
+- Tags start with @ at column 1 (uppercase): @DOC, @SEC, @RULE, etc.
+- Comments: lines starting with # are comments.
+- Continuation: indented lines extend the previous record.
+
+DOCUMENT HEADER (first non-comment line, REQUIRED):
+@DOC ver=2.0 | id=<slug> | title="<Title>"
+Required fields: ver, id, title.
+Optional: kind=doc|rule|workflow|skill|sidecar|spec|context|memory|note|prompt
+          profile=core|decl|exec|audit|cognitive|agent|full (default: exec)
+          fmt=canon|min|ultra (default: canon)
+          domain=<namespace>.<domain-name>, guide=<url>, mode=struct|text|chat|hybrid
+
+VALUES AND QUOTING:
+- Bare values allowed if matching: [A-Za-z0-9_./:@+#-]+
+- Otherwise double-quote. Escape: \", \\, \n, \t
+- Values containing | MUST be quoted.
+- No type suffix = string. Parsers MUST NOT infer types.
+
+TYPED KEYS: key:type=value
+Built-in types: str (default), bool (true/false), int, float, ts (ISO-8601), bytes, ref, stream, vector
+Example: n:int=3, active:bool=true, ts:ts=2026-01-01T00:00:00Z
+
+UNIVERSAL FIELDS (may appear on any tag):
+rid — record ID, unique within doc, enables cross-references via rid: prefix
+from — source/sender, ts — timestamp, note — human comment
+
+CORE TAGS (Layer 1-2):
+@DOC      Document header (first line, required). Fields: ver, id, title (req); kind, profile, fmt, domain, guide, mode (opt)
+@SEC      Section boundary. Required: name
+@STAMP    Provenance. Required: ts, src. Optional: method, confidence, hash, model, cost
+@META     Freeform metadata (key=value pairs)
+@NOTE     Annotation. Required: text. Optional: lvl
+@RULE     Constraint. Required: lvl (MUST|MUST_NOT|SHOULD|SHOULD_NOT|MAY), when, then
+@MAP      Key-value mapping. Required: name, pairs. Pairs syntax: pairs=["key"->"value"]. Both sides MUST be quoted.
+@CFG      Configuration. Required: id, set. set=[key=value,...] for field items.
+@DEF      Alias. $XX="Expansion" ($-prefixed, repeat ≥5 times only)
+@REF      External reference. Required: name. Optional: url, target
+@SCHEMA   Type constraint. Required: key. Optional: opts, default
+@INTENT   Purpose. Required: goal
+@SCOPE    Boundary. Optional: context, region, compliance
+@CHECK    Assertion. Required: rid, assert, fail (ABORT|WARN|SKIP), msg
+@STEP     Workflow step. Required: rid, n:int, op. Optional: in, out, args, rules, use, timeout_ms, note
+@INPUT    Workflow input. Required: rid, name. Optional: type, required, default
+@OUTPUT   Workflow output. Required: rid, name. Optional: type
+@YIELD    Partial result. Required: rid, value
+@CATCH    Error handler. Required: target, on, do
+@RETRY    Retry policy. Required: target, max. Optional: delay_ms, backoff
+@ERROR    Error record. Required: code, msg
+@PATCH    Overlay update. Required: ts, target, set
+@VOID     Revocation. Required: ts, target. Optional: because
+@REDACTION Privacy redaction. Required: target, reason. Optional: field, method, start, end
+@CONSENT  Consent event. Required: party, scope. Optional: granted, revoked, expires
+@IDENTITY Cross-domain actor. Required: rid, type (person|organization|device|service|agent)
+@LOCATION Cross-domain spatial. Required: rid, type (facility|address|region|coordinates|virtual)
+
+BLOCKS (verbatim content — code, JSON, logs, prompts):
+@BEGIN <TAG> | mime="<mime-type>" | boundary="<8+ alphanum>"
+<content — raw, no escaping, no nesting>
+@END <TAG> | boundary="<match>"
+- TAG is uppercase: JSON, CODE, CSV, LOGS, PROMPT, MAP, etc.
+- mime is REQUIRED. boundary is REQUIRED (unless bytes:bytes present).
+- @END MUST repeat the TAG and boundary exactly.
+- id= is REQUIRED when doc has multiple blocks or block is referenced.
+- Blocks MUST NOT nest. Content inside blocks is raw payload.
+
+Block example:
+@BEGIN JSON | id=config | mime=application/json | boundary=bnd_cfg_01
+{"port": 8080, "host": "localhost"}
+@END JSON | boundary=bnd_cfg_01
+
+REFERENCES: Prefixed tokens connecting records, blocks, agents:
+block: (→@BEGIN id), rid: (→record rid), cfg: (→@CFG id), ref: (generic), file:, url:
+agent:, group:, role:, caps:, stream:, id: (→@IDENTITY), loc: (→@LOCATION)
+
+LISTS:
+in/out = reference tokens ONLY.  args/set = field items ONLY (key=value).  pairs = map pairs ONLY ("k"->"v").
+Inline depth limit = 1. No nested lists.
+
+CHANGE CONTROL:
+@PATCH ts:ts=<ISO> | target=rid:<ref> | set=[field=newvalue]     — modifies a prior record
+@VOID  ts:ts=<ISO> | target=rid:<ref> | because="reason"        — invalidates a prior record
+
+ONE-SHOT EXAMPLE — Complete workflow document:
+@DOC ver=2.0 | id=deploy-pipeline | title="Deploy Pipeline" | kind=workflow | profile=exec
+@INTENT goal="Automate build, test, and deploy cycle"
+@SEC name="Steps"
+@STEP rid=step:build | n:int=1 | op=std:build.compile@v1 | out=[ref:artifact]
+@STEP rid=step:test | n:int=2 | op=std:test.run@v1 | in=[ref:artifact] | rules=[rid:rule:coverage]
+@STEP rid=step:deploy | n:int=3 | op=std:deploy.push@v1 | in=[ref:artifact] | timeout_ms:int=60000
+@SEC name="Rules"
+@RULE rid=rule:coverage | lvl=MUST | when="running tests" | then="maintain 80% coverage"
+@SEC name="Error Handling"
+@CATCH target=rid:step:deploy | on=timeout | do=rid:step:build
+@RETRY target=rid:step:deploy | max:int=3 | delay_ms:int=5000 | backoff=exponential
+@SEC name="Config"
+@CFG id=env | set=[region=eu-west-1,tier=production]
+@MAP name=Endpoints | pairs=["staging"->"staging.app.com","production"->"app.com"]
+@BEGIN JSON | id=deploy_manifest | mime=application/json | boundary=bnd_mfst_01
+{"version": "2.1.0", "replicas": 3}
+@END JSON | boundary=bnd_mfst_01
+@STAMP ts:ts=2026-03-15T12:00:00Z | src=human
+
+Full spec: https://yon.younndai.com

@@ -1,0 +1,1 @@
+The API timeout should be around 30 seconds for standard requests, maybe 45 for file uploads. We're expecting roughly 200 concurrent users at peak, approximately 500 requests per minute.

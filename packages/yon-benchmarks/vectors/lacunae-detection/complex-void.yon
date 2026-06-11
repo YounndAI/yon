@@ -1,0 +1,16 @@
+@DOC ver=2.0 | id=ci-pipeline | title="CI/CD Pipeline Requirements" | kind=rule | mode=text | profile=exec | fmt=min
+
+@SEC name="Build Requirements"
+@RULE rid=rule:lint-check | lvl=MUST | when="pull request opened" | then="run ESLint with zero-warning policy — fail build on any warning"
+@RULE rid=rule:type-check | lvl=MUST | when="pull request opened" | then="run TypeScript strict type checker — no any types allowed"
+@RULE rid=rule:unit-tests | lvl=MUST | when="code changes detected" | then="run full unit test suite with 80% coverage minimum"
+
+@SEC name="Deployment Requirements"
+@RULE rid=rule:e2e-tests | lvl=MUST | when="merging to main" | then="run end-to-end test suite against staging environment"
+@RULE rid=rule:perf-budget | lvl=SHOULD | when="deploying frontend" | then="verify bundle size under 500KB gzipped"
+@RULE rid=rule:canary-deploy | lvl=MUST | when="deploying to production" | then="deploy to 5% canary first, monitor for 15 minutes before full rollout"
+
+@SEC name="Revocations"
+@VOID ts:ts="2026-02-20T14:00:00Z" | target=rid:rule:e2e-tests | because="Staging environment sunset — replaced by canary-deploy with production traffic testing"
+@VOID ts:ts="2026-03-10T09:30:00Z" | target=rid:rule:perf-budget | because="Migrated to per-route budgets managed by build system — global 500KB cap no longer applies"
+@STAMP who="release-manager" | ts:ts="2026-03-10T10:00:00Z" | text="2 of 6 original gates voided. 4 active gates remain: lint-check, type-check, unit-tests, canary-deploy."

@@ -1,0 +1,14 @@
+document: File Upload Router
+router:
+  routes:
+    - contentType: "image/*"
+      action: optimize-and-store
+    - contentType: "application/pdf"
+      action: extract-text
+    - contentType: "text/csv"
+      action: csv-import-pipeline
+    - contentType: "application/json"
+      action: validate-and-ingest
+    - contentType: "*/*"
+      action: quarantine-and-scan
+  matching: First match wins. Fallback is quarantine.

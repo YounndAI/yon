@@ -1,0 +1,30 @@
+@DOC ver=2.0 | id=analytics-pipeline | title="Analytics Data Pipeline" | kind=rule | profile=exec | fmt=canon
+
+@INTENT goal="Ingest event data from 3 sources, process, and load into BigQuery analytics warehouse"
+
+@SEC name="Data Sources"
+@MAP id=kafka | source="Kafka" | topic="user-events" | volume="~2M events/day" | format="JSON"
+@MAP id=kafka-schema | pairs=["user_id"->"string","event_type"->"string","timestamp"->"datetime","properties"->"nested object","session_id"->"string","device_info"->"object"]
+@MAP id=s3 | source="S3" | bucket="partner-data-drops" | format="CSV" | frequency="daily ~03:00 UTC" | size="500MB–2GB"
+@MAP id=s3-schema | pairs=["partner_id"->"string","transaction_id"->"string","amount"->"decimal","currency"->"string","status"->"string","created_at"->"datetime","metadata_json"->"string"]
+@MAP id=cdc | source="PostgreSQL" | db="legacy-crm" | method="CDC" | tables="customers, orders" | volume="~50k changes/day"
+
+@SEC name="Processing Rules"
+@RULE lvl=MUST | when="ingesting events" | then="deduplicate on composite key (user_id + event_type + timestamp)"
+@RULE lvl=MUST | when="user events" | then="enrich with CRM customer data (join on user_id = customer.external_id)"
+@RULE lvl=MUST | when="partner data" | then="convert all timestamps to UTC"
+@RULE lvl=MUST | when="transaction data" | then="validate currency codes against ISO 4217"
+@RULE lvl=MUST | when="loading to warehouse" | then="PII masking: SHA-256 hash email and phone"
+@RULE lvl=MUST | when="bad records" | then="route to dead letter queue, never block pipeline"
+
+@SEC name="Destination"
+@MAP id=bigquery | dataset="analytics_prod" | partitioning="date (event_date)" | clustering="event_type, user_id"
+@MAP id=retention | pairs=["raw data"->"2 years","aggregated data"->"indefinite"]
+
+@SEC name="SLAs"
+@MAP id=latency | pairs=["Kafka events"->"≤15 minutes end-to-end","S3 files"->"≤2 hours from upload","CDC changes"->"≤30 minutes"]
+@MAP id=availability | uptime="99.9%"
+@RULE lvl=MUST | when="lag exceeds 2× SLA threshold" | then="page on-call engineer"
+
+@SEC name="Tech Stack"
+@MAP id=stack | pairs=["stream processing"->"Apache Flink","transformations"->"dbt (in BigQuery)","batch orchestration"->"Airflow"]

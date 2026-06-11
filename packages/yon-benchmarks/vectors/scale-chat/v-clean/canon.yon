@@ -1,0 +1,8 @@
+@DOC ver=2.0 | id=auth-config | title="Authentication Configuration" | kind=rule | profile=exec | fmt=canon
+
+@SEC name=Authentication
+@MAP id=Auth name=Auth | pairs=["Bearer token"->"OAuth2","Token TTL"->"3600s","Refresh"->"30-day, single-use"]
+@RULE lvl=must | when="Rate limit exceeded" | then="On exceed: 429 + Retry-After header."
+@MAP id=Scope name=Scope | pairs=["admin tokens"->"all orgs","user tokens"->"own org only"]
+@RULE lvl=must | when="Making requests" | then="All requests require Authorization header."
+@NOTE text="Token endpoint: /auth/token (client credentials or auth code flow)."

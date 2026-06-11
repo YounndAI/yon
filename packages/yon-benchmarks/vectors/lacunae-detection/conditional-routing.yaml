@@ -1,0 +1,23 @@
+document: Request Routing Policy
+fallbackChain:
+  handlers:
+    - id: handler-a
+      role: primary
+      description: Live API call with 500ms timeout
+    - id: handler-b
+      role: secondary
+      description: Replica service with 1000ms timeout
+    - id: handler-c
+      role: tertiary
+      description: Cached response from Redis (stale OK, max 24h)
+    - id: fallback
+      role: last-resort
+      description: Return 503 with retry-after header
+  rules:
+    - level: MUST
+      when: handler fails
+      then: proceed to next handler in chain — never retry failed handler
+    - level: MUST
+      when: all handlers exhausted
+      then: execute last-resort fallback
+  note: Chain is strictly ordered. Each handler gets exactly one attempt. Total chain timeout: 2000ms.

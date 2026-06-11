@@ -1,0 +1,1 @@
+Structured generation failed after 1 attempts: No object generated: could not parse the response.

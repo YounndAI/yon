@@ -1,0 +1,7 @@
+{
+  "parse": "ok",
+  "validate_strict": "ok",
+  "validate_lenient": "ok",
+  "error_code": null,
+  "notes": "Minimal valid @CLUSTER with all required yai.yonpa fields (id, yonpa_schema_version, members, phases). Optional fields (name, success, install_scope) included for realism but not required. The `phases` string content is YONPA-linter territory; this vector covers the domain-level shape."
+}

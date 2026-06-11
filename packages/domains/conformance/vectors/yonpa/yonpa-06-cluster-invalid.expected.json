@@ -1,0 +1,7 @@
+{
+  "parse": "ok",
+  "validate_strict": "error",
+  "validate_lenient": "warn",
+  "error_code": null,
+  "notes": "@CLUSTER is missing required `members` and `phases` fields. Strict validation reports both missing-field errors; lenient warns."
+}

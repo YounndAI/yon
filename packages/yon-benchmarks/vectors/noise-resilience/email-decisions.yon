@@ -1,0 +1,16 @@
+@DOC ver=2.0 | id=email-decisions | title="Sprint Planning Decisions (extracted)" | kind=rule | profile=decl | fmt=canon
+
+@NOTE text="Extracted from email thread: Re: Re: Re: Sprint 14 Planning — Feb 28 2026"
+
+@SEC name="Authentication Changes"
+@RULE lvl=MUST | when="sprint 14" | then="migrate from JWT to session tokens for web clients"
+@NOTE text="Sarah mentioned this needs to happen before the mobile launch — Jake agreed in standup"
+@RULE lvl=SHOULD | when="migration complete" | then="deprecate JWT endpoint after 2 week grace period"
+
+@SEC name="Database"
+@RULE lvl=MUST | when="before March 15" | then="upgrade PostgreSQL from 14 to 16"
+@NOTE text="Tom said the current index performance is causing timeout issues — see JIRA-4521"
+@RULE lvl=MUST_NOT | when="during migration" | then="run both database versions simultaneously"
+
+@SEC name="Deferred"
+@NOTE text="Caching layer discussion pushed to Sprint 15 per Mike's suggestion — not enough bandwidth"

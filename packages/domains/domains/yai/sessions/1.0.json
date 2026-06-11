@@ -1,0 +1,507 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.sessions",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Session lifecycle management, state persistence, and multi-session orchestration",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "SESSION",
+      "description": "Session record — time-bounded interaction context with participant and state tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "sess:2026-abc123"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "chat",
+            "task",
+            "workflow",
+            "browsing",
+            "api",
+            "agent",
+            "collaborative"
+          ],
+          "description": "Session Type (7 allowed values)",
+          "example": "chat"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "active",
+            "idle",
+            "paused",
+            "expired",
+            "closed"
+          ],
+          "description": "Session Status: active, idle, paused, expired, closed",
+          "example": "active"
+        },
+        {
+          "name": "started",
+          "type": "ts",
+          "required": false,
+          "description": "Started At as ISO 8601 timestamp",
+          "example": "2026-03-15T09:00:00Z"
+        },
+        {
+          "name": "ended",
+          "type": "ts",
+          "required": false,
+          "description": "Ended At as ISO 8601 timestamp",
+          "example": "2026-03-15T09:45:00Z"
+        },
+        {
+          "name": "participant",
+          "type": "string",
+          "required": false,
+          "description": "Primary Participant",
+          "example": "user:42"
+        },
+        {
+          "name": "ttl_sec",
+          "type": "int",
+          "required": false,
+          "description": "Time-to-Live in seconds",
+          "unit": "seconds",
+          "example": "3600"
+        },
+        {
+          "name": "parent_session",
+          "type": "string",
+          "required": false,
+          "description": "Parent Session",
+          "example": "sess:2026-parent"
+        }
+      ]
+    },
+    {
+      "tag": "STATE",
+      "description": "Session state — key-value snapshot of session variables at a point in time",
+      "fields": [
+        {
+          "name": "session_ref",
+          "type": "string",
+          "required": false,
+          "description": "Session Reference",
+          "example": "sess:2026-abc123"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "description": "State Key",
+          "example": "user.preferences.theme"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "State Value",
+          "example": "dark"
+        },
+        {
+          "name": "version",
+          "type": "int",
+          "required": false,
+          "description": "Version",
+          "example": "3"
+        },
+        {
+          "name": "updated",
+          "type": "ts",
+          "required": false,
+          "description": "Updated At as ISO 8601 timestamp",
+          "example": "2026-03-15T09:12:00Z"
+        },
+        {
+          "name": "ttl_sec",
+          "type": "int",
+          "required": false,
+          "description": "Time-to-Live in seconds",
+          "unit": "seconds",
+          "example": "7200"
+        }
+      ]
+    },
+    {
+      "tag": "CHECKPOINT",
+      "description": "Session checkpoint — restorable snapshot for recovery or branching",
+      "fields": [
+        {
+          "name": "session_ref",
+          "type": "string",
+          "required": false,
+          "description": "Session Reference",
+          "example": "sess:2026-abc123"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Checkpoint Label",
+          "example": "pre-tool-execution"
+        },
+        {
+          "name": "state_snapshot",
+          "type": "string",
+          "required": false,
+          "description": "State Snapshot",
+          "example": "{\"context_length\":4096,\"turn\":7}"
+        },
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": false,
+          "description": "Checkpoint Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-15T09:30:00Z"
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "auto",
+            "manual",
+            "error",
+            "milestone",
+            "branch"
+          ],
+          "description": "Checkpoint Reason: auto, manual, error, milestone, branch",
+          "example": "milestone"
+        },
+        {
+          "name": "restorable",
+          "type": "bool",
+          "required": false,
+          "description": "Restorable indicator",
+          "example": "true"
+        }
+      ]
+    },
+    {
+      "tag": "EVENT",
+      "description": "Session event — lifecycle transition or user action within a session",
+      "fields": [
+        {
+          "name": "session_ref",
+          "type": "string",
+          "required": false,
+          "description": "Session Reference",
+          "example": "sess:2026-abc123"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "created",
+            "resumed",
+            "paused",
+            "expired",
+            "closed",
+            "error",
+            "heartbeat",
+            "activity"
+          ],
+          "description": "Event Type (8 allowed values)",
+          "example": "resumed"
+        },
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": false,
+          "description": "Event Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-15T09:15:00Z"
+        },
+        {
+          "name": "metadata",
+          "type": "string",
+          "required": false,
+          "description": "Metadata",
+          "example": "idle_duration_sec=300"
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "required": false,
+          "description": "Event Source",
+          "example": "client-sdk"
+        }
+      ]
+    },
+    {
+      "tag": "PARTICIPANT",
+      "description": "Session participant — entity (user, agent, service) in a session with role and permissions",
+      "fields": [
+        {
+          "name": "session_ref",
+          "type": "string",
+          "required": false,
+          "description": "Session Reference",
+          "example": "sess:2026-abc123"
+        },
+        {
+          "name": "entity",
+          "type": "string",
+          "required": false,
+          "description": "Entity ID",
+          "example": "agent:claude-4"
+        },
+        {
+          "name": "role",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "owner",
+            "participant",
+            "observer",
+            "moderator",
+            "agent"
+          ],
+          "description": "Role: owner, participant, observer, moderator, agent",
+          "example": "agent"
+        },
+        {
+          "name": "joined",
+          "type": "ts",
+          "required": false,
+          "description": "Joined At as ISO 8601 timestamp",
+          "example": "2026-03-15T09:00:00Z"
+        },
+        {
+          "name": "left",
+          "type": "ts",
+          "required": false,
+          "description": "Left At as ISO 8601 timestamp",
+          "example": "2026-03-15T09:45:00Z"
+        },
+        {
+          "name": "permissions",
+          "type": "string",
+          "required": false,
+          "description": "Permissions",
+          "example": "read,write,execute"
+        }
+      ]
+    },
+    {
+      "tag": "TRANSFER",
+      "description": "Session transfer — ownership or context migration between agents or systems",
+      "fields": [
+        {
+          "name": "session_ref",
+          "type": "string",
+          "required": false,
+          "description": "Session Reference",
+          "example": "sess:2026-abc123"
+        },
+        {
+          "name": "from",
+          "type": "string",
+          "required": false,
+          "description": "From Entity",
+          "example": "agent:claude-4"
+        },
+        {
+          "name": "to",
+          "type": "string",
+          "required": false,
+          "description": "To Entity",
+          "example": "human:support-42"
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "escalation",
+            "load-balance",
+            "specialization",
+            "timeout",
+            "user-request",
+            "error-recovery"
+          ],
+          "description": "Transfer Reason (6 allowed values)",
+          "example": "escalation"
+        },
+        {
+          "name": "context_preserved",
+          "type": "bool",
+          "required": false,
+          "description": "Context Preserved indicator",
+          "example": "true"
+        },
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": false,
+          "description": "Transfer Timestamp as ISO 8601 timestamp",
+          "example": "2026-03-15T09:30:00Z"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Session lifecycle and state management for AI orchestration",
+    "highlights": [
+      "SESSION",
+      "CHECKPOINT",
+      "EVENT"
+    ],
+    "use_cases": [
+      {
+        "id": "ai-session-tracking",
+        "title": "AI Conversation Session Tracking",
+        "steps": [
+          "Initialize @CONTEXT with system prompt and user profile",
+          "Record each @TURN with user message and assistant response",
+          "Log @LLM_CALL with model, tokens, latency, and cost",
+          "Track @TOOL_CALL invocations and results within turns",
+          "Collect @FEEDBACK (thumbs up/down, corrections) for RLHF"
+        ],
+        "example": "@LLM_CALL rid=llm:1 | model=\"claude-4-sonnet\" | input_tokens:int=1247 | output_tokens:int=856 | latency_ms:int=2340 | status=\"success\"",
+        "tags_used": [],
+        "description": "Manage multi-turn AI sessions with state persistence, checkpointing, and participant tracking. Support pause/resume, branching, and cross-session context transfer.",
+        "tags": [
+          "SESSION",
+          "STATE",
+          "CHECKPOINT",
+          "EVENT",
+          "PARTICIPANT"
+        ],
+        "tags_planned": [
+          "CONTEXT",
+          "TURN",
+          "LLM_CALL",
+          "TOOL_CALL",
+          "FEEDBACK"
+        ]
+      },
+      {
+        "id": "cost-optimization",
+        "title": "LLM Cost Optimization and Analytics",
+        "steps": [
+          "Aggregate @TOKEN_USAGE across models and environments",
+          "Analyze @LLM_CALL latency distributions per model tier",
+          "Identify @TOOL_CALL patterns driving excessive token usage",
+          "A/B test prompt templates using @FEEDBACK quality scores",
+          "Set budget alerts on @TOKEN_USAGE thresholds"
+        ],
+        "example": "@TOKEN_USAGE rid=tu:1 | model=\"gpt-4o\" | input_tokens:int=45000 | output_tokens:int=12000 | cost_usd:float=0.87 | period=\"hourly\"",
+        "tags_used": [],
+        "description": "Track session duration, token usage, and compute costs per conversation. Analyze checkpoint/restore patterns to optimize TTL settings and reduce idle resource consumption.",
+        "tags": [
+          "SESSION",
+          "EVENT",
+          "STATE",
+          "TRANSFER"
+        ],
+        "tags_planned": [
+          "TOKEN_USAGE",
+          "LLM_CALL",
+          "TOOL_CALL",
+          "FEEDBACK"
+        ]
+      }
+    ],
+    "tag_context": {
+      "SESSION": {
+        "purpose": "Core bridge tag — time-bounded interaction context with participant and state tracking",
+        "when_to_use": "Creating interactive contexts (chat, task, workflow), session lifecycle management, multi-session orchestration",
+        "related_standards": [
+          "OpenTelemetry Session",
+          "W3C Navigation Timing",
+          "GA4 Session"
+        ]
+      },
+      "STATE": {
+        "purpose": "Key-value snapshot of session variables with versioning and TTL for state persistence",
+        "when_to_use": "Session variable persistence, state rehydration, cross-turn context retention, undo/redo support",
+        "related_standards": [
+          "Redux (de facto)",
+          "Jotai/Zustand Atom",
+          "OpenTelemetry Baggage"
+        ]
+      },
+      "CHECKPOINT": {
+        "purpose": "Restorable session snapshot for crash recovery, branching, and milestone preservation",
+        "when_to_use": "Session recovery after errors, branching conversations, milestone preservation, rollback support",
+        "related_standards": [
+          "MLflow Tracking",
+          "W3C Provenance (PROV-O)",
+          "DVC"
+        ]
+      },
+      "EVENT": {
+        "purpose": "Session lifecycle transition or user action event with source attribution",
+        "when_to_use": "Lifecycle logging, activity auditing, heartbeat monitoring, error tracking, session analytics",
+        "related_standards": [
+          "CloudEvents (CNCF)",
+          "W3C DOM Events",
+          "OpenTelemetry Events"
+        ]
+      },
+      "PARTICIPANT": {
+        "purpose": "Session participant entity (user, agent, or service) with role and access permissions",
+        "when_to_use": "Multi-party session management, access control, collaborative editing, agent handoff tracking",
+        "related_standards": [
+          "W3C WebRTC",
+          "Schema.org Person",
+          "SCIM 2.0"
+        ]
+      },
+      "TRANSFER": {
+        "purpose": "Session ownership or context migration between agents, systems, or environments",
+        "when_to_use": "Agent handoff, escalation to human, cross-system context migration, load balancing",
+        "related_standards": [
+          "ActivityStreams 2.0 (W3C)",
+          "MCP Handoff",
+          "XMPP MUC"
+        ]
+      }
+    },
+    "links": [
+      {
+        "label": "OASIS WS-Session",
+        "url": "https://www.oasis-open.org/",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.dialogue",
+        "relationship": "bridge",
+        "reason": "Conversation sessions"
+      },
+      {
+        "domain": "yai.gaming",
+        "relationship": "often paired",
+        "reason": "Game sessions"
+      }
+    ],
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

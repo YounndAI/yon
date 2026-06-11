@@ -1,0 +1,37 @@
+Riverside General Hospital — Department Directory
+
+The hospital has 12 major departments, each with its own floor, department head, and operational hours.
+
+Department 1: Emergency Medicine. Located on Floor 1 (Ground). Head: Dr. Rachel Nguyen, board-certified in emergency medicine since 2015. Open 24/7, 365 days. Has 42 beds, 8 trauma bays, and 3 resuscitation rooms. Average wait time target: under 15 minutes for triage. The department handles approximately 85,000 visits per year.
+
+Department 2: Cardiology. Located on Floor 3. Head: Dr. Marcus Webb, interventional cardiologist. Operating hours: 7am-7pm weekdays, 8am-2pm Saturdays. Has 2 cardiac catheterization labs and 1 electrophysiology lab. Runs a heart failure clinic every Tuesday and Thursday.
+
+Department 3: Orthopedics. Located on Floor 4. Head: Dr. Yuki Sato, fellowship-trained in sports medicine. Operating hours: 8am-5pm weekdays. Has 3 operating rooms dedicated to joint replacements. Performs approximately 1,200 joint replacements per year with a 98.5% success rate.
+
+Department 4: Pediatrics. Located on Floor 5. Head: Dr. Amara Okafor, neonatologist. Operating hours: 24/7 for inpatient, 8am-6pm for outpatient clinic. Has a 20-bed NICU (Level III) and a 15-bed general pediatric ward. The pediatric emergency section is separate from the adult ED.
+
+Department 5: Obstetrics & Gynecology. Located on Floor 5 (West Wing). Head: Dr. Sarah Lin, maternal-fetal medicine specialist. Operating hours: 24/7 for labor & delivery, 9am-5pm for office visits. Delivers approximately 3,500 babies per year. Has 4 labor rooms, 2 C-section ORs, and 12 postpartum rooms.
+
+Department 6: Oncology. Located on Floor 6. Head: Dr. Ibrahim Hassan, medical oncologist specializing in lung and GI cancers. Operating hours: 8am-6pm weekdays. Has 15 infusion chairs with an average daily census of 45 patients. Runs 12 active clinical trials as of January 2026.
+
+Department 7: Neurology. Located on Floor 7. Head: Dr. Elena Popov, stroke neurologist. Operating hours: 8am-5pm weekdays, on-call 24/7 for stroke alerts. Certified as a Comprehensive Stroke Center. Average door-to-needle time for tPA administration: 28 minutes, well below the 60-minute national target.
+
+Department 8: Radiology. Located on Basement Level 1. Head: Dr. David Park, interventional radiologist. Operating hours: 7am-10pm daily, emergency imaging available 24/7. Equipment: 3 MRI machines (including 1 open MRI), 2 CT scanners, 4 X-ray rooms, 1 PET-CT, and 2 ultrasound suites. Processes approximately 250,000 images per year.
+
+Department 9: Pathology & Laboratory. Located on Basement Level 2. Head: Dr. Linda Frost, clinical pathologist. Open 24/7 for stat labs. Turnaround time targets: stat CBC — 30 minutes, routine chemistry panel — 2 hours, histology — 48 hours. The lab is CAP-accredited and processes 1.8 million tests per year.
+
+Department 10: Psychiatry. Located on Floor 8 (secured unit). Head: Dr. Michael Chen, addiction psychiatrist. Operating hours: inpatient 24/7, outpatient clinic 9am-4pm weekdays. Has a 24-bed acute psychiatric unit and a 6-bed detox unit. Provides telepsychiatry services to 3 rural partner clinics within a 100-mile radius.
+
+Department 11: Physical Therapy & Rehabilitation. Located on Floor 2. Head: Dr. Katherine Walsh, physiatrist. Operating hours: 7am-7pm weekdays, 8am-12pm Saturdays. Has a 6,000 sq ft gym with hydrotherapy pool. Treats approximately 200 outpatients per week. Specializes in post-stroke, post-surgical, and sports injury rehabilitation.
+
+Department 12: Administration. Located on Floor 9. Head: CEO Thomas Rivera. Operating hours: 8am-5pm weekdays. Oversees 4,200 total hospital employees across all departments. The hospital's annual operating budget is $890 million. IT department manages 15,000 connected devices across the campus. The hospital achieved Magnet Recognition for nursing excellence in 2024.
+
+General Information:
+- Total licensed beds: 520
+- Founded: 1962
+- Address: 1200 Riverside Drive, Portland, Oregon 97201
+- Parking: 3 garages with 2,400 total spaces, valet available at main entrance
+- Visiting hours: 10am-8pm daily, exceptions for ICU and NICU (2 visitors max at any time)
+- The hospital's EMR system is Epic, implemented in 2019
+- Helicopter landing pad on the roof, operational since 2008
+- The hospital is affiliated with Oregon Health Sciences University (OHSU) for residency training programs

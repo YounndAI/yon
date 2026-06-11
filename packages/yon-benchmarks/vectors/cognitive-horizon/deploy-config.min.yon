@@ -1,0 +1,13 @@
+@DOC ver=2.0 | id=invoiceflow-deploy | title="InvoiceFlow Deployment Configuration" | kind=config | profile=exec | fmt=min
+@MAP id=dev | env=dev | url="dev.invoiceflow.internal" | db=invoiceflow_dev | flags=local
+@MAP id=staging | env=staging | url="staging.invoiceflow.internal" | db=invoiceflow_staging | flags=remote
+@MAP id=prod | env=prod | url="api.invoiceflow.com" | db=invoiceflow_prod | flags=remote
+@RULE lvl=MUST | when="deploy dev" | then="any user, auto on merge→develop"
+@RULE lvl=MUST | when="deploy staging" | then="manager|admin, release/* branches"
+@RULE lvl=MUST | when="deploy prod" | then="admin only, main branch, 1 admin approval"
+@MAP id=f1 | flag=new_payment_flow | dev=on | staging=on | prod=off | effect="v2 multi-currency; off→USD only on POST /payments"
+@MAP id=f2 | flag=email_notifications | dev=off | staging=on | prod=on | effect="send triggers email; off→status change only"
+@MAP id=f3 | flag=audit_log_enrichment | dev=on | staging=on | prod=on | effect="adds IP+UA to audit_log"
+@MAP id=f4 | flag=strict_validation | dev=on | staging=on | prod=on | effect="full validation; off→required fields only"
+@RULE lvl=MUST | when="rollback prod" | then="admin, auto-disable new flags"
+@CFG key=rollback_window | val="72h"

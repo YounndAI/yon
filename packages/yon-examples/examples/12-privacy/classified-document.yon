@@ -1,0 +1,11 @@
+@DOC ver=2.0 | id=classified-document | title="Classified Document" | kind=spec | profile=decl | classification=confidential | handling=need-to-know | jurisdiction=EU | data_residency=eu-west-1 | embargo_until=2026-06-01T00:00:00Z | retention=5y | fmt=canon
+
+@NOTE text="Demonstrate @DOC governance fields for classification, handling, jurisdiction, data residency, embargo, and retention."
+
+@SEC name="Document Content"
+
+@INTENT goal="Define access controls for classified intelligence reports" | audience=security-team
+
+@RULE lvl=MUST | when="accessing this document" | then="verify need-to-know clearance via SSO group membership"
+@RULE lvl=MUST | when="distributing this document" | then="apply watermark with recipient identity"
+@RULE lvl=MUST_NOT | when="any operation" | then="store copies outside designated EU data centers"

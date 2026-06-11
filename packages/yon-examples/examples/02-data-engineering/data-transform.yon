@@ -1,0 +1,13 @@
+@DOC ver=2.0 | id=data-transform | title="Data Transform" | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Read CSV data, apply a text template, and write the result."
+
+@STEP n:int=1 | rid=read | op=std:fs.read@v1 | args=[path="data/input.csv"] | out=[ref:raw]
+@STEP n:int=2 | rid=parse | op=std:data.parse-csv@v1 | in=[ref:raw] | out=[ref:records]
+
+@BEGIN TXT | id=template | mime=text/plain | boundary=bnd_template
+Hello {{name}},
+Your order #{{order_id}} has shipped.
+@END TXT | boundary=bnd_template
+
+@STEP n:int=3 | rid=render | op=std:text.render@v1 | in=[ref:records, block:template] | out=[ref:output]

@@ -1,0 +1,47 @@
+@DOC ver=2.0 | id=api-design-guidelines | title="API Design Guidelines" | kind=spec | profile=decl | fmt=canon
+
+@INTENT goal="Standardize API design patterns across all services" | audience="Backend engineers, API consumers"
+
+@SEC name="Authentication and Authorization"
+@RULE lvl=MUST | when="any API endpoint" | then="require authentication using Bearer tokens in Authorization header"
+@RULE lvl=MUST | when="access tokens" | then="expire after 15 minutes; refresh tokens after 7 days"
+@RULE lvl=MUST | when="service-to-service communication" | then="use OAuth 2.0 client credentials flow"
+@RULE lvl=MUST | when="endpoint does not require auth" | then="explicitly list in API security manifest"
+@RULE lvl=MUST | when="rate limiting" | then="apply per-token: 100 req/min standard, 1000 req/min premium"
+@CHECK rid=chk:auth-required | assert="no endpoint accessible without Bearer token unless in security manifest" | fail=ABORT | msg="Unauthenticated access violates API security policy"
+
+@SEC name="Request Validation"
+@RULE lvl=MUST | when="request payload received" | then="validate against JSON Schema definitions before processing"
+@RULE lvl=MUST | when="path parameter is resource identifier" | then="use UUID v4 format"
+@RULE lvl=MUST | when="filtering via query parameters" | then="use format filter[field]=value"
+@RULE lvl=MUST | when="paginating" | then="use cursor-based navigation, max page size 100"
+@RULE lvl=MUST | when="date-time values" | then="use ISO 8601 with UTC timezone (suffix Z)"
+
+@SEC name="Error Handling"
+@RULE lvl=MUST | when="error response" | then="follow Problem Details format (RFC 7807)"
+@RULE lvl=MUST_NOT | when="internal server error" | then="expose stack traces or internal implementation details"
+@RULE lvl=MUST | when="field validation fails" | then="return HTTP 422 with specific field error list"
+@RULE lvl=MUST | when="rate limit exceeded" | then="include Retry-After header with seconds until reset"
+@RULE lvl=MUST | when="circuit breaker state change" | then="log internally but do not expose in API response"
+@CHECK rid=chk:no-stacktrace | assert="5xx responses never contain stack traces" | fail=ABORT | msg="Stack trace exposure is a security vulnerability"
+
+@SEC name="Caching"
+@RULE lvl=MUST | when="GET endpoint" | then="include appropriate Cache-Control headers"
+@RULE lvl=MUST | when="mutable resource response" | then="include ETag for conditional requests"
+@RULE lvl=MUST | when="localized response" | then="incorporate Accept-Language in cache key"
+@RULE lvl=MUST | when="collection endpoint" | then="set stale-while-revalidate to 60 seconds"
+@RULE lvl=MUST | when="private data endpoint" | then="set Cache-Control to no-store"
+
+@SEC name="Logging and Observability"
+@RULE lvl=MUST | when="any request" | then="log with correlation ID (X-Request-ID header)"
+@RULE lvl=MUST | when="response time exceeds 500ms" | then="trigger warning-level log entry"
+@RULE lvl=MUST | when="5xx error occurs" | then="generate monitoring alert within 30 seconds"
+@RULE lvl=MUST | when="distributed tracing" | then="use W3C Trace Context format"
+@RULE lvl=MUST_NOT | when="logging" | then="include personally identifiable information"
+
+@SEC name="Deprecation Policy"
+@RULE lvl=MUST | when="endpoint deprecated" | then="continue functioning for minimum 6 months after announcement"
+@RULE lvl=MUST | when="versioning" | then="follow semantic versioning; breaking changes only in major versions"
+@RULE lvl=MUST | when="deprecation planned" | then="publish migration guide at least 90 days before effect"
+@RULE lvl=MUST | when="deprecated endpoint" | then="return Deprecation header with announcement date"
+@RULE lvl=MUST | when="deprecated endpoint active" | then="track and report usage metrics monthly"

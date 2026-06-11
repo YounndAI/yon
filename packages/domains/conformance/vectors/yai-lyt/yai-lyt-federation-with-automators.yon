@@ -1,0 +1,32 @@
+@DOC ver=2.0 | id=federation:example-user | domain=yai.lyt@1.0 | kind=cfg | profile=agent
+
+@FEDERATION rid=fed:0190abcd12347000abcdef0123456789
+  | handle="example-user"
+  | visibility=private
+  | created_at:ts=2026-05-29T12:00:00Z
+
+@FED_MESH fed_rid=fed:0190abcd12347000abcdef0123456789
+  | mesh_rid=mesh:0190abcd12347000abcdef01234567aa
+  | mesh_name="personal"
+  | push_target="allemaar"
+  | push_kind=handle
+  | role=own
+  | added_at:ts=2026-05-29T12:05:00Z
+
+@FED_AUTOMATOR fed_rid=fed:0190abcd12347000abcdef0123456789
+  | automator_rid=automator:metadata-filler
+  | name="metadata-filler"
+  | version="0.1.0"
+  | source=system
+  | enabled:bool=true
+  | added_at:ts=2026-05-29T12:10:00Z
+
+@FED_AUTOMATOR fed_rid=fed:0190abcd12347000abcdef0123456789
+  | automator_rid=automator:timesheet-extractor
+  | name="timesheet-extractor"
+  | version="2.0.0"
+  | source=user
+  | enabled:bool=true
+  | added_at:ts=2026-05-29T12:11:00Z
+
+@META key=last_synced_at | value=2026-05-29T12:11:00Z

@@ -1,0 +1,20 @@
+@DOC ver=2.0 | id=memory-pipeline | title="Agent Memory Pipeline" | kind=workflow | profile=agent | features=[payload,logic,workflow,refs] | fmt=canon
+
+@NOTE text="Extract, embed, store, and retrieve knowledge for long-term agent memory."
+
+@SEC name="Ingestion"
+@STEP n:int=1 | rid=extract | op=std:text.chunk@v1 | out=[ref:chunks]
+@STEP n:int=2 | rid=embed | op=std:ai.embed@v1 | in=[ref:chunks] | out=[ref:vectors]
+@STEP n:int=3 | rid=store | op=std:vector.upsert@v1 | in=[ref:vectors]
+
+@SEC name="Retrieval"
+@STEP n:int=4 | rid=query | op=std:ai.embed@v1 | out=[ref:query_vector]
+@STEP n:int=5 | rid=search | op=std:vector.search@v1 | in=[ref:query_vector] | out=[ref:results]
+@STEP n:int=6 | rid=rerank | op=std:ai.rerank@v1 | in=[ref:results] | out=[ref:ranked]
+
+@SEC name="Synthesis"
+@STEP n:int=7 | rid=synthesize | op=std:ai.synthesize@v1 | in=[ref:ranked] | out=[ref:answer]
+
+@CHECK rid=gate:relevance | assert="ref:ranked.top_score >= 0.7" | fail=WARN | msg="Low relevance results"
+
+@STAMP ts:ts="2026-02-14T05:00:00Z" | src=memory-agent

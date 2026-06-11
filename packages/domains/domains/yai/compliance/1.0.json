@@ -1,0 +1,532 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.compliance",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Regulatory compliance, audit management, risk assessment, and policy enforcement across multiple regulatory frameworks",
+  "defaultMode": "struct",
+  "defaultProfile": "audit",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "CONTROL",
+      "description": "Compliance control — testable requirement linked to a regulatory framework",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "ctrl:AC-001"
+        },
+        {
+          "name": "framework",
+          "type": "string",
+          "required": false,
+          "description": "Regulatory Framework",
+          "example": "NIST CSF"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Control Title",
+          "example": "Access Control Policy"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "not-started",
+            "in-progress",
+            "implemented",
+            "tested",
+            "effective",
+            "ineffective"
+          ],
+          "description": "Control Status (6 allowed values)",
+          "example": "effective"
+        },
+        {
+          "name": "owner",
+          "type": "string",
+          "required": false,
+          "description": "Control Owner",
+          "example": "CISO Office"
+        },
+        {
+          "name": "maturity",
+          "type": "int",
+          "required": false,
+          "range": [
+            1,
+            5
+          ],
+          "description": "Maturity Level (1–5) (1–5)",
+          "example": "4"
+        }
+      ]
+    },
+    {
+      "tag": "FINDING",
+      "description": "Audit finding — gap or deficiency identified during control testing",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "fnd:2026-003"
+        },
+        {
+          "name": "control_ref",
+          "type": "string",
+          "required": false,
+          "description": "Control Reference",
+          "example": "ctrl:AC-001"
+        },
+        {
+          "name": "severity",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ],
+          "description": "Finding Severity: low, medium, high, critical",
+          "example": "high"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Finding Description",
+          "example": "MFA not enforced for admin accounts"
+        },
+        {
+          "name": "remediation_due",
+          "type": "ts",
+          "required": false,
+          "description": "Remediation Deadline as ISO 8601 timestamp",
+          "example": "2026-06-30T00:00:00Z"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "open",
+            "in-progress",
+            "remediated",
+            "accepted",
+            "closed"
+          ],
+          "description": "Finding Status: open, in-progress, remediated, accepted, closed",
+          "example": "in-progress"
+        }
+      ]
+    },
+    {
+      "tag": "EVIDENCE",
+      "description": "Compliance evidence — artifact proving control effectiveness",
+      "fields": [
+        {
+          "name": "control_ref",
+          "type": "string",
+          "required": false,
+          "description": "Control Reference",
+          "example": "ctrl:AC-001"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "document",
+            "screenshot",
+            "log",
+            "config",
+            "attestation",
+            "report"
+          ],
+          "description": "Evidence Type (6 allowed values)",
+          "example": "screenshot"
+        },
+        {
+          "name": "collected",
+          "type": "ts",
+          "required": false,
+          "description": "Collection Timestamp as ISO 8601 timestamp",
+          "example": "2026-04-15T10:30:00Z"
+        },
+        {
+          "name": "collector",
+          "type": "string",
+          "required": false,
+          "description": "Collector",
+          "example": "compliance-bot"
+        }
+      ]
+    },
+    {
+      "tag": "POLICY",
+      "description": "Policy record — organizational governance document with review lifecycle",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "pol:InfoSec-v3"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Policy Title",
+          "example": "Information Security Policy"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": false,
+          "description": "Version",
+          "example": "3.1"
+        },
+        {
+          "name": "effective_date",
+          "type": "ts",
+          "required": false,
+          "description": "Effective Date as ISO 8601 timestamp",
+          "example": "2026-01-01T00:00:00Z"
+        },
+        {
+          "name": "next_review",
+          "type": "ts",
+          "required": false,
+          "description": "Next Review Date as ISO 8601 timestamp",
+          "example": "2027-01-01T00:00:00Z"
+        },
+        {
+          "name": "owner",
+          "type": "string",
+          "required": false,
+          "description": "Policy Owner",
+          "example": "Legal & Compliance"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "draft",
+            "review",
+            "approved",
+            "effective",
+            "retired"
+          ],
+          "description": "Policy Status: draft, review, approved, effective, retired",
+          "example": "effective"
+        }
+      ]
+    },
+    {
+      "tag": "RISK_ASSESSMENT",
+      "description": "Risk assessment — likelihood × impact analysis with treatment plan",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "risk:DR-007"
+        },
+        {
+          "name": "risk",
+          "type": "string",
+          "required": false,
+          "description": "Risk Description",
+          "example": "Unauthorized data exfiltration"
+        },
+        {
+          "name": "likelihood",
+          "type": "int",
+          "required": false,
+          "range": [
+            1,
+            5
+          ],
+          "description": "Likelihood (1–5) (1–5)",
+          "example": "3"
+        },
+        {
+          "name": "impact",
+          "type": "int",
+          "required": false,
+          "range": [
+            1,
+            5
+          ],
+          "description": "Impact (1–5) (1–5)",
+          "example": "5"
+        },
+        {
+          "name": "residual_risk",
+          "type": "int",
+          "required": false,
+          "range": [
+            1,
+            25
+          ],
+          "description": "Residual Risk Score (1–25)",
+          "example": "6"
+        },
+        {
+          "name": "treatment",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "accept",
+            "mitigate",
+            "transfer",
+            "avoid"
+          ],
+          "description": "Treatment Strategy: accept, mitigate, transfer, avoid",
+          "example": "mitigate"
+        },
+        {
+          "name": "owner",
+          "type": "string",
+          "required": false,
+          "description": "Risk Owner",
+          "example": "VP Engineering"
+        }
+      ]
+    },
+    {
+      "tag": "OBLIGATION",
+      "description": "Regulatory obligation — specific compliance requirement with deadline tracking",
+      "fields": [
+        {
+          "name": "regulation",
+          "type": "string",
+          "required": false,
+          "description": "Regulation",
+          "example": "GDPR Article 33"
+        },
+        {
+          "name": "requirement",
+          "type": "string",
+          "required": false,
+          "description": "Requirement",
+          "example": "Data breach notification within 72 hours"
+        },
+        {
+          "name": "deadline",
+          "type": "ts",
+          "required": false,
+          "description": "Compliance Deadline as ISO 8601 timestamp",
+          "example": "2026-06-01T00:00:00Z"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "pending",
+            "in-progress",
+            "completed",
+            "overdue"
+          ],
+          "description": "Obligation Status: pending, in-progress, completed, overdue",
+          "example": "in-progress"
+        },
+        {
+          "name": "responsible",
+          "type": "string",
+          "required": false,
+          "description": "Responsible Party",
+          "example": "DPO"
+        },
+        {
+          "name": "penalty_risk",
+          "type": "float",
+          "required": false,
+          "description": "Penalty Risk in EUR",
+          "unit": "EUR",
+          "example": "20000000.00"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Regulatory compliance and audit management for enterprise AI",
+    "highlights": [
+      "CONTROL",
+      "FINDING",
+      "RISK_ASSESSMENT"
+    ],
+    "use_cases": [
+      {
+        "id": "regulatory-change",
+        "title": "Regulatory Change Management",
+        "steps": [
+          "Ingest new @REGULATION from official gazette or regulatory feed",
+          "Map @OBLIGATION requirements to affected business units",
+          "Assess existing @CONTROL coverage against new obligations",
+          "Schedule @AUDIT to verify implementation readiness",
+          "Document @FINDING gaps and remediation timelines"
+        ],
+        "example": "@OBLIGATION rid=obl:1 | regulation_ref=\"reg:GDPR\" | requirement=\"Data breach notification within 72 hours\" | status=\"active\" | due_date=\"2026-06-01\"",
+        "tags_used": [
+          "OBLIGATION",
+          "CONTROL",
+          "FINDING"
+        ],
+        "description": "Track regulatory updates across jurisdictions, map impacted controls and policies, and generate remediation plans with audit-ready evidence chains.",
+        "tags": [
+          "POLICY",
+          "CONTROL",
+          "AUDIT_FINDING",
+          "EVIDENCE"
+        ],
+        "tags_planned": [
+          "REGULATION",
+          "AUDIT"
+        ]
+      },
+      {
+        "id": "continuous-monitoring",
+        "title": "Continuous Compliance Monitoring",
+        "steps": [
+          "Define @CONTROL test procedures for each @OBLIGATION",
+          "Execute automated @AUDIT evidence collection",
+          "Classify @FINDING by severity and remediation priority",
+          "Update @POLICY documentation to reflect control changes",
+          "Generate board-ready compliance dashboard from @AUDIT results"
+        ],
+        "example": "@AUDIT rid=aud:1 | scope=\"SOX 404\" | status=\"in-progress\" | controls_tested:int=47 | findings:int=3",
+        "tags_used": [
+          "CONTROL",
+          "OBLIGATION",
+          "FINDING",
+          "POLICY"
+        ],
+        "description": "Automate control testing against policy baselines, flag exceptions in real-time, and maintain evidence repositories for SOC 2, ISO 27001, and PCI-DSS audits.",
+        "tags": [
+          "CONTROL",
+          "AUDIT_FINDING",
+          "EVIDENCE",
+          "POLICY"
+        ],
+        "tags_planned": [
+          "AUDIT"
+        ]
+      }
+    ],
+    "tag_context": {
+      "CONTROL": {
+        "purpose": "Testable compliance control mapped to a regulatory framework with maturity scoring",
+        "when_to_use": "Control objective definition, framework mapping, SOC 2 / ISO 27001 readiness, control library management",
+        "related_standards": [
+          "COSO 2013 Framework",
+          "COBIT 2019",
+          "NIST CSF"
+        ]
+      },
+      "FINDING": {
+        "purpose": "Audit finding identifying a control gap or deficiency with severity and remediation tracking",
+        "when_to_use": "Audit result documentation, remediation planning, management response tracking, board reporting",
+        "related_standards": [
+          "ISO 19011 Audit Finding",
+          "COSO Deficiency",
+          "SOX 302/404"
+        ]
+      },
+      "EVIDENCE": {
+        "purpose": "Compliance artifact proving control effectiveness for audit trails",
+        "when_to_use": "Evidence collection for SOC 2, ISO audits, control testing, continuous monitoring proof",
+        "related_standards": [
+          "ISO 19011 Audit Evidence",
+          "ISAE 3402",
+          "SOC 2 Type II"
+        ]
+      },
+      "POLICY": {
+        "purpose": "Organizational governance policy document with version control and review lifecycle",
+        "when_to_use": "Policy creation, annual policy review, regulatory change response, employee acknowledgment tracking",
+        "related_standards": [
+          "ISO 37301",
+          "OECD Good Practice",
+          "IIA Standards"
+        ]
+      },
+      "RISK_ASSESSMENT": {
+        "purpose": "Risk analysis with likelihood × impact scoring, residual risk calculation, and treatment decision",
+        "when_to_use": "Annual risk assessments, new initiative risk evaluation, vendor risk screening, regulatory change impact",
+        "related_standards": [
+          "ISO 31000:2018",
+          "COSO ERM 2017",
+          "NIST SP 800-30"
+        ]
+      },
+      "OBLIGATION": {
+        "purpose": "Specific regulatory obligation with deadline, responsible party, and penalty risk quantification",
+        "when_to_use": "Regulatory deadline tracking, compliance calendar management, penalty exposure assessment, obligation mapping",
+        "related_standards": [
+          "ISO 37301 Compliance Mgmt",
+          "COSO ERM",
+          "RegTech"
+        ]
+      }
+    },
+    "links": [
+      {
+        "label": "NIST 800-53",
+        "url": "https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final",
+        "type": "standard"
+      },
+      {
+        "label": "ISO 27001",
+        "url": "https://www.iso.org/standard/27001",
+        "type": "standard"
+      },
+      {
+        "label": "SOC 2",
+        "url": "https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.security",
+        "relationship": "regulatory overlap",
+        "reason": "Security controls and audit"
+      },
+      {
+        "domain": "yai.fintech",
+        "relationship": "often paired",
+        "reason": "Financial regulatory compliance"
+      },
+      {
+        "domain": "yai.legal",
+        "relationship": "data overlap",
+        "reason": "Regulatory filing"
+      }
+    ],
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

@@ -1,0 +1,34 @@
+ok so the payment system — we need to talk about a few things. first the
+chargeback rate is super high, like 2.1% and visa's threshold is 1% so
+thats not great. also transactions over 10k need to be reported to fincen
+within 24 hours, and kyc for new accounts. cross-border stuff needs
+sanctions checking.
+
+oh and the database is almost full, like 92% and will be completely full
+in about 45 days. someone really needs to look at that. the auto-scaling
+is also weird because it triggers at 80% cpu but then theres a 12 second
+cold start which defeats the purpose kind of.
+
+we also have a problem with the etl pipeline — its been failing silently
+3-4 times a week and nobody notices. data freshness sla is supposed to be
+1 hour but its more like 6 hours or more. also i noticed there is PII in
+the analytics warehouse which is a gdpr issue (article 5 i think?). no
+data retention policy either, storage is growing 15% per month.
+
+tls 1.3 is required for all api endpoints. no plaintext credentials
+obviously. but apparently theres 23 service accounts with full admin
+privs which is terrible. and the last pen test was 14 months ago, should
+be annual. also internal apis dont have rate limiting at all, only the
+public ones.
+
+we need canary deployments for production — like 5% traffic for 30 min
+before full rollout. and definitely no deploying during incidents, that
+should be obvious but apparently needs to be said.
+
+the data retention thing — anything over 24 months should be auto-deleted.
+and all pii needs pseudonymization before going to analytics.
+
+oh i forgot — theres no disaster recovery site. rto target is 4 hours but
+nobodys ever tested it so who knows if that would actually work.
+
+if chargebacks go above 1.5% we need enhanced fraud screening turned on.

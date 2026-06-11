@@ -1,0 +1,38 @@
+@DOC ver=2.0 | id=mesh:0190abcd-1234-7000-8abc-def012345678 | title="acme-public" | domain=yai.lyt@1.0 | kind=cfg | profile=agent
+
+@MESH rid=mesh:0190abcd-1234-7000-8abc-def012345678
+  | name="acme-public"
+  | push_target="acme"
+  | push_kind=org
+  | main_vault_rid=vault:0190abcd-1234-7000-8abc-def012345679
+  | created_at:ts=2026-05-31T10:00:00Z
+  | default_vault_update_cadence="0 9 * * 1"
+
+@MESH_HOME mesh_rid=mesh:0190abcd-1234-7000-8abc-def012345678
+  | vault_rid=vault:0190abcd-1234-7000-8abc-def012345679
+  | vault_name="main"
+
+@MESH_HOME mesh_rid=mesh:0190abcd-1234-7000-8abc-def012345678
+  | vault_rid=vault:0190abcd-1234-7000-8abc-def01234567a
+  | vault_name="handbook"
+
+@MESH_HOME mesh_rid=mesh:0190abcd-1234-7000-8abc-def012345678
+  | vault_rid=vault:0190abcd-1234-7000-8abc-def01234567b
+  | vault_name="api-docs"
+
+@UPDATE_CADENCE vault_rid=vault:0190abcd-1234-7000-8abc-def012345679
+  | cadence_type=cron
+  | cron="0 9 * * 1"
+  | timezone="Europe/Bucharest"
+  | peak_hours="9,18"
+  | on_demand_allowed:bool=true
+
+@UPDATE_CADENCE vault_rid=vault:0190abcd-1234-7000-8abc-def01234567a
+  | cadence_type=interval
+  | interval_seconds:int=86400
+  | timezone="UTC"
+  | on_demand_allowed:bool=true
+
+@UPDATE_CADENCE vault_rid=vault:0190abcd-1234-7000-8abc-def01234567b
+  | cadence_type=on-demand
+  | on_demand_allowed:bool=true

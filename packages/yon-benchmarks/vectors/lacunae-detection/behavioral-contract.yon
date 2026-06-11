@@ -1,0 +1,16 @@
+@DOC ver=2.0 | id=data-policy | title="Data Write Policy" | kind=rule | mode=text | profile=exec | fmt=min
+
+@INTENT goal="Enforce mandatory validation before all production database writes" | audience="Backend engineers, data engineers"
+@STAMP ts:ts="2025-11-15T09:00:00Z" | src=human | method=manual
+
+@SEC name="Write Operations"
+@RULE rid=rule:validate-first | lvl=MUST | when="writing to production database" | then="run validation pipeline first — no exceptions"
+@RULE rid=rule:no-bypass | lvl=MUST_NOT | when="any module" | then="bypass validation pipeline for production writes"
+@RULE rid=rule:reject-invalid | lvl=MUST | when="validation fails" | then="reject write and log validation errors"
+
+@CHECK rid=chk:no-bypass | assert="no code path bypasses validation for production writes" | fail=ABORT | msg="Validation bypass is a data integrity violation"
+
+@SEC name="Policy Evolution"
+@PATCH ts:ts="2026-01-20T14:00:00Z" | target=rid:chk:no-bypass | set=[msg="Updated: Validation bypass is a data integrity violation — Incident INC-2026-0012 confirmed bypass caused data corruption"]
+@STAMP ts:ts="2026-01-20T14:00:00Z" | src="incident-response-team" | method=manual
+@NOTE text="Policy tightened after INC-2026-0012: a service bypassed validation during a migration batch job, corrupting 847 records."

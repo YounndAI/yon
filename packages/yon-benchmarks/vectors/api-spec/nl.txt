@@ -1,0 +1,29 @@
+we need to build a webhook system for our platform. heres what i'm thinking:
+
+the main endpoint is POST /webhooks and it creates a new webhook subscription. the body should have:
+- url (required, must be https)  
+- events (array of event types like "user.created", "payment.completed", "invoice.sent")
+- secret (optional, if not provided we generate one)
+- active (boolean, default true)
+- metadata (optional object, max 10 keys)
+- retry_policy: can be "exponential" (default) or "linear", max_retries between 1-10 (default 5)
+
+for delivery, we POST to the registered URL with:
+- headers: X-Webhook-ID, X-Webhook-Timestamp, X-Webhook-Signature (HMAC-SHA256), Content-Type: application/json
+- body: { id, type, created_at, data: { ... } }
+- we retry on 5xx and timeouts (30s), but NOT on 4xx
+- exponential backoff: 1min, 5min, 25min, 2h, 10h
+- after all retries exhausted, we mark the webhook as "failing" and send an email to the account owner
+
+endpoints we also need:
+- GET /webhooks - list all (paginated, 20 per page)
+- GET /webhooks/:id - get one
+- PATCH /webhooks/:id - update (can change url, events, active, metadata)
+- DELETE /webhooks/:id - soft delete (mark inactive, stop deliveries)
+- GET /webhooks/:id/deliveries - get delivery attempts (last 30 days)
+- POST /webhooks/:id/test - send a test event
+
+rate limits: 100 webhooks per account, 1000 deliveries per minute per webhook
+
+oh also the signature verification - we should document how clients verify: 
+timestamp + "." + raw_body → HMAC-SHA256 with the secret → compare with header

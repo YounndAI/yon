@@ -1,0 +1,7 @@
+{
+  "parse": "ok",
+  "validate_strict": "error",
+  "validate_lenient": "warn",
+  "error_code": null,
+  "notes": "@AUTOMATOR.layer enum violation: 'cosmic' not in [overseers, cartographers, refactor, quality, knowledge, action]. Strict validation fails; lenient warns."
+}

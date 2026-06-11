@@ -1,0 +1,130 @@
+@DOC ver=2.0 | id=chunk-1-auth-api | title="Authentication and API Rules" | domain=technical | kind=rule | profile=exec | fmt=canon
+
+@INTENT goal="Extract rules and structure for authentication and API usage" | audience=developers
+
+@SEC name=Authentication
+@RULE lvl=must | when="using OAuth2" | then="Use OAuth2 with Bearer tokens for authentication"
+@RULE lvl=must | when="using tokens" | then="Tokens have a TTL of 3600 seconds"
+@RULE lvl=must | when="using refresh tokens" | then="Refresh tokens last for 30 days"
+@RULE lvl=must | when="exceeding rate limit" | then="Return 429 status code with Retry-After header if rate limit exceeded"
+@RULE lvl=must | when="using admin tokens" | then="Admin tokens can access resources across all organizations"
+@RULE lvl=must | when="using regular user tokens" | then="Regular user tokens can only access data within their own organization"
+@RULE lvl=must | when="making API requests" | then="Every API request must have Authorization header with valid bearer token"
+@RULE lvl=must | when="using refresh tokens" | then="Refresh tokens can only be used once and are invalidated after use"
+
+@SEC name="User API"
+@RULE lvl=must | when="creating a user" | then="POST /users requires name, email, and role"
+@RULE lvl=must | when="assigning roles" | then="Default role is member if unspecified"
+@RULE lvl=must | when="email address" | then="Email address must be unique within each organization"
+@RULE lvl=must | when="getting users" | then="GET /users uses cursor-based pagination"
+@RULE lvl=must | when="updating user" | then="Cannot change user's email without verification"
+@RULE lvl=must | when="deleting user" | then="DELETE /users/:id performs a soft delete"
+@RULE lvl=must | when="deleting archived user" | then="Return 410 Gone if deleting an archived user"
+
+@SEC name="Order API"
+@RULE lvl=must | when="creating order" | then="POST /orders requires customer_id, items, total, and currency"
+@RULE lvl=must | when="validating order" | then="Total must equal sum of item amounts"
+@RULE lvl=must | when="using currency" | then="Currency must be a valid ISO 4217 code"
+@RULE lvl=must | when="using single order" | then="Cannot mix different currencies within a single order"
+@RULE lvl=must | when="modifying order" | then="PATCH /orders/:id only works in draft status"
+@RULE lvl=must | when="deleting order" | then="DELETE /orders/:id is not supported, use cancel endpoint"
+
+@SEC name="Error Codes"
+@RULE lvl=must | when="authentication fails" | then="Return ERR_AUTH for invalid or expired token"
+@RULE lvl=must | when="resource not found" | then="Return ERR_NOT_FOUND if resource doesn't exist"
+@RULE lvl=must | when="validation fails" | then="Return ERR_VALIDATION for schema validation failures"
+@RULE lvl=must | when="conflict detected" | then="Return ERR_CONFLICT for resource conflicts"
+@RULE lvl=must | when="rate limit exceeded" | then="Return ERR_RATE_LIMIT if rate limit exceeded"
+@RULE lvl=must | when="payment fails" | then="Return ERR_PAYMENT_FAILED for payment failures"
+@RULE lvl=must | when="insufficient funds" | then="Return ERR_INSUFFICIENT_FUNDS for low account balance"
+@RULE lvl=must | when="permission denied" | then="Return ERR_PERMISSION_DENIED for insufficient permissions"
+@RULE lvl=must | when="resource locked" | then="Return ERR_RESOURCE_LOCKED for concurrent modification"
+
+@SEC name="Products API"
+@RULE lvl=must | when="POST /products" | then="POST /products endpoint creates a new product"
+@RULE lvl=must | when="name field" | then="Name field has a maximum length of 255 characters"
+@RULE lvl=must | when="description field" | then="Description field has a maximum length of 2000 characters"
+@RULE lvl=must | when=price | then="Price is stored in the smallest currency unit"
+@RULE lvl=must | when="GET /products" | then="GET /products can be filtered by category, active status, and price range"
+@RULE lvl=must | when="PATCH /products/:id" | then="PATCH /products/:id updates any product field"
+@RULE lvl=must | when="active field set to false" | then="Setting active field to false prevents product from being included in new orders"
+@RULE lvl=must | when="delete product" | then="Cannot delete a product if active orders exist; must deactivate first"
+
+@SEC name="Invoices API"
+@RULE lvl=must | when="POST /invoices" | then="POST /invoices creates a new invoice"
+@RULE lvl=must | when="invoice status open" | then="Once invoice is open, it cannot be edited"
+@RULE lvl=must | when="POST /invoices/:id/pay" | then="POST /invoices/:id/pay attempts to charge customer's default payment method"
+@RULE lvl=must | when="payment fails" | then="If payment fails, returns 402 status code"
+@RULE lvl=must | when="POST /invoices/:id/void" | then="POST /invoices/:id/void marks invoice as void"
+@RULE lvl=must | when="invoice paid" | then="Cannot void a paid invoice; refund needed"
+
+@SEC name="Input Validation"
+@RULE lvl=must | when="email field" | then="Email fields must be validated against RFC 5322"
+@RULE lvl=must | when="phone number field" | then="Phone number fields must follow E.164 format"
+@RULE lvl=must | when="monetary amounts" | then="Monetary amounts must be positive integers in cents"
+@RULE lvl=must | when="date fields" | then="Date fields must be in ISO 8601 UTC format"
+@RULE lvl=must | when="metadata objects" | then="Metadata objects have a limit of 20 keys, max 500 characters each"
+@RULE lvl=must | when="array fields" | then="Array fields have a limit of 100 items"
+@RULE lvl=must | when="string fields" | then="String fields are trimmed of whitespace and empty strings are treated as null"
+@RULE lvl=must | when="boolean fields" | then="Boolean fields accept true/false, 1/0, or yes/no"
+@RULE lvl=must | when="enum fields" | then="Enum fields are case-insensitive on input, stored in lowercase"
+
+@SEC name=Webhooks
+@NOTE text="Webhooks allow real-time notifications for events like order.created, order.updated, order.completed, payment.succeeded, payment.failed, and invoice.paid."
+@RULE lvl=must | then="Verify HMAC-SHA256 signature before processing webhook payloads"
+@RULE lvl=must | then="Respond with 200 status code within 30 seconds"
+@NOTE text="Failed deliveries are retried with exponential backoff: 1 min, 5 min, 25 min, 2 hours, 10 hours."
+@RULE lvl=must | then="Use HTTPS for webhook URLs"
+
+@SEC name=Subscriptions
+@RULE lvl=must | then="Include customer_id, plan_id, trial_days, and payment_method_id in POST /subscriptions"
+@NOTE text="Proration behavior can be create_prorations, none, or always_invoice."
+@RULE lvl=must | then="Use PATCH /subscriptions/:id for updates"
+
+@SEC name=Payments
+@RULE lvl=must | then="Include amount, currency, method_id, and description in POST /payments"
+@RULE lvl=must | then="Return 200 with transaction_id on success, 402 on failure"
+
+@SEC name="GDPR Compliance"
+@RULE lvl=must | then="Encrypt PII at rest with AES-256 and in transit with TLS 1.3"
+@RULE lvl=must | then="Implement right to erasure within 30 days"
+@RULE lvl=must | then="Report data breaches within 72 hours"
+@RULE lvl=must | then="Conduct data protection impact assessments annually"
+@RULE lvl=must | then="Obtain explicit consent before processing personal data"
+
+@SEC name="SOC 2 Type II Compliance"
+@RULE lvl=must | then="Follow principle of least privilege for access controls"
+@RULE lvl=must | then="Conduct vulnerability scans monthly"
+@RULE lvl=must | then="Perform penetration testing annually"
+@RULE lvl=must | then="Require multi-factor authentication for all administrative access"
+
+@SEC name="PCI-DSS Compliance"
+@RULE lvl=must | when="processing payments" | then="PCI-DSS Level 1 compliance requirements govern all payment processing."
+@RULE lvl=must | when="storing card numbers" | then="Full card numbers must never be stored after authorization. Only last four digits and card fingerprint are retained."
+@RULE lvl=must | when="storing payment data" | then="Payment data must be tokenized before storage using a PCI-compliant tokenization service."
+@RULE lvl=must | when="networking payment processing" | then="The payment processing network must be segmented from other internal networks with firewall rules."
+@RULE lvl=must | when="monitoring network traffic" | then="Intrusion detection systems must monitor all network traffic in the payment segment in real-time."
+@RULE lvl=must | when="managing encryption keys" | then="Encryption keys must be rotated annually. Compromised keys must be rotated immediately."
+@RULE lvl=must | when="accessing servers" | then="Physical access to servers processing cardholder data must be restricted to authorized personnel only."
+@RULE lvl=must | when="deploying payment processing code" | then="All payment processing code must undergo security review before deployment."
+@RULE lvl=must | when="conducting ASV scans" | then="Quarterly ASV scans must be conducted by an approved scanning vendor."
+
+@SEC name="Rate Limiting"
+@RULE lvl=must | when="configuring rate limits" | then="Rate limiting is configured at multiple levels: global, per-user, and per-endpoint."
+@RULE lvl=must | when="applying global rate limit" | then="Global rate limit is 1000 requests per minute."
+@RULE lvl=must | when="applying per-user rate limit" | then="Per-user rate limit is 100 requests per minute."
+@RULE lvl=must | when="applying burst limit" | then="Burst limit allows 50 requests in a 1-second window before throttling kicks in."
+@RULE lvl=must | when="preventing thundering herd" | then="The throttle strategy is sliding window to prevent thundering herd problems."
+@RULE lvl=must | when="including rate limit headers" | then="Rate limit headers are included in all responses: X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset."
+@RULE lvl=must | when="rate limited" | then="When rate limited, the Retry-After header specifies the number of seconds to wait."
+@RULE lvl=must | when="handling authenticated requests" | then="Authenticated requests have higher limits than anonymous requests."
+@RULE lvl=must | when="delivering webhooks" | then="Webhook deliveries do not count against rate limits."
+@RULE lvl=must | when="using batch endpoints" | then="Batch endpoints have separate rate limits calculated per item, not per request."
+@NOTE text=1999
+@NOTE text=1234567890
+@NOTE text=2026
+@NOTE text=19.99
+@NOTE text="Standard Contractual Clauses"
+@NOTE text=JSON
+@NOTE text=EST
+@NOTE text=PST

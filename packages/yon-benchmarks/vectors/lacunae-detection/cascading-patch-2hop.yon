@@ -1,0 +1,6 @@
+@DOC ver=2.0 | id=retry-policy-2hop | title="Retry Policy" | kind=rule | profile=exec | fmt=min
+
+@SEC name="API Retry Behavior"
+@RULE rid=rule:max-retries | lvl=MUST | when="API call fails" | then="retry up to 3 times with exponential backoff"
+@PATCH ts:ts="2026-01-15T10:00:00Z" | target=rid:rule:max-retries | set=[then="retry up to 5 times with exponential backoff"]
+@NOTE text="Changed from 3→5 retries after load-balancer instability in Q4 2025."

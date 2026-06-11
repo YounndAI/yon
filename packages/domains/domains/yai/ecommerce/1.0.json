@@ -1,0 +1,599 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.ecommerce",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Product catalogs, order management, customer support automation, and e-commerce analytics",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "PRODUCT",
+      "description": "Product catalog entry — Schema.org/GS1 aligned, SKU and GTIN-identified item with pricing and inventory",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "prod:SKU-WH-1001"
+        },
+        {
+          "name": "sku",
+          "type": "string",
+          "required": false,
+          "description": "SKU",
+          "example": "WH-1001"
+        },
+        {
+          "name": "gtin",
+          "type": "string",
+          "required": false,
+          "description": "GTIN",
+          "example": "00012345678905"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Product Name",
+          "example": "Wireless Headphones Pro"
+        },
+        {
+          "name": "price",
+          "type": "float",
+          "required": false,
+          "description": "Price in USD",
+          "unit": "USD",
+          "example": "79.99"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "pattern": "^[A-Z]{3}$",
+          "description": "Currency (ISO 4217)",
+          "example": "USD"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "electronics",
+            "clothing",
+            "home-garden",
+            "sports",
+            "books",
+            "food-beverage",
+            "health-beauty",
+            "toys",
+            "automotive",
+            "other"
+          ],
+          "description": "Category (10 allowed values)",
+          "example": "Electronics > Audio"
+        },
+        {
+          "name": "in_stock",
+          "type": "bool",
+          "required": false,
+          "description": "In Stock indicator",
+          "example": "true"
+        },
+        {
+          "name": "rating",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            5
+          ],
+          "description": "Avg Rating (0–5) (0–5)",
+          "example": "4.3"
+        }
+      ]
+    },
+    {
+      "tag": "CART_ITEM",
+      "description": "Shopping cart item — product reference with quantity and applied discounts",
+      "fields": [
+        {
+          "name": "product_ref",
+          "type": "string",
+          "required": false,
+          "description": "Product Reference",
+          "example": "prod:SKU-WH-1001"
+        },
+        {
+          "name": "qty",
+          "type": "int",
+          "required": false,
+          "description": "Quantity",
+          "example": "2"
+        },
+        {
+          "name": "unit_price",
+          "type": "float",
+          "required": false,
+          "description": "Unit Price",
+          "example": "79.99"
+        },
+        {
+          "name": "discount_pct",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Discount in % (0–100)",
+          "unit": "%",
+          "example": "10.0"
+        }
+      ]
+    },
+    {
+      "tag": "ORDER",
+      "description": "Customer order — lifecycle-tracked purchase with payment and fulfillment status",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Order ID",
+          "example": "ord:2026-03-01-042"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "pending",
+            "confirmed",
+            "processing",
+            "shipped",
+            "delivered",
+            "cancelled",
+            "refunded"
+          ],
+          "description": "Order Status (7 allowed values)",
+          "example": "confirmed"
+        },
+        {
+          "name": "total",
+          "type": "float",
+          "required": false,
+          "description": "Order Total",
+          "example": "149.99"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "pattern": "^[A-Z]{3}$",
+          "description": "Currency (ISO 4217)",
+          "example": "USD"
+        },
+        {
+          "name": "customer_encrypted",
+          "type": "string",
+          "required": false,
+          "description": "Customer (Encrypted)",
+          "example": "enc:cust-042"
+        },
+        {
+          "name": "placed",
+          "type": "string",
+          "required": false,
+          "description": "Placed Date",
+          "example": "2026-03-01T10:15:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "REVIEW",
+      "description": "Product review — customer feedback with star rating and sentiment analysis",
+      "fields": [
+        {
+          "name": "product_ref",
+          "type": "string",
+          "required": false,
+          "description": "Product Reference",
+          "example": "prod:SKU-WH-1001"
+        },
+        {
+          "name": "rating",
+          "type": "float",
+          "required": false,
+          "range": [
+            1,
+            5
+          ],
+          "description": "Star Rating (1–5) (1–5)",
+          "example": "4.0"
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "required": false,
+          "description": "Review Text",
+          "example": "Great sound quality, comfortable fit"
+        },
+        {
+          "name": "verified_purchase",
+          "type": "bool",
+          "required": false,
+          "description": "Verified Purchase indicator",
+          "example": "true"
+        },
+        {
+          "name": "sentiment",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "positive",
+            "neutral",
+            "negative"
+          ],
+          "description": "Sentiment: positive, neutral, negative",
+          "example": "positive"
+        }
+      ]
+    },
+    {
+      "tag": "SUPPORT_TICKET",
+      "description": "Customer support ticket — issue tracking with priority and SLA management",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Ticket ID",
+          "example": "tkt:CS-2026-042"
+        },
+        {
+          "name": "order_ref",
+          "type": "string",
+          "required": false,
+          "description": "Order Reference",
+          "example": "ord:2026-03-01-042"
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "shipping",
+            "return",
+            "refund",
+            "product",
+            "billing",
+            "account",
+            "other"
+          ],
+          "description": "Category (7 allowed values)",
+          "example": "shipping"
+        },
+        {
+          "name": "priority",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "urgent"
+          ],
+          "description": "Priority: low, medium, high, urgent",
+          "example": "high"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "open",
+            "in-progress",
+            "waiting",
+            "resolved",
+            "closed"
+          ],
+          "description": "Ticket Status: open, in-progress, waiting, resolved, closed",
+          "example": "in-progress"
+        },
+        {
+          "name": "assigned_to",
+          "type": "string",
+          "required": false,
+          "description": "Assigned To",
+          "example": "agent:jsmith"
+        }
+      ]
+    },
+    {
+      "tag": "RETURN",
+      "description": "Return/refund request — RMA tracking with reason classification",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Return ID",
+          "example": "ret:RMA-2026-042"
+        },
+        {
+          "name": "order_ref",
+          "type": "string",
+          "required": false,
+          "description": "Order Reference",
+          "example": "ord:2026-03-01-042"
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "defective",
+            "wrong-item",
+            "not-as-described",
+            "changed-mind",
+            "damaged",
+            "late-delivery"
+          ],
+          "description": "Return Reason (6 allowed values)",
+          "example": "defective"
+        },
+        {
+          "name": "refund_amount",
+          "type": "float",
+          "required": false,
+          "description": "Refund Amount",
+          "example": "49.99"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "requested",
+            "approved",
+            "shipped-back",
+            "received",
+            "refunded",
+            "denied"
+          ],
+          "description": "Return Status (6 allowed values)",
+          "example": "approved"
+        }
+      ]
+    },
+    {
+      "tag": "PROMO",
+      "description": "Promotional campaign — discount codes and campaign performance tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Promo ID",
+          "example": "promo:SPRING25"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "description": "Promo Code",
+          "example": "SPRING25"
+        },
+        {
+          "name": "discount_pct",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Discount in % (0–100)",
+          "unit": "%",
+          "example": "25.0"
+        },
+        {
+          "name": "valid_from",
+          "type": "ts",
+          "required": false,
+          "description": "Valid From as ISO 8601 timestamp",
+          "example": "2026-03-01T00:00:00Z"
+        },
+        {
+          "name": "valid_to",
+          "type": "ts",
+          "required": false,
+          "description": "Valid To as ISO 8601 timestamp",
+          "example": "2026-03-31T23:59:59Z"
+        },
+        {
+          "name": "uses",
+          "type": "int",
+          "required": false,
+          "description": "Current Uses",
+          "example": "142"
+        },
+        {
+          "name": "max_uses",
+          "type": "int",
+          "required": false,
+          "description": "Max Uses",
+          "example": "500"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "E-commerce operations and customer experience AI",
+    "highlights": [
+      "PRODUCT",
+      "ORDER",
+      "SUPPORT_TICKET"
+    ],
+    "use_cases": [
+      {
+        "id": "order-fulfillment",
+        "title": "Order-to-Delivery Fulfillment Pipeline",
+        "steps": [
+          "Customer adds @PRODUCT items to @CART",
+          "Convert @CART to @ORDER with payment confirmation",
+          "Assign @SHIPMENT with carrier and tracking number",
+          "Send delivery notification to @CUSTOMER",
+          "Prompt @REVIEW after delivery confirmation"
+        ],
+        "example": "@ORDER rid=ord:1 | status=\"confirmed\" | total:float=149.99 | currency=\"USD\" | items:int=3",
+        "tags_used": [
+          "PRODUCT",
+          "ORDER",
+          "REVIEW"
+        ],
+        "description": "Process orders from checkout through payment capture, warehouse pick-pack-ship, carrier handoff, and delivery confirmation with real-time status updates.",
+        "tags": [
+          "ORDER",
+          "PRODUCT",
+          "SUPPORT_TICKET",
+          "RETURN"
+        ],
+        "tags_planned": [
+          "CART",
+          "SHIPMENT",
+          "CUSTOMER"
+        ]
+      },
+      {
+        "id": "returns-management",
+        "title": "Returns and Refund Processing",
+        "steps": [
+          "Customer initiates @RETURN with reason and photos",
+          "Validate @RETURN against @ORDER warranty policy",
+          "Generate return @SHIPMENT label",
+          "Inspect returned @PRODUCT and update inventory",
+          "Issue refund to @CUSTOMER payment method"
+        ],
+        "example": "@RETURN rid=ret:1 | order_ref=\"ord:1\" | reason=\"defective\" | status=\"approved\" | refund_amount:float=49.99",
+        "tags_used": [
+          "RETURN",
+          "ORDER",
+          "PRODUCT"
+        ],
+        "description": "Handle return requests, validate eligibility, process refunds or exchanges, and track returned inventory disposition. Analyze return patterns to reduce future return rates.",
+        "tags": [
+          "RETURN",
+          "ORDER",
+          "PRODUCT",
+          "SUPPORT_TICKET"
+        ],
+        "tags_planned": [
+          "SHIPMENT",
+          "CUSTOMER"
+        ]
+      }
+    ],
+    "tag_context": {
+      "PRODUCT": {
+        "purpose": "Schema.org/GS1 aligned catalog entry with SKU, GTIN, pricing, and inventory flag",
+        "when_to_use": "Catalog management, search indexing, recommendation feeds, price comparison, inventory sync",
+        "related_standards": [
+          "GS1 GTIN",
+          "Schema.org Product",
+          "Google Merchant"
+        ]
+      },
+      "CART_ITEM": {
+        "purpose": "Shopping cart line item with product reference, quantity, unit price, and applied discount",
+        "when_to_use": "Cart composition, abandoned cart recovery, pricing calculations, conversion analytics",
+        "related_standards": [
+          "Schema.org Offer/ItemList",
+          "Google Merchant Feed",
+          "GA4 Ecommerce"
+        ]
+      },
+      "ORDER": {
+        "purpose": "Customer purchase order with lifecycle status, total, and fulfillment tracking",
+        "when_to_use": "Order placement, fulfillment pipeline, shipment tracking, post-purchase analytics, returns processing",
+        "related_standards": [
+          "UBL 2.1 Order",
+          "EDIFACT ORDERS",
+          "Schema.org Order"
+        ]
+      },
+      "REVIEW": {
+        "purpose": "Customer product review with star rating, text, verification flag, and sentiment",
+        "when_to_use": "Review moderation, sentiment analysis, product quality signals, social proof generation",
+        "related_standards": [
+          "Schema.org Review",
+          "ISO 20488 Online Reviews"
+        ]
+      },
+      "SUPPORT_TICKET": {
+        "purpose": "Customer support issue with category, priority, SLA-tracked status, and assignee",
+        "when_to_use": "Issue triage, SLA monitoring, agent workload routing, customer satisfaction tracking",
+        "related_standards": [
+          "Zendesk Sunshine",
+          "ITIL Incident",
+          "Schema.org Message"
+        ]
+      },
+      "RETURN": {
+        "purpose": "Return/refund request with RMA lifecycle, reason classification, and refund amount",
+        "when_to_use": "Return authorization, refund processing, quality defect tracking, return rate analytics",
+        "related_standards": [
+          "UBL CreditNote",
+          "ISO 9001 Nonconformity",
+          "PSD2 Refund"
+        ]
+      },
+      "PROMO": {
+        "purpose": "Promotional campaign with discount code, validity window, and usage tracking",
+        "when_to_use": "Campaign creation, coupon distribution, discount validation, promotion performance analytics",
+        "related_standards": [
+          "Schema.org Offer",
+          "GS1 Digital Coupon",
+          "IAB OpenRTB"
+        ]
+      }
+    },
+    "links": [
+      {
+        "label": "Schema.org Product",
+        "url": "https://schema.org/Product",
+        "type": "standard"
+      },
+      {
+        "label": "GS1 Standards",
+        "url": "https://www.gs1.org/",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.fintech",
+        "relationship": "often paired",
+        "reason": "Payment processing"
+      },
+      {
+        "domain": "yai.logistics",
+        "relationship": "data overlap",
+        "reason": "Shipping and fulfillment"
+      }
+    ],
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

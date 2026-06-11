@@ -1,0 +1,15 @@
+@DOC ver=2.0 | id=vault:0190abcd-1234-7000-8abc-def012345679 | title="personal/notes" | domain=yai.lyt@1.0 | kind=cfg | profile=agent
+
+@VAULT rid=vault:0190abcd-1234-7000-8abc-def012345679
+  | name="personal/notes"
+  | desc="Alex's personal notes vault — auto-normalized from bare 'notes' to 'personal/notes' on init"
+  | created_at:ts=2026-05-31T12:00:00.000Z
+  | version="0.1"
+
+@VAULT_HOME_MESH vault_rid=vault:0190abcd-1234-7000-8abc-def012345679
+  | mesh_rid=mesh:0190abcd-1234-7000-8abc-def012345678
+  | mesh_name="personal"
+  | assigned_at:ts=2026-05-31T12:00:00.000Z
+
+@META key=primary_owner | value=github:example-user
+@META key=lifecycle | value=active

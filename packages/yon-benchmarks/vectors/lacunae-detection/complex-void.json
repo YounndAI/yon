@@ -1,0 +1,19 @@
+{
+  "document": "CI/CD Pipeline Requirements",
+  "sections": [
+    {
+      "name": "Build Requirements",
+      "rules": [
+        { "id": "lint-check", "level": "MUST", "when": "pull request opened", "then": "run ESLint with zero-warning policy — fail build on any warning" },
+        { "id": "type-check", "level": "MUST", "when": "pull request opened", "then": "run TypeScript strict type checker — no any types allowed" },
+        { "id": "unit-tests", "level": "MUST", "when": "code changes detected", "then": "run full unit test suite with 80% coverage minimum" }
+      ]
+    },
+    {
+      "name": "Deployment Requirements",
+      "rules": [
+        { "id": "canary-deploy", "level": "MUST", "when": "deploying to production", "then": "deploy to 5% canary first, monitor for 15 minutes before full rollout" }
+      ]
+    }
+  ]
+}

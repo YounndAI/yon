@@ -1,0 +1,198 @@
+@DOC ver=2.0 | id=chunk-1-3 | title="API and Compliance Rules" | domain=technical | kind=rule | profile=exec | fmt=min
+
+@SEC name="Authentication and Rate Limiting"
+@RULE lvl=must | when="using Bearer token OAuth2" | then="OAuth2 Token TTL 3600s"
+@RULE lvl=must | when="rate limit exceeded" | then="Rate limit 500/min, 429 on exceed"
+
+@SEC name="Users API"
+@RULE lvl=must | when="creating user" | then="Create user requires name, email, role"
+@RULE lvl=must | when="email change" | then="Email change requires verification"
+
+@SEC name="Orders API"
+@RULE lvl=must | when="creating order" | then="Order requires customer_id, items, total, currency"
+@RULE lvl=must | when="order currency" | then="Currency ISO 4217"
+
+@SEC name="Error Codes"
+@MAP id=Error Codes | pairs=["ERR_AUTH"->"invalid/expired token","ERR_NOT_FOUND"->"resource doesn't exist","ERR_VALIDATION"->"request body failed schema validation","ERR_CONFLICT"->"duplicate resource","ERR_RATE_LIMIT"->"too many requests","ERR_PAYMENT_FAILED"->"payment provider rejected","ERR_INSUFFICIENT_FUNDS"->"account balance too low","ERR_PERMISSION_DENIED"->"token lacks required scope","ERR_RESOURCE_LOCKED"->"concurrent modification in progress"]
+
+@SEC name="Products API"
+@RULE lvl=must | when="creating product" | then="Product requires name, description, price, category, active"
+
+@SEC name="Invoices API"
+@RULE lvl=must | when="creating invoice" | then="Invoice requires customer_id, items, due_date, payment_terms"
+
+@SEC name="Global Validation Rules"
+@RULE lvl=must | when="validating email" | then="Email RFC 5322"
+@RULE lvl=must | when="validating phone" | then="Phone E.164"
+
+@SEC name=Webhooks
+@RULE lvl=must | when="processing webhook" | then="Verify HMAC-SHA256"
+
+@SEC name="Subscriptions API"
+@RULE lvl=must | when="creating subscription" | then="Subscription requires customer_id, plan_id, trial_days, payment_method_id"
+
+@SEC name="Payments API"
+@RULE lvl=must | when="creating payment" | then="Payment requires amount, currency, method_id, description"
+
+@SEC name="GDPR Compliance"
+@RULE lvl=must | when="handling PII" | then="Encrypt PII AES-256, TLS 1.3"
+@RULE lvl=must | when="receiving valid erasure request" | then="Erasure within 30 days"
+
+@SEC name="SOC 2 Type II Compliance"
+@RULE lvl=must | when="Access controls" | then="Least privilege access"
+@RULE lvl=must | when="Audit logs" | then="Audit logs record access events"
+@RULE lvl=must | when="Vulnerability scans" | then="Monthly vulnerability scans"
+@RULE lvl=must | when="Critical findings" | then="Remediate critical findings in 48h"
+@RULE lvl=must | when="Penetration testing" | then="Annual penetration testing"
+@RULE lvl=must | when="Incident response procedures" | then="Incident response phases"
+@RULE lvl=must | when="Business continuity plans" | then="Test BCP semi-annually"
+@RULE lvl=must | when="Recovery time objective" | then="RTO 4h for Tier 1"
+@RULE lvl=must | when=Backups | then="Encrypt backups, test quarterly"
+@RULE lvl=must | when="Multi-factor authentication" | then="MFA for admin access"
+@RULE lvl=must | when="SMS-based MFA" | then="Deprecate SMS MFA"
+@RULE lvl=must | when="Employee background checks" | then="Background checks before access"
+@RULE lvl=must | when="Vendor security assessments" | then="Annual vendor security assessments"
+
+@SEC name="PCI-DSS Level 1 Compliance"
+@RULE lvl=must | when="Full card numbers" | then="Do not store full card numbers"
+@RULE lvl=must | when="Payment data" | then="Tokenize payment data"
+@RULE lvl=must | when="Payment processing network" | then="Segment payment network"
+@RULE lvl=must | when="Intrusion detection systems" | then="Monitor payment traffic real-time"
+@RULE lvl=must | when="Encryption keys" | then="Rotate keys annually"
+@RULE lvl=must | when="Physical access to servers" | then="Restrict server access"
+@RULE lvl=must | when="Payment processing code" | then="Security review for payment code"
+@RULE lvl=must | when="Quarterly ASV scans" | then="Quarterly ASV scans"
+
+@SEC name="Rate Limiting"
+@RULE lvl=must | when="Global rate limit" | then="Global limit 1000/min"
+@RULE lvl=must | when="Per-user rate limit" | then="User limit 100/min"
+@RULE lvl=must | when="Burst limit" | then="Burst limit 50/1s"
+@RULE lvl=must | when="Throttle strategy" | then="Sliding window throttle"
+@RULE lvl=must | when="Rate limit headers" | then="Include rate limit headers [RateLimit]"
+@RULE lvl=must | when="Rate limited" | then="Retry-After specifies wait"
+@RULE lvl=must | when="Authenticated requests" | then="Higher limits for authenticated"
+@RULE lvl=must | when="Webhook deliveries" | then="Webhooks not rate limited"
+@RULE lvl=must | when="Batch endpoints" | then="Batch endpoints per item limit"
+
+@SEC name="Shipping Module"
+@RULE lvl=must | when="POST /shipping" | then="Create shipment via POST"
+@MAP id=Required Fields | pairs=["order_id"->"required","carrier"->"required","tracking_number"->"required","estimated_delivery"->"required"]
+@MAP id=Supported Carriers | pairs=["ups"->"supported","fedex"->"supported","dhl"->"supported","usps"->"supported","custom"->"requires tracking URL template"]
+@MAP id=Shipment Statuses | pairs=["created"->"status","picked_up"->"status","in_transit"->"status","out_for_delivery"->"status","delivered"->"status","failed"->"status","returned"->"status"]
+@RULE lvl=must | when="Status updates" | then="Propagate status updates"
+@RULE lvl=must | when="Shipping costs" | then="Calculate shipping costs"
+@RULE lvl=must | when=Quotes | then="Cache quotes 15min"
+@RULE lvl=must | when="International shipments" | then="Customs data for international"
+@RULE lvl=must | when="Shipping labels" | then="Generate labels via POST"
+
+@SEC name="Inventory Module"
+@RULE lvl=must | when="Stock levels" | then="Track stock levels"
+@RULE lvl=must | when="POST /inventory/adjust" | then="Inventory adjustment via POST"
+@RULE lvl=must | when=Adjustments | then="Positive/negative adjustments"
+@RULE lvl=must | when="Zero adjustments" | then="Reject zero adjustments"
+@RULE lvl=must | when=Reservation | then="Reservation on order confirmation"
+@RULE lvl=must | when="Reserved stock" | then="Reserved stock not for sale"
+@RULE lvl=must | when="Low-stock alerts" | then="Low-stock alerts on reorder point"
+@RULE lvl=must | when="Inventory transfers" | then="Track inventory transfers"
+@RULE lvl=must | when="Cycle counts" | then="Initiate cycle counts via POST"
+@RULE lvl=must | when="Discrepancies from cycle counts" | then="Log discrepancies, require approval"
+
+@SEC name="Notification System"
+@RULE lvl=must | when="Notification templates" | then="Handlebars templates"
+@RULE lvl=must | when=Templates | then="Versioned templates"
+@RULE lvl=must | when="Notification priority" | then="Critical notifications bypass quiet hours"
+@RULE lvl=must | when="Quiet hours" | then="Configurable quiet hours"
+@RULE lvl=must | when="Email notifications" | then="Email via transactional provider"
+@RULE lvl=must | when="SMS notifications" | then="SMS via gateway"
+@RULE lvl=must | when="Push notifications" | then="Push to specific devices"
+@RULE lvl=must | when="In-app notifications" | then="In-app notifications persisted"
+@RULE lvl=must | when="Notification preferences" | then="Opt-out preferences"
+@RULE lvl=must | when="Bulk notifications" | then="Bulk notifications 1000/min"
+
+@SEC name="Analytics Module"
+@RULE lvl=must | when=Events | then="Collect events via SDK/API"
+@RULE lvl=must | when="Real-time dashboards" | then="Dashboards update every 5s"
+@RULE lvl=must | when="Historical queries" | then="Aggregate historical queries"
+@RULE lvl=must | when="Custom events" | then="Custom events with 10 properties"
+@RULE lvl=must | when=Funnels | then="Track funnels, auto drop-off"
+@RULE lvl=must | when="Cohort analysis" | then="Cohort analysis by event date"
+@RULE lvl=must | when="Data retention" | then="Data retention 13m/unlimited"
+@RULE lvl=must | when="Analytics data export" | then="Export analytics data"
+@RULE lvl=must | when="Query performance" | then="Optimize query performance"
+
+@SEC name="Reporting Module"
+@NOTE text="Generates scheduled/on-demand reports"
+@NOTE text="Standard reports: revenue, orders, customers, inventory, churn"
+@NOTE text="Custom reports via SQL-like queries"
+@NOTE text="Schedule reports: daily, weekly, monthly"
+@NOTE text="Formats: PDF, CSV, Excel, JSON"
+@NOTE text="Dashboards: 12 widgets max"
+@NOTE text="Drill-down on standard reports"
+@NOTE text="Report caching with TTL"
+@NOTE text="Access control by role"
+@NOTE text="Async report generation for large ranges"
+@NOTE text="Notification on report readiness"
+
+@SEC name="HIPAA Compliance"
+@RULE lvl=must | then="Role-based access to PHI"
+@RULE lvl=must | then="Log PHI access, 6-year retention"
+@RULE lvl=must | then="Encrypt PHI: AES-256, TLS 1.3"
+@RULE lvl=must | then="Notify breaches in 60 days"
+@RULE lvl=must | then="Annual risk assessments"
+@RULE lvl=must | then="Annual HIPAA training"
+@RULE lvl=must | then="Sign business associate agreements"
+@RULE lvl=must | then="Emergency PHI access"
+@RULE lvl=must | then="Document and review policies"
+@RULE lvl=must | then="Facility access controls"
+@RULE lvl=must | then="Unique ID, auto logoff, audit"
+
+@SEC name="Caching Layer"
+@NOTE text="Caching between API and DB"
+@NOTE text="Cache TTL: 5min default, 24h max [86400]"
+@NOTE text="Stale-while-revalidate strategy [stale-while-revalidate]"
+@NOTE text="Event-driven cache invalidation"
+@NOTE text="Redis 7.x cluster mode"
+@NOTE text="Cache key pattern: {service}:{resource}:{id}:{version}"
+@NOTE text="95% cache hit target"
+@NOTE text="Compress >1MB with LZ4"
+@NOTE text="Cache warming on deploy"
+@NOTE text="Per-tenant cache isolation"
+
+@SEC name=Observability
+@NOTE text="Observability: tracing, metrics, logging"
+@NOTE text="Tracing with OpenTelemetry"
+@NOTE text="Metrics in Prometheus format"
+@NOTE text="Structured JSON logging"
+@NOTE text="Log level: info, debug per-service"
+@NOTE text="Trace sampling: 10% prod, 100% staging"
+@NOTE text="Log retention: 90d index, 1y cold"
+@NOTE text="Alerts via Terraform"
+@NOTE text="Dashboards: RED method"
+@NOTE text="SLO tracking, 50% budget burn"
+
+@SEC name="Service Architecture"
+@NOTE text="gRPC internal, REST external"
+@NOTE text="Event sourcing for order/payment"
+@NOTE text="CQRS for read/write separation"
+@NOTE text="Service-owned databases"
+@NOTE text="Kafka event bus, at-least-once [Apache Kafka]"
+@RULE lvl=must | then="Circuit breaker for external calls"
+@NOTE text="Saga for distributed transactions"
+@NOTE text="API gateway for cross-cutting"
+@NOTE text="Service mesh for TLS, observability"
+@NOTE text="Blue-green, canary releases [5%]"
+@NOTE text=order.created
+@NOTE text=order.updated
+@NOTE text=order.completed
+@NOTE text=payment.succeeded
+@NOTE text=payment.failed
+@NOTE text=invoice.paid
+@NOTE text=200
+@NOTE text=402
+@NOTE text=2000
+@NOTE text=1234567890
+@NOTE text=8601
+@NOTE text=2026
+@NOTE text=30s
+@NOTE text="Standard Contractual Clauses"
+@NOTE text=UTC

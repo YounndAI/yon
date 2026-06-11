@@ -1,0 +1,24 @@
+@DOC ver=2.0 | id=inc-20260212 | title="Checkout Payment Failure — Production Incident" | kind=rule | profile=exec | fmt=canon
+
+@INTENT goal="Diagnose and resolve production checkout failure caused by payment proxy timeout"
+
+@SEC name="Incident Details"
+@MAP id=incident | severity="critical" | started="2026-02-12T14:47:00Z" | trigger="deploy #4521 at 14:30 UTC" | env="production only"
+@NOTE text="Error: PaymentService.processPayment() — Connection timeout after 30000ms to stripe-api.internal.prod:443"
+
+@SEC name="Impact"
+@MAP id=impact | failed_transactions:int=340 | revenue_loss="$47,000" | affected="all payment methods (card, Apple Pay, Google Pay)"
+@NOTE text="Stripe dashboard shows zero incoming requests from our side after 14:30 UTC"
+
+@SEC name="Diagnosis"
+@MAP id=health | general="200 OK" | payment="503"
+@NOTE text="Stripe status page: all green. API keys verified unchanged. Direct Stripe connection bypassing proxy works from prod pod. Root cause: payment proxy is blocking/timing out since deploy #4521."
+
+@SEC name="Attempted Fixes"
+@NOTE text="Restarted payment service pods (3 times) — no effect. Proxy bypass confirmed working but blocked by PCI compliance. Rollback risky: deploy #4521 includes DB migration (3 new columns on orders table)."
+
+@SEC name="Actions Required"
+@RULE lvl=MUST | when="immediate" | then="Infra team: inspect proxy config (assigned: @sarah)"
+@RULE lvl=MUST | when="immediate" | then="DevOps: check if deploy changed network policies (assigned: @mike)"
+@NOTE text="Workaround under consideration: enable maintenance page for checkout"
+@NOTE text="Estimated resolution: unknown"

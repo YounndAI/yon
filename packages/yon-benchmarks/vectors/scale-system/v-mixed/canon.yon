@@ -1,0 +1,52 @@
+@DOC ver=2.0 | id=api-rules | title="API Rules and Guidelines" | kind=rule | profile=exec | fmt=canon
+
+@INTENT goal="Define API rules and guidelines"
+
+@SEC name=Authentication
+@RULE lvl=must | when="All API requests" | then="All API requests must include the Authorization header with a valid bearer token."
+@RULE lvl=must | when="Tokens are issued" | then="Tokens are issued by the /auth/token endpoint using client credentials or authorization code flow."
+@RULE lvl=must | when="Using refresh tokens" | then="Refresh tokens can be used once and are invalidated after use. A new refresh token is issued with each access token."
+
+@SEC name="Rate Limiting"
+@RULE lvl=must | when="Rate limited" | then="When rate limited, return 429 with Retry-After header."
+
+@SEC name="Users Endpoint"
+@RULE lvl=must | when="POST /users" | then="The users endpoint at POST /users creates a new user. Required fields are name, email, and role."
+@RULE lvl=must | when="GET /users/:id" | then="GET /users/:id returns a single user or 404 if not found. Includes last_login and created_at."
+@RULE lvl=must | when="DELETE /users/:id" | then="DELETE /users/:id soft-deletes by setting status to archived. Archived users cannot log in."
+
+@SEC name="Orders Endpoint"
+@RULE lvl=must | when="POST /orders" | then="The orders endpoint at POST /orders creates a new order. Required fields are customer_id, items, total, and currency."
+@RULE lvl=must | when=Currency | then="Currency must be ISO 4217 (USD, EUR, GBP, CAD, AUD, JPY). Mixed currencies in one order are not allowed."
+@RULE lvl=must | when="POST /orders/:id/confirm" | then="POST /orders/:id/confirm moves from draft to confirmed and triggers payment authorization."
+
+@SEC name="Error Codes"
+@MAP id=Error Codes name="Error Codes" | pairs=["ERR_NOT_FOUND"->"requested resource does not exist","ERR_RATE_LIMIT"->"too many requests","ERR_PAYMENT_FAILED"->"payment provider rejected transaction","ERR_INSUFFICIENT_FUNDS"->"account balance too low","ERR_PERMISSION_DENIED"->"token does not have required scope","ERR_RESOURCE_LOCKED"->"resource is being modified by another process"]
+
+@SEC name="Products Endpoint"
+@RULE lvl=must | when="POST /products" | then="The products endpoint at POST /products creates a new product. Required fields are name, description, price, category, and active status."
+@RULE lvl=must | when=Name | then="Name has a maximum of 255 characters."
+
+@SEC name="Invoices Endpoint"
+@RULE lvl=must | when="POST /invoices" | then="The invoices endpoint manages billing documents. POST /invoices creates an invoice from an order or subscription. Required fields are customer_id, items, due_date, and payment_terms."
+@RULE lvl=must | when="POST /invoices/:id/pay" | then="POST /invoices/:id/pay attempts payment with the default payment method. Returns 402 on failure."
+
+@SEC name="Input Validation"
+@RULE lvl=must | when="Email fields" | then="Email fields must validate against RFC 5322 format."
+@RULE lvl=must | when="Phone fields" | then="Phone fields must validate E.164 format (e.g., +1234567890)."
+
+@SEC name=Webhooks
+@RULE lvl=must | when="Webhook payloads" | then="All webhook payloads are signed with HMAC-SHA256 using the webhook secret."
+@RULE lvl=must | when="Failed deliveries" | then="Failed deliveries are retried with exponential backoff: 1 minute, 5 minutes, 25 minutes, 2 hours, 10 hours."
+@NOTE text=order.created
+@NOTE text=order.updated
+@NOTE text=order.completed
+@NOTE text=payment.succeeded
+@NOTE text=payment.failed
+@NOTE text=invoice.paid
+@NOTE text=410
+@NOTE text=3600
+@NOTE text=2000
+@NOTE text=8601
+@NOTE text=2026
+@NOTE text=UTC

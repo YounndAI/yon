@@ -1,0 +1,25 @@
+@DOC ver=2.0 | id=inc-2024-0892 | title="INC-2024-0892: Auth Outage" | kind=context | profile=decl | fmt=ultra
+@STAMP ts:ts=2024-11-08T14:23:00Z | src=system:pagerduty | label=SEV-1
+@STAMP ts:ts=2024-11-08T17:10:00Z | src=human | label=Resolved
+@META key=severity | value=SEV-1
+@META key=duration | value="2h47m"
+@SEC name="Summary"
+@NOTE text="Auth outage: 94k blocked, 12k sessions expired. $186k impact. Expired TLS cert (test profile 0-day) to 3/4 pods. Health+monitoring gaps."
+@SEC name="Timeline"
+@MAP id=tl | pairs=["13:45"->"cert rotation, PR#4782 test profile (0d vs 90d)","13:47"->"pods 1-3 refresh, pod 4 skipped","14:15"->"first report, dismissed","14:23"->"PD alert >5%, ack","14:28"->"67% err, 3/4 TLS fail, pod4 ok","14:35"->"SEV-1, war room","14:42"->"x509 expired in logs","14:50"->"restart=same expired certs","14:55"->"store: all expired at creation","15:10"->"manual cert correct profile","15:15"->"rolling restart","15:20"->"all up, 67→2%","15:35"->"normal, 12k re-auth","16:00"->"hotfix PR#4891","17:10"->"resolved"]
+@SEC name="Impact"
+@MAP id=u | pairs=["blocked"->"94k","expired"->"12k","tickets"->"2340(89%auto)"]
+@MAP id=$ | pairs=["txn"->"$186k","renew"->"$23k(rec24h)","credits"->"$42k"]
+@MAP id=sla | pairs=["target"->"99.95%","consumed"->"2h47m/21.9min","breach"->"yes"]
+@SEC name="RCA"
+@MAP id=rca | pairs=["primary"->"PR#4782:test-0d vs prod-90d, 1 reviewer","health"->"probe checks port not TLS, stale since ALB→pod(Jun24)","monitor"->"alerts ALB-only, 5mo gap"]
+@SEC name="Actions"
+@MAP id=imm | pairs=["1"->"revert(DONE)","2"->"TLS probe(Rajesh)","3"->"pod monitor(Maria)","4"->"audit(Aisha)"]
+@MAP id=st | pairs=["5"->"CI reject test(David)","6"->"dry-run(Tom)","7"->"SEV-1 playbook(Maria)","8"->"refresh 2m→30s(Rajesh)"]
+@MAP id=lt | pairs=["9"->"auto-rollback(Platform)","10"->"e2e TLS(SRE)","11"->"runbook(Tom)","12"->"training(Maria)"]
+@SEC name="Review"
+@MAP id=g | pairs=["detect"->"PD 8min","war"->"12min","rca"->"20min","canary"->"pod4","comms"->"page 14:40, email 15:00"]
+@MAP id=b | pairs=["review"->"1(need2)","health"->"no TLS","monitor"->"5mo gap","triage"->"dismissed(−8min)","docs"->"no runbook"]
+@SEC name="Metrics"
+@MAP id=m | pairs=["detect"->"38min","mitigate"->"57min","resolve"->"2h47m"]
+@MAP id=t | pairs=["rotation"->"100%","detect_lat"->"<30s","MTTD"->"<5min","coverage"->"100%"]

@@ -1,0 +1,22 @@
+id: deploy-rules
+title: Deploy Requirements
+intent: Define deployment requirements with explicit priority levels
+
+sections:
+  production_deploy:
+    name: Production Deploy
+    rules:
+      - level: MUST
+        context: production deploy
+        requirement: require 2 reviewer approvals before merge
+      - level: SHOULD
+        context: production deploy
+        requirement: include performance benchmarks in PR
+      - level: MAY
+        context: production deploy
+        requirement: notify the #releases Slack channel
+    checks:
+      - id: chk:approvals
+        assertion: 2 reviewers approved before merge
+        on_failure: abort
+        message: Reviewer approval is mandatory

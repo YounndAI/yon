@@ -1,0 +1,790 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.construction",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Building information modeling, construction management, facility assets, and site inspection workflows",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "PROJECT",
+      "description": "Construction project — ISO 19650 BIM-managed project with phase tracking and valuation",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "prj:tower-b"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Project Title",
+          "example": "Tower B Office Complex"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "residential",
+            "commercial",
+            "industrial",
+            "infrastructure",
+            "mixed-use",
+            "renovation",
+            "demolition"
+          ],
+          "description": "Project Type (7 allowed values)",
+          "example": "commercial"
+        },
+        {
+          "name": "phase",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "concept",
+            "design",
+            "technical-design",
+            "procurement",
+            "construction",
+            "commissioning",
+            "handover",
+            "operation"
+          ],
+          "description": "Current Phase (8 allowed values)",
+          "example": "construction"
+        },
+        {
+          "name": "client",
+          "type": "string",
+          "required": false,
+          "description": "Client",
+          "example": "Meridian Properties Ltd"
+        },
+        {
+          "name": "site_address",
+          "type": "string",
+          "required": false,
+          "description": "Site Address",
+          "example": "100 Harbour St, London E14"
+        },
+        {
+          "name": "value",
+          "type": "float",
+          "required": false,
+          "description": "Project Value in currency",
+          "unit": "currency",
+          "example": "45000000.0"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "pattern": "^[A-Z]{3}$",
+          "description": "Currency Code",
+          "example": "GBP"
+        },
+        {
+          "name": "start_date",
+          "type": "ts",
+          "required": false,
+          "description": "Start Date as ISO 8601 timestamp",
+          "example": "2025-03-01T00:00:00Z"
+        },
+        {
+          "name": "completion_date",
+          "type": "ts",
+          "required": false,
+          "description": "Completion Date as ISO 8601 timestamp",
+          "example": "2027-09-30T00:00:00Z"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "planning",
+            "approved",
+            "active",
+            "on-hold",
+            "completed",
+            "cancelled"
+          ],
+          "description": "Project Status (6 allowed values)",
+          "example": "active"
+        },
+        {
+          "name": "bim_level",
+          "type": "int",
+          "required": false,
+          "range": [
+            0,
+            3
+          ],
+          "description": "BIM Maturity Level (0–3)",
+          "example": "2"
+        }
+      ]
+    },
+    {
+      "tag": "ELEMENT",
+      "description": "Building element — IFC entity with geometric dimensions, material, and Uniclass classification",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "elm:wall-B3-042"
+        },
+        {
+          "name": "project_ref",
+          "type": "string",
+          "required": false,
+          "description": "Project Reference",
+          "example": "prj:tower-b"
+        },
+        {
+          "name": "ifc_class",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "IfcWall",
+            "IfcSlab",
+            "IfcBeam",
+            "IfcColumn",
+            "IfcDoor",
+            "IfcWindow",
+            "IfcRoof",
+            "IfcStair",
+            "IfcCurtainWall",
+            "IfcRailing",
+            "IfcRamp",
+            "IfcPlate",
+            "IfcMember",
+            "IfcFooting",
+            "IfcPile"
+          ],
+          "description": "IFC Class (15 allowed values)",
+          "example": "IfcWall"
+        },
+        {
+          "name": "material",
+          "type": "string",
+          "required": false,
+          "description": "Material",
+          "example": "reinforced-concrete-C40"
+        },
+        {
+          "name": "length_m",
+          "type": "float",
+          "required": false,
+          "description": "Length in m",
+          "unit": "m",
+          "example": "6.0"
+        },
+        {
+          "name": "width_m",
+          "type": "float",
+          "required": false,
+          "description": "Width in m",
+          "unit": "m",
+          "example": "0.3"
+        },
+        {
+          "name": "height_m",
+          "type": "float",
+          "required": false,
+          "description": "Height in m",
+          "unit": "m",
+          "example": "3.6"
+        },
+        {
+          "name": "level",
+          "type": "string",
+          "required": false,
+          "description": "Building Level",
+          "example": "Level 03"
+        },
+        {
+          "name": "classification",
+          "type": "string",
+          "required": false,
+          "description": "Uniclass Code",
+          "example": "Ss_25_10_30"
+        },
+        {
+          "name": "load_bearing",
+          "type": "bool",
+          "required": false,
+          "description": "Load Bearing indicator",
+          "example": "true"
+        },
+        {
+          "name": "fire_rating",
+          "type": "string",
+          "required": false,
+          "description": "Fire Rating",
+          "example": "REI 120"
+        }
+      ]
+    },
+    {
+      "tag": "SPACE",
+      "description": "Room or space — IFC IfcSpace with area, occupancy, and zone assignment per COBie Space",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "spc:L03-conf-1"
+        },
+        {
+          "name": "project_ref",
+          "type": "string",
+          "required": false,
+          "description": "Project Reference",
+          "example": "prj:tower-b"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Space Name",
+          "example": "Conference Room 301"
+        },
+        {
+          "name": "space_type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "office",
+            "corridor",
+            "bathroom",
+            "kitchen",
+            "lobby",
+            "mechanical",
+            "storage",
+            "parking",
+            "conference",
+            "laboratory",
+            "retail",
+            "residential"
+          ],
+          "description": "Space Type (12 allowed values)",
+          "example": "conference"
+        },
+        {
+          "name": "area_sqm",
+          "type": "float",
+          "required": false,
+          "description": "Floor Area in m²",
+          "unit": "m²",
+          "example": "42.5"
+        },
+        {
+          "name": "volume_m3",
+          "type": "float",
+          "required": false,
+          "description": "Volume in m³",
+          "unit": "m³",
+          "example": "127.5"
+        },
+        {
+          "name": "occupancy",
+          "type": "int",
+          "required": false,
+          "description": "Max Occupancy",
+          "example": "20"
+        },
+        {
+          "name": "zone",
+          "type": "string",
+          "required": false,
+          "description": "Zone",
+          "example": "Zone A - East Wing"
+        },
+        {
+          "name": "level",
+          "type": "string",
+          "required": false,
+          "description": "Building Level",
+          "example": "Level 03"
+        },
+        {
+          "name": "usable",
+          "type": "bool",
+          "required": false,
+          "description": "Usable indicator",
+          "example": "true"
+        }
+      ]
+    },
+    {
+      "tag": "ASSET",
+      "description": "Facility asset — COBie equipment record with manufacturer, serial, and warranty tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "ast:AHU-03-01"
+        },
+        {
+          "name": "project_ref",
+          "type": "string",
+          "required": false,
+          "description": "Project Reference",
+          "example": "prj:tower-b"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Asset Name",
+          "example": "AHU Level 3 East"
+        },
+        {
+          "name": "asset_type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "hvac",
+            "electrical",
+            "plumbing",
+            "fire-protection",
+            "elevator",
+            "escalator",
+            "generator",
+            "transformer",
+            "pump",
+            "boiler",
+            "chiller",
+            "ahu"
+          ],
+          "description": "Asset Type (12 allowed values)",
+          "example": "ahu"
+        },
+        {
+          "name": "manufacturer",
+          "type": "string",
+          "required": false,
+          "description": "Manufacturer",
+          "example": "Carrier"
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "required": false,
+          "description": "Model Number",
+          "example": "39HQ-420"
+        },
+        {
+          "name": "serial_number",
+          "type": "string",
+          "required": false,
+          "description": "Serial Number",
+          "example": "SN-2026-00421"
+        },
+        {
+          "name": "installation_date",
+          "type": "ts",
+          "required": false,
+          "description": "Installation Date as ISO 8601 timestamp",
+          "example": "2026-08-15T00:00:00Z"
+        },
+        {
+          "name": "warranty_end",
+          "type": "ts",
+          "required": false,
+          "description": "Warranty Expiry as ISO 8601 timestamp",
+          "example": "2031-08-15T00:00:00Z"
+        },
+        {
+          "name": "location",
+          "type": "string",
+          "required": false,
+          "description": "Location",
+          "example": "spc:L03-mech-1"
+        },
+        {
+          "name": "barcode",
+          "type": "string",
+          "required": false,
+          "description": "Barcode / QR",
+          "example": "AST-AHU-03-01-QR"
+        }
+      ]
+    },
+    {
+      "tag": "ISSUE",
+      "description": "Construction issue — defect, RFI, or design change with cost impact and priority",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "iss:NCR-042"
+        },
+        {
+          "name": "project_ref",
+          "type": "string",
+          "required": false,
+          "description": "Project Reference",
+          "example": "prj:tower-b"
+        },
+        {
+          "name": "element_ref",
+          "type": "string",
+          "required": false,
+          "description": "Element Reference",
+          "example": "elm:wall-B3-042"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "defect",
+            "non-conformance",
+            "design-change",
+            "rfi",
+            "variation",
+            "clash",
+            "safety-concern"
+          ],
+          "description": "Issue Type (7 allowed values)",
+          "example": "defect"
+        },
+        {
+          "name": "priority",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "low",
+            "normal",
+            "high",
+            "critical"
+          ],
+          "description": "Priority: low, normal, high, critical",
+          "example": "high"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "open",
+            "assigned",
+            "in-progress",
+            "resolved",
+            "verified",
+            "closed",
+            "rejected"
+          ],
+          "description": "Issue Status (7 allowed values)",
+          "example": "open"
+        },
+        {
+          "name": "assigned_to",
+          "type": "string",
+          "required": false,
+          "description": "Assigned To",
+          "example": "Structural Eng. Lead"
+        },
+        {
+          "name": "due_date",
+          "type": "ts",
+          "required": false,
+          "description": "Due Date as ISO 8601 timestamp",
+          "example": "2026-09-15T00:00:00Z"
+        },
+        {
+          "name": "cost_impact",
+          "type": "float",
+          "required": false,
+          "description": "Cost Impact in GBP",
+          "unit": "GBP",
+          "example": "12500.00"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Description",
+          "example": "Concrete cover below minimum per BS EN 1992"
+        }
+      ]
+    },
+    {
+      "tag": "INSPECTION",
+      "description": "Site inspection — building code compliance check with findings and sign-off",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "insp:struct-L03-042"
+        },
+        {
+          "name": "project_ref",
+          "type": "string",
+          "required": false,
+          "description": "Project Reference",
+          "example": "prj:tower-b"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "structural",
+            "electrical",
+            "plumbing",
+            "fire-safety",
+            "accessibility",
+            "environmental",
+            "quality",
+            "health-safety"
+          ],
+          "description": "Inspection Type (8 allowed values)",
+          "example": "structural"
+        },
+        {
+          "name": "date",
+          "type": "ts",
+          "required": false,
+          "description": "Inspection Date as ISO 8601 timestamp",
+          "example": "2026-09-10T09:00:00Z"
+        },
+        {
+          "name": "result",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "pass",
+            "pass-with-conditions",
+            "fail",
+            "deferred"
+          ],
+          "description": "Result: pass, pass-with-conditions, fail, deferred",
+          "example": "pass-with-conditions"
+        },
+        {
+          "name": "inspector",
+          "type": "string",
+          "required": false,
+          "description": "Inspector",
+          "example": "J. Williams MRICS"
+        },
+        {
+          "name": "findings",
+          "type": "string",
+          "required": false,
+          "description": "Findings Summary",
+          "example": "Minor cracking at column B3 junction"
+        },
+        {
+          "name": "compliance",
+          "type": "bool",
+          "required": false,
+          "description": "Compliant indicator",
+          "example": "true"
+        },
+        {
+          "name": "follow_up_date",
+          "type": "ts",
+          "required": false,
+          "description": "Follow-up Date as ISO 8601 timestamp",
+          "example": "2026-10-01T00:00:00Z"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Building information modeling and construction management for built-environment AI",
+    "highlights": [
+      "PROJECT",
+      "ELEMENT",
+      "ASSET"
+    ],
+    "use_cases": [
+      {
+        "id": "project-lifecycle",
+        "title": "Construction Project Lifecycle Management",
+        "steps": [
+          "Define @PROJECT scope, budget, and milestones",
+          "Obtain @PERMIT approvals from local authorities",
+          "Schedule @INSPECTION checkpoints per building code",
+          "Track @MATERIAL procurement and delivery to site",
+          "Coordinate @BIM_ELEMENT clash detection before install"
+        ],
+        "example": "@PROJECT rid=prj:1 | name=\"Tower B\" | budget:float=45000000.0 | status=\"in-progress\" | completion:float=0.42",
+        "tags_used": [
+          "PROJECT",
+          "INSPECTION"
+        ],
+        "description": "Manage projects from preconstruction through closeout, tracking budgets, schedules, submittals, RFIs, change orders, and daily logs across all trades and subcontractors.",
+        "tags": [
+          "PROJECT",
+          "CHANGE_ORDER",
+          "RFI",
+          "SUBMITTAL",
+          "DAILY_LOG"
+        ],
+        "tags_planned": [
+          "PERMIT",
+          "MATERIAL",
+          "BIM_ELEMENT"
+        ]
+      },
+      {
+        "id": "safety-compliance",
+        "title": "Construction Safety and Compliance",
+        "steps": [
+          "Log @SAFETY_INCIDENT with severity, root cause, and corrective action",
+          "Cross-reference @INSPECTION findings with @PERMIT conditions",
+          "Track @MATERIAL safety data sheets (SDS) on site",
+          "Generate OSHA 300 reporting from @SAFETY_INCIDENT records",
+          "Schedule follow-up @INSPECTION for corrective verification"
+        ],
+        "example": "@SAFETY_INCIDENT rid=si:1 | severity=\"recordable\" | type=\"fall\" | lost_days:int=3 | root_cause=\"missing guardrail\"",
+        "tags_used": [
+          "INSPECTION"
+        ],
+        "description": "Document safety inspections, track incident reports, and manage OSHA compliance requirements across multi-trade job sites with photo evidence and corrective actions.",
+        "tags": [
+          "INSPECTION",
+          "PROJECT",
+          "DAILY_LOG",
+          "RFI"
+        ],
+        "tags_planned": [
+          "SAFETY_INCIDENT",
+          "PERMIT",
+          "MATERIAL"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "IFC (ISO 16739)",
+        "url": "https://www.buildingsmart.org/standards/bsi-standards/industry-foundation-classes/",
+        "type": "standard"
+      },
+      {
+        "label": "ISO 19650",
+        "url": "https://www.iso.org/standard/68078.html",
+        "type": "standard"
+      },
+      {
+        "label": "COBie (BS 1192-4)",
+        "url": "https://www.bsigroup.com/",
+        "type": "standard"
+      },
+      {
+        "label": "Uniclass 2015",
+        "url": "https://www.thenbs.com/our-tools/uniclass-2015",
+        "type": "standard"
+      },
+      {
+        "label": "buildingSMART",
+        "url": "https://www.buildingsmart.org/",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.infrastructure",
+        "relationship": "data overlap",
+        "reason": "Facility systems and operations"
+      },
+      {
+        "domain": "yai.realestate",
+        "relationship": "often paired",
+        "reason": "Property development and handover"
+      },
+      {
+        "domain": "yai.energy",
+        "relationship": "data overlap",
+        "reason": "Building energy performance and emissions"
+      }
+    ],
+    "tag_context": {
+      "PROJECT": {
+        "purpose": "ISO 19650 BIM-managed construction project with phase tracking, valuation, and BIM maturity level",
+        "when_to_use": "Project initiation, planning approval, milestone tracking, portfolio reporting, handover documentation",
+        "related_standards": [
+          "ISO 21500 Project Mgmt",
+          "PMBOK",
+          "PRINCE2"
+        ]
+      },
+      "ELEMENT": {
+        "purpose": "IFC building element with geometric dimensions, material specification, and Uniclass classification",
+        "when_to_use": "BIM model element tracking, clash detection, quantity takeoff, structural analysis, specification management",
+        "related_standards": [
+          "IFC 4.3 (ISO 16739)",
+          "Uniclass 2015",
+          "CSI MasterFormat"
+        ]
+      },
+      "SPACE": {
+        "purpose": "IFC IfcSpace room or area with dimensions, occupancy capacity, and zone assignment per COBie",
+        "when_to_use": "Space programming, occupancy planning, facility layout, area scheduling, building handover data",
+        "related_standards": [
+          "IFC IfcSpace",
+          "COBie Space",
+          "BREEAM/LEED"
+        ]
+      },
+      "ASSET": {
+        "purpose": "COBie facility equipment record with manufacturer data, serial number, and warranty lifecycle",
+        "when_to_use": "Equipment registration, warranty tracking, preventive maintenance setup, facility handover, asset inventory",
+        "related_standards": [
+          "NIST CSF Identify",
+          "ISO 27001 A.8 Asset Mgmt",
+          "CIS Controls v8"
+        ]
+      },
+      "ISSUE": {
+        "purpose": "Construction defect, RFI, or design change with cost impact, priority, and resolution tracking",
+        "when_to_use": "Defect logging, RFI management, variation tracking, BCF clash resolution, snag lists",
+        "related_standards": [
+          "ISO 19650 BIM Issue",
+          "BCF (buildingSMART)",
+          "Procore API"
+        ]
+      },
+      "INSPECTION": {
+        "purpose": "Building code compliance inspection with result, findings, and inspector sign-off",
+        "when_to_use": "Building control inspections, quality audits, fire safety checks, accessibility compliance, health and safety visits",
+        "related_standards": [
+          "ISO 19650 BIM",
+          "IFC (buildingSMART)",
+          "COBie"
+        ]
+      }
+    },
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

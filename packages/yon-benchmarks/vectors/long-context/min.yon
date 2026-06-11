@@ -1,0 +1,25 @@
+@DOC ver=2.0 | id=riverside-general-hospital-directory | title="Riverside General Hospital — Department Directory" | profile=decl | fmt=min
+
+@SEC name=Departments
+@NOTE text="Emergency Medicine, Floor 1, Dr. Rachel Nguyen, 24/7, 42 beds, 85,000 visits/year [2015]"
+@NOTE text="Cardiology, Floor 3, Dr. Marcus Webb, 7am-7pm weekdays"
+@NOTE text="Orthopedics, Floor 4, Dr. Yuki Sato, 8am-5pm weekdays [98.5] [98.5%]"
+@NOTE text="Pediatrics, Floor 5, Dr. Amara Okafor, 24/7 inpatient"
+@NOTE text="Obstetrics & Gynecology, Floor 5, Dr. Sarah Lin, 24/7 labor & delivery"
+@NOTE text="Oncology, Floor 6, Dr. Ibrahim Hassan, 8am-6pm weekdays [2026]"
+@NOTE text="Neurology, Floor 7, Dr. Elena Popov, 8am-5pm weekdays [door-to-needle] [Comprehensive Stroke Center]"
+@NOTE text="Radiology, Basement Level 1, Dr. David Park, 7am-10pm daily"
+@NOTE text="Pathology & Laboratory, Basement Level 2, Dr. Linda Frost, 24/7 stat labs [1.8]"
+@NOTE text="Psychiatry, Floor 8, Dr. Michael Chen, 24/7 inpatient"
+@NOTE text="Physical Therapy & Rehabilitation, Floor 2, Dr. Katherine Walsh, 7am-7pm weekdays"
+@NOTE text="Administration, Floor 9, CEO Thomas Rivera, 8am-5pm weekdays [2024] [Magnet Recognition]"
+
+@SEC name="General Information"
+@NOTE text="520 licensed beds"
+@NOTE text="Founded 1962"
+@NOTE text="1200 Riverside Drive, Portland, OR 97201"
+@NOTE text="3 garages, 2,400 spaces, valet available"
+@NOTE text="Visiting hours 10am-8pm, ICU/NICU exceptions"
+@NOTE text="EMR system Epic, 2019"
+@NOTE text="Helipad operational since 2008"
+@NOTE text="Affiliated with OHSU for residency [Oregon Health Sciences University]"

@@ -1,0 +1,80 @@
+{
+  "name": "@younndai/yon-converter",
+  "description": "Deterministic converters between YON™ and JSON, YAML, TOML, XML, CSV, INI — code-only, no AI, no inference.",
+  "version": "2.0.0",
+  "author": {
+    "name": "MARLINK TRADING SRL (YounndAI)",
+    "url": "https://younndai.com"
+  },
+  "contributors": [
+    {
+      "name": "Alexandru Mareș",
+      "url": "https://allemaar.com"
+    }
+  ],
+  "homepage": "https://yon.younndai.com",
+  "bin": {
+    "yon-convert": "./dist/cli.js"
+  },
+  "dependencies": {
+    "@younndai/yon-parser": "^2.0.0",
+    "smol-toml": "^1.6.1",
+    "yaml": "^2.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "typescript": "^6.0.3",
+    "vitest": "^4.0.18"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "NOTICE",
+    "TRADEMARK.md",
+    "HOW-TO-USE.md",
+    "TESTING.md",
+    "package.json"
+  ],
+  "keywords": [
+    "yon",
+    "younndai",
+    "converter",
+    "conversion",
+    "serialization",
+    "json",
+    "yaml",
+    "toml",
+    "xml",
+    "csv",
+    "ini",
+    "data-format"
+  ],
+  "license": "Apache-2.0",
+  "main": "./dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YounndAI/yon.git",
+    "directory": "packages/yon-converter"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "vitest run",
+    "test:report": "tsx test/generate-report.ts",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "type": "module",
+  "types": "./dist/index.d.ts"
+}

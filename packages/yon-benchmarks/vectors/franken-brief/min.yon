@@ -1,0 +1,36 @@
+@DOC ver=2.0 | kind=spec | id=meridian-rebrand | title="Meridian Financial Brand Refresh" | profile=decl | fmt=MIN
+
+@STAMP ts:ts=2024-10-15T00:00:00Z | src=human | label="kickoff"
+@STAMP ts:ts=2024-10-18T00:00:00Z | src=human | label="workshop"
+@STAMP ts:ts=2024-10-20T00:00:00Z | src=human | label="slack"
+@STAMP ts:ts=2024-10-21T00:00:00Z | src=human | label="client-email"
+
+@SEC name="Project"
+@CFG key=client | value="Meridian Financial"
+@CFG key=budget | value="$180,000 (+$15K animation)"
+@CFG key=board_presentation | value="Dec 12, 2024"
+@CFG key=concepts_due | value="Nov 1, 2024"
+
+@SEC name="Direction"
+@NOTE text="Premium but approachable. 'Clean and confident' (Robert). Trustworthy for institutional. Not flashy or old-money."
+@RULE lvl=MUST | when="logo" | then="retain M monogram, modernize (geometric, less script)"
+
+@SEC name="Colors"
+@MAP id=primary | pairs=["Meridian Gold"->"#C5952C (WCAG AA at 18px+ on navy)","Meridian Navy"->"#1B2A4A","White"->"clean"]
+@MAP id=secondary | pairs=["Sage Green"->"#8B9E84 or #7D8E76","Warm Gray"->"TBD"]
+@RULE lvl=MUST | when="all combos" | then="WCAG 2.1 AA"
+@RULE lvl=MUST | when="legal text" | then="WCAG AAA"
+
+@SEC name="Typography"
+@MAP id=type | pairs=["headings"->"Tiempos ($600/yr) or Freight Big Pro ($450/yr)","body"->"Aktiv Grotesk (~$300/yr, Adobe Fonts or direct)"]
+@NOTE text="Current: Inter. Tiempos/Aktiv not on Google Fonts. Budget ~$1K/yr."
+
+@SEC name="Deliverables"
+@MAP id=del | pairs=["logo suite"->"full system","icons"->"48 (was 40, +8 mobile)","guidelines"->"60+ pages, digital-first (UI, dark mode, motion)","social"->"IG, LinkedIn, Twitter","co-brand"->"Northern Trust lockup (Jan launch)","other"->"email sig, PPT, letterhead, business cards"]
+
+@SEC name="Team"
+@MAP id=studio | pairs=["Sarah"->"3 logo concepts Oct 25","Mark"->"moodboard Oct 22","Alex"->"asset audit","Lisa"->"CD, mid-review Nov 8"]
+@MAP id=client | pairs=["Jennifer Wu (CMO)"->"decision maker, prefers gold","Robert Tran (CEO)"->"'clean+confident', institutional trust","David Kim (Product)"->"Mastercard/Mailchimp refs"]
+
+@SEC name="Future"
+@NOTE text="Robo-advisor product Q2 2025 — design for sub-brand extensibility. Not in scope."

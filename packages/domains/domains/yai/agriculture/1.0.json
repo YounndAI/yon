@@ -1,0 +1,673 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.agriculture",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Precision agriculture, crop management, soil analysis, and agricultural supply chain",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "FIELD",
+      "description": "Agricultural field — georeferenced parcel with crop, area, and soil type",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "fld:north-40"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Field Name",
+          "example": "North 40"
+        },
+        {
+          "name": "area_ha",
+          "type": "float",
+          "required": false,
+          "description": "Area in ha",
+          "unit": "ha",
+          "example": "16.2"
+        },
+        {
+          "name": "crop",
+          "type": "string",
+          "required": false,
+          "description": "Current Crop",
+          "example": "winter-wheat"
+        },
+        {
+          "name": "soil_type",
+          "type": "string",
+          "required": false,
+          "description": "Soil Type",
+          "example": "clay-loam"
+        },
+        {
+          "name": "lat",
+          "type": "float",
+          "required": false,
+          "range": [
+            -90,
+            90
+          ],
+          "description": "Latitude in ° (-90–90)",
+          "unit": "°",
+          "example": "41.8781"
+        },
+        {
+          "name": "lon",
+          "type": "float",
+          "required": false,
+          "range": [
+            -180,
+            180
+          ],
+          "description": "Longitude in ° (-180–180)",
+          "unit": "°",
+          "example": "-87.6298"
+        },
+        {
+          "name": "irrigation",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "drip",
+            "sprinkler",
+            "flood",
+            "center-pivot",
+            "rainfed",
+            "subsurface"
+          ],
+          "description": "Irrigation Method (6 allowed values)",
+          "example": "center-pivot"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "planted",
+            "growing",
+            "harvest-ready",
+            "fallow",
+            "cover-crop"
+          ],
+          "description": "Field Status: planted, growing, harvest-ready, fallow, cover-crop",
+          "example": "growing"
+        }
+      ]
+    },
+    {
+      "tag": "SOIL_ANALYSIS",
+      "description": "Soil test result — nutrient levels, pH, and organic matter for field management",
+      "fields": [
+        {
+          "name": "field_ref",
+          "type": "string",
+          "required": false,
+          "description": "Field Reference",
+          "example": "fld:north-40"
+        },
+        {
+          "name": "ph",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            14
+          ],
+          "description": "Soil pH (0–14)",
+          "example": "6.4"
+        },
+        {
+          "name": "nitrogen_ppm",
+          "type": "float",
+          "required": false,
+          "description": "Nitrogen in ppm",
+          "unit": "ppm",
+          "example": "28.0"
+        },
+        {
+          "name": "phosphorus_ppm",
+          "type": "float",
+          "required": false,
+          "description": "Phosphorus in ppm",
+          "unit": "ppm",
+          "example": "42.5"
+        },
+        {
+          "name": "potassium_ppm",
+          "type": "float",
+          "required": false,
+          "description": "Potassium in ppm",
+          "unit": "ppm",
+          "example": "185.0"
+        },
+        {
+          "name": "organic_matter_pct",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Organic Matter in % (0–100)",
+          "unit": "%",
+          "example": "3.8"
+        },
+        {
+          "name": "moisture_pct",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Soil Moisture in % (0–100)",
+          "unit": "%",
+          "example": "32.0"
+        },
+        {
+          "name": "sample_date",
+          "type": "ts",
+          "required": false,
+          "description": "Sample Date as ISO 8601 timestamp",
+          "example": "2026-03-15"
+        },
+        {
+          "name": "lab",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "certified",
+            "university",
+            "on-farm",
+            "commercial",
+            "government"
+          ],
+          "description": "Testing Laboratory: certified, university, on-farm, commercial, government",
+          "example": "Midwest Labs"
+        }
+      ]
+    },
+    {
+      "tag": "HARVEST",
+      "description": "Harvest record — yield data with quality grading and storage assignment",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "hv:2026-north40"
+        },
+        {
+          "name": "field_ref",
+          "type": "string",
+          "required": false,
+          "description": "Field Reference",
+          "example": "fld:north-40"
+        },
+        {
+          "name": "crop",
+          "type": "string",
+          "required": false,
+          "description": "Crop Harvested",
+          "example": "winter-wheat"
+        },
+        {
+          "name": "yield_tonnes",
+          "type": "float",
+          "required": false,
+          "description": "Total Yield in tonnes",
+          "unit": "tonnes",
+          "example": "72.5"
+        },
+        {
+          "name": "area_ha",
+          "type": "float",
+          "required": false,
+          "description": "Harvested Area",
+          "unit": "ha",
+          "example": "16.2"
+        },
+        {
+          "name": "yield_per_ha",
+          "type": "float",
+          "required": false,
+          "description": "Yield per Hectare in tonnes/ha",
+          "unit": "tonnes/ha",
+          "example": "4.47"
+        },
+        {
+          "name": "quality_grade",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "reject"
+          ],
+          "description": "Quality Grade: A, B, C, D, reject",
+          "example": "A"
+        },
+        {
+          "name": "moisture_pct",
+          "type": "float",
+          "required": false,
+          "description": "Grain Moisture in %",
+          "unit": "%",
+          "example": "13.5"
+        },
+        {
+          "name": "harvest_date",
+          "type": "string",
+          "required": false,
+          "description": "Harvest Date",
+          "example": "2026-07-20"
+        },
+        {
+          "name": "storage",
+          "type": "string",
+          "required": false,
+          "description": "Storage Location",
+          "example": "bin:3A"
+        }
+      ]
+    },
+    {
+      "tag": "INPUT",
+      "description": "Agricultural input — fertilizer, pesticide, or seed application with rate and timing",
+      "fields": [
+        {
+          "name": "field_ref",
+          "type": "string",
+          "required": false,
+          "description": "Field Reference",
+          "example": "fld:north-40"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "fertilizer",
+            "herbicide",
+            "insecticide",
+            "fungicide",
+            "seed",
+            "growth-regulator",
+            "amendment"
+          ],
+          "description": "Input Type (7 allowed values)",
+          "example": "fertilizer"
+        },
+        {
+          "name": "product",
+          "type": "string",
+          "required": false,
+          "description": "Product Name",
+          "example": "Urea 46-0-0"
+        },
+        {
+          "name": "rate_per_ha",
+          "type": "float",
+          "required": false,
+          "description": "Application Rate in kg/ha",
+          "unit": "kg/ha",
+          "example": "150.0"
+        },
+        {
+          "name": "unit",
+          "type": "string",
+          "required": false,
+          "description": "Rate Unit",
+          "example": "kg/ha"
+        },
+        {
+          "name": "application_date",
+          "type": "string",
+          "required": false,
+          "description": "Application Date",
+          "example": "2026-04-10"
+        },
+        {
+          "name": "method",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "broadcast",
+            "band",
+            "foliar",
+            "drip",
+            "aerial",
+            "injection"
+          ],
+          "description": "Application Method (6 allowed values)",
+          "example": "broadcast"
+        },
+        {
+          "name": "operator",
+          "type": "string",
+          "required": false,
+          "description": "Operator",
+          "example": "J. Miller"
+        }
+      ]
+    },
+    {
+      "tag": "WEATHER",
+      "description": "Weather observation — meteorological data for field-level decision support",
+      "fields": [
+        {
+          "name": "field_ref",
+          "type": "string",
+          "required": false,
+          "description": "Field Reference",
+          "example": "fld:north-40"
+        },
+        {
+          "name": "temp_c",
+          "type": "float",
+          "required": false,
+          "description": "Temperature in °C",
+          "unit": "°C",
+          "example": "22.5"
+        },
+        {
+          "name": "humidity_pct",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Relative Humidity in % (0–100)",
+          "unit": "%",
+          "example": "65.0"
+        },
+        {
+          "name": "precip_mm",
+          "type": "float",
+          "required": false,
+          "description": "Precipitation in mm",
+          "unit": "mm",
+          "example": "12.4"
+        },
+        {
+          "name": "wind_kmh",
+          "type": "float",
+          "required": false,
+          "description": "Wind Speed in km/h",
+          "unit": "km/h",
+          "example": "18.0"
+        },
+        {
+          "name": "uv_index",
+          "type": "float",
+          "required": false,
+          "description": "UV Index",
+          "example": "7.2"
+        },
+        {
+          "name": "ts",
+          "type": "ts",
+          "required": false,
+          "description": "Observation Timestamp as ISO 8601 timestamp",
+          "example": "2026-06-15T14:00:00Z"
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "station",
+            "satellite",
+            "forecast-model",
+            "manual",
+            "iot-sensor"
+          ],
+          "description": "Data Source: station, satellite, forecast-model, manual, iot-sensor",
+          "example": "davis-vantage-pro2"
+        }
+      ]
+    },
+    {
+      "tag": "LIVESTOCK",
+      "description": "Livestock record — animal identification with health status and location",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "lv:AU-0042"
+        },
+        {
+          "name": "species",
+          "type": "string",
+          "required": false,
+          "description": "Species",
+          "example": "bovine"
+        },
+        {
+          "name": "breed",
+          "type": "string",
+          "required": false,
+          "description": "Breed",
+          "example": "Angus"
+        },
+        {
+          "name": "tag_id",
+          "type": "string",
+          "required": false,
+          "description": "RFID Tag ID",
+          "example": "840003148012345"
+        },
+        {
+          "name": "weight_kg",
+          "type": "float",
+          "required": false,
+          "description": "Weight in kg",
+          "unit": "kg",
+          "example": "485.0"
+        },
+        {
+          "name": "health_status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "healthy",
+            "sick",
+            "treatment",
+            "quarantine"
+          ],
+          "description": "Health Status: healthy, sick, treatment, quarantine",
+          "example": "healthy"
+        },
+        {
+          "name": "location",
+          "type": "string",
+          "required": false,
+          "description": "Current Location",
+          "example": "paddock:east-3"
+        },
+        {
+          "name": "born",
+          "type": "string",
+          "required": false,
+          "description": "Birth Date",
+          "example": "2024-03-12"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Precision agriculture and crop management for AgTech AI",
+    "highlights": [
+      "FIELD",
+      "SOIL_ANALYSIS",
+      "HARVEST"
+    ],
+    "use_cases": [
+      {
+        "id": "precision-farming",
+        "title": "Precision Agriculture Decision Support",
+        "steps": [
+          "Map @FIELD boundaries with soil type and irrigation zones",
+          "Analyze @SOIL moisture, pH, and nutrient levels",
+          "Correlate @WEATHER forecasts with crop growth models",
+          "Optimize @CROP input recommendations (fertilizer, water)",
+          "Schedule precision application using variable-rate technology"
+        ],
+        "example": "@SOIL rid=sl:1 | field_ref=\"fld:12\" | ph:float=6.4 | moisture:float=0.32 | nitrogen_ppm:float=28.0",
+        "tags_used": [
+          "FIELD",
+          "WEATHER"
+        ],
+        "description": "Combine soil chemistry, weather forecasts, and crop phenology data to generate variable-rate application maps for seeds, fertilizer, and crop protection products.",
+        "tags": [
+          "FIELD",
+          "SOIL_ANALYSIS",
+          "WEATHER",
+          "CROP"
+        ],
+        "tags_planned": [
+          "SOIL",
+          "CROP"
+        ]
+      },
+      {
+        "id": "farm-to-fork",
+        "title": "Farm-to-Fork Traceability",
+        "steps": [
+          "Tag @LIVESTOCK with RFID identification at birth",
+          "Record @CROP inputs, treatments, and growth stages",
+          "Document @HARVEST with yield, quality grade, and GPS",
+          "Link produce through supply chain with GS1 EPCIS events",
+          "Generate consumer-facing traceability report"
+        ],
+        "example": "@HARVEST rid=hv:1 | crop_ref=\"crp:5\" | field_ref=\"fld:12\" | yield_kg:float=4200.0 | grade=\"A\" | method=\"mechanical\"",
+        "tags_used": [
+          "LIVESTOCK",
+          "HARVEST",
+          "FIELD"
+        ],
+        "description": "Track produce from field through harvest, storage, and distribution. Maintain chain-of-custody records for food safety compliance, recall readiness, and organic certification.",
+        "tags": [
+          "HARVEST",
+          "CROP",
+          "FIELD",
+          "LIVESTOCK"
+        ],
+        "tags_planned": [
+          "CROP"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "ISOBUS (ISO 11783)",
+        "url": "https://www.isobus.net/",
+        "type": "standard"
+      },
+      {
+        "label": "AgGateway",
+        "url": "https://aggateway.org/",
+        "type": "standard"
+      },
+      {
+        "label": "FAOSTAT",
+        "url": "https://www.fao.org/faostat/",
+        "type": "reference"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.logistics",
+        "relationship": "often paired",
+        "reason": "Agricultural supply chain"
+      },
+      {
+        "domain": "yai.energy",
+        "relationship": "data overlap",
+        "reason": "Farm energy management"
+      }
+    ],
+    "tag_context": {
+      "FIELD": {
+        "purpose": "Georeferenced agricultural parcel with crop assignment, soil classification, and irrigation method",
+        "when_to_use": "Farm registration, parcel mapping, crop rotation planning, precision agriculture zone definition",
+        "related_standards": [
+          "ISO 19115 Geo Metadata",
+          "OGC SensorThings",
+          "INSPIRE"
+        ]
+      },
+      "SOIL_ANALYSIS": {
+        "purpose": "Soil test result with nutrient concentrations, pH, and organic matter for variable-rate recommendations",
+        "when_to_use": "Pre-season soil testing, nutrient management planning, pH correction, precision fertilizer mapping",
+        "related_standards": [
+          "ISO 18400 Soil Sampling",
+          "FAO WRB",
+          "USDA NRCS"
+        ]
+      },
+      "HARVEST": {
+        "purpose": "Harvest record with yield measurement, quality grading, and post-harvest storage assignment",
+        "when_to_use": "Yield documentation, quality certification, traceability chain initialization, crop insurance claims",
+        "related_standards": [
+          "GS1 EPCIS",
+          "ISO 22005 Traceability",
+          "GlobalG.A.P."
+        ]
+      },
+      "INPUT": {
+        "purpose": "Agricultural input application with product, rate, method, and operator for compliance traceability",
+        "when_to_use": "Spray records, fertilizer application logs, seed treatment documentation, organic certification audits",
+        "related_standards": [
+          "GlobalG.A.P. IFA",
+          "ISO 22000 Food Safety",
+          "FAO FAOSTAT"
+        ]
+      },
+      "WEATHER": {
+        "purpose": "Field-level meteorological observation for spray windows, irrigation scheduling, and frost alerts",
+        "when_to_use": "Spray-day decisions, irrigation triggers, growing degree day tracking, harvest window planning",
+        "related_standards": [
+          "WMO BUFR/GRIB",
+          "OGC Sensor Web",
+          "METAR/TAF"
+        ]
+      },
+      "LIVESTOCK": {
+        "purpose": "Individual animal record with RFID identification, health status, and current location for herd management",
+        "when_to_use": "Herd registration, veterinary records, movement traceability, breeding program tracking",
+        "related_standards": [
+          "ISO 11784/11785 RFID",
+          "OIE WAHIS",
+          "ICAR Recording"
+        ]
+      }
+    },
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

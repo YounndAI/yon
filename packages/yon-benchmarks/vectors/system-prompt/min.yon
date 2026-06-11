@@ -1,0 +1,10 @@
+@DOC ver=2.0 | id=landing-page-constraints | title="Landing Page Code Generation Constraints" | kind=rule | profile=decl | fmt=min
+
+@SEC name="Design Constraints"
+@RULE lvl=MUST | then="Use semantic HTML5 elements"
+@RULE lvl=MUST | then="Responsive with CSS Grid and Flexbox"
+@RULE lvl=MUST_NOT | then="No inline styles, use CSS variables"
+@RULE lvl=SHOULD | then="Use color palette, prefer accent for interactive [F5F5F5]"
+@RULE lvl=MUST | then="Images must have alt text"
+@RULE lvl=MUST_NOT | then="No JS for layout/styling, only interactivity [JavaScript]"
+@RULE lvl=SHOULD | then="Include skip-to-content link"

@@ -1,0 +1,112 @@
+@DOC ver=2.0 | id=chunk-1-2 | title="API and Endpoint Rules" | kind=rule | profile=exec | fmt=min
+@INTENT goal="Outline compliance and operational requirements" | audience="system administrators and compliance officers"
+
+@SEC name=Authentication
+@RULE lvl=must | when="using Bearer token OAuth2" | then="Bearer token OAuth2, 3600s TTL, 30d refresh"
+@RULE lvl=must | when="rate limited" | then="Rate limit 500/min, 429 on limit"
+@RULE lvl=must | when="using admin tokens" | then="Admin tokens access all orgs"
+@RULE lvl=must | when="making API requests" | then="API requests need Authorization header"
+@RULE lvl=must | when="using refresh tokens" | then="Refresh tokens single-use"
+
+@SEC name="Users Endpoint"
+@RULE lvl=must | when="POST /users" | then="POST /users creates user"
+@RULE lvl=must | when=email | then="Email unique per org"
+@RULE lvl=must | when="GET /users" | then="GET /users paginated"
+@RULE lvl=must | when="GET /users/:id" | then="GET /users/:id single user"
+@RULE lvl=must | when="PATCH /users/:id" | then="PATCH /users/:id partial update"
+@RULE lvl=must | when="DELETE /users/:id" | then="DELETE /users/:id soft-delete"
+@RULE lvl=must | when="user already archived" | then="Archived user 410 Gone"
+
+@SEC name="Orders Endpoint"
+@RULE lvl=must | when="POST /orders" | then="POST /orders creates order"
+@RULE lvl=must | when=currency | then="Currency ISO 4217"
+@RULE lvl=must | when="GET /orders" | then="GET /orders filtering"
+@RULE lvl=must | when="orders lifecycle" | then="Orders lifecycle"
+@RULE lvl=must | when="PATCH /orders/:id" | then="PATCH /orders/:id update draft"
+@RULE lvl=must | when="POST /orders/:id/confirm" | then="Confirm order, trigger payment"
+@RULE lvl=must | when="POST /orders/:id/cancel" | then="Cancel order, trigger refund"
+@RULE lvl=must | when="DELETE /orders/:id" | then="DELETE /orders not supported"
+
+@SEC name="Error Codes"
+@RULE lvl=must | when=ERR_AUTH | then="ERR_AUTH invalid token"
+@RULE lvl=must | when=ERR_NOT_FOUND | then="ERR_NOT_FOUND resource missing"
+@RULE lvl=must | when=ERR_VALIDATION | then="ERR_VALIDATION schema fail"
+@RULE lvl=must | when=ERR_CONFLICT | then="ERR_CONFLICT duplicate resource"
+@RULE lvl=must | when=ERR_RATE_LIMIT | then="ERR_RATE_LIMIT too many requests"
+@RULE lvl=must | when=ERR_PAYMENT_FAILED | then="ERR_PAYMENT_FAILED payment rejected"
+@RULE lvl=must | when=ERR_INSUFFICIENT_FUNDS | then="ERR_INSUFFICIENT_FUNDS low balance"
+@RULE lvl=must | when=ERR_PERMISSION_DENIED | then="ERR_PERMISSION_DENIED scope missing"
+@RULE lvl=must | when=ERR_RESOURCE_LOCKED | then="ERR_RESOURCE_LOCKED resource locked"
+
+@SEC name="Subscriptions Endpoint"
+@NOTE text="POST /subscriptions with customer_id, plan_id, trial_days, payment_method_id"
+@NOTE text="Subscriptions start immediately or post-trial, auto-invoice unless trial"
+@NOTE text="Billing cycle anchor settable, defaults to creation date"
+@NOTE text="Proration: create_prorations, none, always_invoice"
+@NOTE text="Status: trialing → active → past_due → canceled"
+@NOTE text="PATCH /subscriptions/:id updates items, payment method, metadata"
+@NOTE text="DELETE /subscriptions/:id cancels, ?at=now for immediate"
+
+@SEC name="Payments Endpoint"
+@NOTE text="POST /payments with amount, currency, method_id, description [4217]"
+@NOTE text="Payments sync, 200 success, 402 failure"
+@NOTE text="Card payments check bank authorization, 3D Secure as needed"
+@NOTE text="POST /payments/:id/refund for refunds, partial supported"
+@NOTE text="Methods: cards, bank transfers, digital wallets"
+
+@SEC name="GDPR Compliance"
+@RULE lvl=must | when="handling PII" | then="Encrypt PII with AES-256, TLS 1.3"
+@RULE lvl=must | when="receiving valid erasure request" | then="Erasure within 30 days"
+@RULE lvl=must | when="handling data" | then="Maintain processing records for audit"
+@RULE lvl=must | when="aware of data breach" | then="Report breaches within 72 hours"
+@RULE lvl=must | when="launching new data processing activities" | then="Conduct impact assessments annually"
+@RULE lvl=must | when="appointing data protection officer" | then="Appoint DPO, publish contact"
+@RULE lvl=must | when="processing personal data" | then="Obtain explicit consent"
+@RULE lvl=must | when="receiving data portability request" | then="Portability in JSON/CSV, 30 days"
+@RULE lvl=must | when="cross-border data transfers" | then="Use Standard Contractual Clauses"
+
+@SEC name="SOC 2 Type II Compliance"
+@RULE lvl=must | when="setting access controls" | then="Least privilege access controls"
+@RULE lvl=must | when="recording data access events" | then="Audit logs record access events"
+@RULE lvl=must | when="conducting vulnerability scans" | then="Monthly vulnerability scans"
+@RULE lvl=must | when="performing penetration testing" | then="Annual penetration testing"
+@RULE lvl=must | when="responding to incidents" | then="Incident response procedures"
+@RULE lvl=must | when="testing business continuity plans" | then="Test continuity plans semi-annually"
+@RULE lvl=must | when="encrypting backups" | then="Encrypt backups, test quarterly"
+@RULE lvl=must | when="requiring MFA" | then="MFA required, use TOTP/hardware keys"
+@RULE lvl=must | when="conducting employee background checks" | then="Complete background checks pre-access"
+@RULE lvl=must | when="assessing vendor security" | then="Annual vendor security assessments"
+
+@SEC name="PCI-DSS Level 1 Compliance"
+@RULE lvl=must | when="storing card numbers" | then="Store last four digits, fingerprint"
+@RULE lvl=must | when="storing payment data" | then="Tokenize payment data"
+@RULE lvl=must | when="segmenting payment network" | then="Segment payment network with firewalls"
+@RULE lvl=must | when="monitoring network traffic" | then="Monitor traffic with IDS"
+@RULE lvl=must | when="rotating encryption keys" | then="Rotate keys annually, immediate if compromised"
+@RULE lvl=must | when="restricting physical access" | then="Restrict physical access to authorized"
+@RULE lvl=must | when="reviewing payment processing code" | then="Security review pre-deployment"
+@RULE lvl=must | when="conducting ASV scans" | then="Quarterly ASV scans"
+
+@SEC name="Rate Limiting"
+@RULE lvl=must | when="configuring global rate limit" | then="Global limit 1000/min"
+@RULE lvl=must | when="configuring per-user rate limit" | then="Per-user limit 100/min"
+@RULE lvl=must | when="configuring burst limit" | then="Burst limit 50/1s"
+@RULE lvl=must | when="using throttle strategy" | then="Sliding window throttle"
+@NOTE text="Include rate limit headers [RateLimit]"
+@NOTE text="Retry-After header specifies wait time"
+@NOTE text="Higher limits for authenticated requests"
+@NOTE text="Webhooks exempt from rate limits"
+@NOTE text="Batch endpoints rate limit per item"
+@NOTE text=HMAC-SHA256
+@NOTE text=order.created
+@NOTE text=order.updated
+@NOTE text=order.completed
+@NOTE text=payment.succeeded
+@NOTE text=payment.failed
+@NOTE text=invoice.paid
+@NOTE text=2000
+@NOTE text=5322
+@NOTE text=1234567890
+@NOTE text=8601
+@NOTE text=2026
+@NOTE text=UTC

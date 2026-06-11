@@ -1,0 +1,25 @@
+@DOC ver=2.0 | id=meridian-rebrand | title="Meridian Brand Refresh" | kind=spec | profile=decl | fmt=ultra
+@STAMP ts:ts=2024-10-15T00:00:00Z | src=human | label=kickoff
+@STAMP ts:ts=2024-10-18T00:00:00Z | src=human | label=workshop
+@STAMP ts:ts=2024-10-20T00:00:00Z | src=human | label=slack
+@STAMP ts:ts=2024-10-21T00:00:00Z | src=human | label=client
+@SEC name="Project"
+@CFG key=budget | value="$180k+$15k-anim"
+@CFG key=board | value="Dec 12"
+@CFG key=concepts | value="Nov 1"
+@SEC name="Direction"
+@NOTE text="Premium+approachable. Clean+confident. Institutional trust, not flashy."
+@RULE lvl=MUST | when="logo" | then="retain M, geometric, less script"
+@SEC name="Colors"
+@MAP id=c | pairs=["gold"->"#C5952C(AA@18px+navy)","navy"->"#1B2A4A","sage"->"#8B9E84/#7D8E76","gray"->"TBD"]
+@RULE lvl=MUST | when="combos" | then="WCAG AA"
+@RULE lvl=MUST | when="legal" | then="WCAG AAA"
+@SEC name="Type"
+@MAP id=t | pairs=["heading"->"Tiempos($600)|FreightBigPro($450)","body"->"AktivGrotesk(~$300)"]
+@SEC name="Deliverables"
+@MAP id=d | pairs=["logo"->"full suite","icons"->"48(+8 mobile)","guidelines"->"60+pg,digital-first","social"->"IG/LI/TW","co-brand"->"N.Trust Jan","other"->"sig,ppt,letterhead,cards"]
+@SEC name="Team"
+@MAP id=s | pairs=["Sarah"->"3 concepts Oct25","Mark"->"moodboard Oct22","Alex"->"asset audit","Lisa"->"CD,review Nov8"]
+@MAP id=cl | pairs=["Jennifer(CMO)"->"decision,gold","Robert(CEO)"->"clean+confident","David(Prod)"->"MC/Mailchimp refs"]
+@SEC name="Future"
+@NOTE text="Robo-advisor Q2-2025. Design for sub-brands. Out of scope."

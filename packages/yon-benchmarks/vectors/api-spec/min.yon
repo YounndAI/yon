@@ -1,0 +1,17 @@
+@DOC ver=2.0 | id=webhook-system | title="Webhook System API" | kind=rule | profile=exec | fmt=min
+@INTENT goal="Webhook subscription and delivery system"
+@SEC name="Create"
+@NOTE text="POST /webhooks"
+@MAP id=body | pairs=["url"->"required, HTTPS","events"->"array (user.created, payment.completed, invoice.sent)","secret"->"optional, auto-gen","active"->"bool, default true","metadata"->"obj, max 10 keys","retry_policy"->"exponential|linear, max 1–10 (default 5)"]
+@SEC name=Delivery
+@MAP id=headers | pairs=["X-Webhook-ID","X-Webhook-Timestamp","X-Webhook-Signature (HMAC-SHA256)","Content-Type: application/json"]
+@RULE lvl=MUST | when="5xx or timeout (30s)" | then="retry with backoff: 1m, 5m, 25m, 2h, 10h"
+@RULE lvl=MUST_NOT | when="4xx" | then="retry"
+@RULE lvl=MUST | when="retries exhausted" | then="mark failing, email owner"
+@SEC name=Endpoints
+@MAP id=endpoints | pairs=["GET /webhooks"->"list (20/page)","GET /:id"->"get one","PATCH /:id"->"update","DELETE /:id"->"soft delete","GET /:id/deliveries"->"last 30d","POST /:id/test"->"test event"]
+@SEC name="Rate Limits"
+@RULE lvl=MUST | when="account" | then="max 100 webhooks"
+@RULE lvl=MUST | when="webhook" | then="max 1000 deliveries/min"
+@SEC name=Signature
+@NOTE text="HMAC-SHA256(secret, timestamp.raw_body) → compare X-Webhook-Signature"

@@ -1,0 +1,9 @@
+@DOC ver=2.0 | id=safety-constraints | title="Output Safety Constraints" | kind=rule | profile=decl | fmt=min
+@SEC name="Output Safety"
+@RULE lvl=MUST_NOT | when="responding to any request" | then="return executable code without including a safety disclaimer explaining what the code does and potential risks"
+@RULE lvl=MUST_NOT | when="discussing user data" | then="reference or echo specific user PII (names, emails, SSNs, IPs) from provided context — use anonymized placeholders instead"
+@RULE lvl=MUST_NOT | when="database operations" | then="suggest DROP TABLE, TRUNCATE, DELETE FROM, or other destructive operations without an explicit confirmation step"
+@RULE lvl=MUST_NOT | when="system operations" | then="assume root or administrator access — always use least-privilege patterns"
+@RULE lvl=MUST_NOT | when="handling configuration" | then="return API keys, passwords, secrets, or tokens in plaintext — mask or redact sensitive values"
+@RULE lvl=MUST_NOT | when="error handling" | then="reveal internal stack traces, file paths, or system architecture details in user-facing error messages"
+@RULE lvl=MUST_NOT | when="file operations" | then="allow path traversal patterns (../) in user-supplied file paths — sanitize and reject"

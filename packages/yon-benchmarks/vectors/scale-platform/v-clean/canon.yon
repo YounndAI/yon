@@ -1,0 +1,198 @@
+@DOC ver=2.0 | id=chunk-1-3 | title="API and Compliance Rules" | domain=technical | kind=rule | profile=exec | fmt=canon
+
+@SEC name="Authentication and Rate Limiting"
+@RULE lvl=must | when="using Bearer token OAuth2" | then="Bearer token OAuth2 with Token TTL of 3600s"
+@RULE lvl=must | when="rate limit exceeded" | then="Rate limit 500 req/min global. On exceed: 429 + Retry-After header"
+
+@SEC name="Users API"
+@RULE lvl=must | when="creating user" | then="POST /users requires name, email, role"
+@RULE lvl=must | when="email change" | then="PATCH /users/:id requires email verification on change"
+
+@SEC name="Orders API"
+@RULE lvl=must | when="creating order" | then="POST /orders requires customer_id, items[], total, currency"
+@RULE lvl=must | when="order currency" | then="Order currency must be ISO 4217"
+
+@SEC name="Error Codes"
+@MAP id=Error Codes name="Error Codes" | pairs=["ERR_AUTH"->"invalid/expired token","ERR_NOT_FOUND"->"resource doesn't exist","ERR_VALIDATION"->"request body failed schema validation","ERR_CONFLICT"->"duplicate resource","ERR_RATE_LIMIT"->"too many requests","ERR_PAYMENT_FAILED"->"payment provider rejected","ERR_INSUFFICIENT_FUNDS"->"account balance too low","ERR_PERMISSION_DENIED"->"token lacks required scope","ERR_RESOURCE_LOCKED"->"concurrent modification in progress"]
+
+@SEC name="Products API"
+@RULE lvl=must | when="creating product" | then="POST /products requires name, description, price, category, active"
+
+@SEC name="Invoices API"
+@RULE lvl=must | when="creating invoice" | then="POST /invoices requires customer_id, items, due_date, payment_terms"
+
+@SEC name="Global Validation Rules"
+@RULE lvl=must | when="validating email" | then="Email must follow RFC 5322"
+@RULE lvl=must | when="validating phone" | then="Phone must follow E.164"
+
+@SEC name=Webhooks
+@RULE lvl=must | when="processing webhook" | then="Webhooks must verify HMAC-SHA256 signature"
+
+@SEC name="Subscriptions API"
+@RULE lvl=must | when="creating subscription" | then="POST /subscriptions requires customer_id, plan_id, trial_days, payment_method_id"
+
+@SEC name="Payments API"
+@RULE lvl=must | when="creating payment" | then="POST /payments requires amount, currency, method_id, description"
+
+@SEC name="GDPR Compliance"
+@RULE lvl=must | when="handling PII" | then="Encrypt all PII at rest using AES-256 and in transit using TLS 1.3"
+@RULE lvl=must | when="receiving valid erasure request" | then="Right to erasure must be completed within 30 days of receiving a valid request"
+
+@SEC name="SOC 2 Type II Compliance"
+@RULE lvl=must | when="Access controls" | then="Access controls must follow the principle of least privilege."
+@RULE lvl=must | when="Audit logs" | then="Audit logs must record all data access events including who accessed what, when, and from where."
+@RULE lvl=must | when="Vulnerability scans" | then="Vulnerability scans must be conducted monthly using automated tools."
+@RULE lvl=must | when="Critical findings" | then="Critical findings must be remediated within 48 hours."
+@RULE lvl=must | when="Penetration testing" | then="Penetration testing must be performed annually by an independent third party."
+@RULE lvl=must | when="Incident response procedures" | then="Incident response procedures must include detection, triage, containment, eradication, and post-mortem phases."
+@RULE lvl=must | when="Business continuity plans" | then="Business continuity plans must be tested semi-annually."
+@RULE lvl=must | when="Recovery time objective" | then="Recovery time objective is 4 hours for Tier 1 services."
+@RULE lvl=must | when=Backups | then="Backups must be encrypted at rest and tested for recoverability quarterly."
+@RULE lvl=must | when="Multi-factor authentication" | then="Multi-factor authentication is required for all administrative access."
+@RULE lvl=must | when="SMS-based MFA" | then="SMS-based MFA is deprecated in favor of TOTP or hardware keys."
+@RULE lvl=must | when="Employee background checks" | then="Employee background checks must be completed before granting system access."
+@RULE lvl=must | when="Vendor security assessments" | then="Vendor security assessments must be conducted annually for all third-party services that process customer data."
+
+@SEC name="PCI-DSS Level 1 Compliance"
+@RULE lvl=must | when="Full card numbers" | then="Full card numbers must never be stored after authorization."
+@RULE lvl=must | when="Payment data" | then="Payment data must be tokenized before storage using a PCI-compliant tokenization service."
+@RULE lvl=must | when="Payment processing network" | then="The payment processing network must be segmented from other internal networks with firewall rules."
+@RULE lvl=must | when="Intrusion detection systems" | then="Intrusion detection systems must monitor all network traffic in the payment segment in real-time."
+@RULE lvl=must | when="Encryption keys" | then="Encryption keys must be rotated annually. Compromised keys must be rotated immediately."
+@RULE lvl=must | when="Physical access to servers" | then="Physical access to servers processing cardholder data must be restricted to authorized personnel only."
+@RULE lvl=must | when="Payment processing code" | then="All payment processing code must undergo security review before deployment."
+@RULE lvl=must | when="Quarterly ASV scans" | then="Quarterly ASV scans must be conducted by an approved scanning vendor."
+
+@SEC name="Rate Limiting"
+@RULE lvl=must | when="Global rate limit" | then="Global rate limit is 1000 requests per minute."
+@RULE lvl=must | when="Per-user rate limit" | then="Per-user rate limit is 100 requests per minute."
+@RULE lvl=must | when="Burst limit" | then="Burst limit allows 50 requests in a 1-second window before throttling kicks in."
+@RULE lvl=must | when="Throttle strategy" | then="The throttle strategy is sliding window to prevent thundering herd problems."
+@RULE lvl=must | when="Rate limit headers" | then="Rate limit headers are included in all responses: X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset."
+@RULE lvl=must | when="Rate limited" | then="When rate limited, the Retry-After header specifies the number of seconds to wait."
+@RULE lvl=must | when="Authenticated requests" | then="Authenticated requests have higher limits than anonymous requests."
+@RULE lvl=must | when="Webhook deliveries" | then="Webhook deliveries do not count against rate limits."
+@RULE lvl=must | when="Batch endpoints" | then="Batch endpoints have separate rate limits calculated per item, not per request."
+
+@SEC name="Shipping Module"
+@RULE lvl=must | when="POST /shipping" | then="POST /shipping creates a shipment for an order."
+@MAP id=Required Fields name="Required Fields" | pairs=["order_id"->"required","carrier"->"required","tracking_number"->"required","estimated_delivery"->"required"]
+@MAP id=Supported Carriers name="Supported Carriers" | pairs=["ups"->"supported","fedex"->"supported","dhl"->"supported","usps"->"supported","custom"->"requires tracking URL template"]
+@MAP id=Shipment Statuses name="Shipment Statuses" | pairs=["created"->"status","picked_up"->"status","in_transit"->"status","out_for_delivery"->"status","delivered"->"status","failed"->"status","returned"->"status"]
+@RULE lvl=must | when="Status updates" | then="Status updates come from carrier webhooks and are propagated to order and customer notification systems."
+@RULE lvl=must | when="Shipping costs" | then="Shipping costs are calculated based on weight, dimensions, origin, and destination."
+@RULE lvl=must | when=Quotes | then="Quotes are cached for 15 minutes."
+@RULE lvl=must | when="International shipments" | then="International shipments require customs declaration data including HS codes and declared values."
+@RULE lvl=must | when="Shipping labels" | then="Shipping labels can be generated via POST /shipping/:id/label in PDF or ZPL format."
+
+@SEC name="Inventory Module"
+@RULE lvl=must | when="Stock levels" | then="Stock levels are tracked as available, reserved, and damaged quantities."
+@RULE lvl=must | when="POST /inventory/adjust" | then="POST /inventory/adjust creates an inventory adjustment with reason, quantity change, and reference ID."
+@RULE lvl=must | when=Adjustments | then="Adjustments can be positive (restock) or negative (damage, loss)."
+@RULE lvl=must | when="Zero adjustments" | then="Zero adjustments are rejected."
+@RULE lvl=must | when=Reservation | then="Reservation occurs when an order is confirmed."
+@RULE lvl=must | when="Reserved stock" | then="Reserved stock cannot be sold to other customers."
+@RULE lvl=must | when="Low-stock alerts" | then="Low-stock alerts fire when available quantity drops below the reorder point configured per product per warehouse."
+@RULE lvl=must | when="Inventory transfers" | then="Inventory transfers between warehouses are tracked as paired adjustments with a transfer ID."
+@RULE lvl=must | when="Cycle counts" | then="Cycle counts can be initiated via POST /inventory/count to verify physical stock matches system records."
+@RULE lvl=must | when="Discrepancies from cycle counts" | then="Discrepancies from cycle counts are logged and require manager approval before adjustment."
+
+@SEC name="Notification System"
+@RULE lvl=must | when="Notification templates" | then="Notification templates use Handlebars syntax with variable substitution."
+@RULE lvl=must | when=Templates | then="Templates are versioned."
+@RULE lvl=must | when="Notification priority" | then="Each notification has a priority level: critical, high, normal, low. Critical notifications bypass quiet hours."
+@RULE lvl=must | when="Quiet hours" | then="Quiet hours are configurable per user from 10 PM to 7 AM local time by default."
+@RULE lvl=must | when="Email notifications" | then="Email notifications use the transactional email provider. Delivery status is tracked via webhooks."
+@RULE lvl=must | when="SMS notifications" | then="SMS notifications are sent via the SMS gateway. International SMS requires country-specific sender IDs."
+@RULE lvl=must | when="Push notifications" | then="Push notifications target specific devices. Users can have multiple devices registered."
+@RULE lvl=must | when="In-app notifications" | then="In-app notifications are persisted and shown in the notification center with read/unread status."
+@RULE lvl=must | when="Notification preferences" | then="Notification preferences allow users to opt out of specific notification types per channel."
+@RULE lvl=must | when="Bulk notifications" | then="Bulk notifications are queued and processed at a rate of 1000 per minute to prevent provider throttling."
+
+@SEC name="Analytics Module"
+@RULE lvl=must | when=Events | then="Events are collected via a client SDK and server-side API."
+@RULE lvl=must | when="Real-time dashboards" | then="Real-time dashboards update every 5 seconds for the last 15 minutes of data."
+@RULE lvl=must | when="Historical queries" | then="Historical queries support aggregation by minute, hour, day, week, and month."
+@RULE lvl=must | when="Custom events" | then="Custom events can be defined with up to 10 properties each. Property names must be alphanumeric with underscores."
+@RULE lvl=must | when=Funnels | then="Funnels track user progression through defined step sequences. Drop-off rates are calculated automatically."
+@RULE lvl=must | when="Cohort analysis" | then="Cohort analysis groups users by first event date and tracks retention over time."
+@RULE lvl=must | when="Data retention" | then="Data retention is 13 months for detailed events and unlimited for aggregated metrics."
+@RULE lvl=must | when="Analytics data export" | then="Analytics data can be exported via GET /analytics/export in CSV or Parquet format."
+@RULE lvl=must | when="Query performance" | then="Query performance is optimized using column-oriented storage with automatic partitioning by date."
+
+@SEC name="Reporting Module"
+@NOTE text="The reporting module generates scheduled and on-demand business reports."
+@NOTE text="Standard reports include revenue, orders, customers, inventory, and churn metrics."
+@NOTE text="Custom reports can be defined using a SQL-like query language against the analytics data warehouse."
+@NOTE text="Reports can be scheduled daily, weekly, or monthly with email delivery to distribution lists."
+@NOTE text="Report formats supported are PDF, CSV, Excel, and JSON. Each format has different configuration options."
+@NOTE text="Dashboards aggregate multiple reports into a single view. Up to 12 widgets per dashboard."
+@NOTE text="Drill-down is supported on all standard reports. Clicking a metric opens the detailed view."
+@NOTE text="Report caching prevents redundant computation. Cache TTL depends on data freshness requirements."
+@NOTE text="Access control limits report visibility by role. Financial reports require finance or admin role."
+@NOTE text="Report generation for large date ranges is queued and processed asynchronously."
+@NOTE text="A notification is sent when the report is ready for download."
+
+@SEC name="HIPAA Compliance"
+@RULE lvl=must | then="Access controls must enforce role-based access to PHI with the minimum necessary standard."
+@RULE lvl=must | then="All PHI access must be logged in tamper-proof audit trails retained for 6 years."
+@RULE lvl=must | then="PHI must be encrypted at rest using AES-256 and in transit using TLS 1.3."
+@RULE lvl=must | then="Breach notification procedures must be in place. Affected individuals must be notified within 60 days."
+@RULE lvl=must | then="Risk assessments must be conducted annually and documented with remediation plans."
+@RULE lvl=must | then="All workforce members with PHI access must complete HIPAA training annually."
+@RULE lvl=must | then="Business associate agreements must be signed with all third parties that access PHI."
+@RULE lvl=must | then="Emergency access procedures must allow authorized personnel to access PHI during system outages."
+@RULE lvl=must | then="Policies and procedures must be documented, reviewed annually, and updated as needed."
+@RULE lvl=must | then="Physical safeguards include facility access controls and workstation security."
+@RULE lvl=must | then="Technical safeguards include unique user identification, automatic logoff, and audit controls."
+
+@SEC name="Caching Layer"
+@NOTE text="The caching layer sits between the API and database for frequently accessed resources."
+@NOTE text="Default cache TTL is 300 seconds (5 minutes). Maximum TTL is 86400 seconds (24 hours)."
+@NOTE text="Cache strategy is stale-while-revalidate: serve stale content while fetching fresh data in the background."
+@NOTE text="Cache invalidation is event-driven. Database writes trigger cache key invalidation via the event bus."
+@NOTE text="The cache backend is Redis 7.x running in cluster mode with 3 primary and 3 replica nodes."
+@NOTE text="Cache keys follow the pattern: {service}:{resource}:{id}:{version}. Version is incremented on each write."
+@NOTE text="Cache hit rates are monitored. Target is 95% for read-heavy endpoints."
+@NOTE text="Large objects (>1MB) are compressed with LZ4 before caching. Decompression is transparent to consumers."
+@NOTE text="Cache warming runs during deployment to prevent cold-start latency spikes."
+@NOTE text="Per-tenant cache isolation prevents noisy neighbors in multi-tenant deployments."
+
+@SEC name=Observability
+@NOTE text="Observability is built on three pillars: tracing, metrics, and logging."
+@NOTE text="Distributed tracing uses OpenTelemetry with W3C Trace Context propagation. All services are instrumented."
+@NOTE text="Metrics are exported in Prometheus format. Custom metrics use the standard naming convention: {service}_{metric}_{unit}."
+@NOTE text="Logging uses structured JSON format. Every log line includes correlation_id, service, level, and timestamp."
+@NOTE text="Default log level is info. Debug logging can be enabled per-service without restart via runtime configuration."
+@NOTE text="Sampling rate for traces is 10% in production and 100% in staging."
+@NOTE text="Log retention is 90 days in the search index and 1 year in cold storage."
+@NOTE text="Alerts are defined as code using Terraform. Each alert specifies threshold, duration, severity, and runbook link."
+@NOTE text="Dashboards follow the RED method: Rate, Errors, Duration for every service."
+@NOTE text="SLO tracking monitors error budget consumption. Pages are triggered at 50% budget burn in a 1-hour window."
+
+@SEC name="Service Architecture"
+@NOTE text="All services communicate via gRPC for internal calls and REST for external-facing APIs."
+@NOTE text="Event sourcing is used for order and payment domains to maintain a complete audit history of all state changes."
+@NOTE text="CQRS pattern separates read and write models for high-throughput reporting without impacting write performance."
+@NOTE text="Each service owns its database. Cross-service data access goes through well-defined API boundaries."
+@NOTE text="The event bus uses Apache Kafka with guaranteed at-least-once delivery. Consumers must be idempotent."
+@RULE lvl=must | then="Circuit breaker pattern is mandatory for all external service calls. Trips after 5 consecutive failures."
+@NOTE text="Saga pattern is used for distributed transactions spanning multiple services with compensating transactions."
+@NOTE text="API gateway handles cross-cutting concerns: authentication, rate limiting, request logging, and CORS."
+@NOTE text="Service mesh provides mutual TLS, observability, and fine-grained traffic management between services."
+@NOTE text="Blue-green deployments ensure zero-downtime releases. Canary releases route 5% of traffic to new versions."
+@NOTE text=order.created
+@NOTE text=order.updated
+@NOTE text=order.completed
+@NOTE text=payment.succeeded
+@NOTE text=payment.failed
+@NOTE text=invoice.paid
+@NOTE text=200
+@NOTE text=402
+@NOTE text=2000
+@NOTE text=1234567890
+@NOTE text=8601
+@NOTE text=2026
+@NOTE text=30s
+@NOTE text="Standard Contractual Clauses"
+@NOTE text=UTC

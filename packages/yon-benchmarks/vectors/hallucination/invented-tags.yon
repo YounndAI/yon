@@ -1,0 +1,8 @@
+This is not valid YON at all.
+@FAKERTAG invented=true
+@DOC ver=2.0 | kind=test
+@BLOOP data="this tag does not exist"
+@YONIFY mode=turbo
+Some random text without any structure.
+{ "json": "bleed into YON" }
+@NOTE text="valid note but after invalid content"

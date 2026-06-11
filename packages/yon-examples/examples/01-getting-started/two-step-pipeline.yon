@@ -1,0 +1,7 @@
+@DOC ver=2.0 | id=two-step-pipeline | title="Two-Step Pipeline" | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Read a file, then transform its content. Demonstrates step chaining via refs."
+
+@SEC name="Pipeline"
+@STEP n:int=1 | rid=read | op=std:fs.read@v1 | args=[path="data/input.csv"] | out=[ref:raw]
+@STEP n:int=2 | rid=transform | op=std:data.map@v1 | in=[ref:raw] | out=[ref:result]

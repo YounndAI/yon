@@ -1,0 +1,14 @@
+@DOC ver=2.0 | id=file-backup | title="File Backup Pipeline" | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Compress, encrypt, and upload files to remote storage. Includes verification."
+
+@STEP n:int=1 | rid=scan | op=std:fs.list@v1 | out=[ref:files]
+@STEP n:int=2 | rid=compress | op=std:archive.gzip@v1 | in=[ref:files] | out=[ref:archive]
+@STEP n:int=3 | rid=encrypt | op=std:crypto.encrypt@v1 | in=[ref:archive] | out=[ref:encrypted]
+@STEP n:int=4 | rid=upload | op=std:s3.put@v1 | in=[ref:encrypted] | out=[ref:upload_result]
+
+@CHECK rid=verify:upload | assert="ref:upload_result.status == success" | fail=ABORT | msg="Upload failed"
+
+@STEP n:int=5 | rid=notify | op=std:notify.send@v1
+
+@STAMP ts:ts="2026-02-14T05:00:00Z" | src=backup-agent

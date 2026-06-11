@@ -1,0 +1,89 @@
+{
+  "name": "@younndai/ai-relay",
+  "description": "Provider-agnostic LLM gateway — single model registry, structured output, streaming, embeddings, and precise token counting across OpenAI, Anthropic, and Google.",
+  "version": "3.0.0",
+  "author": {
+    "name": "MARLINK TRADING SRL (YounndAI)",
+    "url": "https://younndai.com"
+  },
+  "contributors": [
+    {
+      "name": "Alexandru Mareș",
+      "url": "https://allemaar.com"
+    }
+  ],
+  "homepage": "https://yon.younndai.com",
+  "dependencies": {
+    "js-tiktoken": "^1.0.21",
+    "zod": "^4.4.3"
+  },
+  "peerDependencies": {
+    "@ai-sdk/anthropic": "^3.0.0",
+    "@ai-sdk/google": "^3.0.0",
+    "@ai-sdk/openai": "^3.0.0",
+    "@ai-sdk/openai-compatible": "^2.0.0",
+    "ai": "^6.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@ai-sdk/openai-compatible": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@ai-sdk/anthropic": "^3.0.0",
+    "@ai-sdk/google": "^3.0.0",
+    "@ai-sdk/openai": "^3.0.0",
+    "@types/node": "^25.9.1",
+    "typescript": "^6.0.3",
+    "vitest": "^4.0.18"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "NOTICE",
+    "TRADEMARK.md",
+    "TESTING.md",
+    "package.json"
+  ],
+  "keywords": [
+    "yon",
+    "younndai",
+    "llm",
+    "ai",
+    "llm-gateway",
+    "model-registry",
+    "openai",
+    "anthropic",
+    "gemini",
+    "structured-output",
+    "embeddings",
+    "token-counting"
+  ],
+  "license": "Apache-2.0",
+  "main": "./dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YounndAI/yon.git",
+    "directory": "packages/ai-relay"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "type": "module",
+  "types": "./dist/index.d.ts"
+}

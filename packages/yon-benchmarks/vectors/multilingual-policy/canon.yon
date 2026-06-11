@@ -1,0 +1,83 @@
+@DOC ver=2.0 | kind=rule | id=eu-data-privacy | title="Employee Data Privacy Policy — Multi-Region EU Compliance" | profile=decl | fmt=canon
+
+@SEC name="Germany (BDSG)"
+
+@SEC name="Betriebsrat (Works Council)"
+@NOTE text="Der Betriebsrat muss vor der Einführung von Systemen zur Mitarbeiterüberwachung konsultiert werden."
+@RULE lvl=MUST | when="introducing employee monitoring" | then="consult works council (Betriebsrat)"
+@MAP id=de_monitoring_scope | name="Monitoring Types" | pairs=["email scanning"->"requires Betriebsvereinbarung","web usage tracking"->"requires Betriebsvereinbarung","GPS tracking"->"requires Betriebsvereinbarung","video surveillance"->"requires Betriebsvereinbarung"]
+@RULE lvl=MUST | when="deploying monitoring system" | then="secure Betriebsvereinbarung (works agreement) first"
+@CFG key=de_penalty | value="up to €300,000 per violation"
+
+@SEC name="Aufbewahrungsfristen (Data Retention)"
+@MAP id=de_retention | pairs=["personnel_files"->"3 years post-employment (§195 BGB)","payroll_records"->"6 years (§257 HGB, Handelsgesetzbuch)","tax_documents"->"10 years (§147 AO, Abgabenordnung)","rejected_candidates"->"6 months max, then mandatory deletion","Krankheitstage (sick days)"->"12 months active, 6 years in payroll"]
+
+@SEC name="Datenschutzbeauftragter (DPO)"
+@RULE lvl=MUST | when=">20 employees process personal data" | then="appoint Datenschutzbeauftragter"
+@RULE lvl=MUST | when="DPO appointed" | then="report to Landesbeauftragter für Datenschutz"
+@RULE lvl=MUST_NOT | when="any circumstance" | then="terminate or disadvantage DPO for performing duties (§38 BDSG)"
+@NOTE text="Internal or external DPO acceptable."
+
+@SEC name="France (CNIL / Loi Informatique et Libertés)"
+
+@SEC name="Droit à la Déconnexion (Right to Disconnect)"
+@NOTE text="Les entreprises de plus de 50 salariés doivent négocier les modalités du droit à la déconnexion."
+@RULE lvl=MUST | when="company has >50 employees" | then="negotiate disconnection rights (droit à la déconnexion)"
+@MAP id=fr_disconnect_scope | pairs=["email"->"covered","messaging apps"->"covered","work platforms"->"covered","phone calls"->"covered outside working hours"]
+@RULE lvl=MUST | when="implementing disconnect policy" | then="include in Règlement Intérieur (internal regulations)"
+@CFG key=fr_cnil_no_response_window | value="20:00–08:00"
+
+@SEC name="Surveillance des Salariés (Employee Monitoring)"
+@RULE lvl=MUST | when="any monitoring" | then="inform Comité Social et Économique (CSE) before deployment"
+@RULE lvl=MUST | when="any monitoring" | then="notify each employee individually in writing"
+@RULE lvl=MUST | when="any monitoring" | then="ensure proportionality to legitimate aim"
+@RULE lvl=MUST_NOT | when="any circumstance" | then="use keyloggers (CNIL Délibération n°2013-001)"
+@RULE lvl=MAY | when="internet monitoring" | then="monitor volume only, not specific sites"
+@RULE lvl=MUST_NOT | when="video surveillance" | then="install in salles de repos (break rooms), changing areas, or toilets"
+
+@SEC name="Retention (France)"
+@MAP id=fr_retention | pairs=["active_employee"->"employment + 5 years (limitation period)","bulletins de paie (payroll)"->"5 years","candidates"->"2 years from last contact","access_logs"->"6 months (CNIL recommendation)"]
+
+@SEC name="Netherlands (UAVG)"
+
+@SEC name="Ondernemingsraad (Works Council)"
+@NOTE text="De ondernemingsraad heeft instemmingsrecht bij besluiten over personeelsvolgsystemen."
+@RULE lvl=MUST | when="monitoring decisions" | then="obtain explicit works council consent (not merely consultation)"
+@NOTE text="Article 27 WOR (Wet op de Ondernemingsraden). Consent documented in writing with signatures."
+
+@SEC name="Medische Gegevens (Medical Data)"
+@RULE lvl=MUST_NOT | when="any circumstance" | then="ask about nature of employee illness"
+@MAP id=nl_medical_allowed | name="Permitted Questions" | pairs=["expected_duration"->"yes","task_coverage"->"yes","diagnosis"->"NO (bedrijfsarts only)"]
+@RULE lvl=MUST | when="processing medical information" | then="route to bedrijfsarts (company doctor) only"
+@RULE lvl=MUST_NOT | when="manager records" | then="store medical details (only sick/not-sick status)"
+@CFG key=nl_medical_penalty | value="up to €820,000 (Autoriteit Persoonsgegevens)"
+
+@SEC name="Retention (Netherlands)"
+@MAP id=nl_retention | pairs=["personnel_files"->"2 years post-employment","payroll (fiscale bewaarplicht)"->"7 years","verzuimregistratie (absence records)"->"2 years","rejected_candidates"->"4 weeks (or 1 year with consent)"]
+
+@SEC name="Spain (LOPDGDD)"
+
+@SEC name="Registro de Jornada (Working Time)"
+@NOTE text="Todas las empresas deben registrar la jornada laboral diaria de cada trabajador."
+@RULE lvl=MUST | when="all companies" | then="register daily working hours for each employee (mandatory since 2019)"
+@MAP id=es_jornada | pairs=["start_time"->"required","end_time"->"required","total_hours"->"required","retention_years:int"->"4","available_to"->"workers, unions, labor inspectors"]
+@CFG key=es_fine_range | value="€626 to €6,250"
+
+@SEC name="Derechos Digitales (Digital Rights)"
+@NOTE text="Derecho a la intimidad en el uso de dispositivos digitales."
+@RULE lvl=MUST | when="establishing digital usage criteria" | then="include worker participation"
+@RULE lvl=MUST_NOT | when="BYOD devices" | then="access personal content"
+@NOTE text="Derecho a la desconexión digital — must be in collective agreement or internal protocol."
+
+@SEC name="Retention (Spain)"
+@MAP id=es_retention | pairs=["employment_contracts"->"4 years post-termination","nóminas (payroll)"->"4 years","medical_exams"->"employment + 5 years","training_records"->"4 years","video_surveillance"->"30 days max (unless incident)"]
+
+@SEC name="Cross-Region Technical Requirements"
+
+@MAP id=storage | pairs=["data_centers"->"EU-based only (post-Schrems II)","encryption_at_rest"->"AES-256 minimum","encryption_in_transit"->"TLS 1.2 minimum, 1.3 preferred"]
+@RULE lvl=MUST | when="any personal data access" | then="log timestamp, user, action, and justification"
+@CFG key=anonymization | value="k-anonymity (k≥5) for analytics"
+@CFG key=portability_format | value="JSON or CSV within 30 days"
+@RULE lvl=MUST | when="data breach" | then="notify supervisory authority within 72 hours"
+@RULE lvl=MUST | when="high-risk processing" | then="conduct Privacy Impact Assessment (PIA)"
+@NOTE text="High-risk: automated decision-making, large-scale profiling."

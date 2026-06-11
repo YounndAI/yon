@@ -1,0 +1,6 @@
+@DOC ver=2.0 | id=hello-world | title="Hello World" | kind=workflow | profile=exec | fmt=canon
+
+@SEC name="Greeting"
+@NOTE text="A minimal one-step workflow that prints a greeting."
+
+@STEP n:int=1 | rid=greet | op=std:io.print@v1 | args=[msg="Hello, YON!"]

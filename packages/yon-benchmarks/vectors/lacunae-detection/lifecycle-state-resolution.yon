@@ -1,0 +1,22 @@
+@DOC ver=2.0 | id=retry-policy | title="Service Retry Policy" | kind=rule | profile=exec | fmt=canon
+
+@SEC name="Default Behavior"
+@RULE rid=rule:max-retries | lvl=MUST | when="any service call fails" | then="retry at most 3 times"
+@RULE rid=rule:backoff | lvl=SHOULD | when="retry triggered" | then="use exponential backoff starting at 100ms"
+@RULE rid=rule:timeout | lvl=MUST | when="any service call" | then="timeout after 30 seconds"
+
+@STAMP ts:ts="2026-01-15T10:00:00Z" | src="human" | method="manual"
+
+@SEC name="Incident Response: INC-2026-0042"
+@PATCH ts:ts="2026-02-01T09:00:00Z" | target="rid:rule:max-retries" | set=[then="retry at most 5 times"]
+@NOTE text="Increased retry count after payment gateway intermittent failures"
+
+@SEC name="Incident Response: INC-2026-0089"
+@PATCH ts:ts="2026-03-01T09:00:00Z" | target="rid:rule:max-retries" | set=[then="retry at most 10 times"]
+@NOTE text="Further increase — cascading timeouts in peak hours"
+
+@VOID ts:ts="2026-03-15T09:00:00Z" | target="rid:rule:backoff" | because="Switched to circuit breaker pattern — backoff replaced by half-open state detection"
+
+@SEC name="Current Additions"
+@RULE rid=rule:circuit-breaker | lvl=MUST | when="service failure count exceeds 5 within 60 seconds" | then="open circuit breaker for 30 seconds"
+@RULE rid=rule:fallback | lvl=SHOULD | when="circuit breaker is open" | then="return cached response with stale-while-revalidate header"

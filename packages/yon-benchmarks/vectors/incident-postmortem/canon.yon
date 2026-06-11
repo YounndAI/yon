@@ -1,0 +1,65 @@
+@DOC ver=2.0 | kind=context | id=inc-2024-0892 | title="INC-2024-0892: Auth Service Complete Outage" | profile=decl | fmt=canon
+
+@STAMP ts:ts=2024-11-08T14:23:00Z | src=system:pagerduty | label="SEV-1 Triggered"
+@STAMP ts:ts=2024-11-08T17:10:00Z | src=human | label="Resolved"
+
+@META key=severity | value="SEV-1 (Critical)"
+@META key=duration | value="2 hours 47 minutes (14:23–17:10 UTC)"
+@META key=author | value="Maria Torres, SRE Lead"
+@META key=reviewers | value="David Park (VP Eng), Aisha Okafor (Platform Lead), Tom Nakamura (Security)"
+
+@SEC name="Executive Summary"
+
+@NOTE text="Authentication service outage: 94,000 users unable to log in, 12,000 sessions expired. Revenue impact: $186,000. Root cause: misconfigured certificate rotation deployed expired TLS cert to 3/4 pods. Health check didn't validate cert expiry. Monitoring configured on ALB but not pods."
+
+@SEC name="Timeline"
+
+@MAP id=timeline | pairs=["13:45"->"Cert rotation job runs. PR #4782 config error: test profile (0-day validity) used instead of prod (90-day). Certs expire at creation.","13:47"->"Store updated. Pods 1-3 refresh within 2min. Pod 4 skipped (rolling restart deploy-auth-v3.12.1).","14:15"->"First user report: 'unable to log in'. Support dismisses as individual issue.","14:23"->"PagerDuty fires: Auth Error Rate > 5%. On-call Rajesh Patel acknowledges.","14:28"->"Dashboard shows 0.1% → 67% error rate. 3/4 pods rejecting with TLS handshake failures. Pod 4 handling all traffic.","14:35"->"SEV-1 escalated. War room #inc-2024-0892. Maria Torres as IC.","14:42"->"TLS handshake errors identified in logs: x509 certificate expired.","14:50"->"Pod restart attempted. Same expired certs loaded from store. Error rate unchanged.","14:55"->"Cert store inspected: all certs show 'Not After: Nov 8, 13:45:00 UTC'. Problem is rotation, not pods.","15:10"->"Manual cert generation with correct profile. Uploaded to store.","15:15"->"Rolling restart of all 4 pods.","15:20"->"All pods operational. Error rate: 67% → 2% (stale connections).","15:35"->"Error rate normal (0.1%). 12,000 expired sessions require re-auth.","15:40"->"Root cause confirmed: PR #4782 used 'cert-profile-test-0d' instead of 'cert-profile-prod-90d'.","16:00"->"Hotfix PR #4891 reverts profile. 2 reviewers, merged.","17:10"->"Full RCA complete. Incident resolved."]
+
+@SEC name="Impact"
+
+@SEC name="User Impact"
+@MAP id=user_impact | pairs=["users_blocked:int"->"94,000","sessions_expired:int"->"12,000","support_tickets:int"->"2,340","auto_resolved"->"89%","manual_followup:int"->"257"]
+
+@SEC name="Revenue Impact"
+@MAP id=revenue | pairs=["blocked_transactions"->"$186,000","deferred_renewals"->"$23,000 (recovered within 24h)","net_direct_impact"->"$186,000"]
+
+@SEC name="SLA Impact"
+@MAP id=sla | pairs=["monthly_target"->"99.95%","budget_consumed"->"2h47m of 21.9min monthly budget","sla_breach"->"yes, November","estimated_credits"->"$42,000"]
+
+@SEC name="Internal Impact"
+@MAP id=internal | pairs=["engineers_engaged:int"->"7","person_hours"->"19.5","teams_escalated:int"->"3 (auth, platform, SRE)","sprint_disruption"->"auth team Nov 11 planning"]
+
+@SEC name="Root Cause Analysis"
+
+@SEC name="Primary: Configuration Error"
+@NOTE text="PR #4782 (Oct 29) changed cert rotation config. Author used test profile 'cert-profile-test-0d' (0-day validity) instead of 'cert-profile-prod-90d' (90-day). Test profile generates immediately-expired certs for rotation testing. Single reviewer approved without verifying profile name against deployment runbook."
+
+@SEC name="Contributing: Insufficient Health Checks"
+@NOTE text="Kubernetes readinessProbe validates HTTPS port is open but NOT certificate validity. Would have detected expired certs and removed pods before user impact. Written 2 years ago for ALB-terminated TLS. Not updated when moving to pod-level TLS (June 2024)."
+
+@SEC name="Contributing: Monitoring Gap"
+@NOTE text="Certificate expiry alerts on AWS ALB only, not pod certs. Since pod-level TLS migration (June 2024), ALB has no visibility into pod cert state. Monitoring not updated. 5-month gap undetected."
+
+@SEC name="Action Items"
+
+@SEC name="Immediate (by Nov 15)"
+@MAP id=immediate | pairs=["AI-1"->"Revert cert profile to prod (PR #4891, DONE)","AI-2"->"Add TLS handshake validation to readiness probe — Rajesh Patel","AI-3"->"Add cert expiry monitoring to all pods — Maria Torres","AI-4"->"Audit all pod-level TLS services for health checks — Aisha Okafor"]
+
+@SEC name="Short-term (by Nov 30)"
+@MAP id=short_term | pairs=["AI-5"->"CI/CD: reject test cert profiles in prod branches — David Park","AI-6"->"Cert rotation dry-run mode (validate before deploy) — Tom Nakamura","AI-7"->"Alerting playbook: cert rotation failures = SEV-1 — Maria Torres","AI-8"->"Reduce cert refresh interval 2min → 30s — Rajesh Patel"]
+
+@SEC name="Long-term (by Dec 31)"
+@MAP id=long_term | pairs=["AI-9"->"Auto-rollback for cert rotation (handshake fail → revert) — Platform Team","AI-10"->"End-to-end TLS health monitoring (external synthetic probes) — SRE Team","AI-11"->"Cert management runbook with profile verification checklist — Tom Nakamura","AI-12"->"Team incident response training (TLS/cert troubleshooting) — Maria Torres"]
+
+@SEC name="Contributing Factors"
+
+@MAP id=went_well | name="What Went Well" | pairs=["detection"->"PagerDuty alerted within 8min of spike","escalation"->"war room in 12min","root_cause"->"identified within 20min of escalation","redundancy"->"pod 4 as inadvertent canary prevented zero availability","communication"->"status page at 14:40, customer email at 15:00"]
+
+@MAP id=went_wrong | name="What Went Wrong" | pairs=["review"->"PR #4782 approved with 1 reviewer (critical infra needs 2)","health_check"->"readinessProbe didn't validate TLS","monitoring"->"TLS gap since June 2024 (5 months)","triage"->"first user report dismissed as individual issue (−8min)","docs"->"no runbook for cert rotation failures"]
+
+@SEC name="Metrics"
+
+@MAP id=detection | name="Incident Metrics" | pairs=["detected_by"->"automated monitoring (PagerDuty)","time_to_detect"->"38 minutes (13:45 → 14:23)","time_to_mitigate"->"57 minutes (14:23 → 15:20)","time_to_resolve"->"2h47m (first impact → full resolution)"]
+
+@MAP id=tracking | name="Action Item Effectiveness Targets" | pairs=["cert_rotation_success"->"target: 100%","tls_failure_detection_latency"->"target: < 30 seconds","mean_time_to_detect_tls"->"target: < 5 minutes","health_check_coverage"->"target: 100% pod-level TLS services"]

@@ -1,0 +1,14 @@
+@DOC ver=2.0 | id=http-health-check | title="HTTP Health Check" | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Periodic health probe for upstream services. Reports status to monitoring."
+
+@STEP n:int=1 | rid=probe-api | op=std:http.get@v1 | out=[ref:api_status] | timeout_ms:int=5000
+@STEP n:int=2 | rid=probe-db | op=std:db.ping@v1 | out=[ref:db_status] | timeout_ms:int=3000
+@STEP n:int=3 | rid=probe-cache | op=std:cache.ping@v1 | out=[ref:cache_status] | timeout_ms:int=2000
+
+@CHECK rid=gate:api | assert="ref:api_status.code == 200" | fail=WARN | msg="API unhealthy"
+@CHECK rid=gate:db | assert="ref:db_status.connected == true" | fail=ABORT | msg="Database unreachable"
+
+@STEP n:int=4 | rid=report | op=std:metrics.push@v1 | in=[ref:api_status, ref:db_status, ref:cache_status]
+
+@STAMP ts:ts="2026-02-14T05:00:00Z" | src=healthcheck

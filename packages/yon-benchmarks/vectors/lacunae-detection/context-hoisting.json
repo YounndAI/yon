@@ -1,0 +1,41 @@
+{
+  "id": "api-security",
+  "title": "API Security Policy",
+  "sections": [
+    {
+      "name": "Authentication",
+      "rules": [
+        { "id": "rule:jwt", "level": "MUST", "scope": "Authentication", "requirement": "require JWT bearer token on all protected endpoints" },
+        { "id": "rule:no-query-keys", "level": "MUST_NOT", "scope": "Authentication", "requirement": "accept API keys in query strings" },
+        { "id": "rule:token-expiry", "level": "SHOULD", "scope": "Authentication", "requirement": "set token expiry to 15 minutes" }
+      ]
+    },
+    {
+      "name": "Rate Limiting",
+      "rules": [
+        { "id": "rule:rate-limit", "level": "SHOULD", "scope": "Rate Limiting", "requirement": "enforce 100 requests per minute per client IP" },
+        { "id": "rule:burst", "level": "MAY", "scope": "Rate Limiting", "requirement": "allow burst of 20 requests within 5 seconds" },
+        { "id": "rule:internal-whitelist", "level": "MAY", "scope": "Rate Limiting", "requirement": "whitelist internal service accounts from rate limiting" }
+      ]
+    },
+    {
+      "name": "Payment Processing",
+      "rules": [
+        { "id": "rule:mfa", "level": "MUST", "scope": "Payment Processing", "requirement": "require multi-factor authentication for transactions above $500" },
+        { "id": "rule:no-raw-cards", "level": "MUST_NOT", "scope": "Payment Processing", "requirement": "store raw card numbers in any persistent storage" },
+        { "id": "rule:tokenize", "level": "MUST", "scope": "Payment Processing", "requirement": "tokenize card data before storage using PCI-compliant provider" }
+      ],
+      "checks": [
+        { "id": "check:pci-mfa", "asserts": "rule:mfa is active", "on_failure": "ABORT", "message": "PCI DSS 4.0 requires MFA for high-value transactions" },
+        { "id": "check:card-storage", "asserts": "rule:no-raw-cards is active", "on_failure": "ABORT", "message": "PCI DSS prohibits raw card number storage" }
+      ]
+    },
+    {
+      "name": "Logging",
+      "rules": [
+        { "id": "rule:mask-pii", "level": "MUST", "scope": "Logging", "requirement": "mask all PII fields in request logs" },
+        { "id": "rule:retain-90d", "level": "SHOULD", "scope": "Logging", "requirement": "retain security logs for 90 days minimum" }
+      ]
+    }
+  ]
+}

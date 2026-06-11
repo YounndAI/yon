@@ -1,0 +1,11 @@
+@DOC ver=2.0 | id=auth-policy | title="Authentication Policy" | kind=rule | profile=decl | fmt=min
+
+@INTENT goal="Define role-specific authentication requirements organized by context"
+
+@SEC name="API Routes"
+@RULE lvl=MUST | when="handling API requests" | then="validate Bearer token on every request"
+@RULE lvl=MUST | when="token expired" | then="return 401 Unauthorized"
+
+@SEC name="Internal Tools"
+@RULE lvl=MAY | when="handling internal requests" | then="validate auth token"
+@NOTE text="Internal tools behind VPN may operate without token validation"

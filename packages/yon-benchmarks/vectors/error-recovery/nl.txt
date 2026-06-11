@@ -1,0 +1,15 @@
+so here's what i need for my portfolio landing page. i'm a freelance designer called "Mara Chen" and i specialize in brand identity and web design.
+
+the hero section should have my name big and bold, with a tagline underneath that says "Design that speaks before words do" or something catchy like that. background should be this warm off-white with maybe some subtle grain texture. the CTA should say "View My Work" and scroll down to the projects section.
+
+for the projects section i need 5 featured case studies. first one is "Lumina Skincare" — a rebrand where i did the full identity, packaging, website. second is "BrewHaus" — a craft brewery taproom redesign. third is "Neon Athletics" — a fitness app UI/UX with the tagline "movement redefined." fourth is "Olive & Stone" — a boutique hotel brand identity. fifth is "Wavelength Records" — an indie record label visual system. each project card should show a hero image, the project name, the category (Brand, Web, UI/UX, etc), and a short blurb maybe 2 sentences max.
+
+there's also an about section. i've been designing for 7 years, based in Portland OR, i've worked with clients in hospitality, beauty, tech, and music. i studied at RISD. i also do illustration on the side but that's not the main thing.
+
+testimonials section — 3 quotes. one from the Lumina Skincare founder saying something about how the rebrand increased their online sales by 40%. one from the BrewHaus owner about how the new look brought in a younger crowd. and one from some agency director who contracted me saying i'm reliable and creative.
+
+the footer should have links to my instagram, dribbble, linkedin, and an email contact form. also copyright 2026.
+
+oh almost forgot — the color palette should be: primary off-white #F5F0EB, accent coral #E8654A, dark text #2D2926, and a subtle sage green #A8B5A0 for secondary elements.
+
+one more thing: mobile layout needs to stack properly. the project grid should go from 2 columns to single column on phones. And the navbar should collapse into a hamburger menu.

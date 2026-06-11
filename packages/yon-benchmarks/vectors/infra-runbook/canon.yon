@@ -1,0 +1,35 @@
+@DOC ver=2.0 | id=analytics-cluster | title="Analytics Team Kubernetes Cluster" | kind=rule | profile=exec | fmt=canon
+
+@INTENT goal="Provision a private GKE cluster for the analytics team"
+
+@SEC name="Cluster Specification"
+@MAP id=cluster | region="us-east1" | k8s_version="1.29" | type="private, authorized networks only"
+@MAP id=authorized-nets | pairs=["office IPs"->"allowed","VPN range"->"10.0.0.0/8"]
+@SEC name="Node Pools"
+@MAP id=general | role="general" | nodes:int=4 | machine="e2-standard-4" | preemptible=false
+@MAP id=compute | role="compute" | nodes:int=2 | machine="n2-highmem-8" | preemptible=true
+@MAP id=gpu | role="gpu" | nodes:int=1 | machine="a100-40gb" | preemptible=false
+
+@SEC name="Storage"
+@MAP id=analytics-db | type="SSD PV" | size="500GB" | purpose="PostgreSQL 16 analytics database"
+@MAP id=archival | type="Standard PD" | size="2TB" | purpose="archival data"
+@RULE lvl=MUST | when="daily" | then="snapshot backups, retain 30 days"
+
+@SEC name="Networking"
+@MAP id=internal-lb | type="internal LB" | purpose="analytics API" | public=false
+@MAP id=webhook-endpoint | type="public endpoint" | purpose="webhook receiver" | tls="Let's Encrypt"
+@RULE lvl=MUST | when="default" | then="deny all ingress, whitelist specific services"
+@RULE lvl=MUST | when="analytics API" | then="reachable only from main app cluster (10.128.0.0/16)"
+
+@SEC name="Monitoring"
+@NOTE text="Stack: Prometheus + Grafana (kube-prometheus-stack Helm chart)"
+@MAP id=alerts | pairs=["CPU > 80% for 5 min"->"alert","pod restarts > 3 in 10 min"->"alert","PV usage > 85%"->"alert"]
+@MAP id=alert-channels | pairs=["Slack"->"#infra-alerts","PagerDuty"->"P1 incidents only"]
+
+@SEC name="Secrets"
+@MAP id=secrets | operator="External Secrets Operator" | backend="GCP Secret Manager"
+@RULE lvl=MUST | when="DB credentials" | then="rotate every 90 days"
+@NOTE text="TLS certificates managed by cert-manager"
+
+@SEC name="RBAC"
+@MAP id=rbac | pairs=["analytics team"->"namespace-scoped edit","platform team"->"cluster-admin","CI/CD service account"->"deploy + read only"]

@@ -1,0 +1,11 @@
+@DOC ver=2.0 | id=data-policy | title="Data Processing Policy" | kind=policy | profile=exec | fmt=min
+
+@INTENT goal="Define data processing rules with explicit change management and compliance tracking" | audience="Data engineers, compliance officers"
+
+@SEC name="Access Logging"
+@RULE rid=rule:logging | lvl=MUST | when="processing user data" | then="log all access events with timestamp, user ID, and data category"
+
+@VOID ts:ts="2026-03-01T10:00:00Z" | target=rid:rule:logging | because="GDPR Art 17 — Right to Erasure requires removing personal access pattern logging"
+
+@SEC name="Anonymization"
+@RULE rid=rule:anon | lvl=MUST | when="storing analytics" | then="anonymize all PII before storage"

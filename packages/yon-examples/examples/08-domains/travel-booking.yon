@@ -1,0 +1,15 @@
+@DOC ver=2.0 | id=travel-booking | title="Travel Booking Pipeline" | domain=yai.travel@1.0 | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Search, compare, and book travel packages with payment integration."
+
+@STEP n:int=1 | rid=search | op=domain:travel.search@v1 | out=[ref:options]
+@STEP n:int=2 | rid=filter | op=domain:travel.filter@v1 | in=[ref:options] | out=[ref:shortlist]
+@STEP n:int=3 | rid=price | op=domain:pricing.calculate@v1 | in=[ref:shortlist] | out=[ref:priced]
+@STEP n:int=4 | rid=reserve | op=domain:booking.hold@v1 | in=[ref:priced] | out=[ref:reservation]
+
+@SEC name="Payment"
+@STEP n:int=5 | rid=charge | op=domain:payment.process@v1 | in=[ref:reservation] | out=[ref:payment]
+@CHECK rid=gate:payment | assert="ref:payment.status == success" | fail=ABORT | msg="Payment failed"
+
+@STEP n:int=6 | rid=confirm | op=domain:booking.confirm@v1 | in=[ref:reservation, ref:payment]
+@STEP n:int=7 | rid=itinerary | op=std:notify.email@v1 | in=[ref:reservation]

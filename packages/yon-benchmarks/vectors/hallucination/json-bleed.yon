@@ -1,0 +1,14 @@
+{
+  "doc": {
+    "ver": "2.0",
+    "kind": "test"
+  },
+  "sections": [
+    {
+      "name": "Config",
+      "items": [
+        { "key": "name", "value": "bleed test" }
+      ]
+    }
+  ]
+}

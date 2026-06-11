@@ -1,0 +1,13 @@
+@DOC ver=2.0 | id=invoiceflow-ratelimits | title="InvoiceFlow Rate Limiting" | kind=config | profile=exec | fmt=min
+@MAP id=rl1 | ep="POST /invoices" | rpm:int=30 | burst:int=10
+@MAP id=rl2 | ep="GET /invoices" | rpm:int=120 | burst:int=40
+@MAP id=rl3 | ep="GET /invoices/:id" | rpm:int=120 | burst:int=40
+@MAP id=rl4 | ep="PUT /invoices/:id" | rpm:int=30 | burst:int=10
+@MAP id=rl5 | ep="POST /invoices/:id/send" | rpm:int=10 | burst:int=3
+@MAP id=rl6 | ep="POST /payments" | rpm:int=20 | burst:int=5
+@MAP id=rl7 | ep="GET /payments" | rpm:int=120 | burst:int=40
+@MAP id=rl8 | ep="GET /health" | rpm=unlimited | burst=unlimited
+@RULE lvl=MUST | when="admin" | then="3x multiplier"
+@RULE lvl=MUST | when="viewer" | then="0.5x on writes"
+@RULE lvl=MUST | when="X-Service-Token" | then="exempt from limits"
+@RULE lvl=MUST | when="exceeded" | then="HTTP 429 RATE_001 + Retry-After header"

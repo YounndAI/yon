@@ -1,0 +1,7 @@
+@DOC ver=2.0 | kind=test | id=yonpa-06 | title="Cluster — missing required fields (members + phases)" | profile=exec | fmt=min | with=[yonpa]
+
+@CLUSTER id=incomplete
+  | yonpa_schema_version="1.0"
+  | success="will never succeed"
+
+@NOTE text="@CLUSTER missing the required `members` and `phases` fields — strict validation should fail with multiple required-field errors"

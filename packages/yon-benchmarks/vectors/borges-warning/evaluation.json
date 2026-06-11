@@ -1,0 +1,29 @@
+{
+  "categories": [
+    {
+      "name": "Compliance/Regulatory",
+      "salience": "rule-salient",
+      "keywords": ["reporting", "KYC", "sanctions", "FinCEN", "regulatory", "violation", "compliance", "anti-money"]
+    },
+    {
+      "name": "Security",
+      "salience": "rule-salient",
+      "keywords": ["TLS", "encryption", "credentials", "plaintext", "password", "unauthorized", "credential", "certificate"]
+    },
+    {
+      "name": "Performance/Latency",
+      "salience": "metric-salient",
+      "keywords": ["latency", "SLA", "response time", "timeout", "slow", "delay", "P99", "p99", "performance"]
+    },
+    {
+      "name": "Capacity/Scaling",
+      "salience": "metric-salient",
+      "keywords": ["connection pool", "saturation", "memory", "OOM", "scaling", "utilization", "database", "resource", "exhaustion"]
+    },
+    {
+      "name": "Operational Stability",
+      "salience": "metric-salient",
+      "keywords": ["memory leak", "growth trend", "degradation", "reliability", "outage", "incident", "failure", "trend"]
+    }
+  ]
+}

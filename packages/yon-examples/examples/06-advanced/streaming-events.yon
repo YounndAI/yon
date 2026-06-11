@@ -1,0 +1,17 @@
+@DOC ver=2.0 | id=streaming-events | title="Streaming Events" | kind=workflow | profile=exec | features=[payload,logic,workflow,refs] | fmt=canon
+
+@NOTE text="Process a continuous event stream with windowed aggregation."
+
+@STEP n:int=1 | rid=connect | op=std:stream.connect@v1 | out=[ref:stream]
+
+@SEC name="Event Processing"
+@STEP n:int=2 | rid=filter | op=std:stream.filter@v1 | in=[ref:stream] | out=[ref:filtered]
+@STEP n:int=3 | rid=window | op=std:stream.window@v1 | in=[ref:filtered] | out=[ref:batch]
+@STEP n:int=4 | rid=aggregate | op=std:data.reduce@v1 | in=[ref:batch] | out=[ref:metrics]
+
+@SEC name="Output"
+@STEP n:int=5 | rid=emit | op=std:metrics.push@v1 | in=[ref:metrics]
+
+@RETRY target=rid:connect | max:int=10 | delay_ms:int=2000 | backoff=exponential
+@CATCH target=rid:connect | on=disconnect | do=rid:reconnect
+@STEP n:int=6 | rid=reconnect | op=std:stream.connect@v1 | out=[ref:stream]

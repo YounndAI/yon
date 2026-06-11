@@ -1,0 +1,59 @@
+# @younndai/yon-parser
+
+> YON v2.0 reference parser, validator, and formatter.
+
+## Install
+
+```bash
+npm install @younndai/yon-parser
+```
+
+## Core Capabilities
+
+- **Full YON v2.0 compliance** — comprehensive conformance vector suite
+- **Streaming parser** — line-by-line event-driven parsing for transport
+- **Granular validation API** — per-record and per-block validation
+- **Domain field constraints** — range, enum, pattern, type validation
+- **Domain lifecycle checking** — deprecated, archived, revoked warnings
+- **Official domains** — bundled via `@younndai/domains` (use `listDomains('official')` for the live list)
+- **SHA-256 integrity helpers** — block content verification
+- **Deterministic formatting** — canon, min, ultra output modes
+- **Detailed error diagnostics** — line numbers, error codes
+
+## Quick Start
+
+```ts
+import { parse, validate, format } from '@younndai/yon-parser';
+
+// Parse YON string → AST
+const doc = parse('@DOC ver=2.0 | id=test | title="Hello"\n@NOTE text="World"');
+
+// Validate (strict mode)
+const result = validate(doc, { strict: true });
+if (!result.valid) {
+  console.error(result.errors);
+}
+
+// Format (deterministic output)
+const formatted = format(doc, { mode: 'canon' });
+```
+
+## Key Types
+
+- `YonDocument` — parsed document AST
+- `YonRecord` / `YonBlock` — record and block nodes
+- `YonValidationResult` — validation outcome with errors and warnings
+- `YonValidateOptions` — validation configuration
+- `StreamingYonParser` — event-driven line-by-line parser
+
+## Domain Support
+
+Domain types and functions are re-exported from `@younndai/domains` for convenience. For domain-only usage (without YON parsing), import `@younndai/domains` directly.
+
+## CLI
+
+```bash
+yon validate document.yon --profile exec
+yon format document.yon --mode CANON
+yon parse document.yon --json
+```

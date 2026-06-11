@@ -1,0 +1,40 @@
+@DOC ver=2.0 | id=lanes:younndai-main | domain=yai.lyt@1.0 | kind=cfg | profile=agent
+
+@LANE rid=lane:design
+  | name="design"
+  | source_keywords=["design"]
+  | mem_count:int=2
+  | last_built:ts=2026-05-31T14:00:00.000Z
+
+@LANE rid=lane:philosophy
+  | name="philosophy"
+  | source_keywords=["philosophy"]
+  | mem_count:int=3
+  | last_built:ts=2026-05-31T14:00:00.000Z
+
+@LANE rid=lane:software-design
+  | name="Software Design"
+  | source_keywords=["Software Design"]
+  | mem_count:int=2
+  | last_built:ts=2026-05-31T14:00:00.000Z
+
+@LANE_MEMBER lane_rid=lane:design
+  | figment_rid="notes/2026-05-30-design-lyt-mesh.md"
+
+@LANE_MEMBER lane_rid=lane:design
+  | figment_rid="notes/2026-05-31-design-tag-frequency.md"
+
+@LANE_MEMBER lane_rid=lane:philosophy
+  | figment_rid="notes/2026-05-29-philosophy-ousterhout.md"
+
+@LANE_MEMBER lane_rid=lane:philosophy
+  | figment_rid="notes/2026-05-30-philosophy-yon-as-sot.md"
+
+@LANE_MEMBER lane_rid=lane:philosophy
+  | figment_rid="notes/2026-05-31-philosophy-lock-0-2.md"
+
+@LANE_MEMBER lane_rid=lane:software-design
+  | figment_rid="notes/2026-05-30-design-lyt-mesh.md"
+
+@LANE_MEMBER lane_rid=lane:software-design
+  | figment_rid="notes/2026-05-31-design-tag-frequency.md"

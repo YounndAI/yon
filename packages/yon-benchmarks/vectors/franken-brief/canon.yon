@@ -1,0 +1,58 @@
+@DOC ver=2.0 | kind=spec | id=meridian-rebrand | title="Meridian Financial — Brand Refresh Brief" | profile=decl | fmt=canon
+
+@STAMP ts:ts=2024-10-15T00:00:00Z | src=human | label="Client Kickoff Notes (Sarah Chen)"
+@STAMP ts:ts=2024-10-18T00:00:00Z | src=human | label="Brand Workshop"
+@STAMP ts:ts=2024-10-20T00:00:00Z | src=human | label="Slack Discussion"
+@STAMP ts:ts=2024-10-21T00:00:00Z | src=human | label="Client Email (Jennifer Wu)"
+
+@SEC name="Project Overview"
+
+@CFG key=client | value="Meridian Financial"
+@CFG key=project | value="Brand Refresh (not complete redesign)"
+@CFG key=budget | value="$180,000 total"
+@CFG key=animation_budget | value="$15,000 (logo reveal + UI micro-interactions)"
+@CFG key=board_presentation | value="December 12, 2024 (moved from Dec 5)"
+@CFG key=concepts_due | value="November 1, 2024 (moved from Oct 28)"
+@CFG key=mid_review | value="November 8, 2024 (with Jennifer Wu)"
+
+@SEC name="Brand Direction"
+
+@NOTE text="Premium but approachable. Confident, clear, advisory — not stuffy or old-money. Client CEO Robert Tran: 'clean and confident'."
+@RULE lvl=MUST | when="designing brand" | then="feel trustworthy for institutional clients (Robert's concern)"
+@RULE lvl=MUST_NOT | when="gold treatment" | then="look 'too flashy'"
+
+@SEC name="Logo"
+
+@NOTE text="Refresh the 'M' monogram — modernize, more geometric, less script."
+@NOTE text="Inspiration direction: Mastercard and Mailchimp rebrands — 'simplify without losing soul' approach (not those brands specifically)."
+@RULE lvl=MUST | when="logo evolution" | then="retain M monogram identity"
+
+@SEC name="Color System"
+
+@SEC name="Primary Palette"
+@MAP id=primary_colors | pairs=["Meridian Gold"->"#C5952C (revised from original #D4AF37, passes WCAG AA at 18px+ on navy)","Meridian Navy"->"#1B2A4A","White"->"clean white"]
+
+@SEC name="Secondary Palette"
+@MAP id=secondary_colors | pairs=["Sage Green"->"#8B9E84 or #7D8E76 (Lisa evaluating)","Warm Gray"->"TBD"]
+
+@RULE lvl=MUST | when="all color combinations" | then="pass WCAG 2.1 AA contrast ratios"
+@RULE lvl=MUST | when="financial disclosures and legal text" | then="pass WCAG AAA contrast (Jennifer's compliance requirement)"
+
+@SEC name="Typography"
+
+@MAP id=type_system | pairs=["headings"->"Transitional serif: Tiempos ($600/yr, better language support, more weights) or Freight Big Pro ($450/yr)","body"->"Geometric sans: Aktiv Grotesk (via Adobe Fonts or direct license ~$300/yr)"]
+@NOTE text="Current site uses Inter. Switching to Aktiv Grotesk requires CDN licensing check. Neither Tiempos nor Aktiv Grotesk is on Google Fonts."
+@CFG key=font_licensing_budget | value="~$1,000/year"
+
+@SEC name="Deliverables"
+
+@MAP id=deliverables | pairs=["logo_suite"->"full logo system","color_system"->"primary + secondary with accessibility documentation","typography_scale"->"heading + body type scale","icon_set"->"48 icons (expanded from 40, +8 for mobile app)","brand_guidelines"->"60+ pages, includes digital-first section (UI components, dark mode, motion principles)","social_templates"->"Instagram, LinkedIn, Twitter","email_signature"->"standard template","powerpoint_template"->"corporate presentation","letterhead"->"print ready","business_cards"->"print ready","co_brand_lockup"->"guidelines for Northern Trust partnership (Jan launch)"]
+
+@SEC name="Stakeholders"
+
+@MAP id=team | name="Design Studio" | pairs=["Sarah Chen"->"logo concepts (3 by Oct 25)","Mark Volkov"->"moodboard + color explorations (by Oct 22)","Alex"->"audit current brand assets","Lisa Park"->"Creative Director, mid-point review scheduling"]
+@MAP id=client | name="Meridian Financial" | pairs=["Jennifer Wu"->"CMO, decision maker, prefers warm gold","Robert Tran"->"CEO, wants 'clean and confident', trustworthy for institutional","David Kim"->"Head of Product, provided Mastercard/Mailchimp references"]
+
+@SEC name="Future Considerations"
+
+@NOTE text="Meridian planning robo-advisor product launch Q2 2025. Brand system needs flexibility for product sub-brands. Not in current scope but design with extensibility in mind."

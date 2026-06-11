@@ -1,0 +1,33 @@
+@DOC ver=2.0 | kind=benchmark | id=workflow-6step | title="6-Step Workflow Vector" | profile=exec | fmt=canon
+
+@SEC name="Purpose"
+@NOTE text="Six-step data processing workflow for LLM multi-step fidelity testing."
+@NOTE text="LLM must execute steps in exact order and produce per-step outputs."
+
+@SEC name="Workflow"
+@STEP rid=step:read-csv | n:int=1 | op=std:io.read | desc="Read CSV file from uploads/daily-report.csv"
+@INPUT rid=input:filepath | name=filepath | val="uploads/daily-report.csv"
+@OUTPUT rid=output:raw-data | name=raw_data | desc="Raw CSV content as string"
+
+@STEP rid=step:validate | n:int=2 | op=validate | desc="Validate CSV has required columns: id, name, amount, date"
+@INPUT rid=input:raw-data | name=raw_data | ref=block:step-1-output
+@OUTPUT rid=output:validated | name=validated | desc="Boolean — true if all columns present"
+
+@STEP rid=step:transform | n:int=3 | op=transform | desc="Convert amount column from EUR to USD using rate 1.08"
+@INPUT rid=input:rate | name=exchange_rate | val:float=1.08
+@OUTPUT rid=output:transformed | name=transformed_data | desc="Data with amount_usd column added"
+
+@STEP rid=step:filter | n:int=4 | op=filter | desc="Remove rows where amount_usd < 100"
+@OUTPUT rid=output:filtered | name=filtered_data | desc="Rows with amount_usd >= 100"
+
+@STEP rid=step:aggregate | n:int=5 | op=aggregate | desc="Group by date, sum amount_usd, count rows per group"
+@OUTPUT rid=output:summary | name=summary | desc="Array of {date, total_usd, row_count}"
+
+@STEP rid=step:write-json | n:int=6 | op=std:io.write | desc="Write summary to reports/daily-summary.json"
+@INPUT rid=input:outpath | name=output_path | val="reports/daily-summary.json"
+
+@SEC name="Error Handling"
+@CATCH target=step:read-csv | on=io_error | do="retry max:int=3"
+@CATCH target=step:validate | on=validation_error | do="abort with msg: Invalid CSV format — cannot proceed"
+
+@STAMP ts:ts=2026-02-12T19:00:00Z | src=benchmarks | label="6-step workflow fidelity vector"

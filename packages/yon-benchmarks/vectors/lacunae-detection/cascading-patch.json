@@ -1,0 +1,29 @@
+{
+  "document": "Retry Policy",
+  "kind": "rule",
+  "sections": [
+    {
+      "name": "API Retry Behavior",
+      "rules": [
+        {"level": "MUST", "when": "API call fails", "then": "retry up to 3 times with exponential backoff"}
+      ]
+    },
+    {
+      "name": "Policy Evolution",
+      "change_history": [
+        {
+          "date": "2026-01-15",
+          "target": "max-retries rule",
+          "change": "Increased retries from 3 to 5 with exponential backoff",
+          "context": "Load-balancer instability in Q4 2025 caused transient failures that resolved within 5 attempts."
+        },
+        {
+          "date": "2026-02-28",
+          "target": "max-retries rule",
+          "change": "Added jitter to exponential backoff (now: retry up to 5 times with jittered exponential backoff)",
+          "context": "Retries were clustering and amplifying outages (thundering herd). Jitter distributes retry timing."
+        }
+      ]
+    }
+  ]
+}

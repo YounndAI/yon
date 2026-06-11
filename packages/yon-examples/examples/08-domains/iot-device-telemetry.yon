@@ -1,0 +1,13 @@
+@DOC ver=2.0 | id=iot-device-telemetry | title="IoT Device Telemetry" | domain=yai.iot@1.0 | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Collect sensor readings, detect anomalies, and trigger alerts."
+
+@STEP n:int=1 | rid=ingest | op=domain:iot.collect@v1 | out=[ref:readings]
+@STEP n:int=2 | rid=normalize | op=domain:iot.normalize@v1 | in=[ref:readings] | out=[ref:normalized]
+@STEP n:int=3 | rid=detect | op=domain:anomaly.detect@v1 | in=[ref:normalized] | out=[ref:anomalies]
+
+@CHECK rid=gate:critical | assert="ref:anomalies.critical_count == 0" | fail=WARN | msg="Critical anomalies detected"
+
+@STEP n:int=4 | rid=store | op=domain:timeseries.write@v1 | in=[ref:normalized]
+@STEP n:int=5 | rid=alert | op=std:notify.send@v1 | in=[ref:anomalies]
+@STEP n:int=6 | rid=dashboard | op=domain:dashboard.refresh@v1 | in=[ref:normalized, ref:anomalies]

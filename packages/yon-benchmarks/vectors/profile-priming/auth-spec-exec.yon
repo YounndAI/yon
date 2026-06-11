@@ -1,0 +1,26 @@
+@DOC ver=2.0 | id=auth-spec | title="Authentication Review Steps" | kind=workflow | mode=text | profile=exec | fmt=min
+
+@INPUT rid=in:auth-header | name="Authorization" | type="string" | required:bool=true
+@INPUT rid=in:request-body | name="RequestBody" | type="block" | required:bool=false
+@OUTPUT rid=out:access-decision | name="AccessDecision" | type="boolean"
+@OUTPUT rid=out:audit-log | name="AuditLogEntry" | type="block"
+
+@SEC name="Token Validation Flow"
+@STEP rid=step:extract-jwt | n:int=1 | op=std:auth.extract@v1 | note="Extract JWT from Authorization header"
+@CHECK rid=check:jwt-present | assert="block:jwt != null" | fail=ABORT | msg="JWT must be present and well-formed"
+@STEP rid=step:verify-sig | n:int=2 | op=std:auth.verify@v1 | note="Verify JWT signature against public key"
+@CHECK rid=check:sig-valid | assert="block:signature_valid == true" | fail=ABORT | msg="JWT signature must be valid"
+@STEP rid=step:check-expiry | n:int=3 | op=std:auth.check_expiry@v1 | note="Check token expiration timestamp"
+@CHECK rid=check:not-expired | assert="block:token_expired == false" | fail=WARN | msg="Token is expired"
+
+@SEC name="Input Validation Flow"
+@STEP rid=step:identify-inputs | n:int=1 | op=std:data.scan@v1 | note="Identify all user-supplied inputs"
+@STEP rid=step:verify-parsing | n:int=2 | op=std:data.validate@v1 | note="Verify explicit type parsing for each input"
+@CHECK rid=check:no-coercion | assert="block:implicit_coercion_count == 0" | fail=ABORT | msg="No implicit coercion allowed"
+@STEP rid=step:check-length | n:int=3 | op=std:data.validate@v1 | note="Check length bounds on string inputs"
+
+@SEC name="Access Control Verification"
+@STEP rid=step:locate-admin | n:int=1 | op=std:auth.scan@v1 | note="Locate admin-only endpoints"
+@STEP rid=step:verify-rbac | n:int=2 | op=std:auth.check_middleware@v1 | note="Verify role check middleware is applied BEFORE handler"
+@CHECK rid=check:authz-present | assert="block:server_authz == true" | fail=ABORT | msg="Server-side authorization must be present"
+@STEP rid=step:verify-cors | n:int=3 | op=std:auth.check_cors@v1 | note="Verify CORS origin whitelist — no wildcard in production"

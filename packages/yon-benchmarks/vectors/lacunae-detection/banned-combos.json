@@ -1,0 +1,20 @@
+{
+  "document": "API Safety Rules",
+  "sections": [
+    {
+      "name": "API Constraints",
+      "rules": [
+        {"level": "MUST_NOT", "when": "calling APIs", "then": "combine destructive and constructive operations in the same transaction"}
+      ]
+    },
+    {
+      "name": "Banned Combinations",
+      "combos": [
+        {"pattern": "DELETE+bulk-import", "reason": "Destructive then mass-create risks orphaned references"},
+        {"pattern": "TRUNCATE+INSERT", "reason": "Data loss if INSERT fails mid-batch"},
+        {"pattern": "DROP+CREATE", "reason": "Schema recreation may lose constraints and indices"}
+      ],
+      "note": "Any combination matching a BannedCombo pattern MUST be rejected at the API gateway level."
+    }
+  ]
+}

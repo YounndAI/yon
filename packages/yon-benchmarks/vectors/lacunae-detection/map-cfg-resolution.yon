@@ -1,0 +1,10 @@
+@DOC ver=2.0 | id=ui-config | title="UI Action Configuration" | kind=config | profile=decl | fmt=min
+
+@INTENT goal="Define action-specific UI behaviors through shared configuration references" | audience="Frontend engineers"
+
+@SEC name="Configuration Profiles"
+@CFG id=SafeMode | set=[confirm:bool=true,variant=danger,audit:bool=true]
+@CFG id=FastMode | set=[confirm:bool=false,variant=default,audit:bool=false]
+
+@SEC name="Action Router"
+@MAP name=ActionRouter | pairs=["delete"->"cfg:SafeMode","create"->"cfg:FastMode","archive"->"cfg:SafeMode"]

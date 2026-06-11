@@ -1,0 +1,17 @@
+[
+  { "id": 1, "question": "What is the designer's name?", "answer": "Mara Chen" },
+  { "id": 2, "question": "What is the tagline?", "answer": "Design that speaks before words do" },
+  { "id": 3, "question": "What is the CTA button text?", "answer": "View My Work" },
+  { "id": 4, "question": "What is the first featured case study?", "answer": "Lumina Skincare" },
+  { "id": 5, "question": "What is the second featured case study?", "answer": "BrewHaus" },
+  { "id": 6, "question": "What is the Neon Athletics tagline?", "answer": "movement redefined" },
+  { "id": 7, "question": "What is the fourth case study about?", "answer": "Olive & Stone — a boutique hotel brand identity" },
+  { "id": 8, "question": "How many years of experience does the designer have?", "answer": "7 years" },
+  { "id": 9, "question": "Where is the designer based?", "answer": "Portland, OR" },
+  { "id": 10, "question": "Where did the designer study?", "answer": "RISD" },
+  { "id": 11, "question": "What percentage did the Lumina rebrand increase online sales?", "answer": "40%" },
+  { "id": 12, "question": "What is the primary background color hex code?", "answer": "#F5F0EB" },
+  { "id": 13, "question": "What is the accent coral color hex code?", "answer": "#E8654A" },
+  { "id": 14, "question": "What is the fifth case study?", "answer": "Wavelength Records — an indie record label visual system" },
+  { "id": 15, "question": "What should happen to the navbar on scroll?", "answer": "Collapse into a hamburger menu on mobile" }
+]

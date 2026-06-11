@@ -1,0 +1,1 @@
+We should eventually migrate the monolith to microservices. At some point we'll need to set up a proper CI/CD pipeline. The documentation update can happen later, it's not urgent right now.

@@ -1,0 +1,13 @@
+@DOC ver=2.0 | id=auth-spec | title="Authentication Architecture" | kind=reference | mode=text | profile=core | fmt=min
+
+@SEC name="Token Handling"
+@NOTE text="JWT validation is the first line of defense in our auth architecture. The design decision to reject expired tokens immediately (rather than silently refreshing) stems from our zero-trust posture — the client should explicitly handle re-authentication. The motivation behind this approach is that silent refresh masks authentication failures, making debugging harder and creating a false sense of session continuity."
+@NOTE text="Storing tokens in HttpOnly cookies prevents XSS-based token theft. This architectural choice trades convenience for security. The purpose is to eliminate the most common attack vector for token theft in browser-based applications."
+
+@SEC name="Input Validation"
+@NOTE text="Explicit type parsing exists because JavaScript's implicit coercion has historically caused type confusion vulnerabilities (CWE-843). The purpose of our validation layer is to create a trust boundary at the API surface. The design motivation is separation of concerns — parsing and validation happen at the edge, so business logic can assume clean inputs."
+@NOTE text="Length validation prevents buffer-based attacks and protects downstream systems from unexpectedly large payloads."
+
+@SEC name="Access Control"
+@NOTE text="Role-based authorization at the middleware level (before handler execution) follows the principle of least privilege. The design intent is that authorization logic never leaks into business logic. The motivation: coupling authorization to handlers creates a maintenance burden where security changes require touching business code."
+@NOTE text="CORS wildcard restriction in production is a defense-in-depth measure. The rationale: even if other controls fail, CORS prevents unauthorized cross-origin requests."

@@ -1,0 +1,17 @@
+@DOC ver=2.0 | id=ci-pipeline | title="CI Pipeline" | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Continuous integration pipeline. Lint, test, build, deploy."
+
+@META author=devops | version=1.0
+
+@STEP n:int=1 | rid=lint | op=std:npm.run@v1
+@CHECK rid=check:lint | assert="step:lint.exitCode == 0" | fail=ABORT | msg="Lint failed"
+
+@STEP n:int=2 | rid=test | op=std:npm.run@v1
+@CHECK rid=check:test | assert="step:test.exitCode == 0" | fail=ABORT | msg="Tests failed"
+
+@STEP n:int=3 | rid=build | op=std:npm.run@v1
+@CHECK rid=check:build | assert="step:build.exitCode == 0" | fail=ABORT | msg="Build failed"
+
+@STEP n:int=4 | rid=deploy | op=std:docker.push@v1
+@STAMP ts:ts="2026-02-14T05:00:00Z" | src=ci

@@ -1,0 +1,7 @@
+@DOC ver=2.0 | id=hedging-cat2-api-limits | title="API Limits and Capacity" | kind=rule | profile=decl | fmt=min
+
+@SEC name="Timeouts"
+@NOTE text="Timeout around 30s standard, maybe 45 for uploads"
+
+@SEC name="Capacity"
+@NOTE text="Expecting roughly 200 concurrent users, approximately 500 req/min"

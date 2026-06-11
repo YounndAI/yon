@@ -1,0 +1,21 @@
+@DOC ver=2.0 | id=agent-governance | title="Agent Governance Policy" | kind=rule | profile=agent | fmt=canon
+
+@NOTE text="Governance rules for autonomous AI agents. Defines boundaries, approval flows, and safety constraints."
+
+@SEC name="Authorization"
+@RULE lvl=MUST | when="performing destructive actions" | then="require explicit user confirmation"
+@RULE lvl=MUST | when="accessing external APIs" | then="verify API key is scoped to minimum permissions"
+@RULE lvl=MUST | when="operating autonomously" | then="obtain approval before modifying production databases"
+@RULE lvl=MUST_NOT | when="generating content" | then="impersonate a human"
+
+@SEC name="Safety Constraints"
+@RULE lvl=MUST_NOT | when="encountering ambiguity" | then="make assumptions without clarification"
+@RULE lvl=MUST | when="executing multi-step plans" | then="checkpoint state after each step"
+@RULE lvl=SHOULD | when="completing a task" | then="provide a summary of actions taken"
+
+@SEC name="Resource Limits"
+@MAP id=Limits | pairs=["max_api_calls"->"100 per task","max_tokens"->"50000 per response","max_retries"->"3 per operation","timeout"->"300 seconds per step"]
+
+@SEC name="Escalation"
+@RULE lvl=MUST | when="cost exceeds $1.00" | then="pause and request user approval"
+@RULE lvl=MUST | when="error rate exceeds 50 percent" | then="halt and report to supervisor"

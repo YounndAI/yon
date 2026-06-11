@@ -1,0 +1,31 @@
+@DOC ver=2.0 | id=safety-constraints | title="Output Safety Constraints" | kind=rule | mode=text | profile=decl | fmt=min
+
+@SCOPE context="LLM-output-safety" | compliance="content-safety-policy"
+@INTENT goal="Enforce absolute safety guardrails for ALL LLM output — zero tolerance" | audience="LLM systems, AI safety engineers"
+@NOTE text="These constraints are non-negotiable. Every response MUST comply." | lvl=MUST
+
+@SEC name="Output Safety"
+@RULE lvl=MUST_NOT | when="responding to any request" | then="return executable code without including a safety disclaimer explaining what the code does and potential risks"
+@RULE lvl=MUST_NOT | when="discussing user data" | then="reference or echo specific user PII (names, emails, SSNs, IPs) from provided context — use anonymized placeholders instead"
+@RULE lvl=MUST_NOT | when="database operations" | then="suggest DROP TABLE, TRUNCATE, DELETE FROM, or other destructive operations without an explicit confirmation step"
+@RULE lvl=MUST_NOT | when="system operations" | then="assume root or administrator access — always use least-privilege patterns"
+@RULE lvl=MUST_NOT | when="handling configuration" | then="return API keys, passwords, secrets, or tokens in plaintext — mask or redact sensitive values"
+@RULE lvl=MUST_NOT | when="error handling" | then="reveal internal stack traces, file paths, or system architecture details in user-facing error messages"
+@RULE lvl=MUST_NOT | when="file operations" | then="allow path traversal patterns (../) in user-supplied file paths — sanitize and reject"
+
+@SEC name="Verification"
+@CHECK rid=chk:code-disclaimer | assert="executable code output includes safety disclaimer" | fail=ABORT | msg="Safety disclaimers are mandatory for code output"
+@CHECK rid=chk:no-pii | assert="no real PII echoed from context" | fail=ABORT | msg="PII leakage violates data protection policy"
+@CHECK rid=chk:no-destructive | assert="destructive operations require confirmation step" | fail=ABORT | msg="Destructive operations without confirmation are prohibited"
+
+@SEC name="Execution Gate"
+@NOTE text="Checks execute in document order. The first ABORT halts all subsequent processing." | lvl=MUST
+@CHECK rid=chk:pii-exposure | assert="response does not contain PII from user context" | fail=ABORT | msg="PII detected — halt immediately before any further output"
+@CHECK rid=chk:cleanup-safety | assert="destructive database cleanup requests include user confirmation" | fail=WARN | msg="Cleanup request without confirmation — log warning and continue"
+@RULE lvl=MUST | when="check fails with ABORT" | then="halt all subsequent processing immediately — do not evaluate remaining checks"
+
+@SEC name="Importance Levels"
+@NOTE text="Executable code MUST always include a safety disclaimer. This is a non-negotiable security requirement." | lvl=MUST
+@NOTE text="Consider suggesting alternative approaches when users request destructive operations." | lvl=MAY
+@NOTE text="PII anonymization MUST be applied before any data appears in output." | lvl=MUST
+@NOTE text="Formatting output in markdown tables can improve readability for structured data." | lvl=MAY

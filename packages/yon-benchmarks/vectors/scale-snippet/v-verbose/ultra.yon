@@ -1,0 +1,21 @@
+@DOC ver=2.0 | id=api-authentication-rules | title="API Authentication and User Management Rules" | kind=rule | profile=exec | fmt=ultra
+@INTENT goal="Extract API authentication and user management rules"
+@SEC name=Authentication
+@RULE lvl=must | when="Using OAuth2" | then="OAuth2 with Bearer tokens"
+@RULE lvl=must | when="Token issued" | then="TTL 3600s"
+@RULE lvl=must | when="Using refresh tokens" | then="Refresh tokens 30d"
+@RULE lvl=must | when="Rate limit exceeded" | then="429 on limit exceed"
+@RULE lvl=must | when="Using admin tokens" | then="Admin tokens all orgs"
+@RULE lvl=must | when="Using regular user tokens" | then="User tokens own org"
+@RULE lvl=must | when="Making API request" | then="Auth header required"
+@RULE lvl=must | when="Using refresh token" | then="Refresh tokens single-use"
+@SEC name="User Management"
+@RULE lvl=must | when="Creating user" | then="POST /users requires fields"
+@RULE lvl=must | when="Assigning email" | then="Email unique per org"
+@RULE lvl=must | when="Role not specified" | then="Default role: member"
+@RULE lvl=must | when="Requesting user list" | then="25 default, 100 max"
+@RULE lvl=must | when="Updating user" | then="PATCH for updates"
+@RULE lvl=must | when="Changing email" | then="Email change needs verification"
+@RULE lvl=must | when="Deleting user" | then="Soft delete user"
+@RULE lvl=must | when="Deleting archived user" | then="410 on archived delete"
+@MAP id=UserManagement | pairs=["admin"->"Admin role","member"->"Default role","viewer"->"Viewer role","user_list"->"GET /users paginated","user_detail"->"GET /users/:id full object"]

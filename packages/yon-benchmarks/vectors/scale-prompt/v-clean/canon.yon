@@ -1,0 +1,28 @@
+@DOC ver=2.0 | id=api-rules | title="API Rules and Structure" | kind=rule | profile=exec | fmt=canon
+
+@SEC name=Authentication
+@NOTE text="Auth: Bearer token OAuth2. Token TTL: 3600s. Refresh: 30-day, single-use (invalidated after use, new one issued with access token)."
+@RULE lvl=must | when="Rate limit exceeded" | then="Rate limit: 500 req/min global. On exceed: 429 + Retry-After header."
+@NOTE text="Scope: admin tokens → all orgs. User tokens → own org only."
+@RULE lvl=must | when="Making requests" | then="All requests require Authorization header."
+@NOTE text="Token endpoint: /auth/token (client credentials or auth code flow)."
+
+@SEC name="Users CRUD"
+@RULE lvl=must | when="Creating user" | then="POST /users — create. Required: name, email, role. Email unique per org. Roles: admin|member|viewer (default: member)."
+@NOTE text="GET /users — paginated list (cursor-based). Default limit: 25, max: 100."
+@NOTE text="GET /users/:id — single user or 404. Includes last_login, created_at."
+@RULE lvl=must | when="Updating user" | then="PATCH /users/:id — partial update, merge semantics. Email change requires verification."
+@RULE lvl=must | when="Deleting user" | then="DELETE /users/:id — soft-delete (status→archived, login disabled). 410 if already archived."
+
+@SEC name="Orders API"
+@RULE lvl=must | when="Creating order" | then="POST /orders — create. Required: customer_id, items[], total, currency. Items: each needs product_id, quantity, unit_price. Total must equal Σ(qty × unit_price). Currency: ISO 4217 (USD, EUR, GBP, CAD, AUD, JPY). No mixed currencies per order."
+@NOTE text="GET /orders — filter by customer_id, status, date range, min total."
+@NOTE text="Lifecycle: draft → confirmed → processing → shipped → delivered. Cancelable before shipped."
+@RULE lvl=must | when="Updating order" | then="PATCH /orders/:id — update items only in draft status. Status changes via dedicated endpoints."
+@RULE lvl=must | when="Confirming order" | then="POST /orders/:id/confirm — draft→confirmed, triggers payment auth."
+@RULE lvl=must | when="Canceling order" | then="POST /orders/:id/cancel — marks canceled, triggers refund if captured."
+@RULE lvl=must | when="Deleting order" | then="DELETE not supported — use cancel."
+
+@SEC name="Error Codes"
+@MAP id=Error Codes name="Error Codes" | pairs=["ERR_AUTH"->"invalid/expired token","ERR_NOT_FOUND"->"resource doesn't exist","ERR_VALIDATION"->"request body failed schema validation","ERR_CONFLICT"->"duplicate resource (e.g., duplicate email)","ERR_RATE_LIMIT"->"too many requests","ERR_PAYMENT_FAILED"->"payment provider rejected","ERR_INSUFFICIENT_FUNDS"->"account balance too low","ERR_PERMISSION_DENIED"->"token lacks required scope","ERR_RESOURCE_LOCKED"->"concurrent modification in progress"]
+@NOTE text="All error responses include: request_id (debugging) + human-readable message."

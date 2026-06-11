@@ -1,0 +1,15 @@
+API Standards Compilation
+
+(Pulled together from various sources: Slack #engineering channel from February, the Architecture RFC-12 that got approved, and the Q1 security audit report)
+
+Versioning:
+All new APIs need to use URL path versioning — put /v1/, /v2/ etc in the path. We talked about header-based versioning but RFC-12 shot that down because of CDN caching issues. And obviously don't remove any endpoints without giving at least 6 months deprecation notice.
+
+Auth stuff:
+Everything needs OAuth 2.0 bearer tokens. Every single request needs to verify the issuer, audience, AND expiry — the security audit (finding SA-2026-03) found that 12% of our endpoints weren't even checking audience which is pretty bad. Also no more API keys as the only auth method, that's been a hard no since the audit.
+
+Rate limits:
+For public-facing stuff: 1000 requests/min per client. Internal service-to-service can go up to 5000/min. We settled on these numbers after the March 3rd incident — there was a whole Slack thread about it. Batch endpoints can optionally burst up to 2x for 30 seconds if needed.
+
+Error responses:
+Use RFC 7807 Problem Details format for all errors. And for the love of god don't expose stack traces or DB errors in 5xx responses.

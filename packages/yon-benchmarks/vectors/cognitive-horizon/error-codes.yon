@@ -1,0 +1,22 @@
+@DOC ver=2.0 | id=invoiceflow-errors | title="InvoiceFlow Error Codes" | kind=data | profile=decl | fmt=canon
+
+@SEC name="Authentication & Authorization"
+@MAP id=AUTH_001 | code=AUTH_001 | http:int=401 | message="Missing or invalid Bearer token" | retry=no
+@MAP id=AUTH_002 | code=AUTH_002 | http:int=403 | message="Insufficient role for this action" | retry=no
+@MAP id=AUTH_003 | code=AUTH_003 | http:int=403 | message="Resource belongs to another team" | retry=no
+
+@SEC name="Validation Errors"
+@MAP id=VAL_001 | code=VAL_001 | http:int=400 | message="Invalid field value — see details array" | retry=no
+@MAP id=VAL_002 | code=VAL_002 | http:int=400 | message="Invoice total must be greater than zero" | retry=no
+@MAP id=VAL_003 | code=VAL_003 | http:int=400 | message="Due date must be in the future" | retry=no
+@MAP id=VAL_004 | code=VAL_004 | http:int=409 | message="Invoice is not in draft status — cannot update" | retry=no
+@MAP id=VAL_005 | code=VAL_005 | http:int=409 | message="Invoice cannot be sent without due_date" | retry=no
+
+@SEC name="Payment Errors"
+@MAP id=PAY_001 | code=PAY_001 | http:int=400 | message="Payment amount exceeds remaining balance" | retry=no
+@MAP id=PAY_002 | code=PAY_002 | http:int=409 | message="Invoice is not in sent or overdue status" | retry=no
+@MAP id=PAY_003 | code=PAY_003 | http:int=409 | message="Duplicate payment reference for this invoice" | retry=no
+
+@SEC name="Rate Limiting"
+@MAP id=RATE_001 | code=RATE_001 | http:int=429 | message="Rate limit exceeded — try again later" | retry=yes
+@NOTE text="Retry after Retry-After header value."

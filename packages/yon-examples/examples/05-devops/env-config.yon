@@ -1,0 +1,15 @@
+@DOC ver=2.0 | id=env-config | title="Environment Configuration" | kind=spec | profile=decl | fmt=canon
+
+@NOTE text="Declarative specification for environment variables. Validates required config at startup."
+
+@SEC name="Required Variables"
+@RULE lvl=MUST | when="deploying" | then="set DATABASE_URL with valid connection string"
+@RULE lvl=MUST | when="deploying" | then="set API_KEY with non-empty value"
+@RULE lvl=MUST | when="deploying" | then="set NODE_ENV to production, staging, or development"
+
+@SEC name="Optional Variables"
+@RULE lvl=SHOULD | when="deploying to production" | then="set LOG_LEVEL to warn or error"
+@RULE lvl=SHOULD | when="deploying" | then="set CACHE_TTL in seconds"
+
+@SEC name="Defaults"
+@MAP id=Defaults | pairs=["LOG_LEVEL"->"info","CACHE_TTL"->"3600","PORT"->"3000","MAX_RETRIES"->"3"]

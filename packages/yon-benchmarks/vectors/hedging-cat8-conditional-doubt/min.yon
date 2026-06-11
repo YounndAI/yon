@@ -1,0 +1,7 @@
+@DOC ver=2.0 | id=hedging-cat8-architecture | title="Architecture Decisions" | kind=rule | profile=decl | fmt=min
+
+@SEC name="Service Architecture"
+@NOTE text="Could split into three microservices, if that makes sense for scale"
+
+@SEC name="Data Pipeline"
+@NOTE text="Pipeline might benefit from event sourcing, assuming team has bandwidth"

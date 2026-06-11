@@ -1,0 +1,15 @@
+@DOC ver=2.0 | id=kyc-check | title="KYC Verification" | domain=yai.fintech | kind=workflow | profile=audit | fmt=canon
+
+@NOTE text="Know-Your-Customer verification workflow. Audit trail required."
+
+@INPUT rid=in:customer | name=customer_id | type=string | required:bool=true
+@INPUT rid=in:doctype | name=document_type | type=string | required:bool=true
+
+@STEP n:int=1 | rid=verify-identity | op=fin:kyc.verify@v1 | out=[block:result]
+@CHECK rid=check:identity | assert="block:result.verified == true" | fail=ABORT | msg="Identity verification failed"
+
+@STEP n:int=2 | rid=risk-score | op=fin:risk.score@v1 | in=[block:result] | out=[block:risk]
+@CHECK rid=check:risk | assert="block:risk.score < 0.7" | fail=ABORT | msg="Risk score too high"
+
+@STEP n:int=3 | rid=log-audit | op=fin:audit.log@v1 | in=[block:result, block:risk]
+@STAMP ts:ts="2026-02-14T05:00:00Z" | src=kyc-system

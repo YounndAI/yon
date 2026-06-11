@@ -1,0 +1,19 @@
+@DOC ver=2.0 | id=ref-resolution | title="Compliance Check Framework" | kind=rule | mode=text | profile=decl | fmt=min
+
+@SEC name="Authentication Rules"
+@RULE rid=rule:session-timeout | lvl=MUST | when="user session active" | then="enforce 30-minute idle timeout — terminate session after inactivity"
+@RULE rid=rule:mfa-required | lvl=MUST | when="accessing admin panel" | then="require multi-factor authentication before granting access"
+@RULE rid=rule:password-policy | lvl=MUST | when="setting user password" | then="enforce minimum 12 characters with uppercase, lowercase, number, and symbol"
+
+@SEC name="Compliance Verification"
+@RULE rid=rule:verify-session | lvl=MUST | when="quarterly audit" | then="verify rid:rule:session-timeout — confirm session timeout fires after 30 minutes idle using browser devtools network tab"
+@REF name="verify-session-target" | target=rid:rule:session-timeout
+@RULE rid=rule:verify-mfa | lvl=MUST | when="monthly audit" | then="verify rid:rule:mfa-required — attempt admin panel access without MFA, must be blocked, document in compliance log"
+@REF name="verify-mfa-target" | target=rid:rule:mfa-required
+@RULE rid=rule:verify-password | lvl=MUST | when="weekly audit" | then="verify rid:rule:password-policy — run password strength validator against test corpus of 1000 passwords, all must pass"
+@REF name="verify-password-target" | target=rid:rule:password-policy
+
+@SEC name="Audit Trail"
+@NOTE text="Each verification rule references its governing authentication rule via rid:. The reference chain is: verify-X → rid:rule:X. This enables automated compliance mapping."
+@STAMP ts:ts="2026-02-01T10:00:00Z" | src="compliance-officer"
+@NOTE text="Q1 2026 review: all 3 verification checks passing. Next review due 2026-04-01."

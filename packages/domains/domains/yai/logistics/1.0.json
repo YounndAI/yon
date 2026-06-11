@@ -1,0 +1,639 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.logistics",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Supply chain management, freight operations, warehouse automation, and shipment tracking",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "SHIPMENT",
+      "description": "Freight shipment — GS1 EPCIS aligned, tracking from origin to destination with business step and disposition",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "shp:2026-001"
+        },
+        {
+          "name": "origin",
+          "type": "string",
+          "required": false,
+          "description": "Origin",
+          "example": "Shanghai"
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "required": false,
+          "description": "Destination",
+          "example": "Rotterdam"
+        },
+        {
+          "name": "carrier",
+          "type": "string",
+          "required": false,
+          "description": "Carrier",
+          "example": "Maersk"
+        },
+        {
+          "name": "mode",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "road",
+            "rail",
+            "air",
+            "sea",
+            "intermodal",
+            "parcel"
+          ],
+          "description": "Transport Mode (6 allowed values)",
+          "example": "sea"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "booked",
+            "picked-up",
+            "in-transit",
+            "customs",
+            "delivered",
+            "exception"
+          ],
+          "description": "Shipment Status (6 allowed values)",
+          "example": "in-transit"
+        },
+        {
+          "name": "biz_step",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "commissioning",
+            "packing",
+            "loading",
+            "shipping",
+            "receiving",
+            "accepting",
+            "storing",
+            "picking",
+            "departing",
+            "arriving"
+          ],
+          "description": "EPCIS Business Step (10 allowed values)",
+          "example": "shipping"
+        },
+        {
+          "name": "disposition",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "in-transit",
+            "sellable-accessible",
+            "sellable-not-accessible",
+            "damaged",
+            "destroyed",
+            "recalled"
+          ],
+          "description": "EPCIS Disposition (6 allowed values)",
+          "example": "in-transit"
+        },
+        {
+          "name": "event_type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "object",
+            "aggregation",
+            "transaction",
+            "transformation",
+            "association"
+          ],
+          "description": "EPCIS Event Type: object, aggregation, transaction, transformation, association",
+          "example": "object"
+        },
+        {
+          "name": "weight_kg",
+          "type": "float",
+          "required": false,
+          "description": "Weight in kg",
+          "unit": "kg",
+          "example": "12500.0"
+        },
+        {
+          "name": "tracking_no",
+          "type": "string",
+          "required": false,
+          "description": "Tracking Number",
+          "example": "MAEU123456789"
+        }
+      ]
+    },
+    {
+      "tag": "WAREHOUSE",
+      "description": "Warehouse or distribution center — capacity and utilization tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "wh:RTM-01"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Facility Name",
+          "example": "Rotterdam DC West"
+        },
+        {
+          "name": "location",
+          "type": "string",
+          "required": false,
+          "description": "Location",
+          "example": "Rotterdam, NL"
+        },
+        {
+          "name": "capacity_pallets",
+          "type": "int",
+          "required": false,
+          "description": "Pallet Capacity in pallets",
+          "unit": "pallets",
+          "example": "15000"
+        },
+        {
+          "name": "utilization_pct",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Utilization in % (0–100)",
+          "unit": "%",
+          "example": "82.5"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "dc",
+            "fulfillment",
+            "cold-storage",
+            "bonded",
+            "cross-dock"
+          ],
+          "description": "Facility Type: dc, fulfillment, cold-storage, bonded, cross-dock",
+          "example": "dc"
+        }
+      ]
+    },
+    {
+      "tag": "ROUTE",
+      "description": "Delivery route — optimized path with stops, distance, and time estimates",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "rt:2026-001"
+        },
+        {
+          "name": "stops",
+          "type": "int",
+          "required": false,
+          "description": "Number of Stops",
+          "example": "12"
+        },
+        {
+          "name": "distance_km",
+          "type": "float",
+          "required": false,
+          "description": "Total Distance in km",
+          "unit": "km",
+          "example": "145.0"
+        },
+        {
+          "name": "estimated_hours",
+          "type": "float",
+          "required": false,
+          "description": "Estimated Duration in hours",
+          "unit": "hours",
+          "example": "4.5"
+        },
+        {
+          "name": "vehicle",
+          "type": "string",
+          "required": false,
+          "description": "Vehicle",
+          "example": "VAN-NL-042"
+        },
+        {
+          "name": "driver",
+          "type": "string",
+          "required": false,
+          "description": "Driver",
+          "example": "P. Jansen"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "planned",
+            "active",
+            "completed",
+            "cancelled"
+          ],
+          "description": "Route Status: planned, active, completed, cancelled",
+          "example": "active"
+        }
+      ]
+    },
+    {
+      "tag": "CUSTOMS",
+      "description": "Customs declaration — trade compliance with HS codes and duty calculation",
+      "fields": [
+        {
+          "name": "shipment_ref",
+          "type": "string",
+          "required": false,
+          "description": "Shipment Reference",
+          "example": "shp:2026-001"
+        },
+        {
+          "name": "hs_code",
+          "type": "string",
+          "required": false,
+          "description": "HS Code",
+          "example": "8471.30"
+        },
+        {
+          "name": "declared_value",
+          "type": "float",
+          "required": false,
+          "description": "Declared Value in USD",
+          "unit": "USD",
+          "example": "250000.00"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "pattern": "^[A-Z]{3}$",
+          "description": "Currency",
+          "example": "USD"
+        },
+        {
+          "name": "duty_rate",
+          "type": "float",
+          "required": false,
+          "description": "Duty Rate in %",
+          "unit": "%",
+          "example": "3.5"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "pending",
+            "cleared",
+            "held",
+            "rejected"
+          ],
+          "description": "Customs Status: pending, cleared, held, rejected",
+          "example": "cleared"
+        },
+        {
+          "name": "incoterm",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "EXW",
+            "FCA",
+            "FAS",
+            "FOB",
+            "CFR",
+            "CIF",
+            "CPT",
+            "CIP",
+            "DAP",
+            "DPU",
+            "DDP"
+          ],
+          "description": "Incoterm (11 allowed values)",
+          "example": "CIF"
+        }
+      ]
+    },
+    {
+      "tag": "PICK",
+      "description": "Warehouse pick task — item retrieval with location and quantity",
+      "fields": [
+        {
+          "name": "order_ref",
+          "type": "string",
+          "required": false,
+          "description": "Order Reference",
+          "example": "ORD-88421"
+        },
+        {
+          "name": "sku",
+          "type": "string",
+          "required": false,
+          "description": "SKU",
+          "example": "SKU-X900"
+        },
+        {
+          "name": "location",
+          "type": "string",
+          "required": false,
+          "description": "Bin Location",
+          "example": "A-14-03"
+        },
+        {
+          "name": "quantity",
+          "type": "int",
+          "required": false,
+          "description": "Quantity",
+          "example": "5"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "pending",
+            "picked",
+            "packed",
+            "exception"
+          ],
+          "description": "Pick Status: pending, picked, packed, exception",
+          "example": "pending"
+        },
+        {
+          "name": "picker",
+          "type": "string",
+          "required": false,
+          "description": "Picker",
+          "example": "R. Bakker"
+        }
+      ]
+    },
+    {
+      "tag": "CARRIER_RATE",
+      "description": "Carrier rate quote — freight pricing with surcharges and transit time",
+      "fields": [
+        {
+          "name": "carrier",
+          "type": "string",
+          "required": false,
+          "description": "Carrier",
+          "example": "Maersk"
+        },
+        {
+          "name": "mode",
+          "type": "string",
+          "required": false,
+          "description": "Transport Mode",
+          "example": "sea"
+        },
+        {
+          "name": "base_rate",
+          "type": "float",
+          "required": false,
+          "description": "Base Rate in USD",
+          "unit": "USD",
+          "example": "3200.00"
+        },
+        {
+          "name": "fuel_surcharge",
+          "type": "float",
+          "required": false,
+          "description": "Fuel Surcharge in USD",
+          "unit": "USD",
+          "example": "480.00"
+        },
+        {
+          "name": "transit_days",
+          "type": "int",
+          "required": false,
+          "description": "Transit Time in days",
+          "unit": "days",
+          "example": "28"
+        },
+        {
+          "name": "service_level",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "economy",
+            "standard",
+            "express",
+            "overnight"
+          ],
+          "description": "Service Level: economy, standard, express, overnight",
+          "example": "standard"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Supply chain and freight operations for logistics AI",
+    "highlights": [
+      "SHIPMENT",
+      "ROUTE",
+      "CUSTOMS"
+    ],
+    "use_cases": [
+      {
+        "id": "shipment-tracking",
+        "title": "End-to-End Shipment Tracking",
+        "steps": [
+          "Create @SHIPMENT with origin, destination, carrier, and transport mode",
+          "Track business step transitions via EPCIS event_type progression",
+          "Process @CUSTOMS declarations for international crossings",
+          "Update disposition as goods move through supply chain checkpoints",
+          "Confirm delivery and close shipment lifecycle"
+        ],
+        "example": "@SHIPMENT rid=shp:1 | origin=\"Shanghai\" | destination=\"Rotterdam\" | mode=\"sea\" | status=\"in-transit\" | weight_kg:float=12500.0 | biz_step=\"shipping\"",
+        "tags_used": [
+          "SHIPMENT",
+          "CUSTOMS"
+        ],
+        "description": "Track shipments from pickup to delivery across carriers, modes, and borders. Generate customs documentation, monitor temperature for perishables, and calculate carbon footprint.",
+        "tags": [
+          "SHIPMENT",
+          "CARRIER",
+          "TRACKING_EVENT",
+          "CUSTOMS"
+        ]
+      },
+      {
+        "id": "warehouse-ops",
+        "title": "Warehouse Fulfillment Operations",
+        "steps": [
+          "Register @WAREHOUSE facilities with capacity and type classification",
+          "Receive inbound @SHIPMENT and update utilization percentage",
+          "Generate @PICK tasks for outbound orders with bin locations",
+          "Track picker progress and exception handling",
+          "Dispatch via @ROUTE with optimized delivery sequence"
+        ],
+        "example": "@PICK order_ref=\"ORD-88421\" | sku=\"SKU-X900\" | location=\"A-14-03\" | quantity:int=5 | status=\"pending\"",
+        "tags_used": [
+          "WAREHOUSE",
+          "PICK",
+          "SHIPMENT",
+          "ROUTE"
+        ],
+        "description": "Optimize pick-pack-ship workflows, manage bin locations and inventory levels, coordinate inbound receiving, and track outbound dispatch with barcode/RFID verification.",
+        "tags": [
+          "WAREHOUSE",
+          "SHIPMENT",
+          "TRACKING_EVENT",
+          "CARRIER"
+        ]
+      },
+      {
+        "id": "freight-procurement",
+        "title": "Freight Rate Comparison and Procurement",
+        "steps": [
+          "Request @CARRIER_RATE quotes from multiple carriers for a lane",
+          "Compare base rates, fuel surcharges, and transit times",
+          "Select optimal carrier based on cost and service level",
+          "Create @SHIPMENT with selected carrier and booking reference",
+          "Optimize @ROUTE for last-mile delivery efficiency"
+        ],
+        "example": "@CARRIER_RATE carrier=\"Maersk\" | mode=\"sea\" | base_rate:float=3200.0 | fuel_surcharge:float=480.0 | transit_days:int=28 | service_level=\"standard\"",
+        "tags_used": [
+          "CARRIER_RATE",
+          "SHIPMENT",
+          "ROUTE"
+        ],
+        "description": "Compare carrier rates across modes and lanes, negotiate contract rates, and optimize carrier selection based on cost, transit time, and reliability metrics.",
+        "tags": [
+          "CARRIER",
+          "SHIPMENT",
+          "RATE",
+          "CUSTOMS"
+        ]
+      }
+    ],
+    "tag_context": {
+      "SHIPMENT": {
+        "purpose": "End-to-end freight tracking with EPCIS-aligned business steps and disposition states",
+        "when_to_use": "Order fulfillment, cargo tracking, supply chain visibility, proof of delivery",
+        "related_standards": [
+          "GS1 EPCIS 2.0",
+          "UN/EDIFACT IFTMIN",
+          "DCSA Track & Trace"
+        ]
+      },
+      "WAREHOUSE": {
+        "purpose": "Distribution center identity with capacity metrics and facility classification",
+        "when_to_use": "Facility registration, capacity planning, utilization monitoring, network design",
+        "related_standards": [
+          "GS1 GLN",
+          "APICS SCOR",
+          "VDA 5050"
+        ]
+      },
+      "ROUTE": {
+        "purpose": "Optimized delivery route with stops, distance, and driver assignment",
+        "when_to_use": "Last-mile delivery, route optimization, driver dispatch, fleet scheduling",
+        "related_standards": [
+          "OSRM",
+          "HERE Fleet Telematics",
+          "Google OR-Tools"
+        ]
+      },
+      "CUSTOMS": {
+        "purpose": "Cross-border trade compliance with HS classification, duty, and Incoterms",
+        "when_to_use": "Import/export declarations, duty calculation, trade compliance, AEO programs",
+        "related_standards": [
+          "WCO HS Convention",
+          "ICC Incoterms 2020",
+          "WTO TFA"
+        ]
+      },
+      "PICK": {
+        "purpose": "Individual pick task for order fulfillment with bin location and quantity",
+        "when_to_use": "Wave picking, zone picking, batch fulfillment, exception handling",
+        "related_standards": [
+          "GS1-128 Barcode",
+          "APICS WMS",
+          "VDA 5050 AMR"
+        ]
+      },
+      "CARRIER_RATE": {
+        "purpose": "Freight rate quote with per-carrier pricing, surcharges, and service level",
+        "when_to_use": "Rate procurement, lane bidding, cost comparison, contract negotiation",
+        "related_standards": [
+          "SCAC Codes",
+          "NMFTA Class",
+          "Freightos Baltic Index"
+        ]
+      }
+    },
+    "links": [
+      {
+        "label": "GS1",
+        "url": "https://www.gs1.org/",
+        "type": "standard"
+      },
+      {
+        "label": "UN/EDIFACT",
+        "url": "https://unece.org/trade/uncefact",
+        "type": "standard"
+      },
+      {
+        "label": "WCO HS",
+        "url": "https://www.wcoomd.org/",
+        "type": "standard"
+      },
+      {
+        "label": "DCSA",
+        "url": "https://dcsa.org/",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.ecommerce",
+        "relationship": "often paired",
+        "reason": "Order fulfillment and last-mile delivery"
+      },
+      {
+        "domain": "yai.manufacturing",
+        "relationship": "data overlap",
+        "reason": "Supply chain integration and parts logistics"
+      },
+      {
+        "domain": "yai.maritime",
+        "relationship": "often paired",
+        "reason": "Sea freight and port cargo operations"
+      }
+    ],
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

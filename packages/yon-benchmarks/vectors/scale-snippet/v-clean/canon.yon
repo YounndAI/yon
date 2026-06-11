@@ -1,0 +1,17 @@
+@DOC ver=2.0 | id=api-auth-and-users | title="API Authentication and Users Management" | kind=rule | profile=exec | fmt=canon
+
+@SEC name=Authentication
+@NOTE text="Auth: Bearer token OAuth2."
+@RULE lvl=must | when="Token is issued" | then="Token TTL: 3600s."
+@NOTE text="Refresh: 30-day, single-use (invalidated after use, new one issued with access token)."
+@RULE lvl=must | when="Requests exceed rate limit" | then="Rate limit: 500 req/min global. On exceed: 429 + Retry-After header."
+@MAP id=Scope name=Scope | pairs=["admin tokens"->"all orgs","User tokens"->"own org only"]
+@RULE lvl=must | when="Making requests" | then="All requests require Authorization header."
+@NOTE text="Token endpoint: /auth/token (client credentials or auth code flow)."
+
+@SEC name="Users CRUD"
+@MAP id=POST /users name="POST /users" | pairs=["Required"->"name, email, role","Email"->"unique per org","Roles"->"admin|member|viewer (default: member)"]
+@NOTE text="GET /users — paginated list (cursor-based). Default limit: 25, max: 100."
+@NOTE text="GET /users/:id — single user or 404. Includes last_login, created_at."
+@NOTE text="PATCH /users/:id — partial update, merge semantics. Email change requires verification."
+@NOTE text="DELETE /users/:id — soft-delete (status→archived, login disabled). 410 if already archived."

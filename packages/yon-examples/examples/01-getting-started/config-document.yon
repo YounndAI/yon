@@ -1,0 +1,15 @@
+@DOC ver=2.0 | id=config-document | title="Config Document" | kind=config | profile=decl | fmt=canon
+
+@NOTE text="Application settings grouped into named config objects."
+
+@SEC name="Server"
+@CFG id=server | set=[port:int=3000,host=0.0.0.0,env=production]
+
+@SEC name="Database"
+@CFG id=database | set=[host=db.example.com,port:int=5432,name=myapp,pool_size:int=10]
+
+@SEC name="Logging"
+@CFG id=logging | set=[level=info,format=json]
+
+@SEC name="Defaults"
+@MAP id=Defaults | pairs=["log_level"->"info","timeout"->"30s","retries"->"3"]

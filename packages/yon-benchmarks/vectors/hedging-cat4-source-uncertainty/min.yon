@@ -1,0 +1,6 @@
+@DOC ver=2.0 | id=hedging-cat4-auth-issues | title="Authentication Issues" | kind=rule | profile=decl | fmt=min
+
+@SEC name="Reported Issues"
+@NOTE text="Apparently auth module has race condition in token refresh"
+@NOTE text="I heard connection pool already maxed out"
+@NOTE text="Supposedly new release fixes memory leak, nobody confirmed yet"

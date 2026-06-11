@@ -1,0 +1,11 @@
+@DOC ver=2.0 | kind=test | id=yonpa-03 | title="Automator — wrong enum value on layer" | profile=exec | fmt=min | with=[yonpa]
+
+@AUTOMATOR id=yTrim
+  | name="yTrim"
+  | mission="Reduce verbosity within a single file"
+  | layer=cosmic
+  | tier=reasoning
+  | version="0.1.0"
+  | yonpa_schema_version="1.0"
+
+@NOTE text="@AUTOMATOR.layer=cosmic is not in the enum [overseers|cartographers|refactor|quality|knowledge|action]"

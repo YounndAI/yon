@@ -1,0 +1,9 @@
+@DOC ver=2.0 | id=analytics-cluster | kind=rule | fmt=ultra
+@MAP id=cluster | region=us-east1 | k8s=1.29 | type=private | nets="office+VPN"
+@MAP id=pools | pairs=["general"->"4× e2-standard-4","compute"->"2× n2-highmem-8 (spot)","gpu"->"1× a100-40gb"]
+@MAP id=storage | pairs=["SSD 500GB"->"PostgreSQL 16","StdPD 2TB"->"archive"]
+@RULE lvl=MUST | then="daily snapshots 30d, deny-all ingress, analytics API from 10.128.0.0/16 only"
+@MAP id=endpoints | pairs=["internal LB"->"API","public"->"webhook (LE cert)"]
+@MAP id=monitoring | stack="kube-prometheus-stack" | alerts="CPU>80%/5m, restarts>3/10m, PV>85%" | channels="Slack #infra-alerts, PagerDuty P1"
+@MAP id=secrets | backend="GCP SM" | rotation="90d" | tls=cert-manager
+@MAP id=rbac | pairs=["analytics"->"ns edit","platform"->"cluster-admin","CI/CD"->"deploy+read"]

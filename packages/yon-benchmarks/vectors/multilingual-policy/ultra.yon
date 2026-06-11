@@ -1,0 +1,30 @@
+@DOC ver=2.0 | id=eu-data-privacy | title="EU Employee Data Privacy" | kind=rule | profile=decl | fmt=ultra
+@SEC name="DE (BDSG)"
+@RULE lvl=MUST | when="monitoring" | then="Betriebsrat consult + Betriebsvereinbarung"
+@CFG key=penalty | value="€300k/violation"
+@MAP id=de_ret | pairs=["personnel"->"3yr(§195BGB)","payroll"->"6yr(§257HGB)","tax"->"10yr(§147AO)","rejected"->"6mo","Krankheitstage"->"12mo/6yr"]
+@RULE lvl=MUST | when=">20 empl" | then="appoint Datenschutzbeauftragter"
+@RULE lvl=MUST_NOT | when="any" | then="terminate DPO(§38)"
+@SEC name="FR (CNIL)"
+@RULE lvl=MUST | when=">50 empl" | then="négocier droit à la déconnexion"
+@CFG key=window | value="20:00–08:00"
+@RULE lvl=MUST | when="monitoring" | then="inform CSE + notify individually"
+@RULE lvl=MUST_NOT | when="any" | then="keyloggers(Délib.2013-001)"
+@RULE lvl=MUST_NOT | when="video" | then="salles de repos/changing/toilets"
+@MAP id=fr_ret | pairs=["active"->"empl+5yr","paie"->"5yr","candidates"->"2yr","logs"->"6mo"]
+@SEC name="NL (UAVG)"
+@RULE lvl=MUST | when="monitoring" | then="ondernemingsraad consent(Art27WOR), signed"
+@RULE lvl=MUST_NOT | when="any" | then="ask illness nature"
+@RULE lvl=MUST | when="medical" | then="bedrijfsarts only"
+@CFG key=penalty | value="€820k"
+@MAP id=nl_ret | pairs=["personnel"->"2yr","payroll"->"7yr","absence"->"2yr","rejected"->"4wk(1yr+consent)"]
+@SEC name="ES (LOPDGDD)"
+@RULE lvl=MUST | when="all" | then="registrar jornada diaria(2019+)"
+@CFG key=fine | value="€626–€6250"
+@RULE lvl=MUST_NOT | when="BYOD" | then="access personal content"
+@MAP id=es_ret | pairs=["contracts"->"4yr","nóminas"->"4yr","medical"->"empl+5yr","training"->"4yr","video"->"30d"]
+@SEC name="Tech"
+@MAP id=t | pairs=["store"->"EU-only","enc"->"AES256+TLS1.2+","anon"->"k≥5","port"->"JSON/CSV 30d"]
+@RULE lvl=MUST | when="access" | then="log ts+user+action+justification"
+@RULE lvl=MUST | when="breach" | then="72h notify"
+@RULE lvl=MUST | when="high-risk" | then="PIA"

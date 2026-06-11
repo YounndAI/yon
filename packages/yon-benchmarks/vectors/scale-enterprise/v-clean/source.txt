@@ -1,0 +1,126 @@
+Auth: Bearer token OAuth2. Token TTL: 3600s. Refresh: 30-day, single-use (invalidated after use, new one issued with access token).
+Rate limit: 500 req/min global. On exceed: 429 + Retry-After header.
+Scope: admin tokens → all orgs. User tokens → own org only.
+All requests require Authorization header. Token endpoint: /auth/token (client credentials or auth code flow).
+
+Users CRUD:
+- POST /users — create. Required: name, email, role. Email unique per org. Roles: admin|member|viewer (default: member).
+- GET /users — paginated list (cursor-based). Default limit: 25, max: 100.
+- GET /users/:id — single user or 404. Includes last_login, created_at.
+- PATCH /users/:id — partial update, merge semantics. Email change requires verification.
+- DELETE /users/:id — soft-delete (status→archived, login disabled). 410 if already archived.
+
+Orders API:
+- POST /orders — create. Required: customer_id, items[], total, currency.
+  Items: each needs product_id, quantity, unit_price. Total must equal Σ(qty × unit_price).
+  Currency: ISO 4217 (USD, EUR, GBP, CAD, AUD, JPY). No mixed currencies per order.
+- GET /orders — filter by customer_id, status, date range, min total.
+- Lifecycle: draft → confirmed → processing → shipped → delivered. Cancelable before shipped.
+- PATCH /orders/:id — update items only in draft status. Status changes via dedicated endpoints.
+- POST /orders/:id/confirm — draft→confirmed, triggers payment auth.
+- POST /orders/:id/cancel — marks canceled, triggers refund if captured.
+- DELETE not supported — use cancel.
+
+Error codes (consistent pattern):
+- ERR_AUTH: invalid/expired token
+- ERR_NOT_FOUND: resource doesn't exist
+- ERR_VALIDATION: request body failed schema validation
+- ERR_CONFLICT: duplicate resource (e.g., duplicate email)
+- ERR_RATE_LIMIT: too many requests
+- ERR_PAYMENT_FAILED: payment provider rejected
+- ERR_INSUFFICIENT_FUNDS: account balance too low
+- ERR_PERMISSION_DENIED: token lacks required scope
+- ERR_RESOURCE_LOCKED: concurrent modification in progress
+All error responses include: request_id (debugging) + human-readable message.
+
+Products API:
+- POST /products — create. Required: name (max 255), description (max 2000), price (cents), category, active.
+  Categories: software|hardware|service|subscription|addon. No custom categories.
+- GET /products — filter: category, active, price range. Includes price count, not full price objects.
+- PATCH /products/:id — update any field. active=false blocks new orders, doesn't affect existing.
+- DELETE — blocked if active orders exist. Deactivate first.
+- Multi-price: each product can have prices for different currencies and billing intervals.
+
+Invoices API:
+- POST /invoices — create from order or subscription. Required: customer_id, items, due_date, payment_terms (net-15|net-30|net-60).
+- Lifecycle: draft → open → paid|void. Draft: editable. Open: locked.
+- POST /invoices/:id/pay — charge default method. 402 on failure.
+- POST /invoices/:id/void — mark void. Cannot void paid invoices.
+- GET /invoices — filter: customer_id, status, date range, amount range.
+- Overdue reminders: auto emails at 1, 7, 14 days past due_date (open status).
+
+Global validation rules:
+- Email: RFC 5322. Phone: E.164 (+1234567890). Money: positive int cents.
+- Dates: ISO 8601 UTC (2026-01-15T00:00:00Z). No timezone abbreviations.
+- Metadata: optional, max 20 keys, keys+values must be strings ≤500 chars.
+- Arrays: max 100 items/request. Larger batches → bulk import endpoint.
+- Strings: auto-trimmed. Empty → null.
+- Booleans: true/false, 1/0, yes/no accepted. All others rejected.
+- Enums: case-insensitive input, stored lowercase.
+
+Webhooks — real-time event notifications:
+Events: order.created, order.updated, order.completed, payment.succeeded, payment.failed, invoice.paid.
+Security: HMAC-SHA256 signed payloads. Verify signature before processing.
+Delivery: must respond 200 within 30s. Failed → retry (exponential backoff: 1m, 5m, 25m, 2h, 10h = 5 attempts).
+After exhausted retries: webhook marked failing, owner notified by email.
+Register: POST /webhooks — url (HTTPS required), events[], optional secret.
+History: GET /webhooks/:id/deliveries — last 30 days (status, response code, timing).
+
+The subscriptions endpoint manages recurring billing. POST /subscriptions creates a new subscription.
+Required fields are customer_id, plan_id, trial_days (0-365), and payment_method_id (required unless trial).
+Subscriptions start immediately or after the trial period. The first invoice is created automatically unless in trial.
+Billing cycle anchor can be set to a specific date. Otherwise, the subscription starts on the creation date.
+Proration behavior can be create_prorations (default), none, or always_invoice.
+Status flow is trialing → active → past_due → canceled. Past_due occurs when payment fails.
+PATCH /subscriptions/:id can update items, payment method, and metadata. Mid-cycle changes create prorations.
+DELETE /subscriptions/:id cancels the subscription. Default is at period end. Use ?at=now for immediate with prorated refund.
+
+The payments endpoint handles one-time charges. POST /payments creates a payment.
+Required fields are amount (integer cents), currency (ISO 4217), method_id, and description.
+Payments are processed synchronously. Success returns 200 with transaction_id. Failure returns 402 with error details.
+If the payment method is a card, the issuing bank's authorization is checked. 3D Secure is triggered when required.
+Refunds are created via POST /payments/:id/refund. Partial refunds are supported. Full refund is the default.
+Payment methods can be cards, bank transfers, or digital wallets. Each has different processing times and fee structures.
+
+GDPR compliance requirements are mandatory for all data handling operations.
+You must encrypt all PII at rest using AES-256 and in transit using TLS 1.3. No exceptions.
+Right to erasure must be implemented and completed within 30 days of receiving a valid erasure request.
+Data processing records must be maintained and available for audit at all times.
+Data breaches must be reported to the supervisory authority within 72 hours of becoming aware.
+Data protection impact assessments must be conducted annually and before launching new data processing activities.
+A data protection officer must be appointed and their contact details published on the privacy page.
+Explicit consent must be obtained before processing personal data. Pre-checked boxes are not valid consent.
+Data portability requests must be fulfilled in a machine-readable format (JSON or CSV) within 30 days.
+Cross-border data transfers require Standard Contractual Clauses or adequacy decisions.
+
+SOC 2 Type II compliance requirements govern all system operations.
+Access controls must follow the principle of least privilege. No user should have more access than needed for their role.
+Audit logs must record all data access events including who accessed what, when, and from where.
+Vulnerability scans must be conducted monthly using automated tools. Critical findings must be remediated within 48 hours.
+Penetration testing must be performed annually by an independent third party.
+Incident response procedures must include detection, triage, containment, eradication, and post-mortem phases.
+Business continuity plans must be tested semi-annually. Recovery time objective is 4 hours for Tier 1 services.
+Backups must be encrypted at rest and tested for recoverability quarterly.
+Multi-factor authentication is required for all administrative access. SMS-based MFA is deprecated in favor of TOTP or hardware keys.
+Employee background checks must be completed before granting system access.
+Vendor security assessments must be conducted annually for all third-party services that process customer data.
+
+PCI-DSS Level 1 compliance requirements govern all payment processing.
+Full card numbers must never be stored after authorization. Only last four digits and card fingerprint are retained.
+Payment data must be tokenized before storage using a PCI-compliant tokenization service.
+The payment processing network must be segmented from other internal networks with firewall rules.
+Intrusion detection systems must monitor all network traffic in the payment segment in real-time.
+Encryption keys must be rotated annually. Compromised keys must be rotated immediately.
+Physical access to servers processing cardholder data must be restricted to authorized personnel only.
+All payment processing code must undergo security review before deployment.
+Quarterly ASV scans must be conducted by an approved scanning vendor.
+
+Rate limiting is configured at multiple levels: global, per-user, and per-endpoint.
+Global rate limit is 1000 requests per minute. Per-user rate limit is 100 requests per minute.
+Burst limit allows 50 requests in a 1-second window before throttling kicks in.
+The throttle strategy is sliding window to prevent thundering herd problems.
+Rate limit headers are included in all responses: X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset.
+When rate limited, the Retry-After header specifies the number of seconds to wait.
+Authenticated requests have higher limits than anonymous requests.
+Webhook deliveries do not count against rate limits.
+Batch endpoints have separate rate limits calculated per item, not per request.

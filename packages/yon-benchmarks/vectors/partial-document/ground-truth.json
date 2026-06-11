@@ -1,0 +1,22 @@
+[
+  { "id": 1, "question": "What is the patient's full name?", "answer": "Sarah Okonkwo", "present": true },
+  { "id": 2, "question": "What is the date of birth?", "answer": "March 15, 1988", "present": true },
+  { "id": 3, "question": "What is the patient's address?", "answer": "4210 Birch Lane, apt 3B, Asheville NC 28801", "present": true },
+  { "id": 4, "question": "What is the insurance provider?", "answer": "BlueCross BlueShield", "present": true },
+  { "id": 5, "question": "Who is the emergency contact?", "answer": "James Okonkwo, husband", "present": true },
+  { "id": 6, "question": "What is the patient allergic to?", "answer": "penicillin, shellfish, seasonal pollen", "present": true },
+  { "id": 7, "question": "What medication does the patient take for diabetes?", "answer": "metformin 500mg twice daily", "present": true },
+  { "id": 8, "question": "When was the appendectomy performed?", "answer": "2015", "present": true },
+  { "id": 9, "question": "What was the last A1C reading?", "answer": "6.8 in January 2026", "present": true },
+  { "id": 10, "question": "Does the patient's father have any medical conditions?", "answer": "type 2 diabetes and high cholesterol", "present": true },
+  { "id": 11, "question": "How often does the patient exercise?", "answer": "3 times per week (yoga, hiking)", "present": true },
+  { "id": 12, "question": "What is the primary care physician's name?", "answer": "Dr. Linda Patel", "present": true },
+  { "id": 13, "question": "What is the patient's blood pressure medication?", "answer": "lisinopril 10mg daily", "present": true },
+  { "id": 14, "question": "Where do the recurring headaches occur?", "answer": "behind the right eye", "present": true },
+  { "id": 15, "question": "How long do the headaches last?", "answer": "about 4 hours", "present": true },
+  { "id": 16, "question": "When was the patient's last COVID booster?", "answer": "September 2025", "present": true },
+  { "id": 17, "question": "What is the policy number?", "answer": "BCB-4401882", "present": true },
+  { "id": 18, "question": "What birth control does the patient use?", "answer": "lo loestrin fe", "present": true },
+  { "id": 19, "question": "What was the cycling accident injury?", "answer": "fractured left wrist in 2019", "present": true },
+  { "id": 20, "question": "What is the patient's occupation?", "answer": "graphic designer, works from home", "present": true }
+]

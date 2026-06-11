@@ -1,0 +1,17 @@
+i think we should build a dashboard for our analytics product. probably something dark-themed, maybe with a sidebar on the left? not entirely sure about the layout.
+
+the main area should have around 4 KPI cards at the top - things like revenue, active users, churn rate, and maybe MRR or something. i'm not sure which metrics matter most yet. the numbers should update in real-time, or at least close to real-time, whatever the API supports.
+
+below the cards we probably need some charts. a line chart for revenue trends would make sense, and maybe a pie chart for traffic sources? i heard d3 is good for this but apparently recharts is easier to integrate with React. not sure which one to go with.
+
+there should be a data table somewhere - probably at the bottom. sortable columns, maybe 10 rows per page? pagination would be nice. the columns should include user name, email, signup date, plan tier, and last active. we might want to add more columns later.
+
+for the sidebar, i'm thinking something like what Linear has - clean, minimal, probably collapsible. navigation items would be Dashboard, Analytics, Users, Settings, and maybe Billing? we could add more sections at some point.
+
+oh and authentication - we should probably use OAuth for this, maybe Google and GitHub? i think we need role-based access too. admins see everything, viewers can only see their own data. not sure if we need an editor role yet.
+
+the color scheme should be something like dark gray backgrounds with probably blue or purple accents. or maybe teal? whatever looks professional. i guess we should have a light mode too eventually but it's not urgent.
+
+performance-wise, the dashboard should load in under 2 seconds, roughly. maybe 3 seconds is acceptable on slower connections. the charts should render without blocking the main thread, if that makes sense for our architecture.
+
+one more thing - we need export functionality. users should be able to download reports as CSV or PDF, something like that. maybe we add Excel export later if customers ask for it.

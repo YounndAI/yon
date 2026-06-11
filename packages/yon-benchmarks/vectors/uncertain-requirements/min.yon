@@ -1,0 +1,32 @@
+@DOC ver=2.0 | id=internal-task-management-system | title="Internal Task Management System Specification" | kind=spec | profile=decl | fmt=min
+
+@SEC name="Project Overview"
+@NOTE text="Project: TaskFlow [Internal Task Management System]"
+@NOTE text="Status: Early requirements"
+
+@SEC name="Core Features"
+@MAP id=Core Features | pairs=["Task creation"->"title, description, assignee, due date","Kanban board"->"To Do, In Progress, Review, Done","Search and filtering"->"assignee, status, tags","Real-time updates"->"WebSocket"]
+
+@SEC name=Database
+@NOTE text="PostgreSQL preferred"
+@MAP id=Main Entities | pairs=["users"->"","teams"->"","projects"->"","tasks"->"","comments"->"","attachments"->"","labels"->"","activity_log"->""]
+
+@SEC name="API Design"
+@NOTE text="REST API, possible GraphQL"
+@RULE lvl=MUST | when="API requests" | then="Rate limit: 100/min"
+
+@SEC name="Performance Requirements"
+@RULE lvl=MUST | when="Page load" | then="Page load <2s [1.5]"
+@RULE lvl=MUST | when="API response" | then="API response: 200ms [500ms]"
+
+@SEC name="Integration Points"
+@NOTE text="Slack notifications, email fallback"
+@NOTE text="Google Calendar sync"
+
+@SEC name="Non-Functional Requirements"
+@RULE lvl=MUST | when="Uptime SLA" | then="Uptime SLA: 99.9% [99.5] [99.5%]"
+
+@SEC name="Open Questions"
+@NOTE text="Multi-tenancy question"
+@NOTE text=100ms
+@NOTE text=JSON

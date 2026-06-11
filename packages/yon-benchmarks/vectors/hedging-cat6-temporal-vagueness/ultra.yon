@@ -1,0 +1,3 @@
+@DOC ver=2.0 | id=hedging-cat6-migration-plan | title="Migration Plan" | kind=rule | profile=decl | fmt=ultra
+@MAP id=Migration | pairs=["monolith"->"eventually migrate to microservices","cicd"->"at some point need proper pipeline"]
+@MAP id=Documentation | pairs=["docs"->"can happen later, not urgent right now"]

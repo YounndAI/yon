@@ -1,0 +1,35 @@
+@DOC ver=2.0 | kind=benchmark | id=roundtrip | title="Roundtrip Fidelity Vector" | profile=exec | fmt=canon
+
+@SEC name="Mixed Content"
+@NOTE text="Complex document for YON→JSON→YON roundtrip verification."
+
+@CFG key=string_val | val="hello world"
+@CFG key=int_val | val:int=42
+@CFG key=float_val | val:float=3.14159
+@CFG key=bool_val | val:bool=true
+@CFG key=ts_val | val:ts=2026-02-12T19:00:00Z
+@CFG key=empty | val=""
+
+@MAP id=UserProfile | pairs=["name"->"Alexandru Mareș","role"->"founder","org"->"YounndAI"]
+
+@RULE lvl=MUST | when="roundtrip" | then="preserve all field semantics"
+@RULE lvl=MUST_NOT | when="converting" | then="silently drop unknown fields"
+
+@STEP rid=step:parse | n:int=1 | op=parse | desc="Parse original YON document"
+@STEP rid=step:convert | n:int=2 | op=convert | desc="Convert to intermediate format (JSON/YAML)"
+@STEP rid=step:reconvert | n:int=3 | op=reconvert | desc="Convert back to YON"
+@STEP rid=step:compare | n:int=4 | op=compare | desc="Compare ASTs for semantic parity"
+
+@BEGIN lang=json | id=nested-payload
+{
+  "complex": {
+    "nested": {
+      "array": [1, 2, {"key": "value"}],
+      "empty": {},
+      "null_val": null
+    }
+  }
+}
+@END
+
+@STAMP ts:ts=2026-02-12T19:00:00Z | src=benchmarks | label="Roundtrip fidelity vector"

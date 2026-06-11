@@ -1,0 +1,109 @@
+@DOC ver=2.0 | id=chunk-1-2 | title="API and Endpoint Rules" | kind=rule | profile=exec | fmt=canon
+
+@INTENT goal="Outline compliance and API requirements" | audience="system architects and developers"
+
+@SEC name=Authentication
+@RULE lvl=must | when="Authentication uses Bearer token OAuth2" | then="Authentication uses Bearer token OAuth2 with a 3600 second TTL and 30-day refresh."
+@RULE lvl=must | when="rate limited" | then="Rate limit is 500 requests per minute globally. When rate limited, return 429 with Retry-After header."
+@RULE lvl=must | when="Admin tokens" | then="Admin tokens can access all organizations."
+@RULE lvl=must | when="User tokens" | then="User tokens can only access their own organization."
+@RULE lvl=must | when="API requests" | then="All API requests must include the Authorization header with a valid bearer token."
+@RULE lvl=must | when="Tokens issued" | then="Tokens are issued by the /auth/token endpoint using client credentials or authorization code flow."
+@RULE lvl=must | when="Refresh tokens used" | then="Refresh tokens can be used once and are invalidated after use. A new refresh token is issued with each access token."
+
+@SEC name="Users Endpoint"
+@RULE lvl=must | when="POST /users" | then="The users endpoint at POST /users creates a new user. Required fields are name, email, and role."
+@RULE lvl=must | when=Email | then="Email must be unique per organization."
+@RULE lvl=must | when=Roles | then="Roles are admin, member, or viewer. Default role is member."
+@RULE lvl=must | when="GET /users" | then="GET /users returns a paginated list with cursor-based pagination. Default limit is 25, max is 100."
+@RULE lvl=must | when="GET /users/:id" | then="GET /users/:id returns a single user or 404 if not found. Includes last_login and created_at."
+@RULE lvl=must | when="PATCH /users/:id" | then="PATCH /users/:id does a partial update with merge semantics. Cannot change email without verification."
+@RULE lvl=must | when="DELETE /users/:id" | then="DELETE /users/:id soft-deletes by setting status to archived. Archived users cannot log in."
+@RULE lvl=must | when="user already archived" | then="If the user is already archived, return 410 Gone."
+
+@SEC name="Orders Endpoint"
+@RULE lvl=must | when="POST /orders" | then="The orders endpoint at POST /orders creates a new order. Required fields are customer_id, items, total, and currency."
+@RULE lvl=must | when="Each item" | then="Each item must have product_id, quantity, and unit_price. Total must equal sum of (quantity * unit_price)."
+@RULE lvl=must | when=Currency | then="Currency must be ISO 4217 (USD, EUR, GBP, CAD, AUD, JPY). Mixed currencies in one order are not allowed."
+@RULE lvl=must | when="GET /orders" | then="GET /orders supports filtering by customer_id, status, date range, and minimum total amount."
+@RULE lvl=must | when="Orders lifecycle" | then="Orders go through a lifecycle: draft → confirmed → processing → shipped → delivered. Can be canceled before shipped."
+@RULE lvl=must | when="PATCH /orders/:id" | then="PATCH /orders/:id allows updating items only in draft status. Status changes use dedicated endpoints."
+@RULE lvl=must | when="POST /orders/:id/confirm" | then="POST /orders/:id/confirm moves from draft to confirmed and triggers payment authorization."
+@RULE lvl=must | when="POST /orders/:id/cancel" | then="POST /orders/:id/cancel marks as canceled and triggers refund if payment was captured."
+@RULE lvl=must | when="DELETE /orders/:id" | then="DELETE /orders/:id is not supported. Use cancel instead."
+
+@SEC name="Error Codes"
+@MAP id=Error Codes name="Error Codes" | pairs=["ERR_AUTH"->"invalid or expired token","ERR_NOT_FOUND"->"requested resource does not exist","ERR_VALIDATION"->"request body failed schema validation","ERR_CONFLICT"->"duplicate resource detected","ERR_RATE_LIMIT"->"too many requests","ERR_PAYMENT_FAILED"->"payment provider rejected transaction","ERR_INSUFFICIENT_FUNDS"->"account balance too low","ERR_PERMISSION_DENIED"->"token does not have required scope","ERR_RESOURCE_LOCKED"->"resource being modified by another process"]
+
+@SEC name="Subscriptions Endpoint"
+@NOTE text="POST /subscriptions creates a new subscription. Required fields are customer_id, plan_id, trial_days (0-365), and payment_method_id (required unless trial)."
+@NOTE text="Subscriptions start immediately or after the trial period. The first invoice is created automatically unless in trial."
+@NOTE text="Billing cycle anchor can be set to a specific date. Otherwise, the subscription starts on the creation date."
+@NOTE text="Proration behavior can be create_prorations (default), none, or always_invoice."
+@NOTE text="Status flow is trialing → active → past_due → canceled. Past_due occurs when payment fails."
+@NOTE text="PATCH /subscriptions/:id can update items, payment method, and metadata. Mid-cycle changes create prorations."
+@NOTE text="DELETE /subscriptions/:id cancels the subscription. Default is at period end. Use ?at=now for immediate with prorated refund."
+
+@SEC name="Payments Endpoint"
+@NOTE text="POST /payments creates a payment. Required fields are amount (integer cents), currency (ISO 4217), method_id, and description."
+@NOTE text="Payments are processed synchronously. Success returns 200 with transaction_id. Failure returns 402 with error details."
+@NOTE text="If the payment method is a card, the issuing bank's authorization is checked. 3D Secure is triggered when required."
+@NOTE text="Refunds are created via POST /payments/:id/refund. Partial refunds are supported. Full refund is the default."
+@NOTE text="Payment methods can be cards, bank transfers, or digital wallets. Each has different processing times and fee structures."
+
+@SEC name="GDPR Compliance"
+@RULE lvl=must | then="Encrypt all PII at rest using AES-256 and in transit using TLS 1.3. No exceptions."
+@RULE lvl=must | then="Right to erasure must be implemented and completed within 30 days of receiving a valid erasure request."
+@RULE lvl=must | then="Data processing records must be maintained and available for audit at all times."
+@RULE lvl=must | then="Data breaches must be reported to the supervisory authority within 72 hours of becoming aware."
+@RULE lvl=must | then="Data protection impact assessments must be conducted annually and before launching new data processing activities."
+@RULE lvl=must | then="A data protection officer must be appointed and their contact details published on the privacy page."
+@RULE lvl=must | then="Explicit consent must be obtained before processing personal data. Pre-checked boxes are not valid consent."
+@RULE lvl=must | then="Data portability requests must be fulfilled in a machine-readable format (JSON or CSV) within 30 days."
+@RULE lvl=must | then="Cross-border data transfers require Standard Contractual Clauses or adequacy decisions."
+
+@SEC name="SOC 2 Type II Compliance"
+@RULE lvl=must | then="Access controls must follow the principle of least privilege. No user should have more access than needed for their role."
+@RULE lvl=must | then="Audit logs must record all data access events including who accessed what, when, and from where."
+@RULE lvl=must | then="Vulnerability scans must be conducted monthly using automated tools. Critical findings must be remediated within 48 hours."
+@RULE lvl=must | then="Penetration testing must be performed annually by an independent third party."
+@RULE lvl=must | then="Incident response procedures must include detection, triage, containment, eradication, and post-mortem phases."
+@RULE lvl=must | then="Business continuity plans must be tested semi-annually. Recovery time objective is 4 hours for Tier 1 services."
+@RULE lvl=must | then="Backups must be encrypted at rest and tested for recoverability quarterly."
+@RULE lvl=must | then="Multi-factor authentication is required for all administrative access. SMS-based MFA is deprecated in favor of TOTP or hardware keys."
+@RULE lvl=must | then="Employee background checks must be completed before granting system access."
+@RULE lvl=must | then="Vendor security assessments must be conducted annually for all third-party services that process customer data."
+
+@SEC name="PCI-DSS Level 1 Compliance"
+@RULE lvl=must | then="Full card numbers must never be stored after authorization. Only last four digits and card fingerprint are retained."
+@RULE lvl=must | then="Payment data must be tokenized before storage using a PCI-compliant tokenization service."
+@RULE lvl=must | then="The payment processing network must be segmented from other internal networks with firewall rules."
+@RULE lvl=must | then="Intrusion detection systems must monitor all network traffic in the payment segment in real-time."
+@RULE lvl=must | then="Encryption keys must be rotated annually. Compromised keys must be rotated immediately."
+@RULE lvl=must | then="Physical access to servers processing cardholder data must be restricted to authorized personnel only."
+@RULE lvl=must | then="All payment processing code must undergo security review before deployment."
+@RULE lvl=must | then="Quarterly ASV scans must be conducted by an approved scanning vendor."
+
+@SEC name="Rate Limiting"
+@NOTE text="Rate limiting is configured at multiple levels: global, per-user, and per-endpoint."
+@NOTE text="Global rate limit is 1000 requests per minute. Per-user rate limit is 100 requests per minute."
+@NOTE text="Burst limit allows 50 requests in a 1-second window before throttling kicks in."
+@NOTE text="The throttle strategy is sliding window to prevent thundering herd problems."
+@NOTE text="Rate limit headers are included in all responses: X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset."
+@NOTE text="When rate limited, the Retry-After header specifies the number of seconds to wait."
+@NOTE text="Authenticated requests have higher limits than anonymous requests."
+@NOTE text="Webhook deliveries do not count against rate limits."
+@NOTE text="Batch endpoints have separate rate limits calculated per item, not per request."
+@NOTE text=HMAC-SHA256
+@NOTE text=order.created
+@NOTE text=order.updated
+@NOTE text=order.completed
+@NOTE text=payment.succeeded
+@NOTE text=payment.failed
+@NOTE text=invoice.paid
+@NOTE text=2000
+@NOTE text=5322
+@NOTE text=1234567890
+@NOTE text=8601
+@NOTE text=2026
+@NOTE text=UTC

@@ -1,0 +1,33 @@
+@DOC ver=2.0 | id=memory-lifecycle | title="Memory Lifecycle" | kind=trace | profile=cognitive | features=[memory] | fmt=canon
+
+@NOTE text="Demonstrate the full memory pipeline: raw signal → validation → storage → compression → learning → bookmarking."
+
+@SEC name="Signal Ingestion"
+
+@PULSE rid=p:1 | src=user-input | content="The deployment failed because the config map was not mounted." | type=text | ts=2026-03-01T14:22:00Z
+
+@PULSE rid=p:2 | src=monitoring | content="Pod restart count: 5. OOMKilled: false. CrashLoopBackOff: true." | type=telemetry | ts=2026-03-01T14:22:05Z
+
+@SEC name="Validation Gate"
+
+@IMPRINT rid=imp:1 | validates=rid:p:1 | trust=user-reported | confidence:float=0.8 | scope=incident
+
+@IMPRINT rid=imp:2 | validates=rid:p:2 | trust=system-generated | confidence:float=0.95 | scope=incident
+
+@SEC name="Memory Storage"
+
+@MEMORY rid=m:config-issue | type=episodic | content="ConfigMap mount failure caused CrashLoopBackOff on 2026-03-01" | trust=verified | confidence:float=0.9 | scope=k8s-operations | from=[rid:imp:1,rid:imp:2]
+
+@MEMORY rid=m:pattern | type=semantic | content="Missing volume mounts are a recurring deployment failure pattern" | trust=inferred | confidence:float=0.7 | scope=k8s-operations
+
+@SEC name="Compression"
+
+@SHARD rid=sh:1 | sources=[rid:m:config-issue,rid:m:pattern] | summary="ConfigMap mount failures cause CrashLoopBackOff — recurring pattern in k8s deployments" | trust=derived | compression=lossy | loss_notes="Individual timestamps and pod counts dropped"
+
+@SEC name="Learning"
+
+@LEARN rid=l:1 | prior="ConfigMap issues are rare" | evidence="Third incident this quarter" | posterior="ConfigMap issues are a significant deployment risk"
+
+@SEC name="Bookmarking"
+
+@MARK rid=mk:1 | refs=[rid:m:config-issue,rid:sh:1] | title="K8s ConfigMap Failure Pattern" | tags=[kubernetes,deployment,config]

@@ -1,0 +1,28 @@
+@DOC ver=2.0 | id=ledger:audit:2026-05 | domain=yai.lyt@1.0 | kind=cfg | profile=audit
+
+@META key=ledger_name | value=audit
+@META key=month | value=2026-05
+
+@AUDIT ts="2026-05-30T14:30:00.000Z"
+  | actor="user:example-user"
+  | action="vault.init"
+  | target_type="vault"
+  | target_id="example-personal"
+  | result="success"
+@STAMP ts:ts=2026-05-30T14:30:00.000Z | src="flows/init" | hash="-"
+@AUDIT ts="2026-05-30T14:31:12.500Z"
+  | actor="user:example-user"
+  | action="mesh.add-edge"
+  | target_type="edge"
+  | target_id="01923456789abcdef0123456789abcde"
+  | result="success"
+  | details_json="{\"child_vault\":\"example-personal\",\"parent_vault\":\"example-main\"}"
+@STAMP ts:ts=2026-05-30T14:31:12.500Z | src="flows/mesh-add-edge" | hash="a3f8b1e2c9d7456789abcdef0123456789abcdef0123456789abcdef0123456a"
+@AUDIT ts="2026-05-30T14:32:45.200Z"
+  | actor="automator:metadata-filler/v0.1.0"
+  | action="automator.write"
+  | target_type="provenance"
+  | target_id="01923456789abcdef0123456789abcdef"
+  | result="success"
+  | details_json="{\"target_path\":\"notes/2026-05-30-thought-yai-lyt.md\",\"target_kind\":\"note\",\"run_id_hex\":\"01923456789abcdef0123456789abcdee\"}"
+@STAMP ts:ts=2026-05-30T14:32:45.200Z | src="lyt-runner/pre-write-hook" | hash="b4e9c2f3d8a7456789abcdef0123456789abcdef0123456789abcdef0123456b"

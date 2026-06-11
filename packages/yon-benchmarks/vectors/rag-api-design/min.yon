@@ -1,0 +1,19 @@
+@DOC ver=2.0 | id=api-design-guidelines | title="API Design Guidelines" | kind=spec | profile=decl | fmt=min
+
+@SEC name="Authentication and Authorization"
+@RULE lvl=MUST | then="Require Bearer tokens; Access 15min, Refresh 7d; OAuth 2.0 client flow; List public endpoints; Rate limit 100/1000"
+
+@SEC name="Request Validation"
+@RULE lvl=MUST | then="Validate JSON Schema; UUID v4 paths; Filter format; Cursor pagination 100; ISO 8601 UTC"
+
+@SEC name="Error Handling"
+@RULE lvl=MUST | then="Problem Details RFC 7807; No stack traces; HTTP 422 field errors; Retry-After header; Log circuit states"
+
+@SEC name=Caching
+@RULE lvl=MUST | then="Cache-Control headers; ETag headers; Accept-Language in cache; Stale-while-revalidate 60s; No-store private data"
+
+@SEC name="Logging and Observability"
+@RULE lvl=MUST | then="Log with X-Request-ID; Log >500ms; 5xx alerts 30s; W3C Trace Context; Redact PII"
+
+@SEC name="Deprecation Policy"
+@RULE lvl=MUST | then="6-month support; Semantic versioning; 90-day migration guide; Deprecation header; Monthly usage metrics [monthly]"

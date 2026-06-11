@@ -1,0 +1,10 @@
+@DOC ver=2.0 | kind=test | id=yonpa-02 | title="Automator — missing required field (mission)" | profile=exec | fmt=min | with=[yonpa]
+
+@AUTOMATOR id=yTrim
+  | name="yTrim"
+  | layer=refactor
+  | tier=reasoning
+  | version="0.1.0"
+  | yonpa_schema_version="1.0"
+
+@NOTE text="@AUTOMATOR missing the required `mission` field — strict validation should fail"

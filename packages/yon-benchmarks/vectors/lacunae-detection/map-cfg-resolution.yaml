@@ -1,0 +1,14 @@
+document: UI Action Configuration
+actions:
+  delete:
+    confirm: true
+    variant: danger
+    audit: true
+  create:
+    confirm: false
+    variant: default
+    audit: false
+  archive:
+    confirm: true
+    variant: danger
+    audit: true

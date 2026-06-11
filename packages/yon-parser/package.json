@@ -1,0 +1,79 @@
+{
+  "name": "@younndai/yon-parser",
+  "description": "Reference parser, validator, and formatter for YON™ — the stream-first, token-efficient data format for AI agent workflows.",
+  "version": "2.0.0",
+  "author": {
+    "name": "MARLINK TRADING SRL (YounndAI)",
+    "url": "https://younndai.com"
+  },
+  "contributors": [
+    {
+      "name": "Alexandru Mareș",
+      "url": "https://allemaar.com"
+    }
+  ],
+  "bin": {
+    "yon": "./dist/cli.js"
+  },
+  "dependencies": {
+    "@younndai/domains": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "@younndai/yon-spec": "^2.0.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.0.18"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "NOTICE",
+    "TRADEMARK.md",
+    "HOW-TO-USE.md",
+    "TESTING.md",
+    "package.json"
+  ],
+  "homepage": "https://yon.younndai.com",
+  "keywords": [
+    "yon",
+    "younndai",
+    "parser",
+    "validator",
+    "formatter",
+    "ast",
+    "data-format",
+    "ai-agents",
+    "llm",
+    "serialization",
+    "structured-data",
+    "token-efficient"
+  ],
+  "license": "Apache-2.0",
+  "main": "./dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YounndAI/yon.git",
+    "directory": "packages/yon-parser"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "type": "module",
+  "types": "./dist/index.d.ts"
+}

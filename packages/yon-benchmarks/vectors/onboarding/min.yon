@@ -1,0 +1,15 @@
+@DOC ver=2.0 | id=eng-onboarding | title="Engineering Onboarding" | kind=rule | fmt=min
+@INTENT goal="Onboarding process for new engineers"
+@SEC name="Pre-Day 1"
+@RULE lvl=MUST | then="complete all pre-tasks or push start date"
+@MAP id=laptop | spec="MBP M3 36GB" | image="standard dev"
+@MAP id=accounts | pairs=["GitHub (team)","Slack (channels)","Gmail","Jira","1Password"]
+@NOTE text="Assign buddy: same team, 1–2yr exp"
+@SEC name="Day 1"
+@MAP id=schedule | pairs=["09:00"->"HR welcome + paperwork","10:30"->"IT setup + 2FA + VPN","12:00"->"Team lunch","13:30"->"Codebase walkthrough","15:00"->"First PR (team page bio)"]
+@SEC name="Week 1"
+@RULE lvl=MUST | then="daily 15min buddy check-in"
+@RULE lvl=MUST | when="by day 5" | then="complete security training"
+@RULE lvl=MUST | when="by Wed" | then="pick up first ticket"
+@SEC name=Milestones
+@MAP id=milestones | pairs=["30d"->"≥5 PRs, project context, independent testing","60d"->"own feature, 1 code review, show-and-tell","90d"->"fully ramped, on-call ready, 1 process doc"]

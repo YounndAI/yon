@@ -1,0 +1,9 @@
+@DOC ver=2.0 | id=upload-router | title="File Upload Router" | kind=rule | mode=text | profile=decl | fmt=min
+
+@INTENT goal="Define content-type routing for file uploads with fallback quarantine" | audience="Backend engineers"
+
+@SEC name="Upload Router"
+@NOTE text="Router matches on Content-Type. First match wins. Fallback is quarantine."
+@MAP name=Router | pairs=["image/*"->"optimize-and-store","application/pdf"->"extract-text","text/csv"->"csv-import-pipeline","application/json"->"validate-and-ingest","*/*"->"quarantine-and-scan"]
+
+@CHECK rid=chk:fallback-exists | assert="fallback route exists for unmatched content types" | fail=ABORT | msg="Missing fallback causes unhandled uploads"

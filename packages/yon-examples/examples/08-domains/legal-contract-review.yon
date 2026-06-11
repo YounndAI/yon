@@ -1,0 +1,13 @@
+@DOC ver=2.0 | id=contract-review | title="Contract Review" | scenario=legal | domain=yai.legal | kind=workflow | profile=audit | fmt=canon
+
+@NOTE text="Legal contract review workflow with clause extraction."
+
+@INPUT rid=in:contract | name=contract_path | type=string | required:bool=true
+
+@STEP n:int=1 | rid=extract | op=legal:doc.extract@v1 | out=[block:clauses]
+@STEP n:int=2 | rid=risk-check | op=legal:clause.risk@v1 | in=[block:clauses] | out=[block:risks]
+
+@CHECK rid=check:liability | assert="block:risks.unlimited_liability == false" | fail=ABORT | msg="Unlimited liability clause detected"
+
+@STEP n:int=3 | rid=summary | op=legal:doc.summarize@v1 | in=[block:clauses, block:risks] | out=[block:report]
+@STAMP ts:ts="2026-02-14T05:00:00Z" | src=legal-review

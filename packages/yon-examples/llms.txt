@@ -1,0 +1,63 @@
+# @younndai/yon-examples
+
+> YON v2.0 cookbook — 59 runnable examples across 13 categories covering all 72 spec tags.
+
+## Install
+
+```bash
+npm install @younndai/yon-examples
+```
+
+## Core Capabilities
+
+- **59 hand-authored examples** — covering L1–L2 Core, L3 Cognition, L4 Agents
+- **13 categories** — getting-started through change-control
+- **72/72 spec tag coverage** — every YON v2.0 tag demonstrated
+- **Auto-discovery** — examples found by convention, no registration
+- **CLI** — browse, search, and display examples from terminal
+- **Programmatic API** — `discoverExamples()`, `findExample()`, `readExample()`, `getCategories()`
+
+## Quick Start
+
+```ts
+import { discoverExamples, findExample, readExample } from '@younndai/yon-examples';
+
+const all = discoverExamples();
+const kyc = findExample('fintech-kyc');
+if (kyc) console.log(readExample(kyc));
+```
+
+## CLI
+
+```bash
+npx yon-examples list                        # List all examples
+npx yon-examples show hello-world            # View an example
+npx yon-examples list --category 08-domains  # Filter by category
+npx yon-examples categories                  # List categories
+```
+
+## Categories
+
+| Category | Coverage |
+|----------|----------|
+| 01-getting-started | Config, intent, schema, pipelines |
+| 02-data-engineering | ETL, transforms, streaming yield |
+| 03-control-flow | Conditionals, loops, parallelism |
+| 04-resilience | Retry, circuit-breaker, sessions, recovery |
+| 05-devops | CI pipelines, health checks |
+| 06-advanced | Plugins, sub-workflows, streams |
+| 07-declarative | Rules, specs, notes |
+| 08-domains | 15 industry-specific workflows |
+| 09-showcase | Cognitive + Agent profile demos |
+| 10-cognition | L3 reasoning, memory, perception, affect |
+| 11-agents | L4 signaling, governance, collaboration |
+| 12-privacy | Consent, redaction, classification |
+| 13-change-control | Patches, voids, versioned edits |
+
+## Testing
+
+```bash
+npm test
+```
+
+All `.yon` files are auto-discovered and parsed. 60 tests validate parsing integrity.

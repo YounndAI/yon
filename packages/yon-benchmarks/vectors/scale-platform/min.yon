@@ -1,0 +1,218 @@
+@DOC ver=2.0 | id=chunk-1-4 | title="API and Endpoint Rules" | domain=technical | kind=rule | profile=exec | fmt=min
+@INTENT goal="Define observability and service architecture" | audience="system architects"
+
+@SEC name=Authentication
+@RULE lvl=must | when="API requests" | then="Include Authorization header"
+@RULE lvl=must | when="rate limited" | then="Return 429 on rate limit"
+@RULE lvl=must | when="refresh tokens used" | then="Invalidate refresh tokens after use"
+
+@SEC name="Users Endpoint"
+@RULE lvl=must | when="POST /users" | then="Create user with name, email, role"
+@RULE lvl=must | when="GET /users" | then="Paginated list, default 25, max 100"
+@RULE lvl=must | when="DELETE /users/:id" | then="Soft-delete sets status to archived"
+
+@SEC name="Orders Endpoint"
+@RULE lvl=must | when="POST /orders" | then="Create order with customer_id, items, total, currency"
+@RULE lvl=must | when="PATCH /orders/:id" | then="Update items in draft only"
+@RULE lvl=must | when="POST /orders/:id/confirm" | then="Confirm order, trigger payment"
+
+@SEC name="Error Codes"
+@MAP id=Error Codes | pairs=["ERR_AUTH"->"invalid or expired token","ERR_NOT_FOUND"->"requested resource does not exist","ERR_VALIDATION"->"request body failed schema validation","ERR_CONFLICT"->"duplicate resource detected","ERR_RATE_LIMIT"->"too many requests","ERR_PAYMENT_FAILED"->"payment provider rejected transaction","ERR_INSUFFICIENT_FUNDS"->"account balance too low","ERR_PERMISSION_DENIED"->"token does not have required scope","ERR_RESOURCE_LOCKED"->"resource being modified by another process"]
+
+@SEC name="Products Endpoint"
+@RULE lvl=must | when="POST /products" | then="Create product with name, description, price, category, active"
+@RULE lvl=must | when="PATCH /products/:id" | then="Update any field, active false prevents new orders"
+
+@SEC name="Invoices Endpoint"
+@RULE lvl=must | when="POST /invoices" | then="Create invoice with customer_id, items, due_date, payment_terms"
+@RULE lvl=must | when="POST /invoices/:id/pay" | then="Attempt payment, return 402 on failure"
+
+@SEC name="Input Validation"
+@RULE lvl=must | when="Email fields" | then="Email RFC 5322"
+@RULE lvl=must | when="Phone fields" | then="Phone E.164 [1234567890]"
+
+@SEC name=Webhooks
+@RULE lvl=must | when="webhook payloads" | then="Sign payloads with HMAC-SHA256"
+@RULE lvl=must | when="webhook endpoint does not respond" | then="Mark failed if no response"
+
+@SEC name="Subscriptions Endpoint"
+@RULE lvl=must | when="POST /subscriptions" | then="Create subscription"
+@MAP id=Required Fields | pairs=["customer_id"->"required","plan_id"->"required","trial_days"->"0-365","payment_method_id"->"required unless trial"]
+@RULE lvl=must | then="Start after trial"
+@RULE lvl=must | then="Auto invoice"
+@RULE lvl=must | then="Set billing anchor"
+@MAP id=Proration Behavior | pairs=["create_prorations"->"default","none"->"option","always_invoice"->"option"]
+@RULE lvl=must | then="Status flow"
+@RULE lvl=must | when="PATCH /subscriptions/:id" | then="Update subscription"
+@RULE lvl=must | when="DELETE /subscriptions/:id" | then="Cancel subscription"
+
+@SEC name="Payments Endpoint"
+@RULE lvl=must | when="POST /payments" | then="Create payment"
+@MAP id=Required Fields | pairs=["amount"->"integer cents","currency"->"ISO 4217","method_id"->"required","description"->"required"]
+@RULE lvl=must | then="Synchronous processing"
+@RULE lvl=must | then="Success 200"
+@RULE lvl=must | then="Failure 402"
+@RULE lvl=must | then="3D Secure"
+@RULE lvl=must | when="POST /payments/:id/refund" | then="Create refund"
+
+@SEC name="GDPR Compliance"
+@RULE lvl=must | then="Encrypt PII [1.3]"
+@RULE lvl=must | then="Erasure 30 days"
+@RULE lvl=must | then="Maintain records"
+@RULE lvl=must | then="Report breaches"
+@RULE lvl=must | then="Annual DPIA"
+@RULE lvl=must | then="Appoint DPO"
+@RULE lvl=must | then="Obtain consent"
+@RULE lvl=must | then="Portability 30 days [JSON]"
+
+@SEC name="SOC 2 Type II Compliance"
+@RULE lvl=must | then="Least privilege"
+@RULE lvl=must | then="Record access"
+@RULE lvl=must | then="Monthly scans"
+@RULE lvl=must | then="Annual pentest"
+@RULE lvl=must | then="Incident response"
+@RULE lvl=must | then="Test BCP"
+@RULE lvl=must | then="Encrypt backups"
+@RULE lvl=must | then="Require MFA"
+@RULE lvl=must | then="Background checks"
+@RULE lvl=must | then="Annual vendor assessment"
+
+@SEC name="PCI-DSS Level 1 Compliance"
+@RULE lvl=must | then="No card storage"
+@RULE lvl=must | then="Tokenize payment data"
+@RULE lvl=must | then="Segment network"
+@RULE lvl=must | then="Monitor traffic"
+@RULE lvl=must | then="Rotate keys"
+@RULE lvl=must | then="Restrict server access"
+@RULE lvl=must | then="Review code"
+@RULE lvl=must | then="ASV scans"
+
+@SEC name="Rate Limiting"
+@MAP id=Rate Limits | pairs=["global"->"1000 requests per minute","per-user"->"100 requests per minute","burst"->"50 requests in 1-second window"]
+@RULE lvl=must | then="Sliding window"
+@RULE lvl=must | then="Include headers"
+@RULE lvl=must | then="Retry-After header"
+@RULE lvl=must | then="Higher limits"
+@RULE lvl=must | then="Exclude webhooks"
+@RULE lvl=must | then="Batch limits"
+
+@SEC name="Shipping Module"
+@RULE lvl=must | when="POST /shipping" | then="Create shipment"
+@MAP id=Required Fields | pairs=["order_id"->"required","carrier"->"required","tracking_number"->"required","estimated_delivery"->"required"]
+@MAP id=Supported Carriers | pairs=["ups"->"supported","fedex"->"supported","dhl"->"supported","usps"->"supported","custom"->"requires tracking URL template"]
+@RULE lvl=must | then="Webhook updates"
+@RULE lvl=must | then="Calculate costs"
+@RULE lvl=must | then="Customs data"
+@RULE lvl=must | when="POST /shipping/:id/label" | then="Generate labels"
+
+@SEC name="Inventory Module"
+@NOTE text="Tracks stock levels across warehouses."
+@NOTE text="Tracked as available, reserved, damaged."
+@NOTE text="POST /inventory/adjust for adjustments."
+@RULE lvl=must | when="Zero adjustments" | then="Zero adjustments rejected."
+@NOTE text="Reservation on order confirmation."
+@NOTE text="Low-stock alerts on reorder point."
+@NOTE text="Transfers tracked with transfer ID."
+@NOTE text="Cycle counts via POST /inventory/count."
+@RULE lvl=must | when="Discrepancies from cycle counts" | then="Discrepancies logged, manager approval needed."
+
+@SEC name="Notification System"
+@NOTE text="Supports email, SMS, push, in-app."
+@NOTE text="Templates use Handlebars, versioned."
+@NOTE text="Priority levels: critical, high, normal, low."
+@NOTE text="Quiet hours 10 PM to 7 AM."
+@NOTE text="Email uses transactional provider, tracked via webhooks."
+@NOTE text="SMS via gateway, international needs sender IDs."
+@NOTE text="Push targets devices, multiple registrations."
+@NOTE text="In-app persisted, read/unread status."
+@NOTE text="Preferences allow opt-out per channel."
+@NOTE text="Bulk queued, 1000/min rate."
+
+@SEC name="Analytics Module"
+@NOTE text="Provides real-time, historical data."
+@NOTE text="Events via SDK, API; include timestamp, user_id, session_id."
+@NOTE text="Dashboards update every 5s for 15min data."
+@NOTE text="Aggregation by minute, hour, day, week, month."
+@NOTE text="Custom events: 10 properties, alphanumeric names."
+@NOTE text="Funnels track progression, auto drop-off rates."
+@NOTE text="Cohort analysis by first event date."
+@NOTE text="Retention: 13 months detailed, unlimited aggregated."
+@NOTE text="Export via GET /analytics/export in CSV, Parquet."
+@NOTE text="Optimized with column storage, date partitioning."
+
+@SEC name="Reporting Module"
+@NOTE text="Generates scheduled, on-demand reports."
+@NOTE text="Standard reports: revenue, orders, customers, inventory, churn."
+@NOTE text="Custom reports via SQL-like language."
+@NOTE text="Scheduled daily, weekly, monthly; email delivery."
+@NOTE text="Formats: PDF, CSV, Excel, JSON."
+@NOTE text="Dashboards aggregate reports, 12 widgets max."
+@NOTE text="Drill-down on standard reports."
+@NOTE text="Caching prevents redundant computation."
+@NOTE text="Access control by role, finance/admin for financial reports."
+@NOTE text="Large date ranges queued, async processing."
+@NOTE text="Notification on report readiness."
+
+@SEC name="HIPAA Compliance"
+@RULE lvl=must | when="Handling PHI" | then="HIPAA mandatory for PHI."
+@RULE lvl=must | when="Accessing PHI" | then="Role-based access for PHI."
+@RULE lvl=must | when="Accessing PHI" | then="PHI access logged, 6-year retention."
+@RULE lvl=must | when="PHI at rest" | then="PHI encrypted AES-256, TLS 1.3."
+@RULE lvl=must | when="Breach occurs" | then="Notify breaches within 60 days."
+@RULE lvl=must | when=Annually | then="Annual risk assessments, remediation plans."
+@RULE lvl=must | when="PHI access" | then="Annual HIPAA training for PHI access."
+@RULE lvl=must | when="Third parties access PHI" | then="BAAs for third parties accessing PHI."
+@RULE lvl=must | when="System outages" | then="Emergency access for PHI during outages."
+@RULE lvl=must | when=Annually | then="Document, review, update policies annually."
+@RULE lvl=must | when="Physical safeguards" | then="Facility access, workstation security."
+@RULE lvl=must | when="Technical safeguards" | then="Unique ID, logoff, audit controls."
+
+@SEC name="Caching Layer"
+@NOTE text="Between API and database for frequent resources."
+@NOTE text="Default TTL 300s, max 86400s."
+@NOTE text="Stale-while-revalidate strategy. [stale-while-revalidate]"
+@NOTE text="Event-driven invalidation via event bus."
+@NOTE text="Redis 7.x cluster, 3 primary, 3 replica."
+@NOTE text="Keys: {service}:{resource}:{id}:{version}."
+@NOTE text="Target 95% hit rate for read-heavy."
+@NOTE text="Compress >1MB with LZ4."
+@NOTE text="Warming prevents cold-start spikes."
+@NOTE text="Per-tenant isolation prevents noisy neighbors."
+
+@SEC name=Observability
+@NOTE text="Three pillars: tracing, metrics, logging"
+@NOTE text="Tracing with OpenTelemetry, W3C Trace Context"
+@NOTE text="Metrics in Prometheus format"
+@NOTE text="Logging in JSON format"
+@NOTE text="Log level: info, debug per-service"
+@NOTE text="Trace sampling: 10% prod, 100% staging"
+@NOTE text="Log retention: 90d index, 1y cold"
+@NOTE text="Alerts via Terraform"
+@NOTE text="Dashboards use RED method"
+@NOTE text="SLO tracking, 50% budget page"
+
+@SEC name="Service Communication"
+@NOTE text="gRPC internal, REST external"
+@NOTE text="Event sourcing for audit history"
+@NOTE text="CQRS for read/write separation"
+@NOTE text="Service-owned databases, API boundaries"
+@NOTE text="Kafka with at-least-once delivery [Apache Kafka]"
+@NOTE text="Circuit breaker after 5 failures"
+@NOTE text="Saga for distributed transactions"
+@NOTE text="API gateway for cross-cutting concerns"
+@NOTE text="Service mesh for TLS, observability"
+@NOTE text="Blue-green, canary releases [5%]"
+@NOTE text=order.created
+@NOTE text=order.updated
+@NOTE text=order.completed
+@NOTE text=payment.succeeded
+@NOTE text=payment.failed
+@NOTE text=invoice.paid
+@NOTE text=410
+@NOTE text=3600
+@NOTE text=2000
+@NOTE text=8601
+@NOTE text=2026
+@NOTE text=RateLimit
+@NOTE text="Standard Contractual Clauses"
+@NOTE text=UTC

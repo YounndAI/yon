@@ -1,0 +1,24 @@
+@DOC ver=2.0 | id=validation-schema | title="User Registration Schema" | kind=rule | mode=text | profile=decl | fmt=min
+
+@INTENT goal="Define validation constraints for user registration fields — tests YON's @SCHEMA for explicit value range declarations" | audience="Form validators, API input validators"
+
+@SEC name="Required Fields"
+@SCHEMA key="username" | opts=[3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20] | default="8"
+@NOTE text="username — length constraint: minimum 3, maximum 20 characters"
+@SCHEMA key="email" | default="user@example.com"
+@NOTE text="email — must be a valid RFC 5322 email address"
+@SCHEMA key="password_length" | opts=[12,14,16,20,24,32] | default="12"
+@NOTE text="password_length — minimum length for password field, higher tiers require longer passwords"
+
+@SEC name="Optional Fields"
+@SCHEMA key="display_name" | opts=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50] | default="20"
+@NOTE text="display_name — length constraint: minimum 1, maximum 50 characters"
+@SCHEMA key="role" | opts=[user,admin,moderator,viewer] | default="user"
+@NOTE text="role — must be one of the allowed role values"
+@SCHEMA key="mfa_enabled" | opts=[true,false] | default="false"
+@NOTE text="mfa_enabled — whether multi-factor authentication is enabled by default"
+
+@SEC name="Validation Rules"
+@RULE lvl=MUST | when="registering new user" | then="validate all required fields against @SCHEMA constraints"
+@RULE lvl=MUST_NOT | when="accepting registration" | then="allow role=admin without explicit admin approval"
+@RULE lvl=MUST | when="password_length check fails" | then="reject registration with minimum length error message"

@@ -1,0 +1,54 @@
+{
+  "categories": [
+    {
+      "name": "Compliance/Regulatory",
+      "salience": "rule-salient",
+      "keywords": ["reporting", "KYC", "sanctions", "FinCEN", "regulatory", "violation", "compliance", "anti-money", "fincen"]
+    },
+    {
+      "name": "Security/Access",
+      "salience": "rule-salient",
+      "keywords": ["TLS", "encryption", "credentials", "plaintext", "password", "unauthorized", "credential", "certificate", "admin privilege", "service account", "penetration test", "pen test", "least privilege"]
+    },
+    {
+      "name": "Deployment/Change",
+      "salience": "rule-salient",
+      "keywords": ["canary", "deployment", "rollout", "incident", "deploy during", "code freeze"]
+    },
+    {
+      "name": "Performance/Latency",
+      "salience": "metric-salient",
+      "keywords": ["latency", "SLA", "response time", "timeout", "slow", "delay", "P99", "p99", "cold start", "auto-scaling", "scaling"]
+    },
+    {
+      "name": "Capacity/Storage",
+      "salience": "metric-salient",
+      "keywords": ["connection pool", "saturation", "memory", "OOM", "utilization", "database", "storage capacity", "full in", "disk", "92%"]
+    },
+    {
+      "name": "Data Quality/Pipeline",
+      "salience": "metric-salient",
+      "keywords": ["ETL", "data freshness", "failing silently", "pipeline", "data quality", "stale data", "silent failure", "data retention"]
+    },
+    {
+      "name": "Privacy/GDPR",
+      "salience": "metric-salient",
+      "keywords": ["PII", "GDPR", "pseudonymization", "personal data", "privacy", "article 5", "data protection", "anonymization"]
+    },
+    {
+      "name": "Disaster Recovery",
+      "salience": "metric-salient",
+      "keywords": ["disaster recovery", "RTO", "backup", "failover", "business continuity", "untested", "recovery site"]
+    },
+    {
+      "name": "Financial/Fraud",
+      "salience": "metric-salient",
+      "keywords": ["chargeback", "fraud", "chargeback rate", "visa threshold", "acquiring bank", "fraud screening"]
+    },
+    {
+      "name": "Rate Limiting/API",
+      "salience": "metric-salient",
+      "keywords": ["rate limit", "throttling", "API abuse", "internal API", "no throttling", "rate limiting"]
+    }
+  ]
+}

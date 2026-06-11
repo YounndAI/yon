@@ -1,0 +1,9 @@
+@DOC ver=2.0 | id=hedging-cat1-cta-design | title="CTA and Layout Design" | kind=rule | profile=decl | fmt=canon
+
+@SEC name="CTA Design"
+@NOTE text="The main CTA should probably be purple or something vibrant."
+@NOTE text="I think we need a save confirmation dialog too, but I'm not 100% sure if users will find it annoying."
+
+@SEC name="Layout"
+@NOTE text="The layout should maybe be responsive."
+@NOTE text="I guess mobile-first would be best."

@@ -1,0 +1,529 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.education",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Learning management, credentialing, adaptive assessment, and educational content delivery",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "COURSE",
+      "description": "Course or training program — structured learning path with enrollment tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "crs:DS-301"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Course Title",
+          "example": "Introduction to Machine Learning"
+        },
+        {
+          "name": "level",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "beginner",
+            "intermediate",
+            "advanced",
+            "expert"
+          ],
+          "description": "Difficulty Level: beginner, intermediate, advanced, expert",
+          "example": "intermediate"
+        },
+        {
+          "name": "credits",
+          "type": "int",
+          "required": false,
+          "description": "Credit Hours",
+          "example": "3"
+        },
+        {
+          "name": "duration_hours",
+          "type": "int",
+          "required": false,
+          "description": "Duration in hours",
+          "unit": "hours",
+          "example": "45"
+        },
+        {
+          "name": "instructor",
+          "type": "string",
+          "required": false,
+          "description": "Instructor",
+          "example": "Dr. Sarah Chen"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "draft",
+            "active",
+            "archived"
+          ],
+          "description": "Course Status: draft, active, archived",
+          "example": "active"
+        }
+      ]
+    },
+    {
+      "tag": "ASSESSMENT",
+      "description": "Student assessment — graded evaluation with score, rubric, and competency mapping",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "asmnt:bio101-midterm"
+        },
+        {
+          "name": "course_ref",
+          "type": "string",
+          "required": false,
+          "description": "Course Reference",
+          "example": "crs:DS-301"
+        },
+        {
+          "name": "student_encrypted",
+          "type": "string",
+          "required": false,
+          "description": "Student (Encrypted)",
+          "example": "enc:student-042"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "quiz",
+            "exam",
+            "assignment",
+            "project",
+            "peer-review"
+          ],
+          "description": "Assessment Type: quiz, exam, assignment, project, peer-review",
+          "example": "exam"
+        },
+        {
+          "name": "score",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Score (0–100)",
+          "example": "88.5"
+        },
+        {
+          "name": "max_score",
+          "type": "float",
+          "required": false,
+          "description": "Maximum Score",
+          "example": "100.0"
+        },
+        {
+          "name": "passed",
+          "type": "bool",
+          "required": false,
+          "description": "Passed indicator",
+          "example": "true"
+        }
+      ]
+    },
+    {
+      "tag": "CREDENTIAL",
+      "description": "Verifiable credential — certificate or badge with blockchain-anchored verification",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "cred:cert-DS-2026-042"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Credential Title",
+          "example": "Data Science Professional Certificate"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": true,
+          "enum": [
+            "degree",
+            "certificate",
+            "diploma",
+            "license",
+            "badge",
+            "micro-credential"
+          ],
+          "description": "Credential Type (6 allowed values)",
+          "example": "certificate"
+        },
+        {
+          "name": "issuer",
+          "type": "string",
+          "required": true,
+          "description": "Issuer",
+          "example": "MIT xPRO"
+        },
+        {
+          "name": "recipient_encrypted",
+          "type": "string",
+          "required": false,
+          "description": "Recipient (Encrypted)",
+          "example": "enc:student-042"
+        },
+        {
+          "name": "issued_date",
+          "type": "ts",
+          "required": false,
+          "description": "Issue Date as ISO 8601 timestamp",
+          "example": "2026-06-15T00:00:00Z"
+        },
+        {
+          "name": "expiry_date",
+          "type": "ts",
+          "required": false,
+          "description": "Expiry Date as ISO 8601 timestamp",
+          "example": "2029-06-15T00:00:00Z"
+        },
+        {
+          "name": "verification_url",
+          "type": "string",
+          "required": false,
+          "description": "Verification URL",
+          "example": "https://verify.mit.edu/cred/042"
+        }
+      ]
+    },
+    {
+      "tag": "ENROLLMENT",
+      "description": "Student enrollment — course registration with progress tracking",
+      "fields": [
+        {
+          "name": "student_encrypted",
+          "type": "string",
+          "required": false,
+          "description": "Student (Encrypted)",
+          "example": "enc:student-042"
+        },
+        {
+          "name": "course_ref",
+          "type": "string",
+          "required": false,
+          "description": "Course Reference",
+          "example": "crs:DS-301"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "enrolled",
+            "in-progress",
+            "completed",
+            "dropped",
+            "withdrawn"
+          ],
+          "description": "Enrollment Status: enrolled, in-progress, completed, dropped, withdrawn",
+          "example": "in-progress"
+        },
+        {
+          "name": "progress_pct",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            100
+          ],
+          "description": "Progress in % (0–100)",
+          "unit": "%",
+          "example": "67.5"
+        },
+        {
+          "name": "enrolled_date",
+          "type": "ts",
+          "required": false,
+          "description": "Enrollment Date as ISO 8601 timestamp",
+          "example": "2026-01-15T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "LEARNING_OBJECTIVE",
+      "description": "Learning objective — measurable outcome aligned to competency frameworks",
+      "fields": [
+        {
+          "name": "course_ref",
+          "type": "string",
+          "required": false,
+          "description": "Course Reference",
+          "example": "crs:DS-301"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Objective Description",
+          "example": "Apply supervised learning algorithms to classification problems"
+        },
+        {
+          "name": "bloom_level",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "remember",
+            "understand",
+            "apply",
+            "analyze",
+            "evaluate",
+            "create"
+          ],
+          "description": "Bloom's Level (6 allowed values)",
+          "example": "apply"
+        },
+        {
+          "name": "competency",
+          "type": "string",
+          "required": false,
+          "description": "Competency",
+          "example": "Statistical Modeling"
+        },
+        {
+          "name": "mastered",
+          "type": "bool",
+          "required": false,
+          "description": "Mastered indicator",
+          "example": "false"
+        }
+      ]
+    },
+    {
+      "tag": "FEEDBACK",
+      "description": "Instructor or peer feedback — qualitative evaluation with improvement suggestions",
+      "fields": [
+        {
+          "name": "assessment_ref",
+          "type": "string",
+          "required": false,
+          "description": "Assessment Reference",
+          "example": "asmnt:bio101-midterm"
+        },
+        {
+          "name": "from",
+          "type": "string",
+          "required": false,
+          "description": "Feedback Author",
+          "example": "Dr. Sarah Chen"
+        },
+        {
+          "name": "rating",
+          "type": "float",
+          "required": false,
+          "range": [
+            0,
+            5
+          ],
+          "description": "Rating (0–5) (0–5)",
+          "example": "4.2"
+        },
+        {
+          "name": "comments",
+          "type": "string",
+          "required": false,
+          "description": "Comments",
+          "example": "Strong model selection; improve feature engineering"
+        },
+        {
+          "name": "areas_for_improvement",
+          "type": "string",
+          "required": false,
+          "description": "Areas for Improvement",
+          "example": "Cross-validation methodology"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Learning management and adaptive education for AI tutors",
+    "highlights": [
+      "COURSE",
+      "ASSESSMENT",
+      "CREDENTIAL"
+    ],
+    "use_cases": [
+      {
+        "id": "adaptive-learning",
+        "title": "AI-Adaptive Learning Pathway",
+        "steps": [
+          "Enroll student via @ENROLLMENT with prior @CREDENTIAL history",
+          "Recommend @COURSE sequence based on skill gaps",
+          "Deliver personalized @ASSIGNMENT with adaptive difficulty",
+          "Track @GRADE performance and mastery progression",
+          "Issue verifiable @CREDENTIAL upon course completion"
+        ],
+        "example": "@GRADE rid=gr:1 | student_ref=\"enr:42\" | assignment_ref=\"asgn:7\" | score:float=88.5 | max_score:float=100.0 | status=\"graded\"",
+        "tags_used": [
+          "ENROLLMENT",
+          "CREDENTIAL",
+          "COURSE"
+        ],
+        "description": "Personalize learning sequences based on student assessment performance, prerequisite mastery, and engagement signals. Recommend next-best-lesson using competency mapping.",
+        "tags": [
+          "COURSE",
+          "ASSESSMENT",
+          "ENROLLMENT",
+          "CREDENTIAL"
+        ],
+        "tags_planned": [
+          "ASSIGNMENT",
+          "GRADE"
+        ]
+      },
+      {
+        "id": "institutional-analytics",
+        "title": "Institutional Enrollment Analytics",
+        "steps": [
+          "Aggregate @ENROLLMENT data across programs and cohorts",
+          "Monitor @ATTENDANCE patterns for early intervention",
+          "Analyze @GRADE distributions for curriculum effectiveness",
+          "Track @CREDENTIAL completion rates and time-to-degree",
+          "Generate accreditation reporting from @COURSE outcomes"
+        ],
+        "example": "@ATTENDANCE rid=att:1 | student_ref=\"enr:42\" | course_ref=\"crs:3\" | date=\"2026-02-10\" | status=\"present\"",
+        "tags_used": [
+          "ENROLLMENT",
+          "CREDENTIAL",
+          "COURSE"
+        ],
+        "description": "Track enrollment trends, retention rates, and completion metrics across programs. Generate accreditation compliance reports and forecast enrollment for capacity planning.",
+        "tags": [
+          "ENROLLMENT",
+          "COURSE",
+          "CREDENTIAL",
+          "ASSESSMENT"
+        ],
+        "tags_planned": [
+          "ATTENDANCE",
+          "GRADE"
+        ]
+      }
+    ],
+    "tag_context": {
+      "CREDENTIAL": {
+        "purpose": "Verifiable certificate or badge with issuer, recipient, and blockchain-anchored verification",
+        "when_to_use": "Certificate issuance on course completion, badge distribution, credential verification, portfolio building",
+        "related_standards": [
+          "W3C Verifiable Credentials",
+          "Open Badges 3.0",
+          "CLR 2.0"
+        ]
+      },
+      "COURSE": {
+        "purpose": "Structured learning path with level, credit hours, instructor, and enrollment tracking",
+        "when_to_use": "Course catalog management, curriculum design, schedule planning, accreditation reporting",
+        "related_standards": [
+          "IMS LTI 1.3",
+          "xAPI (Tin Can)",
+          "SCORM 2004"
+        ]
+      },
+      "ASSESSMENT": {
+        "purpose": "Graded student evaluation with score, rubric reference, and competency mapping",
+        "when_to_use": "Exam scoring, assignment grading, competency-based assessment, adaptive testing, academic analytics",
+        "related_standards": [
+          "IMS QTI 3.0",
+          "PISA (OECD)",
+          "Smarter Balanced"
+        ]
+      },
+      "ENROLLMENT": {
+        "purpose": "Student-to-course registration with progress percentage and enrollment lifecycle",
+        "when_to_use": "Registration processing, progress dashboards, cohort analysis, retention tracking, completion rates",
+        "related_standards": [
+          "SIF (A4L)",
+          "Ed-Fi Data Standard",
+          "PESC XML"
+        ]
+      },
+      "LEARNING_OBJECTIVE": {
+        "purpose": "Measurable learning outcome aligned to Bloom's taxonomy and competency frameworks",
+        "when_to_use": "Curriculum design, competency mapping, mastery tracking, instructional alignment, accreditation evidence",
+        "related_standards": [
+          "IMS CASE 1.1",
+          "Bloom's Taxonomy",
+          "CEDS (NCES)"
+        ]
+      },
+      "FEEDBACK": {
+        "purpose": "Instructor or peer qualitative evaluation with rating and improvement suggestions",
+        "when_to_use": "Post-assessment feedback, peer review cycles, coaching notes, course evaluation, instructional improvement",
+        "related_standards": [
+          "xAPI Result",
+          "IMS QTI Feedback",
+          "Kirkpatrick Model"
+        ]
+      }
+    },
+    "links": [
+      {
+        "label": "W3C Verifiable Credentials",
+        "url": "https://www.w3.org/TR/vc-data-model/",
+        "type": "standard"
+      },
+      {
+        "label": "Open Badges",
+        "url": "https://openbadges.org/",
+        "type": "standard"
+      },
+      {
+        "label": "xAPI (Experience API)",
+        "url": "https://xapi.com/",
+        "type": "standard"
+      },
+      {
+        "label": "IMS Global",
+        "url": "https://www.1edtech.org/",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.hr",
+        "relationship": "often paired",
+        "reason": "Corporate training and development"
+      },
+      {
+        "domain": "yai.research",
+        "relationship": "data overlap",
+        "reason": "Academic credentials and publishing"
+      }
+    ],
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

@@ -1,0 +1,22 @@
+Generate a structured invoice processing specification for "GreenVault Financial Services" with the following requirements:
+
+The system processes 3 types of invoices: standard invoices (NET-30 payment terms, auto-approved if under $5,000), rush invoices (NET-15 payment terms, require manager approval regardless of amount), and recurring invoices (monthly cycle, auto-generated from contract templates).
+
+Validation rules:
+- Invoice number format must be GV-YYYY-NNNNN (e.g., GV-2026-00142)
+- Vendor must have an active record in the vendor registry with a valid W-9 on file
+- Line items must sum to the invoice total within a $0.01 tolerance
+- Tax rate must match the vendor's jurisdiction (state tax lookup table)
+- PO number is required for all invoices above $1,000
+
+Approval workflow:
+- Under $5,000: auto-approved, routed to AP clerk for payment scheduling
+- $5,000–$25,000: requires department head approval within 3 business days
+- $25,000–$100,000: requires VP Finance approval
+- Over $100,000: requires CFO approval and board notification
+
+Payment methods: ACH (preferred, 2-day settlement), wire transfer (same-day, $25 fee), check (5-day processing, being phased out by Q3 2026).
+
+Exception handling: duplicate invoice detection uses a composite key of vendor_id + invoice_number + total_amount. Flagged duplicates are quarantined for manual review. Invoices unresolved after 10 business days are auto-escalated to the Controller.
+
+Audit trail: every status change must be logged with timestamp, user_id, previous_status, new_status, and optional comment. Audit logs are immutable and retained for 7 years.

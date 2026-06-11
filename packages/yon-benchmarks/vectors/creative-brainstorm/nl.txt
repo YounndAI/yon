@@ -1,0 +1,58 @@
+Brainstorming Session — Mobile App Concept: "GreenPulse"
+
+Context: We're exploring ideas for a consumer mobile app in the sustainability space. Nothing is decided yet — this is pure ideation. Think big, think weird, don't self-censor.
+
+Idea 1: Personal Carbon Dashboard
+
+What if we made a Mint-for-carbon-footprint? Users connect their bank accounts and we automatically categorize their spending into carbon impact categories. Like, buying gas = high carbon, buying a book = low carbon, eating at a vegan restaurant = net positive maybe? lol
+
+Could use Plaid for bank integration. The hard part is the carbon calculation engine — there are APIs like Climatiq and CarbonInterface but none of them are great for individual transaction-level analysis. We'd probably need to build our own mapping layer on top.
+
+Fun features:
+- "Carbon budget" like a calorie counter but for CO2
+- Weekly/monthly trends with those satisfying chart animations
+- Compare with friends (anonymous averages maybe?)
+- Gamification: badges for streaks, challenges like "Meatless Monday"
+- AR visualization: point your phone at a product and see its carbon score (is this too hard? probably)
+
+Concerns: Privacy is HUGE. People sharing their bank data for a sustainability app? The trust barrier is enormous. Also, the carbon calculations would be rough estimates at best — do we show confidence intervals? That seems confusing for casual users.
+
+Idea 2: Neighborhood Sustainability Map
+
+Think Google Maps meets Nextdoor meets... idk, a garden? Users can pin sustainable businesses, community gardens, EV charging stations, recycling drop-offs, tool libraries, free little libraries, compost sites. Anyone can add a pin, like OpenStreetMap.
+
+This could be cool because the content is mostly user-generated so costs are low. We'd need moderation though — people will troll. Basically Waze for green living.
+
+Revenue model... hmm. Maybe sustainable businesses pay for verified pins (like a blue checkmark for eco-shops). Or local government sponsors community boards. Or we just... don't monetize it at first and hope for grants? The nonprofit route is more credible but less fundable.
+
+What if we added geofenced challenges? Like "visit 5 sustainable businesses in your neighborhood this month and unlock a discount bundle." That's basically gamified local commerce with a green wrapper. Brands would pay for that.
+
+Idea 3: Food Waste Countdown Timer
+
+Super simple concept: scan your grocery receipt or manually log food purchases. The app predicts spoilage dates based on food type and storage method. Sends push notifications like "your avocados are going to peak ripeness tomorrow — here are 3 recipes" or "bananas entering freeze zone — make banana bread or freeze them."
+
+Could integrate with recipe APIs (Spoonacular, Edamam). The notification timing is everything — too early and people ignore, too late and food is already wasted.
+
+Extension: connect with food-sharing apps (Too Good To Go, OLIO) to donate what you won't use.
+
+Actually, now I'm thinking — what if ideas 1 and 3 combined? Like a dashboard that shows your carbon footprint AND your food waste, and they feed into a single "sustainability score." But that might be scope creep for an MVP. Park it for V2.
+
+Idea 4: The "Anti-Fast-Fashion" Closet
+
+Digital wardrobe: take photos of all your clothes, the app AI-categorizes them (jeans, t-shirt, blazer, etc.). Then it suggests outfits from what you already own — like a personal stylist that's specifically anti-shopping.
+
+When you do want to buy something, the app tries to talk you out of it first ("You already have 6 white t-shirts. Are you sure?"). If you still want to buy, it suggests sustainable alternatives (thrift stores, ethical brands).
+
+The AI styling is the hard part. We'd need good object detection + fashion sense (whatever that means in ML terms). Maybe we train on Pinterest outfit boards? Or use GPT-4V to describe and style outfits.
+
+Business model: affiliate links to sustainable fashion brands. Or a subscription for "personal stylist" tier.
+
+Crazy extension: social closet-sharing. You can borrow clothes from friends. Literally Airbnb for wardrobes. That's probably its own startup though.
+
+Next Steps:
+- Everyone vote on top 2 ideas by Friday
+- Schedule deep-dive session on winners for next week
+- Alex to research carbon API landscape
+- Sarah to sketch wireframes for top-voted concept
+- Mark to do competitive analysis on existing sustainability apps (Joro, Commons, CoGo, Oroeco)
+- No budget decisions yet — this is still exploratory

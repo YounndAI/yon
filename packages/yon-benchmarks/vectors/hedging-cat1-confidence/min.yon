@@ -1,0 +1,8 @@
+@DOC ver=2.0 | id=hedging-cat1-cta-design | title="CTA and Layout Design" | kind=rule | profile=decl | fmt=min
+
+@SEC name="CTA Design"
+@NOTE text="CTA probably purple or vibrant"
+@NOTE text="I think save dialog needed, not 100% sure if annoying"
+
+@SEC name="Layout"
+@NOTE text="Layout maybe responsive, I guess mobile-first"

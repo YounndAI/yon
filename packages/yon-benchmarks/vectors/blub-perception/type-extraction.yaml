@@ -1,0 +1,38 @@
+document: API Rate Limit Configuration
+sections:
+  - name: Global Defaults
+    config:
+      id: Defaults
+      max_requests: 1000
+      window_ms: 60000
+      burst_allowed: true
+      cooldown_factor: 1.5
+    notes:
+      - All rate limits use token-bucket algorithm with sliding window.
+    children:
+      - name: Premium Tier
+        config:
+          id: PremiumLimits
+          max_requests: 30000
+          window_ms: 60000
+          burst_allowed: true
+          priority: 1
+        rules:
+          - level: MUST
+            when: premium tier client
+            then: apply PremiumLimits — 30x default throughput
+      - name: Free Tier
+        config:
+          id: FreeLimits
+          max_requests: 100
+          window_ms: 60000
+          burst_allowed: false
+          cooldown_factor: 2.5
+        rules:
+          - level: MUST
+            when: free tier client
+            then: apply FreeLimits with burst disabled
+        stamps:
+          - who: ops-team
+            ts: "2026-01-10T14:30:00Z"
+            text: Free tier burst disabled after abuse incident FR-2024-0831.

@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "constraint": "Use semantic HTML5 elements (header, main, section, footer, nav)",
+    "level": "MUST",
+    "check": "verify no div-soup — every major container uses a semantic tag"
+  },
+  {
+    "id": 2,
+    "constraint": "Fully responsive using CSS Grid for main layout and Flexbox for component alignment",
+    "level": "MUST",
+    "check": "verify CSS Grid is used for page layout, no fixed pixel widths on containers"
+  },
+  {
+    "id": 3,
+    "constraint": "No inline styles — all styling through CSS custom properties in :root",
+    "level": "MUST_NOT",
+    "check": "verify zero style= attributes in the HTML"
+  },
+  {
+    "id": 4,
+    "constraint": "Use color palette: primary #1A1A2E, secondary #16213E, accent #E94560, surface #F5F5F5",
+    "level": "SHOULD",
+    "check": "verify these colors appear as CSS custom properties and are used in interactive elements"
+  },
+  {
+    "id": 5,
+    "constraint": "All images must have descriptive alt text, decorative ones use alt=\"\" with role=\"presentation\"",
+    "level": "MUST",
+    "check": "verify all img tags have alt attributes, decorative images use empty alt"
+  },
+  {
+    "id": 6,
+    "constraint": "No JavaScript for layout or styling — JS only for interactivity",
+    "level": "MUST_NOT",
+    "check": "verify no JS-based layout/styling, only event handlers and animations"
+  },
+  {
+    "id": 7,
+    "constraint": "Include skip-to-content link as first focusable element",
+    "level": "SHOULD",
+    "check": "verify a skip link exists early in the DOM with appropriate href"
+  }
+]

@@ -1,0 +1,6 @@
+@DOC ver=2.0 | id=inc-20260212 | kind=rule | fmt=ultra
+@MAP id=incident | severity=critical | started="2026-02-12T14:47Z" | trigger="deploy #4521" | env=prod
+@MAP id=impact | failed:int=340 | revenue="$47k" | affected="all payments"
+@MAP id=health | general=200 | payment=503
+@NOTE text="Root cause: payment proxy timeout since deploy #4521. Rollback risky (DB migration). Considering maintenance page."
+@RULE lvl=MUST | then="@sarah: proxy config, @mike: network policies"

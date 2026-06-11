@@ -1,0 +1,85 @@
+{
+  "name": "@younndai/domains",
+  "description": "Fetch, validate, introspect, and classify YounndAI Domain schemas — industry-specific vocabularies for YON™, with JSON Schema export.",
+  "version": "2.0.0",
+  "author": {
+    "name": "MARLINK TRADING SRL (YounndAI)",
+    "url": "https://younndai.com"
+  },
+  "contributors": [
+    {
+      "name": "Alexandru Mareș",
+      "url": "https://allemaar.com"
+    }
+  ],
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "@younndai/yon-parser": "^2.0.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.0.18"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./taxonomy": {
+      "types": "./dist/taxonomy.d.ts",
+      "import": "./dist/taxonomy.js"
+    },
+    "./json-schema": {
+      "types": "./dist/json-schema.d.ts",
+      "import": "./dist/json-schema.js"
+    },
+    "./domains/index.json": "./domains/index.json",
+    "./domains/*": "./domains/*"
+  },
+  "files": [
+    "domains",
+    "dist",
+    "scripts",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "NOTICE",
+    "TRADEMARK.md",
+    "TESTING.md",
+    "package.json"
+  ],
+  "homepage": "https://domains.younndai.com",
+  "keywords": [
+    "yon",
+    "younndai",
+    "domains",
+    "schema",
+    "validation",
+    "data-validation",
+    "json-schema",
+    "taxonomy",
+    "classification",
+    "industry-vocabulary",
+    "structured-data"
+  ],
+  "license": "Apache-2.0",
+  "main": "./dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YounndAI/yon.git",
+    "directory": "packages/domains"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prebuild": "node scripts/sync-domains.mjs",
+    "prepublishOnly": "npm run build",
+    "sync:domains": "node scripts/sync-domains.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "validate:domains": "node scripts/validate-domains.mjs"
+  },
+  "type": "module",
+  "types": "./dist/index.d.ts"
+}

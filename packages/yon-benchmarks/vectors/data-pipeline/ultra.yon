@@ -1,0 +1,9 @@
+@DOC ver=2.0 | id=analytics-pipeline | kind=rule | fmt=ultra
+@MAP id=kafka | topic="user-events" | vol="2M/d" | format=JSON
+@MAP id=s3 | bucket="partner-data-drops" | format=CSV | freq="daily 03:00"
+@MAP id=cdc | db="legacy-crm" | tables="customers,orders" | vol="50k/d"
+@RULE lvl=MUST | then="dedup (user_id+event_type+ts), enrich w/ CRM, UTC normalize, ISO 4217 validate, PII SHA-256, DLQ bad records"
+@MAP id=dest | dataset="analytics_prod" | partition=date | cluster="event_type,user_id" | raw="2yr" | agg=indefinite
+@MAP id=sla | kafka="≤15min" | s3="≤2h" | cdc="≤30min" | uptime="99.9%"
+@RULE lvl=MUST | when="lag>2× SLA" | then="page on-call"
+@MAP id=stack | stream=Flink | transforms=dbt | orchestration=Airflow

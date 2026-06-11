@@ -1,0 +1,8 @@
+@DOC ver=2.0 | id=hedging-cat3-caching | title="Caching Strategy" | kind=rule | profile=decl | fmt=canon
+
+@SEC name="Caching"
+@NOTE text="For caching we might want to use Redis, or maybe just memcached if it's simpler."
+@NOTE text="The session store could potentially be moved to the database instead."
+
+@SEC name="Future Needs"
+@NOTE text="We might need WebSocket support eventually."

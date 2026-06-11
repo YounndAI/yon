@@ -1,0 +1,247 @@
+Auth: Bearer token OAuth2. Token TTL: 3600s. Refresh: 30-day, single-use (invalidated after use, new one issued with access token).
+Rate limit: 500 req/min global. On exceed: 429 + Retry-After header.
+Scope: admin tokens → all orgs. User tokens → own org only.
+All requests require Authorization header. Token endpoint: /auth/token (client credentials or auth code flow).
+
+Users CRUD:
+- POST /users — create. Required: name, email, role. Email unique per org. Roles: admin|member|viewer (default: member).
+- GET /users — paginated list (cursor-based). Default limit: 25, max: 100.
+- GET /users/:id — single user or 404. Includes last_login, created_at.
+- PATCH /users/:id — partial update, merge semantics. Email change requires verification.
+- DELETE /users/:id — soft-delete (status→archived, login disabled). 410 if already archived.
+
+Orders API:
+- POST /orders — create. Required: customer_id, items[], total, currency.
+  Items: each needs product_id, quantity, unit_price. Total must equal Σ(qty × unit_price).
+  Currency: ISO 4217 (USD, EUR, GBP, CAD, AUD, JPY). No mixed currencies per order.
+- GET /orders — filter by customer_id, status, date range, min total.
+- Lifecycle: draft → confirmed → processing → shipped → delivered. Cancelable before shipped.
+- PATCH /orders/:id — update items only in draft status. Status changes via dedicated endpoints.
+- POST /orders/:id/confirm — draft→confirmed, triggers payment auth.
+- POST /orders/:id/cancel — marks canceled, triggers refund if captured.
+- DELETE not supported — use cancel.
+
+Error codes (consistent pattern):
+- ERR_AUTH: invalid/expired token
+- ERR_NOT_FOUND: resource doesn't exist
+- ERR_VALIDATION: request body failed schema validation
+- ERR_CONFLICT: duplicate resource (e.g., duplicate email)
+- ERR_RATE_LIMIT: too many requests
+- ERR_PAYMENT_FAILED: payment provider rejected
+- ERR_INSUFFICIENT_FUNDS: account balance too low
+- ERR_PERMISSION_DENIED: token lacks required scope
+- ERR_RESOURCE_LOCKED: concurrent modification in progress
+All error responses include: request_id (debugging) + human-readable message.
+
+Products API:
+- POST /products — create. Required: name (max 255), description (max 2000), price (cents), category, active.
+  Categories: software|hardware|service|subscription|addon. No custom categories.
+- GET /products — filter: category, active, price range. Includes price count, not full price objects.
+- PATCH /products/:id — update any field. active=false blocks new orders, doesn't affect existing.
+- DELETE — blocked if active orders exist. Deactivate first.
+- Multi-price: each product can have prices for different currencies and billing intervals.
+
+Invoices API:
+- POST /invoices — create from order or subscription. Required: customer_id, items, due_date, payment_terms (net-15|net-30|net-60).
+- Lifecycle: draft → open → paid|void. Draft: editable. Open: locked.
+- POST /invoices/:id/pay — charge default method. 402 on failure.
+- POST /invoices/:id/void — mark void. Cannot void paid invoices.
+- GET /invoices — filter: customer_id, status, date range, amount range.
+- Overdue reminders: auto emails at 1, 7, 14 days past due_date (open status).
+
+Global validation rules:
+- Email: RFC 5322. Phone: E.164 (+1234567890). Money: positive int cents.
+- Dates: ISO 8601 UTC (2026-01-15T00:00:00Z). No timezone abbreviations.
+- Metadata: optional, max 20 keys, keys+values must be strings ≤500 chars.
+- Arrays: max 100 items/request. Larger batches → bulk import endpoint.
+- Strings: auto-trimmed. Empty → null.
+- Booleans: true/false, 1/0, yes/no accepted. All others rejected.
+- Enums: case-insensitive input, stored lowercase.
+
+Webhooks — real-time event notifications:
+Events: order.created, order.updated, order.completed, payment.succeeded, payment.failed, invoice.paid.
+Security: HMAC-SHA256 signed payloads. Verify signature before processing.
+Delivery: must respond 200 within 30s. Failed → retry (exponential backoff: 1m, 5m, 25m, 2h, 10h = 5 attempts).
+After exhausted retries: webhook marked failing, owner notified by email.
+Register: POST /webhooks — url (HTTPS required), events[], optional secret.
+History: GET /webhooks/:id/deliveries — last 30 days (status, response code, timing).
+
+The subscriptions endpoint manages recurring billing. POST /subscriptions creates a new subscription.
+Required fields are customer_id, plan_id, trial_days (0-365), and payment_method_id (required unless trial).
+Subscriptions start immediately or after the trial period. The first invoice is created automatically unless in trial.
+Billing cycle anchor can be set to a specific date. Otherwise, the subscription starts on the creation date.
+Proration behavior can be create_prorations (default), none, or always_invoice.
+Status flow is trialing → active → past_due → canceled. Past_due occurs when payment fails.
+PATCH /subscriptions/:id can update items, payment method, and metadata. Mid-cycle changes create prorations.
+DELETE /subscriptions/:id cancels the subscription. Default is at period end. Use ?at=now for immediate with prorated refund.
+
+The payments endpoint handles one-time charges. POST /payments creates a payment.
+Required fields are amount (integer cents), currency (ISO 4217), method_id, and description.
+Payments are processed synchronously. Success returns 200 with transaction_id. Failure returns 402 with error details.
+If the payment method is a card, the issuing bank's authorization is checked. 3D Secure is triggered when required.
+Refunds are created via POST /payments/:id/refund. Partial refunds are supported. Full refund is the default.
+Payment methods can be cards, bank transfers, or digital wallets. Each has different processing times and fee structures.
+
+GDPR compliance requirements are mandatory for all data handling operations.
+You must encrypt all PII at rest using AES-256 and in transit using TLS 1.3. No exceptions.
+Right to erasure must be implemented and completed within 30 days of receiving a valid erasure request.
+Data processing records must be maintained and available for audit at all times.
+Data breaches must be reported to the supervisory authority within 72 hours of becoming aware.
+Data protection impact assessments must be conducted annually and before launching new data processing activities.
+A data protection officer must be appointed and their contact details published on the privacy page.
+Explicit consent must be obtained before processing personal data. Pre-checked boxes are not valid consent.
+Data portability requests must be fulfilled in a machine-readable format (JSON or CSV) within 30 days.
+Cross-border data transfers require Standard Contractual Clauses or adequacy decisions.
+
+SOC 2 Type II compliance requirements govern all system operations.
+Access controls must follow the principle of least privilege. No user should have more access than needed for their role.
+Audit logs must record all data access events including who accessed what, when, and from where.
+Vulnerability scans must be conducted monthly using automated tools. Critical findings must be remediated within 48 hours.
+Penetration testing must be performed annually by an independent third party.
+Incident response procedures must include detection, triage, containment, eradication, and post-mortem phases.
+Business continuity plans must be tested semi-annually. Recovery time objective is 4 hours for Tier 1 services.
+Backups must be encrypted at rest and tested for recoverability quarterly.
+Multi-factor authentication is required for all administrative access. SMS-based MFA is deprecated in favor of TOTP or hardware keys.
+Employee background checks must be completed before granting system access.
+Vendor security assessments must be conducted annually for all third-party services that process customer data.
+
+PCI-DSS Level 1 compliance requirements govern all payment processing.
+Full card numbers must never be stored after authorization. Only last four digits and card fingerprint are retained.
+Payment data must be tokenized before storage using a PCI-compliant tokenization service.
+The payment processing network must be segmented from other internal networks with firewall rules.
+Intrusion detection systems must monitor all network traffic in the payment segment in real-time.
+Encryption keys must be rotated annually. Compromised keys must be rotated immediately.
+Physical access to servers processing cardholder data must be restricted to authorized personnel only.
+All payment processing code must undergo security review before deployment.
+Quarterly ASV scans must be conducted by an approved scanning vendor.
+
+Rate limiting is configured at multiple levels: global, per-user, and per-endpoint.
+Global rate limit is 1000 requests per minute. Per-user rate limit is 100 requests per minute.
+Burst limit allows 50 requests in a 1-second window before throttling kicks in.
+The throttle strategy is sliding window to prevent thundering herd problems.
+Rate limit headers are included in all responses: X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset.
+When rate limited, the Retry-After header specifies the number of seconds to wait.
+Authenticated requests have higher limits than anonymous requests.
+Webhook deliveries do not count against rate limits.
+Batch endpoints have separate rate limits calculated per item, not per request.
+
+The shipping module manages fulfillment logistics. POST /shipping creates a shipment for an order.
+Required fields are order_id, carrier, tracking_number, and estimated_delivery.
+Supported carriers are ups, fedex, dhl, usps, and custom. Custom carriers require a tracking URL template.
+Shipment statuses are: created, picked_up, in_transit, out_for_delivery, delivered, failed, returned.
+Status updates come from carrier webhooks and are propagated to order and customer notification systems.
+Shipping costs are calculated based on weight, dimensions, origin, and destination. Quotes are cached for 15 minutes.
+International shipments require customs declaration data including HS codes and declared values.
+Shipping labels can be generated via POST /shipping/:id/label in PDF or ZPL format.
+
+The inventory module tracks stock levels across warehouses. Each product can exist in multiple locations.
+Stock levels are tracked as available, reserved, and damaged quantities.
+POST /inventory/adjust creates an inventory adjustment with reason, quantity change, and reference ID.
+Adjustments can be positive (restock) or negative (damage, loss). Zero adjustments are rejected.
+Reservation occurs when an order is confirmed. Reserved stock cannot be sold to other customers.
+Low-stock alerts fire when available quantity drops below the reorder point configured per product per warehouse.
+Inventory transfers between warehouses are tracked as paired adjustments with a transfer ID.
+Cycle counts can be initiated via POST /inventory/count to verify physical stock matches system records.
+Discrepancies from cycle counts are logged and require manager approval before adjustment.
+
+The notification system supports email, SMS, push, and in-app channels.
+Notification templates use Handlebars syntax with variable substitution. Templates are versioned.
+Each notification has a priority level: critical, high, normal, low. Critical notifications bypass quiet hours.
+Quiet hours are configurable per user from 10 PM to 7 AM local time by default.
+Email notifications use the transactional email provider. Delivery status is tracked via webhooks.
+SMS notifications are sent via the SMS gateway. International SMS requires country-specific sender IDs.
+Push notifications target specific devices. Users can have multiple devices registered.
+In-app notifications are persisted and shown in the notification center with read/unread status.
+Notification preferences allow users to opt out of specific notification types per channel.
+Bulk notifications are queued and processed at a rate of 1000 per minute to prevent provider throttling.
+
+The analytics module provides real-time and historical data about system usage.
+Events are collected via a client SDK and server-side API. All events include timestamp, user_id, and session_id.
+Real-time dashboards update every 5 seconds for the last 15 minutes of data.
+Historical queries support aggregation by minute, hour, day, week, and month.
+Custom events can be defined with up to 10 properties each. Property names must be alphanumeric with underscores.
+Funnels track user progression through defined step sequences. Drop-off rates are calculated automatically.
+Cohort analysis groups users by first event date and tracks retention over time.
+Data retention is 13 months for detailed events and unlimited for aggregated metrics.
+Analytics data can be exported via GET /analytics/export in CSV or Parquet format.
+Query performance is optimized using column-oriented storage with automatic partitioning by date.
+
+The reporting module generates scheduled and on-demand business reports.
+Standard reports include revenue, orders, customers, inventory, and churn metrics.
+Custom reports can be defined using a SQL-like query language against the analytics data warehouse.
+Reports can be scheduled daily, weekly, or monthly with email delivery to distribution lists.
+Report formats supported are PDF, CSV, Excel, and JSON. Each format has different configuration options.
+Dashboards aggregate multiple reports into a single view. Up to 12 widgets per dashboard.
+Drill-down is supported on all standard reports. Clicking a metric opens the detailed view.
+Report caching prevents redundant computation. Cache TTL depends on data freshness requirements.
+Access control limits report visibility by role. Financial reports require finance or admin role.
+Report generation for large date ranges is queued and processed asynchronously.
+A notification is sent when the report is ready for download.
+
+HIPAA compliance requirements are mandatory for all protected health information (PHI) handling.
+Access controls must enforce role-based access to PHI with the minimum necessary standard.
+All PHI access must be logged in tamper-proof audit trails retained for 6 years.
+PHI must be encrypted at rest using AES-256 and in transit using TLS 1.3.
+Breach notification procedures must be in place. Affected individuals must be notified within 60 days.
+Risk assessments must be conducted annually and documented with remediation plans.
+All workforce members with PHI access must complete HIPAA training annually.
+Business associate agreements must be signed with all third parties that access PHI.
+Emergency access procedures must allow authorized personnel to access PHI during system outages.
+Policies and procedures must be documented, reviewed annually, and updated as needed.
+Physical safeguards include facility access controls and workstation security.
+Technical safeguards include unique user identification, automatic logoff, and audit controls.
+
+The caching layer sits between the API and database for frequently accessed resources.
+Default cache TTL is 300 seconds (5 minutes). Maximum TTL is 86400 seconds (24 hours).
+Cache strategy is stale-while-revalidate: serve stale content while fetching fresh data in the background.
+Cache invalidation is event-driven. Database writes trigger cache key invalidation via the event bus.
+The cache backend is Redis 7.x running in cluster mode with 3 primary and 3 replica nodes.
+Cache keys follow the pattern: {service}:{resource}:{id}:{version}. Version is incremented on each write.
+Cache hit rates are monitored. Target is 95% for read-heavy endpoints.
+Large objects (>1MB) are compressed with LZ4 before caching. Decompression is transparent to consumers.
+Cache warming runs during deployment to prevent cold-start latency spikes.
+Per-tenant cache isolation prevents noisy neighbors in multi-tenant deployments.
+
+Observability is built on three pillars: tracing, metrics, and logging.
+Distributed tracing uses OpenTelemetry with W3C Trace Context propagation. All services are instrumented.
+Metrics are exported in Prometheus format. Custom metrics use the standard naming convention: {service}_{metric}_{unit}.
+Logging uses structured JSON format. Every log line includes correlation_id, service, level, and timestamp.
+Default log level is info. Debug logging can be enabled per-service without restart via runtime configuration.
+Sampling rate for traces is 10% in production and 100% in staging.
+Log retention is 90 days in the search index and 1 year in cold storage.
+Alerts are defined as code using Terraform. Each alert specifies threshold, duration, severity, and runbook link.
+Dashboards follow the RED method: Rate, Errors, Duration for every service.
+SLO tracking monitors error budget consumption. Pages are triggered at 50% budget burn in a 1-hour window.
+
+All services communicate via gRPC for internal calls and REST for external-facing APIs.
+Event sourcing is used for order and payment domains to maintain a complete audit history of all state changes.
+CQRS pattern separates read and write models for high-throughput reporting without impacting write performance.
+Each service owns its database. Cross-service data access goes through well-defined API boundaries.
+The event bus uses Apache Kafka with guaranteed at-least-once delivery. Consumers must be idempotent.
+Circuit breaker pattern is mandatory for all external service calls. Trips after 5 consecutive failures.
+Saga pattern is used for distributed transactions spanning multiple services with compensating transactions.
+API gateway handles cross-cutting concerns: authentication, rate limiting, request logging, and CORS.
+Service mesh provides mutual TLS, observability, and fine-grained traffic management between services.
+Blue-green deployments ensure zero-downtime releases. Canary releases route 5% of traffic to new versions.
+
+The compliance module manages regulatory requirements across jurisdictions. Compliance records are immutable after approval. Changes require creating a new version with an audit trail. Access to compliance data requires role-based authorization with at least compliance-officer role. Compliance reports are generated daily and retained for 7 years per regulatory requirements. Cross-references between compliance records must use stable identifiers that survive archival. Compliance data must be backed up every 6 hours with point-in-time recovery capability. Automated compliance checks run on every deployment. Failed checks block the release pipeline. Regulatory updates are tracked via RSS feeds and reviewed by the compliance team monthly.
+
+The legal module manages contracts, terms of service, and privacy policies. Legal documents go through a review workflow: draft → legal review → approval → published → archived. Version control tracks all changes with diff capability between any two versions. Digital signatures are supported using eIDAS-compliant qualified electronic signatures. Redlining and commenting are available during the review phase for collaborative editing. Retention policies are configurable per document type. Default is 7 years after document expiry. Template library contains pre-approved clause templates for common contract terms. Conflict resolution documents reference specific clause numbers for traceability. Legal holds prevent deletion of documents involved in active litigation or regulatory investigation.
+
+The finance module manages accounting, revenue recognition, and financial reporting. Double-entry bookkeeping ensures every transaction has equal debits and credits. Revenue recognition follows ASC 606 standards with five-step model implementation. Chart of accounts is configurable per organization with standard GAAP categories pre-loaded. Bank reconciliation compares book entries with bank statements imported via OFX or CSV. Multi-currency support handles foreign exchange with real-time rates from ECB and fallback to cached rates. Tax calculation integrates with external tax engines for jurisdiction-specific rates and rules. Financial period closing is a multi-step process with validation checks before finalization. Audit trail captures all journal entries with authorization chain and supporting document references.
+
+The HR module manages employee records, time tracking, and benefits administration. Employee records include personal information, employment history, compensation, and emergency contacts. Time tracking supports clock-in/clock-out, timesheets, and project-based time allocation. PTO management tracks vacation, sick leave, and personal days with accrual rules per employment tier. Benefits enrollment windows open annually. Mid-year changes require qualifying life events. Performance reviews follow a quarterly cycle with goal setting, self-assessment, and manager evaluation. Onboarding checklists are automatically generated based on department and role. Offboarding procedures ensure access revocation, equipment return, and knowledge transfer tasks. Org chart visualization shows reporting hierarchy with department and location grouping.
+
+The marketing module manages campaigns, leads, and analytics. Campaign management supports email, social media, and paid advertising channels. Lead scoring assigns points based on engagement, demographics, and firmographics. Lead routing distributes qualified leads to sales representatives based on territory and capacity. A/B testing framework supports multivariate tests on email subject lines, content, and send times. Attribution modeling supports first-touch, last-touch, linear, and data-driven models. Marketing automation workflows trigger sequences based on user behavior and time delays. UTM parameter tracking captures campaign source, medium, and content for all inbound traffic. Landing page builder creates mobile-responsive pages with drag-and-drop components.
+
+The support module manages customer tickets, knowledge base, and SLA tracking. Tickets are created via email, web form, chat, or API. Auto-categorization uses ML classification. SLA policies define response and resolution times by priority: P1 (1h/4h), P2 (4h/24h), P3 (24h/72h), P4 (48h/1w). Escalation rules trigger when SLA thresholds approach. First escalation at 75%, second at 90%. Knowledge base articles have categories, tags, and version history. Articles can be internal or public. Canned responses are template replies for common questions. Agents can personalize before sending. Customer satisfaction surveys are sent after ticket closure with a 1-5 rating scale. Ticket merging combines duplicate tickets while preserving all communications. Macro automation handles routine tickets automatically based on content matching.
+
+The engineering module manages repositories, deployments, and developer tooling. Repository standards enforce branch naming, commit message format, and required CI checks. Deployment pipelines support staging, canary, and production environments with manual gates. Feature flags control gradual rollout percentages and are automatically cleaned up after 30 days. Code review requires at least two approvals with at least one from a code owner. Dependency scanning runs on every commit and blocks merges with known critical vulnerabilities. Infrastructure as code manages all cloud resources. Manual changes in production are detected and alerted. Runbook library documents operational procedures for all services with step-by-step troubleshooting. Post-incident reviews are mandatory for all P1 and P2 incidents within 48 hours.
+
+The security module manages access control, threat detection, and vulnerability management. Identity management supports SAML 2.0, OIDC, and SCIM for enterprise SSO integration. Role hierarchy defines permissions at organization, team, and project levels with inheritance. Session management enforces maximum session duration of 24 hours with configurable idle timeout. Threat detection uses behavioral analytics to identify anomalous access patterns. Vulnerability management tracks findings from SAST, DAST, and dependency scanning tools. Secret management uses a centralized vault with automatic rotation for database and API credentials. Network security enforces zero-trust principles with micro-segmentation and identity-aware proxies. Incident response playbooks define automated containment actions for common attack patterns.
+
+The operations module manages infrastructure, monitoring, and capacity planning. Infrastructure provisioning uses Terraform with pre-approved modules for networking, compute, and storage. Auto-scaling policies define minimum, maximum, and target utilization for each service tier. Cost allocation tags track spending by team, project, and environment for chargeback reporting. Disaster recovery plans define RPO (1 hour) and RTO (4 hours) for all production services. Chaos engineering experiments run weekly in staging to validate resilience and recovery procedures. Capacity planning models project resource needs 90 days ahead based on historical growth trends. Change management requires approval for production changes with rollback plans documented. On-call rotation follows a weekly schedule with primary and secondary responders per service.
+
+The partner module manages integrations, marketplace listings, and partner programs. Partner API provides read-only access to product catalog, pricing, and inventory availability. OAuth 2.0 scopes control partner access at resource level. Token rotation is required every 90 days. Webhook subscriptions allow partners to receive real-time updates for events they are authorized to access. Partner dashboard shows API usage metrics, revenue share calculations, and support ticket status. Marketplace listings require approval and periodic review. Inactive listings are delisted after 90 days. Revenue sharing models support percentage-based, fixed-fee, and tiered commission structures. Integration testing sandbox provides realistic data sets without exposing production information. Partner SLA guarantees 99.9% API availability with degraded fallback for non-critical operations.
+
+ISO 27001 compliance requires a comprehensive information security management system. Risk assessments based on asset inventory must be conducted before any system change. Security controls must be proportional to identified risks and documented in the statement of applicability. Internal audits must be conducted annually with findings tracked to resolution. Management reviews must occur quarterly to evaluate ISMS effectiveness and update risk treatment plans. Corrective actions for non-conformities must be implemented within 30 days and verified. Security personnel must maintain current certifications and complete continuing education annually. Supplier security assessments must evaluate data handling practices before contract signing. Incident management capability must include detection, classification, and communication procedures. Change management for security controls requires impact assessment and approval before implementation. Security awareness training must be completed by all staff within 30 days of hire and annually thereafter. Documentation must be version controlled with clear ownership and review schedules.

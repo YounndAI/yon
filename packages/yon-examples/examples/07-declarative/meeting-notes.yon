@@ -1,0 +1,18 @@
+@DOC ver=2.0 | id=meeting-notes | title="Sprint Retrospective" | kind=note | profile=decl | fmt=canon
+
+@NOTE text="Notes from the 2026-02-14 sprint retrospective. Captures decisions and action items."
+
+@SEC name="What Went Well"
+@NOTE text="Deployment pipeline reduced build time from 8 minutes to 3 minutes."
+@NOTE text="New onboarding docs received positive feedback from three new hires."
+@NOTE text="Zero P0 incidents this sprint."
+
+@SEC name="What Needs Improvement"
+@NOTE text="Code review turnaround averaged 2.5 days. Target is 1 day."
+@NOTE text="Flaky integration tests blocked merges on 4 occasions."
+
+@SEC name="Action Items"
+@RULE lvl=MUST | when="next sprint" | then="set up auto-assign for code reviews"
+@RULE lvl=SHOULD | when="next sprint" | then="quarantine flaky tests into a separate suite"
+
+@STAMP ts:ts="2026-02-14T05:00:00Z" | src=scrum-master

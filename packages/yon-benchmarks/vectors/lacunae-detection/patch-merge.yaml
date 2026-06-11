@@ -1,0 +1,16 @@
+document: API Timeout Policy
+timeoutConfiguration:
+  rule:
+    id: timeout
+    level: MUST
+    when: calling external API
+    then: timeout after 30 seconds
+changeHistory:
+  - timestamp: "2026-01-15T12:00:00Z"
+    target: timeout
+    change: timeout after 45 seconds
+    reason: "Increased from 30s to 45s — p99 latency on credit-check API exceeded 30s threshold."
+  - timestamp: "2026-02-01T09:00:00Z"
+    target: timeout
+    change: timeout after 60 seconds
+    reason: "Further increased from 45s to 60s — partner API migration added latency; monitors show p99 at 52s."

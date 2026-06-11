@@ -1,0 +1,10 @@
+@DOC ver=2.0 | id=novabyte-landing | kind=rule | fmt=ultra
+@INTENT goal="NovaByte landing page"
+@MAP id=hero | bg="dark, purple→blue gradient" | headline="Ship better code, faster" | cta="Start Free Trial"
+@MAP id=features | pairs=["AI Analysis"->"PR bug scan","Team Insights"->"Review metrics","Smart Suggestions"->"Contextual fixes"]
+@MAP id=free | tier=Free | users:int=5 | reviews="100/mo"
+@MAP id=pro | tier=Pro | price="$29/user/mo" | reviews=unlimited
+@MAP id=enterprise | tier=Enterprise | price=custom | features="SSO, audit, AM, SLA"
+@MAP id=footer | pairs=["docs","blog","twitter","github"] | copyright="2026 NovaByte"
+@MAP id=nav | layout="logo|links|cta" | behavior="floating on scroll"
+@RULE lvl=MUST | then="fully responsive"

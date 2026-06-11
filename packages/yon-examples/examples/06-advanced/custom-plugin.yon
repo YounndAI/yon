@@ -1,0 +1,14 @@
+@DOC ver=2.0 | id=custom-plugin | title="Custom Plugin" | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Register and invoke a custom operation plugin. Demonstrates extensibility."
+
+@SEC name="Plugin Registration"
+@META plugin=my-plugin | plugin_version=1.0.0
+@CFG id=plugin-config | set=[endpoint="https://plugins.example.com/my-plugin",timeout:int=15]
+
+@SEC name="Workflow"
+@STEP n:int=1 | rid=prepare | op=std:data.validate@v1 | out=[ref:input]
+@STEP n:int=2 | rid=invoke | op=plugin:my-plugin.run@v1 | in=[ref:input] | out=[ref:result]
+@STEP n:int=3 | rid=verify | op=std:data.validate@v1 | in=[ref:result]
+
+@CHECK rid=gate:output | assert="ref:result.valid == true" | fail=ABORT | msg="Plugin returned invalid output"

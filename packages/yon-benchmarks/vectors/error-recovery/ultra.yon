@@ -1,0 +1,12 @@
+@DOC ver=2.0 | id=portfolio-landing-page | title="Portfolio Landing Page for Mara Chen" | profile=decl | fmt=ultra
+@SEC name="Hero Section"
+@RULE lvl=must | then="CTA: 'View My Work', scroll to projects"
+@SEC name="Mobile Layout"
+@RULE lvl=must | then="Mobile: stack grid, 2 to 1 column"
+@RULE lvl=must | then="Navbar: hamburger menu"
+@MAP id=HeroSection | pairs=["hero"->"Hero: Mara Chen, tagline, off-white background"]
+@MAP id=ProjectsSection | pairs=["Lumina Skincare"->"Rebrand: identity, packaging, website","BrewHaus"->"Craft brewery taproom redesign","Neon Athletics"->"Fitness app UI/UX, tagline 'movement redefined'","Olive & Stone"->"Boutique hotel brand identity","Wavelength Records"->"Indie record label visual system","project-card"->"Project card: image, name, category, blurb"]
+@MAP id=AboutSection | pairs=["about"->"7 years design, Portland OR, RISD, clients in various industries"]
+@MAP id=TestimonialsSection | pairs=["lumina-testimonial"->"Lumina: sales up 40% [Lumina Skincare]","brewhaus-testimonial"->"BrewHaus: younger crowd","agency-testimonial"->"Agency: reliable, creative"]
+@MAP id=Footer | pairs=["footer"->"Footer: social links, contact, ©2026"]
+@MAP id=ColorPalette | pairs=["Primary"->"off-white #F5F0EB","Accent"->"coral #E8654A","Dark Text"->"#2D2926","Secondary"->"sage green #A8B5A0"]

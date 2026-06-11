@@ -1,0 +1,830 @@
+{
+  "$schema": "https://domains.younndai.com/schemas/domain.json",
+  "domain": "yai.pharma",
+  "version": "1.0",
+  "status": "active",
+  "tier": "official",
+  "verified": true,
+  "score": 1,
+  "notice": null,
+  "description": "Pharmaceutical product lifecycle, clinical trials, adverse event reporting, and regulatory submissions",
+  "defaultMode": "struct",
+  "defaultProfile": "core",
+  "defaultFormat": "canon",
+  "records": [
+    {
+      "tag": "DRUG",
+      "description": "Medicinal product — IDMP-aligned drug identity with ATC classification and dose form",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "drg:IBU-001"
+        },
+        {
+          "name": "mpid",
+          "type": "string",
+          "required": false,
+          "description": "Medicinal Product ID",
+          "example": "MPID-EU-001"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Product Name",
+          "example": "Ibuprofen 400mg Tablets"
+        },
+        {
+          "name": "substance",
+          "type": "string",
+          "required": false,
+          "description": "Active Substance",
+          "example": "Ibuprofen"
+        },
+        {
+          "name": "strength",
+          "type": "string",
+          "required": false,
+          "description": "Strength",
+          "example": "400mg"
+        },
+        {
+          "name": "dose_form",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "tablet",
+            "capsule",
+            "injection",
+            "infusion",
+            "solution",
+            "suspension",
+            "cream",
+            "ointment",
+            "patch",
+            "inhaler",
+            "suppository",
+            "powder"
+          ],
+          "description": "Dose Form (12 allowed values)",
+          "example": "tablet"
+        },
+        {
+          "name": "route",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "oral",
+            "intravenous",
+            "intramuscular",
+            "subcutaneous",
+            "topical",
+            "inhalation",
+            "rectal",
+            "transdermal",
+            "ophthalmic",
+            "nasal"
+          ],
+          "description": "Administration Route (10 allowed values)",
+          "example": "oral"
+        },
+        {
+          "name": "atc_code",
+          "type": "string",
+          "required": false,
+          "pattern": "^[A-Z]\\d{2}[A-Z]{2}\\d{2}$",
+          "description": "ATC Code",
+          "example": "M01AE01"
+        },
+        {
+          "name": "marketing_auth",
+          "type": "string",
+          "required": false,
+          "description": "Marketing Authorisation",
+          "example": "EU/1/96/001/001"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "investigational",
+            "approved",
+            "marketed",
+            "withdrawn",
+            "suspended",
+            "expired"
+          ],
+          "description": "Product Status (6 allowed values)",
+          "example": "marketed"
+        }
+      ]
+    },
+    {
+      "tag": "SUBSTANCE",
+      "description": "Active substance — ISO 11238 substance identification with molecular properties",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "sub:IBU"
+        },
+        {
+          "name": "substance_id",
+          "type": "string",
+          "required": false,
+          "description": "Substance Identifier",
+          "example": "UNII:WK2XYI10QM"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Substance Name",
+          "example": "Ibuprofen"
+        },
+        {
+          "name": "molecular_formula",
+          "type": "string",
+          "required": false,
+          "description": "Molecular Formula",
+          "example": "C13H18O2"
+        },
+        {
+          "name": "molecular_weight",
+          "type": "float",
+          "required": false,
+          "description": "Molecular Weight in g/mol",
+          "unit": "g/mol",
+          "example": "206.28"
+        },
+        {
+          "name": "classification",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "chemical",
+            "biological",
+            "herbal",
+            "radiopharmaceutical",
+            "vaccine",
+            "plasma-derived",
+            "cell-therapy",
+            "gene-therapy"
+          ],
+          "description": "Substance Classification (8 allowed values)",
+          "example": "chemical"
+        },
+        {
+          "name": "cas_number",
+          "type": "string",
+          "required": false,
+          "description": "CAS Registry Number",
+          "example": "15687-27-1"
+        },
+        {
+          "name": "inn",
+          "type": "string",
+          "required": false,
+          "description": "International Nonproprietary Name",
+          "example": "Ibuprofen"
+        },
+        {
+          "name": "unii",
+          "type": "string",
+          "required": false,
+          "description": "FDA UNII Code",
+          "example": "WK2XYI10QM"
+        }
+      ]
+    },
+    {
+      "tag": "TRIAL",
+      "description": "Clinical trial — ICH E6 GCP-compliant study with phase, enrollment, and site tracking",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "trial:PHASE3-001"
+        },
+        {
+          "name": "protocol_number",
+          "type": "string",
+          "required": false,
+          "description": "Protocol Number",
+          "example": "PRO-2026-IBU-003"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Study Title",
+          "example": "Phase III Efficacy Study of Ibuprofen 400mg"
+        },
+        {
+          "name": "phase",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "I",
+            "I-II",
+            "II",
+            "II-III",
+            "III",
+            "III-IV",
+            "IV"
+          ],
+          "description": "Clinical Phase (7 allowed values)",
+          "example": "III"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "planned",
+            "recruiting",
+            "active",
+            "completed",
+            "suspended",
+            "terminated",
+            "withdrawn"
+          ],
+          "description": "Trial Status (7 allowed values)",
+          "example": "recruiting"
+        },
+        {
+          "name": "sponsor",
+          "type": "string",
+          "required": false,
+          "description": "Sponsor",
+          "example": "Pharma Corp Ltd"
+        },
+        {
+          "name": "indication",
+          "type": "string",
+          "required": false,
+          "description": "Indication",
+          "example": "Chronic lower back pain"
+        },
+        {
+          "name": "sites",
+          "type": "int",
+          "required": false,
+          "description": "Number of Sites",
+          "example": "45"
+        },
+        {
+          "name": "enrolled",
+          "type": "int",
+          "required": false,
+          "description": "Enrolled Subjects",
+          "example": "320"
+        },
+        {
+          "name": "target_enrollment",
+          "type": "int",
+          "required": false,
+          "description": "Target Enrollment",
+          "example": "500"
+        },
+        {
+          "name": "start_date",
+          "type": "ts",
+          "required": false,
+          "description": "Study Start Date as ISO 8601 timestamp",
+          "example": "2025-06-01T00:00:00Z"
+        },
+        {
+          "name": "end_date",
+          "type": "ts",
+          "required": false,
+          "description": "Estimated End Date as ISO 8601 timestamp",
+          "example": "2027-12-31T00:00:00Z"
+        },
+        {
+          "name": "randomized",
+          "type": "bool",
+          "required": false,
+          "description": "Randomized indicator",
+          "example": "true"
+        },
+        {
+          "name": "blinding",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "open-label",
+            "single-blind",
+            "double-blind",
+            "triple-blind"
+          ],
+          "description": "Blinding: open-label, single-blind, double-blind, triple-blind",
+          "example": "double-blind"
+        },
+        {
+          "name": "nct_id",
+          "type": "string",
+          "required": false,
+          "description": "ClinicalTrials.gov NCT ID",
+          "example": "NCT05123456"
+        }
+      ]
+    },
+    {
+      "tag": "ADVERSE_EVENT",
+      "description": "Individual case safety report — ICH E2B(R3) adverse event with causality assessment",
+      "fields": [
+        {
+          "name": "case_id",
+          "type": "string",
+          "required": false,
+          "description": "Case Identifier",
+          "example": "AE-2026-001"
+        },
+        {
+          "name": "seriousness",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "non-serious",
+            "serious-hospitalization",
+            "serious-disability",
+            "serious-life-threatening",
+            "serious-death",
+            "serious-congenital-anomaly",
+            "serious-other"
+          ],
+          "description": "Seriousness (7 allowed values)",
+          "example": "serious-hospitalization"
+        },
+        {
+          "name": "causality",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "certain",
+            "probable",
+            "possible",
+            "unlikely",
+            "conditional",
+            "unassessable"
+          ],
+          "description": "Causality Assessment (6 allowed values)",
+          "example": "probable"
+        },
+        {
+          "name": "onset_date",
+          "type": "ts",
+          "required": false,
+          "description": "Onset Date as ISO 8601 timestamp",
+          "example": "2026-02-10T00:00:00Z"
+        },
+        {
+          "name": "outcome",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "recovered",
+            "recovering",
+            "not-recovered",
+            "fatal",
+            "unknown"
+          ],
+          "description": "Outcome: recovered, recovering, not-recovered, fatal, unknown",
+          "example": "recovered"
+        },
+        {
+          "name": "reporter_type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "physician",
+            "pharmacist",
+            "nurse",
+            "consumer",
+            "lawyer",
+            "other-health-professional"
+          ],
+          "description": "Reporter Type (6 allowed values)",
+          "example": "physician"
+        },
+        {
+          "name": "suspect_drug",
+          "type": "string",
+          "required": false,
+          "description": "Suspect Drug",
+          "example": "Ibuprofen 400mg"
+        },
+        {
+          "name": "reaction_meddra",
+          "type": "string",
+          "required": false,
+          "description": "MedDRA Preferred Term",
+          "example": "10019211"
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "required": false,
+          "description": "Country of Occurrence",
+          "example": "DE"
+        },
+        {
+          "name": "report_date",
+          "type": "ts",
+          "required": false,
+          "description": "Report Date as ISO 8601 timestamp",
+          "example": "2026-02-15T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "SUBMISSION",
+      "description": "Regulatory submission — eCTD electronic filing with module structure and regional requirements",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "sub:NDA-2026-001"
+        },
+        {
+          "name": "sequence",
+          "type": "int",
+          "required": false,
+          "description": "Sequence Number",
+          "example": "1"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "initial",
+            "amendment",
+            "supplement",
+            "variation",
+            "renewal",
+            "withdrawal"
+          ],
+          "description": "Submission Type (6 allowed values)",
+          "example": "initial"
+        },
+        {
+          "name": "region",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "US",
+            "EU",
+            "JP",
+            "CA",
+            "AU",
+            "CH",
+            "CN",
+            "KR",
+            "IN",
+            "BR",
+            "ICH"
+          ],
+          "description": "Regulatory Region (11 allowed values)",
+          "example": "EU"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "drafting",
+            "submitted",
+            "under-review",
+            "questions",
+            "approved",
+            "refused",
+            "withdrawn"
+          ],
+          "description": "Submission Status (7 allowed values)",
+          "example": "under-review"
+        },
+        {
+          "name": "module",
+          "type": "int",
+          "required": false,
+          "range": [
+            1,
+            5
+          ],
+          "description": "eCTD Module (1–5)",
+          "example": "3"
+        },
+        {
+          "name": "applicant",
+          "type": "string",
+          "required": false,
+          "description": "Applicant",
+          "example": "Pharma Corp Ltd"
+        },
+        {
+          "name": "submission_date",
+          "type": "ts",
+          "required": false,
+          "description": "Submission Date as ISO 8601 timestamp",
+          "example": "2026-01-15T00:00:00Z"
+        },
+        {
+          "name": "approval_date",
+          "type": "ts",
+          "required": false,
+          "description": "Approval Date as ISO 8601 timestamp",
+          "example": "2026-07-30T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "tag": "PACKAGING",
+      "description": "Pharmaceutical packaging — IDMP-aligned container and shelf life with GS1 identification",
+      "fields": [
+        {
+          "name": "rid",
+          "type": "string",
+          "required": true,
+          "description": "Record ID",
+          "example": "pkg:IBU-400-30"
+        },
+        {
+          "name": "drug_ref",
+          "type": "string",
+          "required": false,
+          "description": "Drug Reference",
+          "example": "drg:IBU-001"
+        },
+        {
+          "name": "pack_size",
+          "type": "int",
+          "required": false,
+          "description": "Pack Size",
+          "example": "30"
+        },
+        {
+          "name": "container_type",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "blister",
+            "bottle",
+            "vial",
+            "ampoule",
+            "syringe",
+            "cartridge",
+            "sachet",
+            "tube",
+            "jar",
+            "bag"
+          ],
+          "description": "Container Type (10 allowed values)",
+          "example": "blister"
+        },
+        {
+          "name": "material",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "glass-type-I",
+            "glass-type-II",
+            "glass-type-III",
+            "hdpe",
+            "ldpe",
+            "pp",
+            "pvc",
+            "aluminium"
+          ],
+          "description": "Container Material (8 allowed values)",
+          "example": "pvc"
+        },
+        {
+          "name": "shelf_life_months",
+          "type": "int",
+          "required": false,
+          "description": "Shelf Life in months",
+          "unit": "months",
+          "example": "36"
+        },
+        {
+          "name": "storage_conditions",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "room-temp",
+            "refrigerated",
+            "frozen",
+            "deep-frozen",
+            "controlled-room-temp",
+            "protect-from-light"
+          ],
+          "description": "Storage Conditions (6 allowed values)",
+          "example": "room-temp"
+        },
+        {
+          "name": "gtin",
+          "type": "string",
+          "required": false,
+          "description": "GTIN",
+          "example": "05012345678901"
+        },
+        {
+          "name": "serialized",
+          "type": "bool",
+          "required": false,
+          "description": "Serialized indicator",
+          "example": "true"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "tagline": "Drug lifecycle and clinical safety for pharmaceutical AI",
+    "highlights": [
+      "DRUG",
+      "TRIAL",
+      "ADVERSE_EVENT"
+    ],
+    "use_cases": [
+      {
+        "id": "drug-lifecycle",
+        "title": "Drug Development and Pharmacovigilance",
+        "steps": [
+          "Identify @SUBSTANCE with molecular properties and CAS number",
+          "Register @DRUG with IDMP product identity and ATC code",
+          "Conduct @TRIAL with ICH GCP protocol and enrollment tracking",
+          "Report @ADVERSE_EVENT via ICH E2B(R3) safety reports",
+          "File @SUBMISSION through eCTD regulatory pathway",
+          "Define @PACKAGING with serialization and storage conditions"
+        ],
+        "example": "@DRUG mpid=\"MPID-EU-001\" | substance=\"Ibuprofen\" | dose_form=\"tablet\" | route=\"oral\" | atc_code=\"M01AE01\"",
+        "tags_used": [
+          "SUBSTANCE",
+          "DRUG",
+          "TRIAL",
+          "ADVERSE_EVENT",
+          "SUBMISSION",
+          "PACKAGING"
+        ],
+        "description": "Track clinical trials from protocol design through regulatory submission. Monitor adverse events post-market, manage drug registrations, and ensure GxP compliance.",
+        "tags": [
+          "DRUG",
+          "TRIAL",
+          "ADVERSE_EVENT",
+          "BATCH",
+          "REGULATORY_SUBMISSION"
+        ]
+      },
+      {
+        "id": "pharmacovigilance",
+        "title": "Automated Pharmacovigilance Pipeline",
+        "steps": [
+          "Ingest @ADVERSE_EVENT reports from multiple sources",
+          "Code reactions using MedDRA preferred terms",
+          "Assess causality against @DRUG and @SUBSTANCE profiles",
+          "Generate signal detection reports per @TRIAL",
+          "Compile periodic safety update for @SUBMISSION"
+        ],
+        "example": "@ADVERSE_EVENT case_id=\"AE-2026-001\" | seriousness=\"serious\" | causality=\"probable\" | reaction_meddra=\"10019211\"",
+        "tags_used": [
+          "ADVERSE_EVENT",
+          "DRUG",
+          "SUBSTANCE",
+          "TRIAL",
+          "SUBMISSION"
+        ],
+        "description": "Ingest adverse event reports from multiple sources, classify by MedDRA terms, assess causality, and generate CIOMS/MedWatch safety reports for regulatory authorities.",
+        "tags": [
+          "ADVERSE_EVENT",
+          "DRUG",
+          "TRIAL",
+          "REGULATORY_SUBMISSION"
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "IDMP (ISO 11615)",
+        "url": "https://www.iso.org/standard/70150.html",
+        "type": "standard"
+      },
+      {
+        "label": "ISO 11238 Substances",
+        "url": "https://www.iso.org/standard/69697.html",
+        "type": "standard"
+      },
+      {
+        "label": "ICH E2B(R3)",
+        "url": "https://www.ich.org/page/e2br3-individual-case-safety-report",
+        "type": "standard"
+      },
+      {
+        "label": "ICH E6(R2) GCP",
+        "url": "https://www.ich.org/page/efficacy-guidelines",
+        "type": "standard"
+      },
+      {
+        "label": "ICH M8 eCTD",
+        "url": "https://www.ich.org/page/multidisciplinary-guidelines",
+        "type": "standard"
+      },
+      {
+        "label": "WHO ATC",
+        "url": "https://www.whocc.no/atc_ddd_index/",
+        "type": "standard"
+      }
+    ],
+    "related": [
+      {
+        "domain": "yai.health",
+        "relationship": "often paired",
+        "reason": "Clinical outcomes and patient safety"
+      },
+      {
+        "domain": "yai.compliance",
+        "relationship": "data overlap",
+        "reason": "GxP regulatory compliance and audit trails"
+      },
+      {
+        "domain": "yai.research",
+        "relationship": "often paired",
+        "reason": "Clinical research and publication"
+      }
+    ],
+    "tag_context": {
+      "DRUG": {
+        "purpose": "IDMP-aligned medicinal product identity with ATC classification and dose form",
+        "when_to_use": "Drug registration, formulary management, cross-reference, labeling",
+        "related_standards": [
+          "ISO IDMP (11615/11616)",
+          "WHO ATC",
+          "FDA NDC"
+        ]
+      },
+      "SUBSTANCE": {
+        "purpose": "Active pharmaceutical ingredient with molecular properties and regulatory identifiers",
+        "when_to_use": "Substance registration, bioequivalence studies, impurity profiling, QSAR modeling",
+        "related_standards": [
+          "ISO 11238 (SubstanceID)",
+          "FDA UNII",
+          "WHO INN"
+        ]
+      },
+      "TRIAL": {
+        "purpose": "ICH E6 GCP-compliant clinical trial with phase, enrollment tracking, and blinding",
+        "when_to_use": "Trial registration, site management, enrollment tracking, interim analysis",
+        "related_standards": [
+          "ICH E6(R3) GCP",
+          "ClinicalTrials.gov",
+          "EU CTR"
+        ]
+      },
+      "ADVERSE_EVENT": {
+        "purpose": "ICH E2B(R3) individual case safety report with MedDRA coding and causality",
+        "when_to_use": "Pharmacovigilance, signal detection, periodic safety reports, regulatory submissions",
+        "related_standards": [
+          "ICH E2B(R3)",
+          "MedDRA",
+          "EudraVigilance"
+        ]
+      },
+      "SUBMISSION": {
+        "purpose": "eCTD regulatory submission with module structure and regional requirements",
+        "when_to_use": "NDA/BLA filing, variation submissions, annual reports, post-approval changes",
+        "related_standards": [
+          "ICH M8 eCTD v4.0",
+          "FDA ESG",
+          "EMA eSubmission"
+        ]
+      },
+      "PACKAGING": {
+        "purpose": "Pharmaceutical packaging with GS1 serialization, shelf life, and storage conditions",
+        "when_to_use": "Batch release, quality review, deviation tracking, serialization",
+        "related_standards": [
+          "EU GMP Annex 11",
+          "FDA 21 CFR Part 211",
+          "ICH Q7"
+        ]
+      }
+    },
+    "capacityTier": "official"
+  },
+  "owner": {
+    "name": "YounndAI Domains Registry",
+    "organization": "YounndAI",
+    "url": "https://younndai.com",
+    "since": "2026-01-15T00:00:00Z"
+  }
+}

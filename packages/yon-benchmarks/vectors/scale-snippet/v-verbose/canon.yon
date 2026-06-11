@@ -1,0 +1,26 @@
+@DOC ver=2.0 | id=api-authentication-rules | title="API Authentication and User Management Rules" | kind=rule | profile=exec | fmt=canon
+
+@INTENT goal="Extract API authentication and user management rules"
+
+@SEC name=Authentication
+@RULE lvl=must | when="Using OAuth2" | then="Use OAuth2 with Bearer tokens"
+@RULE lvl=must | when="Token issued" | then="Tokens have a TTL of 3600 seconds"
+@RULE lvl=must | when="Using refresh tokens" | then="Refresh tokens last for 30 days"
+@RULE lvl=must | when="Rate limit exceeded" | then="Return 429 status code if rate limit exceeded"
+@RULE lvl=must | when="Using admin tokens" | then="Admin tokens can access all organizations"
+@RULE lvl=must | when="Using regular user tokens" | then="User tokens access own organization"
+@RULE lvl=must | when="Making API request" | then="Authorization header with valid bearer token required"
+@RULE lvl=must | when="Using refresh token" | then="Refresh tokens can only be used once"
+
+@SEC name="User Management"
+@RULE lvl=must | when="Creating user" | then="POST /users requires name, email, and role"
+@RULE lvl=must | when="Assigning email" | then="Email must be unique within organization"
+@MAP id=Roles name=Roles | pairs=["admin"->"Admin role","member"->"Default role","viewer"->"Viewer role"]
+@RULE lvl=must | when="Role not specified" | then="Default role is member if not specified"
+@NOTE text="GET /users returns paginated results with cursor-based pagination"
+@RULE lvl=must | when="Requesting user list" | then="Default 25 items per page, max 100"
+@NOTE text="GET /users/:id returns full user object with last_login and created_at"
+@RULE lvl=must | when="Updating user" | then="PATCH /users/:id for partial updates"
+@RULE lvl=must | when="Changing email" | then="Cannot change email without verification"
+@RULE lvl=must | when="Deleting user" | then="DELETE /users/:id performs soft delete"
+@RULE lvl=must | when="Deleting archived user" | then="Return 410 Gone if user already archived"

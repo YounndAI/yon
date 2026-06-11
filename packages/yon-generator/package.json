@@ -1,0 +1,72 @@
+{
+  "name": "@younndai/yon-generator",
+  "description": "Fluent TypeScript builder for YON™ documents — construct valid stream-first YON for AI agent workflows from code.",
+  "version": "2.0.0",
+  "author": {
+    "name": "MARLINK TRADING SRL (YounndAI)",
+    "url": "https://younndai.com"
+  },
+  "contributors": [
+    {
+      "name": "Alexandru Mareș",
+      "url": "https://allemaar.com"
+    }
+  ],
+  "homepage": "https://yon.younndai.com",
+  "dependencies": {
+    "@younndai/yon-parser": "^2.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "vitest": "^4.0.18"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "NOTICE",
+    "TRADEMARK.md",
+    "HOW-TO-USE.md",
+    "TESTING.md",
+    "package.json"
+  ],
+  "keywords": [
+    "yon",
+    "younndai",
+    "builder",
+    "generator",
+    "fluent-api",
+    "typescript",
+    "data-format",
+    "ai-agents",
+    "llm",
+    "code-generation",
+    "structured-data"
+  ],
+  "license": "Apache-2.0",
+  "main": "./dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YounndAI/yon.git",
+    "directory": "packages/yon-generator"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "type": "module",
+  "types": "./dist/index.d.ts"
+}

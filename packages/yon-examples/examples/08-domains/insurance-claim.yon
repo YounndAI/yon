@@ -1,0 +1,18 @@
+@DOC ver=2.0 | id=insurance-claim | title="Insurance Claim Processing" | domain=yai.fintech@1.0 | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Automated claim intake, validation, and routing for Property and Casualty insurance."
+
+@STEP n:int=1 | rid=intake | op=std:form.parse@v1 | out=[ref:claim]
+
+@SEC name="Validation"
+@CHECK rid=gate:policy | assert="ref:claim.policy_active == true" | fail=ABORT | msg="Policy not active"
+@CHECK rid=gate:amount | assert="ref:claim.amount > 0" | fail=ABORT | msg="Invalid claim amount"
+
+@SEC name="Risk Assessment"
+@STEP n:int=2 | rid=score | op=domain:risk.score@v1 | in=[ref:claim] | out=[ref:risk]
+
+@RULE lvl=MUST | when="risk score above 0.8" | then="route to manual adjuster"
+@RULE lvl=MUST | when="risk score below 0.3" | then="auto-approve for fast-track"
+
+@STEP n:int=3 | rid=route | op=domain:claim.route@v1 | in=[ref:claim, ref:risk]
+@STEP n:int=4 | rid=notify | op=std:notify.email@v1 | in=[ref:claim]

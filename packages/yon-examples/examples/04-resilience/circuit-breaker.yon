@@ -1,0 +1,19 @@
+@DOC ver=2.0 | id=circuit-breaker | title="Circuit Breaker" | kind=workflow | profile=exec | fmt=canon
+
+@NOTE text="Circuit breaker pattern: track failures and short-circuit when threshold is exceeded."
+
+@SEC name="Configuration"
+@CFG id=circuit-config | set=[failure_threshold:int=5,reset_timeout:int=60000,half_open_max:int=1]
+
+@SEC name="Workflow"
+@STEP n:int=1 | rid=check-state | op=std:state.get@v1 | args=[key=circuit-state] | out=[ref:state]
+
+@CHECK rid=gate:open | assert="ref:state.status != open" | fail=ABORT | msg="Circuit is open — requests blocked"
+
+@STEP n:int=2 | rid=call | op=std:http.get@v1 | args=[url="https://api.example.com/endpoint"] | out=[ref:response] | timeout_ms:int=5000
+@RETRY target=rid:call | max:int=5 | delay_ms:int=500 | backoff=exponential
+@CATCH target=rid:call | on=error | do=rid:record-failure
+
+@STEP n:int=3 | rid=record-failure | op=std:state.increment@v1 | args=[key=failure-count]
+
+@CHECK rid=gate:threshold | assert="ref:state.failures < 5" | fail=WARN | msg="Failure threshold approaching"
