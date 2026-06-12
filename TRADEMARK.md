@@ -30,7 +30,7 @@ or compatibility with the YounndAI ecosystem:
 | YON Standard™   | Designates the canonical specification maintained by YounndAI                     |
 
 > **Note:** The term "verified" is reserved for **domain verification**
-> in the YON Registry (see REGISTRY.md §2). It is not a certification
+> in the YON Registry. It is not a certification
 > mark for implementations.
 
 ## Usage Guidelines
