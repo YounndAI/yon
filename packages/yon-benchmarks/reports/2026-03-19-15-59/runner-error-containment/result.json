@@ -1,0 +1,65 @@
+{
+  "suiteId": "runner-error-containment",
+  "suiteName": "Runner Error Containment",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "catch-fallback-execution",
+      "name": "@CATCH Fallback Execution",
+      "passed": true,
+      "metric": {
+        "name": "fallback_triggered",
+        "value": 1,
+        "unit": "bool"
+      },
+      "detail": "bench:fail throws → @CATCH target=s1 → do=fallback. Catch triggered: true. Fallback ran: true. Error containment: VERIFIED."
+    },
+    {
+      "id": "catch-selective-matching",
+      "name": "@CATCH Selective Matching (on= filter)",
+      "passed": true,
+      "metric": {
+        "name": "selective_filter_correct",
+        "value": 1,
+        "unit": "bool"
+      },
+      "detail": "@CATCH on=timeout should NOT catch runtime errors. Catch triggered: false (expected: false). Workflow failed: true (expected: true). Selective matching: VERIFIED."
+    },
+    {
+      "id": "retry-backoff-strategy",
+      "name": "@RETRY Exponential Backoff",
+      "passed": true,
+      "metric": {
+        "name": "retry_attempts",
+        "value": 4,
+        "unit": "/4"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "delays_increasing",
+          "value": 1,
+          "unit": "bool"
+        }
+      ],
+      "detail": "@RETRY max=3 backoff=exponential delay_ms=20. Attempts: 4/4. Delays increasing: true. Backoff: VERIFIED."
+    },
+    {
+      "id": "retry-max-attempts",
+      "name": "@RETRY Max Attempts Enforcement",
+      "passed": true,
+      "metric": {
+        "name": "max_attempts_respected",
+        "value": 1,
+        "unit": "bool"
+      },
+      "detail": "@RETRY max=2 → expected 3 total attempts. Actual: 3. Workflow failed: true. Max enforcement: VERIFIED."
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "durationMs": 316.5526
+  },
+  "timestamp": "2026-03-19T13:59:10.836Z"
+}

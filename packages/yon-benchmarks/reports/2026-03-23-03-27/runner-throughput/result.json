@@ -1,0 +1,50 @@
+{
+  "suiteId": "runner-throughput",
+  "suiteName": "Runner Throughput",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "runner-cold-start",
+      "name": "Runner Cold Start",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "initialization_latency",
+        "value": 0.0005329000000001543,
+        "unit": "ms"
+      },
+      "detail": "Average initialization time: 0.001ms (1000 iter)."
+    },
+    {
+      "id": "runner-ops-sec",
+      "name": "DAG Logic Ops/Sec",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "ops_per_second",
+        "value": 218484,
+        "unit": "ops/s"
+      },
+      "detail": "Executed 100 linear steps in 0.46ms. Throughput: 218,484 ops/s."
+    },
+    {
+      "id": "runner-memory-budget",
+      "name": "Context Memory Budget",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "bytes_per_context",
+        "value": 215,
+        "unit": "bytes"
+      },
+      "detail": "Heap growth: 0.20MB for 1000 instances. ~215 bytes/instance."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 17.247800000000097
+  },
+  "timestamp": "2026-03-23T01:27:25.812Z"
+}

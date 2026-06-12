@@ -1,0 +1,571 @@
+{
+  "suiteId": "quality-adjusted-cost",
+  "suiteName": "Quality-Adjusted Cost",
+  "pillar": "cognitive-economy",
+  "tests": [
+    {
+      "id": "scale-sweep",
+      "name": "Scale Sweep (7 tiers × 21 total variants, pre-generated)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "avg_baseline_min_enterprise",
+        "value": -30,
+        "unit": "% vs prose (avg min, Enterprise)",
+        "comparison": {
+          "baseline": 43,
+          "baselineLabel": "% avg baseline at smallest tier (min)",
+          "delta": "YON wins at Snippet tier (avg 3 variants, min mode)"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "avg_prose_tok_chat",
+          "value": 153,
+          "unit": "tokens (avg)"
+        },
+        {
+          "name": "avg_min_tok_chat",
+          "value": 200,
+          "unit": "tokens (avg)"
+        },
+        {
+          "name": "avg_baseline_canon_chat",
+          "value": 70,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_baseline_min_chat",
+          "value": 43,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_baseline_ultra_chat",
+          "value": 50,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_prose_tok_snippet",
+          "value": 340,
+          "unit": "tokens (avg)"
+        },
+        {
+          "name": "avg_min_tok_snippet",
+          "value": 332,
+          "unit": "tokens (avg)"
+        },
+        {
+          "name": "avg_baseline_canon_snippet",
+          "value": 44,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_baseline_min_snippet",
+          "value": 6,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_baseline_ultra_snippet",
+          "value": 9,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_prose_tok_prompt",
+          "value": 761,
+          "unit": "tokens (avg)"
+        },
+        {
+          "name": "avg_min_tok_prompt",
+          "value": 508,
+          "unit": "tokens (avg)"
+        },
+        {
+          "name": "avg_baseline_canon_prompt",
+          "value": -3,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_baseline_min_prompt",
+          "value": -26,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_baseline_ultra_prompt",
+          "value": -24,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_prose_tok_system",
+          "value": 1664,
+          "unit": "tokens (avg)"
+        },
+        {
+          "name": "avg_min_tok_system",
+          "value": 1136,
+          "unit": "tokens (avg)"
+        },
+        {
+          "name": "avg_baseline_canon_system",
+          "value": -21,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_baseline_min_system",
+          "value": -35,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_baseline_ultra_system",
+          "value": -34,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_prose_tok_enterprise",
+          "value": 2629,
+          "unit": "tokens (avg)"
+        },
+        {
+          "name": "avg_min_tok_enterprise",
+          "value": 1766,
+          "unit": "tokens (avg)"
+        },
+        {
+          "name": "avg_baseline_canon_enterprise",
+          "value": -7,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_baseline_min_enterprise",
+          "value": -30,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_baseline_ultra_enterprise",
+          "value": -29,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_prose_tok_platform",
+          "value": 4197,
+          "unit": "tokens (avg)"
+        },
+        {
+          "name": "avg_min_tok_platform",
+          "value": 3191,
+          "unit": "tokens (avg)"
+        },
+        {
+          "name": "avg_baseline_canon_platform",
+          "value": 9,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_baseline_min_platform",
+          "value": -23,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_baseline_ultra_platform",
+          "value": -21,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_prose_tok_knowledge",
+          "value": 5764,
+          "unit": "tokens (avg)"
+        },
+        {
+          "name": "avg_min_tok_knowledge",
+          "value": 4552,
+          "unit": "tokens (avg)"
+        },
+        {
+          "name": "avg_baseline_canon_knowledge",
+          "value": 15,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_baseline_min_knowledge",
+          "value": -20,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "avg_baseline_ultra_knowledge",
+          "value": -17,
+          "unit": "% vs prose (avg)"
+        },
+        {
+          "name": "verbose_baseline_min_chat",
+          "value": 5,
+          "unit": "% vs prose (verbose)"
+        },
+        {
+          "name": "clean_baseline_min_chat",
+          "value": 60,
+          "unit": "% vs prose (clean)"
+        },
+        {
+          "name": "mixed_baseline_min_chat",
+          "value": 63,
+          "unit": "% vs prose (mixed)"
+        },
+        {
+          "name": "verbose_baseline_min_snippet",
+          "value": -21,
+          "unit": "% vs prose (verbose)"
+        },
+        {
+          "name": "clean_baseline_min_snippet",
+          "value": 21,
+          "unit": "% vs prose (clean)"
+        },
+        {
+          "name": "mixed_baseline_min_snippet",
+          "value": 18,
+          "unit": "% vs prose (mixed)"
+        },
+        {
+          "name": "verbose_baseline_min_prompt",
+          "value": -49,
+          "unit": "% vs prose (verbose)"
+        },
+        {
+          "name": "clean_baseline_min_prompt",
+          "value": 6,
+          "unit": "% vs prose (clean)"
+        },
+        {
+          "name": "mixed_baseline_min_prompt",
+          "value": -35,
+          "unit": "% vs prose (mixed)"
+        },
+        {
+          "name": "verbose_baseline_min_system",
+          "value": -25,
+          "unit": "% vs prose (verbose)"
+        },
+        {
+          "name": "clean_baseline_min_system",
+          "value": -34,
+          "unit": "% vs prose (clean)"
+        },
+        {
+          "name": "mixed_baseline_min_system",
+          "value": -45,
+          "unit": "% vs prose (mixed)"
+        },
+        {
+          "name": "verbose_baseline_min_enterprise",
+          "value": -44,
+          "unit": "% vs prose (verbose)"
+        },
+        {
+          "name": "clean_baseline_min_enterprise",
+          "value": -29,
+          "unit": "% vs prose (clean)"
+        },
+        {
+          "name": "mixed_baseline_min_enterprise",
+          "value": -17,
+          "unit": "% vs prose (mixed)"
+        },
+        {
+          "name": "verbose_baseline_min_platform",
+          "value": -30,
+          "unit": "% vs prose (verbose)"
+        },
+        {
+          "name": "clean_baseline_min_platform",
+          "value": -19,
+          "unit": "% vs prose (clean)"
+        },
+        {
+          "name": "mixed_baseline_min_platform",
+          "value": -21,
+          "unit": "% vs prose (mixed)"
+        },
+        {
+          "name": "verbose_baseline_min_knowledge",
+          "value": -32,
+          "unit": "% vs prose (verbose)"
+        },
+        {
+          "name": "clean_baseline_min_knowledge",
+          "value": -14,
+          "unit": "% vs prose (clean)"
+        },
+        {
+          "name": "mixed_baseline_min_knowledge",
+          "value": -14,
+          "unit": "% vs prose (mixed)"
+        },
+        {
+          "name": "range_min_chat",
+          "value": 58,
+          "unit": "% spread (5% to 63%)"
+        },
+        {
+          "name": "range_min_snippet",
+          "value": 42,
+          "unit": "% spread (-21% to 21%)"
+        },
+        {
+          "name": "range_min_prompt",
+          "value": 55,
+          "unit": "% spread (-49% to 6%)"
+        },
+        {
+          "name": "range_min_system",
+          "value": 20,
+          "unit": "% spread (-45% to -25%)"
+        },
+        {
+          "name": "range_min_enterprise",
+          "value": 27,
+          "unit": "% spread (-44% to -17%)"
+        },
+        {
+          "name": "range_min_platform",
+          "value": 11,
+          "unit": "% spread (-30% to -19%)"
+        },
+        {
+          "name": "range_min_knowledge",
+          "value": 18,
+          "unit": "% spread (-32% to -14%)"
+        },
+        {
+          "name": "cost_savings_chat",
+          "value": -5,
+          "unit": "% (positive = YON cheaper)"
+        },
+        {
+          "name": "cost_savings_snippet",
+          "value": 21,
+          "unit": "% (positive = YON cheaper)"
+        },
+        {
+          "name": "cost_savings_prompt",
+          "value": 46,
+          "unit": "% (positive = YON cheaper)"
+        },
+        {
+          "name": "cost_savings_system",
+          "value": 45,
+          "unit": "% (positive = YON cheaper)"
+        },
+        {
+          "name": "cost_savings_enterprise",
+          "value": 46,
+          "unit": "% (positive = YON cheaper)"
+        },
+        {
+          "name": "cost_savings_platform",
+          "value": 39,
+          "unit": "% (positive = YON cheaper)"
+        },
+        {
+          "name": "cost_savings_knowledge",
+          "value": 36,
+          "unit": "% (positive = YON cheaper)"
+        },
+        {
+          "name": "tiers_evaluated",
+          "value": 7,
+          "unit": "tiers"
+        },
+        {
+          "name": "total_variants",
+          "value": 21,
+          "unit": "variants"
+        },
+        {
+          "name": "tiers_yon_wins",
+          "value": 6,
+          "unit": "tiers"
+        }
+      ],
+      "detail": "YON wins at Snippet tier (avg 3 variants, min mode). Chat: C=+70% M=+43% [5% to 63%] U=+50% FAIL | Snippet: C=+44% M=+6% [-21% to 21%] U=+9% PASS | Prompt: C=-3% M=-26% [-49% to 6%] U=-24% PASS | System: C=-21% M=-35% [-45% to -25%] U=-34% PASS | Enterprise: C=-7% M=-30% [-44% to -17%] U=-29% PASS | Platform: C=+9% M=-23% [-30% to -19%] U=-21% PASS | Knowledge: C=+15% M=-20% [-32% to -14%] U=-17% PASS"
+    },
+    {
+      "id": "retry-cost-amplification",
+      "name": "Retry Cost Amplification (Enterprise, Min, 3 variants)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "net_savings_with_retries",
+        "value": 46,
+        "unit": "% savings (positive = YON cheaper)",
+        "comparison": {
+          "baseline": 43,
+          "baselineLabel": "Prose retry rate (%)",
+          "delta": "Prose retries 43% vs break-even -23%"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "verbose_yon_min_tokens",
+          "value": 2031,
+          "unit": "tokens"
+        },
+        {
+          "name": "clean_yon_min_tokens",
+          "value": 1426,
+          "unit": "tokens"
+        },
+        {
+          "name": "mixed_yon_min_tokens",
+          "value": 1841,
+          "unit": "tokens"
+        },
+        {
+          "name": "verbose_prose_tokens",
+          "value": 3655,
+          "unit": "tokens"
+        },
+        {
+          "name": "clean_prose_tokens",
+          "value": 2012,
+          "unit": "tokens"
+        },
+        {
+          "name": "mixed_prose_tokens",
+          "value": 2220,
+          "unit": "tokens"
+        },
+        {
+          "name": "avg_yon_min_tokens",
+          "value": 1766,
+          "unit": "tokens (avg)"
+        },
+        {
+          "name": "avg_prose_tokens",
+          "value": 2629,
+          "unit": "tokens (avg)"
+        },
+        {
+          "name": "token_savings_pct",
+          "value": 33,
+          "unit": "% savings vs prose (avg, positive = YON smaller)"
+        },
+        {
+          "name": "variants_count",
+          "value": 3,
+          "unit": "variants"
+        },
+        {
+          "name": "yon_avg_retries",
+          "value": 0.149,
+          "unit": "retries/call"
+        },
+        {
+          "name": "prose_avg_retries",
+          "value": 0.429,
+          "unit": "retries/call"
+        },
+        {
+          "name": "yon_total_cost_1m",
+          "value": 5074.71,
+          "unit": "$/1M calls"
+        },
+        {
+          "name": "prose_total_cost_1m",
+          "value": 9389.29,
+          "unit": "$/1M calls"
+        },
+        {
+          "name": "break_even_retry_rate",
+          "value": -23,
+          "unit": "%"
+        }
+      ],
+      "detail": "Enterprise (avg 3 variants, min format). YON: 1766 tok, Prose: 2629 tok (33% savings). Net cost savings with retries: 46%. Break-even: prose needs ≥-23% retries."
+    },
+    {
+      "id": "multi-turn-context-cost",
+      "name": "Multi-Turn Context Cost (Enterprise, Min, 3 variants avg)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "savings_vs_prose_5_turn",
+        "value": 28,
+        "unit": "% savings at 5 turns (positive = YON cheaper)",
+        "comparison": {
+          "baseline": 37862.5,
+          "baselineLabel": "Prose cost ($/1M 5-turn sessions)",
+          "delta": "28% savings at 5 turns, 24% at 10 turns"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "verbose_yon_base_tokens",
+          "value": 2031,
+          "unit": "tokens/turn"
+        },
+        {
+          "name": "clean_yon_base_tokens",
+          "value": 1426,
+          "unit": "tokens/turn"
+        },
+        {
+          "name": "mixed_yon_base_tokens",
+          "value": 1841,
+          "unit": "tokens/turn"
+        },
+        {
+          "name": "verbose_prose_base_tokens",
+          "value": 3655,
+          "unit": "tokens/turn"
+        },
+        {
+          "name": "clean_prose_base_tokens",
+          "value": 2012,
+          "unit": "tokens/turn"
+        },
+        {
+          "name": "mixed_prose_base_tokens",
+          "value": 2220,
+          "unit": "tokens/turn"
+        },
+        {
+          "name": "savings_1t",
+          "value": 33,
+          "unit": "% savings"
+        },
+        {
+          "name": "savings_3t",
+          "value": 31,
+          "unit": "% savings"
+        },
+        {
+          "name": "savings_5t",
+          "value": 28,
+          "unit": "% savings"
+        },
+        {
+          "name": "savings_10t",
+          "value": 24,
+          "unit": "% savings"
+        },
+        {
+          "name": "avg_base_token_savings",
+          "value": 33,
+          "unit": "% savings vs prose/turn"
+        },
+        {
+          "name": "variants_count",
+          "value": 3,
+          "unit": "variants"
+        }
+      ],
+      "detail": "1T: YON=1766tok Prose=2629tok (33% savings). 3T: YON=5898tok Prose=8487tok (31% savings). 5T: YON=10830tok Prose=15145tok (28% savings). 10T: YON=26660tok Prose=35290tok (24% savings)."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 6232.1235000000015
+  },
+  "timestamp": "2026-03-21T19:45:06.646Z"
+}

@@ -1,0 +1,98 @@
+{
+  "suiteId": "streaming-fault-boundary",
+  "suiteName": "Streaming Fault Boundary",
+  "pillar": "streaming",
+  "tests": [
+    {
+      "id": "fault-single-line",
+      "name": "Single Line Corruption → N-1 Recovery",
+      "passed": true,
+      "metric": {
+        "name": "fault_recovery_rate",
+        "value": 99.9,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "data_records_recovered",
+          "value": 999,
+          "unit": "records"
+        },
+        {
+          "name": "error_events_count",
+          "value": 1,
+          "unit": "errors"
+        },
+        {
+          "name": "corrupt_lines",
+          "value": 1,
+          "unit": "lines"
+        }
+      ],
+      "detail": "Corrupted 1 of 1000 data lines (index 500). Recovered: 999/1000 data records (99.9%). Error events: 1. Line independence: a corrupt line costs exactly one record."
+    },
+    {
+      "id": "fault-multi-point",
+      "name": "5-Point Corruption → N-5 Recovery",
+      "passed": true,
+      "metric": {
+        "name": "fault_recovery_rate",
+        "value": 99.5,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "data_records_recovered",
+          "value": 995,
+          "unit": "records"
+        },
+        {
+          "name": "error_events_count",
+          "value": 5,
+          "unit": "errors"
+        },
+        {
+          "name": "corrupt_lines",
+          "value": 5,
+          "unit": "lines"
+        }
+      ],
+      "detail": "Corrupted 5 data lines at indices [50, 200, 500, 750, 950]. Recovered: 995/1000 data records (99.5%). Error events: 5. Each fault costs exactly one record."
+    },
+    {
+      "id": "fault-boundary-isolation",
+      "name": "Fault Boundary Isolation — Adjacent Records Intact",
+      "passed": true,
+      "metric": {
+        "name": "fault_isolation",
+        "value": 1,
+        "unit": "pass/fail"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "before_intact",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "after_intact",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "corrupt_absent",
+          "value": 1,
+          "unit": "bool"
+        }
+      ],
+      "detail": "Corruption at index 500. Record 499 (before): INTACT. Record 500 (corrupt): CORRECTLY ABSENT. Record 501 (after): INTACT. Fault boundary is exactly one line — no cascade."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 6.449899999999616
+  },
+  "timestamp": "2026-03-23T01:27:36.439Z"
+}

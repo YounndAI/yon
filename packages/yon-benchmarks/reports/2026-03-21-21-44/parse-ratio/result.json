@@ -1,0 +1,261 @@
+{
+  "suiteId": "parse-ratio",
+  "suiteName": "Parse Ratio (YON vs JSON.parse)",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "scale-ratio",
+      "name": "Parse Ratio at Scale (8 sizes)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_json_ratio_20rec",
+        "value": 1.61,
+        "unit": "x (vs JSON.parse)",
+        "comparison": {
+          "baseline": 1,
+          "baselineLabel": "JSON.parse = 1.0x",
+          "delta": "1rec: 3.97x, 5rec: 2.29x, 10rec: 2.86x, 20rec: 1.61x, 50rec: 2.65x, 100rec: 2.45x, 200rec: 2.67x, 500rec: 2.24x"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "ratio_at_1",
+          "value": 3.97,
+          "unit": "x"
+        },
+        {
+          "name": "yon_ms_at_1",
+          "value": 0.003,
+          "unit": "ms"
+        },
+        {
+          "name": "json_ms_at_1",
+          "value": 0.0007,
+          "unit": "ms"
+        },
+        {
+          "name": "ratio_at_5",
+          "value": 2.29,
+          "unit": "x"
+        },
+        {
+          "name": "yon_ms_at_5",
+          "value": 0.0042,
+          "unit": "ms"
+        },
+        {
+          "name": "json_ms_at_5",
+          "value": 0.0018,
+          "unit": "ms"
+        },
+        {
+          "name": "ratio_at_10",
+          "value": 2.86,
+          "unit": "x"
+        },
+        {
+          "name": "yon_ms_at_10",
+          "value": 0.0091,
+          "unit": "ms"
+        },
+        {
+          "name": "json_ms_at_10",
+          "value": 0.0032,
+          "unit": "ms"
+        },
+        {
+          "name": "ratio_at_20",
+          "value": 1.61,
+          "unit": "x"
+        },
+        {
+          "name": "yon_ms_at_20",
+          "value": 0.0144,
+          "unit": "ms"
+        },
+        {
+          "name": "json_ms_at_20",
+          "value": 0.009,
+          "unit": "ms"
+        },
+        {
+          "name": "ratio_at_50",
+          "value": 2.65,
+          "unit": "x"
+        },
+        {
+          "name": "yon_ms_at_50",
+          "value": 0.0397,
+          "unit": "ms"
+        },
+        {
+          "name": "json_ms_at_50",
+          "value": 0.015,
+          "unit": "ms"
+        },
+        {
+          "name": "ratio_at_100",
+          "value": 2.45,
+          "unit": "x"
+        },
+        {
+          "name": "yon_ms_at_100",
+          "value": 0.0738,
+          "unit": "ms"
+        },
+        {
+          "name": "json_ms_at_100",
+          "value": 0.0301,
+          "unit": "ms"
+        },
+        {
+          "name": "ratio_at_200",
+          "value": 2.67,
+          "unit": "x"
+        },
+        {
+          "name": "yon_ms_at_200",
+          "value": 0.1659,
+          "unit": "ms"
+        },
+        {
+          "name": "json_ms_at_200",
+          "value": 0.0621,
+          "unit": "ms"
+        },
+        {
+          "name": "ratio_at_500",
+          "value": 2.24,
+          "unit": "x"
+        },
+        {
+          "name": "yon_ms_at_500",
+          "value": 0.3536,
+          "unit": "ms"
+        },
+        {
+          "name": "json_ms_at_500",
+          "value": 0.1578,
+          "unit": "ms"
+        }
+      ],
+      "detail": "1 records: 3.97x (YON 0.0030ms, JSON 0.0007ms). 5 records: 2.29x (YON 0.0042ms, JSON 0.0018ms). 10 records: 2.86x (YON 0.0091ms, JSON 0.0032ms). 20 records: 1.61x (YON 0.0144ms, JSON 0.0090ms). 50 records: 2.65x (YON 0.0397ms, JSON 0.0150ms). 100 records: 2.45x (YON 0.0738ms, JSON 0.0301ms). 200 records: 2.67x (YON 0.1659ms, JSON 0.0621ms). 500 records: 2.24x (YON 0.3536ms, JSON 0.1578ms)"
+    },
+    {
+      "id": "convergence-point",
+      "name": "Ratio Convergence Point (< 2x)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "convergence_records",
+        "value": 1,
+        "unit": "records"
+      },
+      "detail": "Ratio drops below 2x at 1 records (1.76x). Smaller documents have higher fixed overhead (parser init, @DOC header)."
+    },
+    {
+      "id": "production-ratio",
+      "name": "Production Ratio (≥50 records avg)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "avg_production_ratio",
+        "value": 2.3,
+        "unit": "x (vs JSON.parse)",
+        "comparison": {
+          "baseline": 1,
+          "baselineLabel": "JSON.parse = 1.0x",
+          "delta": "Average across 4 sizes (50, 100, 200, 500 records)"
+        }
+      },
+      "detail": "At production scale (≥50 records), YON parse averages 2.30x vs JSON.parse. Previous baseline (pre-fused parser): ~9x. Improvement: 3.9x faster."
+    },
+    {
+      "id": "streaming-overhead",
+      "name": "Streaming Overhead vs Batch",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "avg_streaming_overhead",
+        "value": 1.27,
+        "unit": "x (stream/batch)",
+        "comparison": {
+          "baseline": 1,
+          "baselineLabel": "Batch = 1.0x",
+          "delta": "10rec: 1.94x, 50rec: 1.10x, 100rec: 1.08x, 200rec: 0.95x"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "batch_ms_10",
+          "value": 0.0075,
+          "unit": "ms"
+        },
+        {
+          "name": "stream_ms_10",
+          "value": 0.0146,
+          "unit": "ms"
+        },
+        {
+          "name": "overhead_10",
+          "value": 1.94,
+          "unit": "x"
+        },
+        {
+          "name": "batch_ms_50",
+          "value": 0.0345,
+          "unit": "ms"
+        },
+        {
+          "name": "stream_ms_50",
+          "value": 0.0381,
+          "unit": "ms"
+        },
+        {
+          "name": "overhead_50",
+          "value": 1.1,
+          "unit": "x"
+        },
+        {
+          "name": "batch_ms_100",
+          "value": 0.0673,
+          "unit": "ms"
+        },
+        {
+          "name": "stream_ms_100",
+          "value": 0.0724,
+          "unit": "ms"
+        },
+        {
+          "name": "overhead_100",
+          "value": 1.08,
+          "unit": "x"
+        },
+        {
+          "name": "batch_ms_200",
+          "value": 0.1493,
+          "unit": "ms"
+        },
+        {
+          "name": "stream_ms_200",
+          "value": 0.1418,
+          "unit": "ms"
+        },
+        {
+          "name": "overhead_200",
+          "value": 0.95,
+          "unit": "x"
+        }
+      ],
+      "detail": "Streaming parser averages 1.27x overhead over batch. Both use parseRecordDirect() — overhead is line-buffering and event dispatch. 10 records: batch 0.0075ms, stream 0.0146ms (1.94x). 50 records: batch 0.0345ms, stream 0.0381ms (1.10x). 100 records: batch 0.0673ms, stream 0.0724ms (1.08x). 200 records: batch 0.1493ms, stream 0.1418ms (0.95x)"
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "durationMs": 1975.7599
+  },
+  "timestamp": "2026-03-21T19:44:51.404Z"
+}

@@ -1,0 +1,93 @@
+{
+  "suiteId": "parser-conformance",
+  "suiteName": "Parser Conformance",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "conformance-parse-rate",
+      "name": "Conformance Parse Rate",
+      "passed": true,
+      "metric": {
+        "name": "parse_pass_rate",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "vectors_passed",
+          "value": 140,
+          "unit": "/140"
+        },
+        {
+          "name": "vectors_failed",
+          "value": 0,
+          "unit": "vectors"
+        },
+        {
+          "name": "duration",
+          "value": 17.88,
+          "unit": "ms"
+        }
+      ],
+      "detail": "All 140 conformance vectors parsed correctly. Parser handles all edge cases."
+    },
+    {
+      "id": "conformance-validation-rate",
+      "name": "Conformance Validation Rate",
+      "passed": true,
+      "metric": {
+        "name": "strict_pass_rate",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "strict_passed",
+          "value": 134,
+          "unit": "/134"
+        },
+        {
+          "name": "lenient_passed",
+          "value": 132,
+          "unit": "/134"
+        },
+        {
+          "name": "lenient_rate",
+          "value": 98.5,
+          "unit": "%"
+        },
+        {
+          "name": "duration",
+          "value": 14.08,
+          "unit": "ms"
+        }
+      ],
+      "detail": "All 134 parseable vectors pass both strict and lenient validation."
+    },
+    {
+      "id": "conformance-domain-coverage",
+      "name": "Domain Coverage",
+      "passed": true,
+      "metric": {
+        "name": "domains_covered",
+        "value": 34,
+        "unit": "domains"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "total_vectors",
+          "value": 140,
+          "unit": "vectors"
+        }
+      ],
+      "detail": "34 domains covered: agent, agentic, block, boundary, cognitive, compose, delta, dialogue, error, financial, format, i18n, ide, identity, legal, lexical, list, mcp, medical, memory, modal, privacy, profile, provenance, runner, sec, security, session, shorthand, stream, tool, ultra, version, workflow. Vectors span financial, medical, legal, IDE, lexical, format, profile, and utility domains."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 34.62889999999993
+  },
+  "timestamp": "2026-03-21T22:11:51.991Z"
+}

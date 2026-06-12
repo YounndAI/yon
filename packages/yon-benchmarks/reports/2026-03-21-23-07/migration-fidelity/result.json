@@ -1,0 +1,25 @@
+{
+  "suiteId": "migration-fidelity",
+  "suiteName": "Migration Fidelity",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "legacy-compatibility",
+      "name": "Version 1.5 Compatibility",
+      "passed": true,
+      "metric": {
+        "name": "records_parsed",
+        "value": 4,
+        "unit": "records"
+      },
+      "detail": "Parsed v1.5 document successfully. Version metadata preserved: true."
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "durationMs": 0.0727999999999156
+  },
+  "timestamp": "2026-03-21T21:07:02.229Z"
+}

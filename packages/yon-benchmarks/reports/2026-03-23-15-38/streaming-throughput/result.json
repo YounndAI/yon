@@ -1,0 +1,67 @@
+{
+  "suiteId": "streaming-throughput",
+  "suiteName": "Streaming Throughput",
+  "pillar": "streaming",
+  "tests": [
+    {
+      "id": "sustained-throughput-100k",
+      "name": "Sustained Throughput (100K Records)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "sustained_throughput_ops",
+        "value": 808021,
+        "unit": "records/sec"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "total_duration",
+          "value": 123.76,
+          "unit": "ms"
+        },
+        {
+          "name": "first_batch_ops",
+          "value": 542461,
+          "unit": "records/sec"
+        },
+        {
+          "name": "last_batch_ops",
+          "value": 858494,
+          "unit": "records/sec"
+        }
+      ],
+      "detail": "100,000 records streamed at 808,021 records/sec. Duration: 123.8ms. First 10K batch: 542,461 ops/s. Last 10K batch: 858,494 ops/s."
+    },
+    {
+      "id": "throughput-stability",
+      "name": "Throughput Stability (First vs Last 10K)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "throughput_stability_ratio",
+        "value": 1.35,
+        "unit": "ratio"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "first_10k_ops",
+          "value": 616162,
+          "unit": "records/sec"
+        },
+        {
+          "name": "last_10k_ops",
+          "value": 833625,
+          "unit": "records/sec"
+        }
+      ],
+      "detail": "Last-batch/first-batch ratio: 1.35. First 10K: 616,162 ops/s. Last 10K: 833,625 ops/s. Ratio > 0.8 proves O(1) throughput — no degradation at scale."
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "durationMs": 875.5301
+  },
+  "timestamp": "2026-03-23T13:38:31.130Z"
+}

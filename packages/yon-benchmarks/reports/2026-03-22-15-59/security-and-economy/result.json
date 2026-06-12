@@ -1,0 +1,25 @@
+{
+  "suiteId": "security-and-economy",
+  "suiteName": "Security",
+  "pillar": "lossless",
+  "tests": [
+    {
+      "id": "prompt-injection",
+      "name": "Injection Resilience",
+      "passed": true,
+      "metric": {
+        "name": "records_parsed",
+        "value": 2,
+        "unit": "records"
+      },
+      "detail": "Parsed input with embedded newline and @TAG. Result: 2 record(s). Injection contained within string boundaries."
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "durationMs": 0.05749999999989086
+  },
+  "timestamp": "2026-03-22T13:59:09.162Z"
+}

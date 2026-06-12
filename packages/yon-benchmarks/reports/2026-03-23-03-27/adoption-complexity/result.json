@@ -1,0 +1,76 @@
+{
+  "suiteId": "adoption-complexity",
+  "suiteName": "Adoption Complexity",
+  "pillar": "cognitive-economy",
+  "tests": [
+    {
+      "id": "adoption-minimal-valid-doc",
+      "name": "Minimal Valid Document",
+      "passed": true,
+      "metric": {
+        "name": "yon_tokens",
+        "value": 6,
+        "unit": "tokens",
+        "comparison": {
+          "baseline": 6,
+          "baselineLabel": "JSON tokens",
+          "delta": "YON: 6 | JSON: 6 | YAML: 6"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_lines",
+          "value": 1,
+          "unit": "lines"
+        },
+        {
+          "name": "json_lines",
+          "value": 1,
+          "unit": "lines"
+        },
+        {
+          "name": "yaml_lines",
+          "value": 3,
+          "unit": "lines"
+        }
+      ],
+      "detail": "Smallest valid doc: YON=6 tokens (1 line), JSON=6 tokens (1 line), YAML=6 tokens (3 lines). YON parses successfully: true."
+    },
+    {
+      "id": "adoption-starter-surface",
+      "name": "Starter Surface (3 Tags)",
+      "passed": true,
+      "metric": {
+        "name": "operation_success",
+        "value": 4,
+        "unit": "/4"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "tags_used",
+          "value": 4,
+          "unit": "unique tags"
+        }
+      ],
+      "detail": "Starter set: DOC, NOTE, RULE, SEC. Parse: true. Validate: true. Convert: true. Format: true. Only starter tags: true. Score: 4/4."
+    },
+    {
+      "id": "adoption-progressive-complexity",
+      "name": "Progressive Complexity",
+      "passed": true,
+      "metric": {
+        "name": "valid_increments",
+        "value": 7,
+        "unit": "/7"
+      },
+      "detail": "7 incremental additions, each independently valid: @DOC (base): ✓, +@NOTE: ✓, +@SEC: ✓, +@RULE: ✓, +@MAP: ✓, +@CFG: ✓, +@META: ✓. All valid: true."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 1.1762999999991735
+  },
+  "timestamp": "2026-03-23T01:27:46.070Z"
+}

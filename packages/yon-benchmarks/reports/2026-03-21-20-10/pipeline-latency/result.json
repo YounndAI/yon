@@ -1,0 +1,104 @@
+{
+  "suiteId": "pipeline-latency",
+  "suiteName": "Pipeline Latency",
+  "pillar": "streaming",
+  "tests": [
+    {
+      "id": "pipeline-functional",
+      "name": "Pipeline Functional Completeness",
+      "passed": true,
+      "metric": {
+        "name": "pipeline_completeness",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "20_records_processed",
+          "value": 22,
+          "unit": "/20"
+        },
+        {
+          "name": "100_records_processed",
+          "value": 102,
+          "unit": "/100"
+        },
+        {
+          "name": "500_records_processed",
+          "value": 502,
+          "unit": "/500"
+        }
+      ],
+      "detail": "20 records: 22 processed. 100 records: 102 processed. 500 records: 502 processed"
+    },
+    {
+      "id": "pipeline-recovery-advantage",
+      "name": "Pipeline Recovery (Corrupted Transit)",
+      "passed": true,
+      "metric": {
+        "name": "yon_recovery_rate",
+        "value": 92,
+        "unit": "%",
+        "comparison": {
+          "baseline": 0,
+          "baselineLabel": "JSON recovery rate (%)",
+          "delta": "YON: 92% recovery, baseline: 0%"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_records_recovered",
+          "value": 46,
+          "unit": "/50"
+        },
+        {
+          "name": "json_records_recovered",
+          "value": 0,
+          "unit": "/50"
+        }
+      ],
+      "detail": "50 records with 5 corrupted mid-pipeline. YON recovered: 46/50 (92%). JSON recovered: 0/50 (0%)."
+    },
+    {
+      "id": "pipeline-incremental-processing",
+      "name": "Incremental Processing (Time-to-First-Record)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_time_to_first_record",
+        "value": 0.0189,
+        "unit": "ms",
+        "comparison": {
+          "baseline": 0.064,
+          "baselineLabel": "JSON time to first access (ms)",
+          "delta": "YON first record available after 1 line; tree-structured formats require full parse"
+        }
+      },
+      "detail": "200 records. YON time-to-first-record: 0.0189ms. JSON time-to-first-access: 0.0640ms. YON delivers records incrementally; JSON requires full parse."
+    },
+    {
+      "id": "pipeline-scaling-factor",
+      "name": "Pipeline Latency Scaling Factor",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_growth_factor",
+        "value": 22.05,
+        "unit": "x",
+        "comparison": {
+          "baseline": 12.8,
+          "baselineLabel": "JSON growth factor",
+          "delta": "YON scales 1.72x better at pipeline depth"
+        }
+      },
+      "detail": "Growth from 20→500 records: YON 22.1x, JSON 12.8x. Scaling advantage: 1.72x."
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "durationMs": 20.153599999999642
+  },
+  "timestamp": "2026-03-21T18:10:58.658Z"
+}

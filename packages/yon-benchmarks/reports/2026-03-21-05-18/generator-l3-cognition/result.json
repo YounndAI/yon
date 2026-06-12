@@ -1,0 +1,126 @@
+{
+  "suiteId": "generator-l3-cognition",
+  "suiteName": "Generator L3 Cognition",
+  "pillar": "emitter-faithfulness",
+  "tests": [
+    {
+      "id": "l3-reasoning-chain",
+      "name": "L3 Reasoning Chain",
+      "passed": true,
+      "metric": {
+        "name": "valid",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "validate_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.56,
+          "unit": "ms"
+        }
+      ],
+      "detail": "@THOUGHT(merges[]) → @HYPOTHESIS × 2 → @DECISION(alternatives[], trace[]) → @PRUNE. Array fields validated."
+    },
+    {
+      "id": "l3-memory-pipeline",
+      "name": "L3 Memory Pipeline",
+      "passed": true,
+      "metric": {
+        "name": "valid",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "validate_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.13,
+          "unit": "ms"
+        }
+      ],
+      "detail": "@PULSE → @OBSERVATION → @IMPRINT → @MEMORY → @SHARD(sources[]) → @MARK(refs[], tags[]). Full 5-stage pipeline validated."
+    },
+    {
+      "id": "l3-perception-goals",
+      "name": "L3 Perception & Goals",
+      "passed": true,
+      "metric": {
+        "name": "valid",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "validate_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.08,
+          "unit": "ms"
+        }
+      ],
+      "detail": "@PERCEPT(labels[]) → @FOCUS(targets[], anonymous — no rid) → @GOAL with parent hierarchy. Anonymous records handled."
+    },
+    {
+      "id": "l3-self-awareness",
+      "name": "L3 Self-Awareness & Affect",
+      "passed": true,
+      "metric": {
+        "name": "valid",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "validate_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.1,
+          "unit": "ms"
+        }
+      ],
+      "detail": "@REFLECTION → @INTROSPECT → @ESSENCE(weight:int=7) → @AFFECT(anonymous) → @LEARN. Numeric suffix and anonymous record verified."
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "durationMs": 1.038300000000163
+  },
+  "timestamp": "2026-03-21T03:18:40.396Z"
+}

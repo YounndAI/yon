@@ -1,0 +1,75 @@
+{
+  "suiteId": "structural-reliability",
+  "suiteName": "Structural Reliability",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "partial-corruption-survival",
+      "name": "Partial Corruption Survival",
+      "passed": true,
+      "metric": {
+        "name": "recovery_rate",
+        "value": 98.1,
+        "unit": "%",
+        "comparison": {
+          "baseline": 0,
+          "baselineLabel": "JSON",
+          "delta": "+98%"
+        }
+      },
+      "detail": "51/52 records recovered. 1 record lost (the corruption source). JSON: 0% recovered (entire document invalidated)."
+    },
+    {
+      "id": "block-integrity",
+      "name": "Block Integrity",
+      "passed": true,
+      "metric": {
+        "name": "blocks_preserved",
+        "value": 5,
+        "unit": "/5 blocks",
+        "comparison": {
+          "baseline": 141,
+          "baselineLabel": "JSON escapes needed",
+          "delta": "0 vs 141"
+        }
+      },
+      "detail": "5/5 blocks preserved verbatim. YON: 0 escapes. JSON equivalent: 141 escapes."
+    },
+    {
+      "id": "type-preservation",
+      "name": "Type Preservation",
+      "passed": true,
+      "metric": {
+        "name": "types_preserved",
+        "value": 92,
+        "unit": "%"
+      },
+      "detail": "23/25 records survived YON→JSON→YON roundtrip. (2 metadata records dropped by design: @NOTE/@STAMP not supported in JSON)."
+    },
+    {
+      "id": "large-document-stability",
+      "name": "Large Document Stability",
+      "passed": true,
+      "metric": {
+        "name": "records_parsed",
+        "value": 511,
+        "unit": "records"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_time",
+          "value": 1.98,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Parsed 511 records in 2.0ms. No truncation."
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "durationMs": 7.5306999999999675
+  },
+  "timestamp": "2026-03-22T13:59:06.634Z"
+}

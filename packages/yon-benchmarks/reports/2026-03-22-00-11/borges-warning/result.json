@@ -1,0 +1,4375 @@
+{
+  "suiteId": "borges-warning",
+  "suiteName": "Borges Warning (Cognitive Bias)",
+  "pillar": "sapir-whorf",
+  "tests": [
+    {
+      "id": "yon-best-practice-gpt4o-mini",
+      "name": "YON Best-Practice (@RULE/@MAP) [GPT-4o-mini]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_best_practice_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "yon-best-practice"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 13735,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o-mini × YON Best-Practice (@RULE/@MAP): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "yon-best-practice-gpt5-mini",
+      "name": "YON Best-Practice (@RULE/@MAP) [GPT-5-mini]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_best_practice_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "yon-best-practice"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 13735,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-5-mini × YON Best-Practice (@RULE/@MAP): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "yon-best-practice-gpt4o",
+      "name": "YON Best-Practice (@RULE/@MAP) [GPT-4o]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_best_practice_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "yon-best-practice"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 13735,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o × YON Best-Practice (@RULE/@MAP): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "yon-best-practice-gpt41",
+      "name": "YON Best-Practice (@RULE/@MAP) [GPT-4.1]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_best_practice_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4.1"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "yon-best-practice"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 13735,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4.1 × YON Best-Practice (@RULE/@MAP): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "yon-best-practice-claude-haiku",
+      "name": "YON Best-Practice (@RULE/@MAP) [Claude Haiku 4.5]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_best_practice_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "yon-best-practice"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 13735,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 × YON Best-Practice (@RULE/@MAP): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "yon-best-practice-gemini-flash",
+      "name": "YON Best-Practice (@RULE/@MAP) [Gemini 2.5 Flash]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_best_practice_bias_index",
+        "value": 0,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "yon-best-practice"
+        },
+        {
+          "name": "rule_salient",
+          "value": 0,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 1,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 4,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 13735,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash × YON Best-Practice (@RULE/@MAP): 0 rule, 1 metric. Bias: 0%."
+    },
+    {
+      "id": "yon-best-practice-gemini3-flash",
+      "name": "YON Best-Practice (@RULE/@MAP) [Gemini 3 Flash]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_best_practice_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 3 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "yon-best-practice"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 13735,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Gemini 3 Flash × YON Best-Practice (@RULE/@MAP): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "yon-enforcement-gpt4o-mini",
+      "name": "YON Enforcement (@MAP/@RULE/@CHECK) [GPT-4o-mini]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_enforcement_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "yon-enforcement"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15076,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o-mini × YON Enforcement (@MAP/@RULE/@CHECK): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "yon-enforcement-gpt5-mini",
+      "name": "YON Enforcement (@MAP/@RULE/@CHECK) [GPT-5-mini]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_enforcement_bias_index",
+        "value": 50,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "yon-enforcement"
+        },
+        {
+          "name": "rule_salient",
+          "value": 0,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 0,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 5,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15076,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-5-mini × YON Enforcement (@MAP/@RULE/@CHECK): 0 rule, 0 metric. Bias: 50%."
+    },
+    {
+      "id": "yon-enforcement-gpt4o",
+      "name": "YON Enforcement (@MAP/@RULE/@CHECK) [GPT-4o]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_enforcement_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "yon-enforcement"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15076,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o × YON Enforcement (@MAP/@RULE/@CHECK): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "yon-enforcement-gpt41",
+      "name": "YON Enforcement (@MAP/@RULE/@CHECK) [GPT-4.1]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_enforcement_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4.1"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "yon-enforcement"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15076,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4.1 × YON Enforcement (@MAP/@RULE/@CHECK): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "yon-enforcement-claude-haiku",
+      "name": "YON Enforcement (@MAP/@RULE/@CHECK) [Claude Haiku 4.5]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_enforcement_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "yon-enforcement"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15076,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 × YON Enforcement (@MAP/@RULE/@CHECK): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "yon-enforcement-gemini-flash",
+      "name": "YON Enforcement (@MAP/@RULE/@CHECK) [Gemini 2.5 Flash]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_enforcement_bias_index",
+        "value": 50,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "yon-enforcement"
+        },
+        {
+          "name": "rule_salient",
+          "value": 1,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 1,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 3,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15076,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash × YON Enforcement (@MAP/@RULE/@CHECK): 1 rule, 1 metric. Bias: 50%."
+    },
+    {
+      "id": "yon-enforcement-gemini3-flash",
+      "name": "YON Enforcement (@MAP/@RULE/@CHECK) [Gemini 3 Flash]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_enforcement_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 3 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "yon-enforcement"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15076,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Gemini 3 Flash × YON Enforcement (@MAP/@RULE/@CHECK): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "structured-markdown-gpt4o-mini",
+      "name": "Structured Markdown (##, bullets) [GPT-4o-mini]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "structured_md_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "structured-markdown"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15558,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o-mini × Structured Markdown (##, bullets): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "structured-markdown-gpt5-mini",
+      "name": "Structured Markdown (##, bullets) [GPT-5-mini]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "structured_md_bias_index",
+        "value": 33,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "structured-markdown"
+        },
+        {
+          "name": "rule_salient",
+          "value": 1,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 2,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 2,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15558,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-5-mini × Structured Markdown (##, bullets): 1 rule, 2 metric. Bias: 33%."
+    },
+    {
+      "id": "structured-markdown-gpt4o",
+      "name": "Structured Markdown (##, bullets) [GPT-4o]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "structured_md_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "structured-markdown"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15558,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o × Structured Markdown (##, bullets): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "structured-markdown-gpt41",
+      "name": "Structured Markdown (##, bullets) [GPT-4.1]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "structured_md_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4.1"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "structured-markdown"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15558,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4.1 × Structured Markdown (##, bullets): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "structured-markdown-claude-haiku",
+      "name": "Structured Markdown (##, bullets) [Claude Haiku 4.5]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "structured_md_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "structured-markdown"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15558,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 × Structured Markdown (##, bullets): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "structured-markdown-gemini-flash",
+      "name": "Structured Markdown (##, bullets) [Gemini 2.5 Flash]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "structured_md_bias_index",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "structured-markdown"
+        },
+        {
+          "name": "rule_salient",
+          "value": 1,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 0,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 4,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15558,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash × Structured Markdown (##, bullets): 1 rule, 0 metric. Bias: 100%."
+    },
+    {
+      "id": "structured-markdown-gemini3-flash",
+      "name": "Structured Markdown (##, bullets) [Gemini 3 Flash]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "structured_md_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 3 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "structured-markdown"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15558,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Gemini 3 Flash × Structured Markdown (##, bullets): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "unstructured-prose-gpt4o-mini",
+      "name": "Unstructured Prose (plain text) [GPT-4o-mini]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "unstructured_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-prose"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 14089,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o-mini × Unstructured Prose (plain text): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "unstructured-prose-gpt5-mini",
+      "name": "Unstructured Prose (plain text) [GPT-5-mini]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "unstructured_bias_index",
+        "value": 50,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-prose"
+        },
+        {
+          "name": "rule_salient",
+          "value": 0,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 0,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 5,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 14089,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-5-mini × Unstructured Prose (plain text): 0 rule, 0 metric. Bias: 50%."
+    },
+    {
+      "id": "unstructured-prose-gpt4o",
+      "name": "Unstructured Prose (plain text) [GPT-4o]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "unstructured_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-prose"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 14089,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o × Unstructured Prose (plain text): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "unstructured-prose-gpt41",
+      "name": "Unstructured Prose (plain text) [GPT-4.1]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "unstructured_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4.1"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-prose"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 14089,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4.1 × Unstructured Prose (plain text): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "unstructured-prose-claude-haiku",
+      "name": "Unstructured Prose (plain text) [Claude Haiku 4.5]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "unstructured_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-prose"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 14089,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 × Unstructured Prose (plain text): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "unstructured-prose-gemini-flash",
+      "name": "Unstructured Prose (plain text) [Gemini 2.5 Flash]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "unstructured_bias_index",
+        "value": 50,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-prose"
+        },
+        {
+          "name": "rule_salient",
+          "value": 1,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 1,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 3,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 14089,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash × Unstructured Prose (plain text): 1 rule, 1 metric. Bias: 50%."
+    },
+    {
+      "id": "unstructured-prose-gemini3-flash",
+      "name": "Unstructured Prose (plain text) [Gemini 3 Flash]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "unstructured_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 3 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-prose"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 14089,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Gemini 3 Flash × Unstructured Prose (plain text): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "structured-json-gpt4o-mini",
+      "name": "Structured JSON (config schema) [GPT-4o-mini]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "json_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "structured-json"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 12960,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o-mini × Structured JSON (config schema): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "structured-json-gpt5-mini",
+      "name": "Structured JSON (config schema) [GPT-5-mini]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "json_bias_index",
+        "value": 50,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "structured-json"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 2,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 1,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 12960,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-5-mini × Structured JSON (config schema): 2 rule, 2 metric. Bias: 50%."
+    },
+    {
+      "id": "structured-json-gpt4o",
+      "name": "Structured JSON (config schema) [GPT-4o]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "json_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "structured-json"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 12960,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o × Structured JSON (config schema): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "structured-json-gpt41",
+      "name": "Structured JSON (config schema) [GPT-4.1]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "json_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4.1"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "structured-json"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 12960,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4.1 × Structured JSON (config schema): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "structured-json-claude-haiku",
+      "name": "Structured JSON (config schema) [Claude Haiku 4.5]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "json_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "structured-json"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 12960,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 × Structured JSON (config schema): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "structured-json-gemini-flash",
+      "name": "Structured JSON (config schema) [Gemini 2.5 Flash]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "json_bias_index",
+        "value": 25,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "structured-json"
+        },
+        {
+          "name": "rule_salient",
+          "value": 1,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 1,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 12960,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash × Structured JSON (config schema): 1 rule, 3 metric. Bias: 25%."
+    },
+    {
+      "id": "structured-json-gemini3-flash",
+      "name": "Structured JSON (config schema) [Gemini 3 Flash]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "json_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 3 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "structured-json"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 12960,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Gemini 3 Flash × Structured JSON (config schema): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "A-diff-gpt4o-mini",
+      "name": "Payment Differential [GPT-4o-mini]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "a_yon_vs_baseline",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini"
+        },
+        {
+          "name": "yon-best-practice",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "yon-enforcement",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "structured-markdown",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "unstructured-prose",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "structured-json",
+          "value": 40,
+          "unit": "%"
+        }
+      ],
+      "detail": "GPT-4o-mini: YON(40%) vs baseline(40%) = 0pp."
+    },
+    {
+      "id": "A-diff-gpt5-mini",
+      "name": "Payment Differential [GPT-5-mini]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "a_yon_vs_baseline",
+        "value": -10,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-mini"
+        },
+        {
+          "name": "yon-best-practice",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "yon-enforcement",
+          "value": 50,
+          "unit": "%"
+        },
+        {
+          "name": "structured-markdown",
+          "value": 33,
+          "unit": "%"
+        },
+        {
+          "name": "unstructured-prose",
+          "value": 50,
+          "unit": "%"
+        },
+        {
+          "name": "structured-json",
+          "value": 50,
+          "unit": "%"
+        }
+      ],
+      "detail": "GPT-5-mini: YON(40%) vs baseline(50%) = -10pp."
+    },
+    {
+      "id": "A-diff-gpt4o",
+      "name": "Payment Differential [GPT-4o]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "a_yon_vs_baseline",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o"
+        },
+        {
+          "name": "yon-best-practice",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "yon-enforcement",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "structured-markdown",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "unstructured-prose",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "structured-json",
+          "value": 40,
+          "unit": "%"
+        }
+      ],
+      "detail": "GPT-4o: YON(40%) vs baseline(40%) = 0pp."
+    },
+    {
+      "id": "A-diff-gpt41",
+      "name": "Payment Differential [GPT-4.1]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "a_yon_vs_baseline",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4.1"
+        },
+        {
+          "name": "yon-best-practice",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "yon-enforcement",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "structured-markdown",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "unstructured-prose",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "structured-json",
+          "value": 40,
+          "unit": "%"
+        }
+      ],
+      "detail": "GPT-4.1: YON(40%) vs baseline(40%) = 0pp."
+    },
+    {
+      "id": "A-diff-claude-haiku",
+      "name": "Payment Differential [Claude Haiku 4.5]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "a_yon_vs_baseline",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5"
+        },
+        {
+          "name": "yon-best-practice",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "yon-enforcement",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "structured-markdown",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "unstructured-prose",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "structured-json",
+          "value": 40,
+          "unit": "%"
+        }
+      ],
+      "detail": "Claude Haiku 4.5: YON(40%) vs baseline(40%) = 0pp."
+    },
+    {
+      "id": "A-diff-gemini-flash",
+      "name": "Payment Differential [Gemini 2.5 Flash]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "a_yon_vs_baseline",
+        "value": -50,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash"
+        },
+        {
+          "name": "yon-best-practice",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "yon-enforcement",
+          "value": 50,
+          "unit": "%"
+        },
+        {
+          "name": "structured-markdown",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "unstructured-prose",
+          "value": 50,
+          "unit": "%"
+        },
+        {
+          "name": "structured-json",
+          "value": 25,
+          "unit": "%"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash: YON(0%) vs baseline(50%) = -50pp."
+    },
+    {
+      "id": "A-diff-gemini3-flash",
+      "name": "Payment Differential [Gemini 3 Flash]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "a_yon_vs_baseline",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 3 Flash"
+        },
+        {
+          "name": "yon-best-practice",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "yon-enforcement",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "structured-markdown",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "unstructured-prose",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "structured-json",
+          "value": 40,
+          "unit": "%"
+        }
+      ],
+      "detail": "Gemini 3 Flash: YON(40%) vs baseline(40%) = 0pp."
+    },
+    {
+      "id": "multi-domain-yon-gpt4o-mini",
+      "name": "Multi-Domain YON (@RULE/@MAP) [GPT-4o-mini]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_bias_index",
+        "value": 30,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        },
+        {
+          "name": "rule_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 7,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 14862,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o-mini × Multi-Domain YON (@RULE/@MAP): 3 rule, 7 metric. Bias: 30%."
+    },
+    {
+      "id": "multi-domain-yon-gpt5-mini",
+      "name": "Multi-Domain YON (@RULE/@MAP) [GPT-5-mini]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_bias_index",
+        "value": 50,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        },
+        {
+          "name": "rule_salient",
+          "value": 0,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 0,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 10,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 14862,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-5-mini × Multi-Domain YON (@RULE/@MAP): 0 rule, 0 metric. Bias: 50%."
+    },
+    {
+      "id": "multi-domain-yon-gpt4o",
+      "name": "Multi-Domain YON (@RULE/@MAP) [GPT-4o]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_bias_index",
+        "value": 22,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 7,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 1,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 14862,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o × Multi-Domain YON (@RULE/@MAP): 2 rule, 7 metric. Bias: 22%."
+    },
+    {
+      "id": "multi-domain-yon-gpt41",
+      "name": "Multi-Domain YON (@RULE/@MAP) [GPT-4.1]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_bias_index",
+        "value": 22,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4.1"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 7,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 1,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 14862,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4.1 × Multi-Domain YON (@RULE/@MAP): 2 rule, 7 metric. Bias: 22%."
+    },
+    {
+      "id": "multi-domain-yon-claude-haiku",
+      "name": "Multi-Domain YON (@RULE/@MAP) [Claude Haiku 4.5]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_bias_index",
+        "value": 30,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        },
+        {
+          "name": "rule_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 7,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 14862,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 × Multi-Domain YON (@RULE/@MAP): 3 rule, 7 metric. Bias: 30%."
+    },
+    {
+      "id": "multi-domain-yon-gemini-flash",
+      "name": "Multi-Domain YON (@RULE/@MAP) [Gemini 2.5 Flash]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_bias_index",
+        "value": 0,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        },
+        {
+          "name": "rule_salient",
+          "value": 0,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 1,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 9,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 14862,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash × Multi-Domain YON (@RULE/@MAP): 0 rule, 1 metric. Bias: 0%."
+    },
+    {
+      "id": "multi-domain-yon-gemini3-flash",
+      "name": "Multi-Domain YON (@RULE/@MAP) [Gemini 3 Flash]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_bias_index",
+        "value": 33,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 3 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 4,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 4,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 14862,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Gemini 3 Flash × Multi-Domain YON (@RULE/@MAP): 2 rule, 4 metric. Bias: 33%."
+    },
+    {
+      "id": "multi-domain-yon-enforced-gpt4o-mini",
+      "name": "Multi-Domain YON Enforced (@CHECK/@MAP/@RULE) [GPT-4o-mini]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_enforced_bias_index",
+        "value": 30,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-enforced"
+        },
+        {
+          "name": "rule_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 7,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15956,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o-mini × Multi-Domain YON Enforced (@CHECK/@MAP/@RULE): 3 rule, 7 metric. Bias: 30%."
+    },
+    {
+      "id": "multi-domain-yon-enforced-gpt5-mini",
+      "name": "Multi-Domain YON Enforced (@CHECK/@MAP/@RULE) [GPT-5-mini]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_enforced_bias_index",
+        "value": 50,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-enforced"
+        },
+        {
+          "name": "rule_salient",
+          "value": 0,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 0,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 10,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15956,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-5-mini × Multi-Domain YON Enforced (@CHECK/@MAP/@RULE): 0 rule, 0 metric. Bias: 50%."
+    },
+    {
+      "id": "multi-domain-yon-enforced-gpt4o",
+      "name": "Multi-Domain YON Enforced (@CHECK/@MAP/@RULE) [GPT-4o]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_enforced_bias_index",
+        "value": 22,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-enforced"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 7,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 1,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15956,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o × Multi-Domain YON Enforced (@CHECK/@MAP/@RULE): 2 rule, 7 metric. Bias: 22%."
+    },
+    {
+      "id": "multi-domain-yon-enforced-gpt41",
+      "name": "Multi-Domain YON Enforced (@CHECK/@MAP/@RULE) [GPT-4.1]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_enforced_bias_index",
+        "value": 22,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4.1"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-enforced"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 7,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 1,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15956,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4.1 × Multi-Domain YON Enforced (@CHECK/@MAP/@RULE): 2 rule, 7 metric. Bias: 22%."
+    },
+    {
+      "id": "multi-domain-yon-enforced-claude-haiku",
+      "name": "Multi-Domain YON Enforced (@CHECK/@MAP/@RULE) [Claude Haiku 4.5]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_enforced_bias_index",
+        "value": 22,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-enforced"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 7,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 1,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15956,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 × Multi-Domain YON Enforced (@CHECK/@MAP/@RULE): 2 rule, 7 metric. Bias: 22%."
+    },
+    {
+      "id": "multi-domain-yon-enforced-gemini-flash",
+      "name": "Multi-Domain YON Enforced (@CHECK/@MAP/@RULE) [Gemini 2.5 Flash]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_enforced_bias_index",
+        "value": 0,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-enforced"
+        },
+        {
+          "name": "rule_salient",
+          "value": 0,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 1,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 9,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15956,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash × Multi-Domain YON Enforced (@CHECK/@MAP/@RULE): 0 rule, 1 metric. Bias: 0%."
+    },
+    {
+      "id": "multi-domain-yon-enforced-gemini3-flash",
+      "name": "Multi-Domain YON Enforced (@CHECK/@MAP/@RULE) [Gemini 3 Flash]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_enforced_bias_index",
+        "value": 14,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 3 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-enforced"
+        },
+        {
+          "name": "rule_salient",
+          "value": 1,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 6,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 3,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 15956,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Gemini 3 Flash × Multi-Domain YON Enforced (@CHECK/@MAP/@RULE): 1 rule, 6 metric. Bias: 14%."
+    },
+    {
+      "id": "multi-domain-yon-instructed-gpt4o-mini",
+      "name": "Multi-Domain YON + Instructions (winning combo) [GPT-4o-mini]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_instructed_bias_index",
+        "value": 30,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        },
+        {
+          "name": "rule_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 7,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 17824,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o-mini × Multi-Domain YON + Instructions (winning combo): 3 rule, 7 metric. Bias: 30%."
+    },
+    {
+      "id": "multi-domain-yon-instructed-gpt5-mini",
+      "name": "Multi-Domain YON + Instructions (winning combo) [GPT-5-mini]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_instructed_bias_index",
+        "value": 50,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        },
+        {
+          "name": "rule_salient",
+          "value": 1,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 1,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 8,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 17824,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-5-mini × Multi-Domain YON + Instructions (winning combo): 1 rule, 1 metric. Bias: 50%."
+    },
+    {
+      "id": "multi-domain-yon-instructed-gpt4o",
+      "name": "Multi-Domain YON + Instructions (winning combo) [GPT-4o]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_instructed_bias_index",
+        "value": 30,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        },
+        {
+          "name": "rule_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 7,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 17824,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o × Multi-Domain YON + Instructions (winning combo): 3 rule, 7 metric. Bias: 30%."
+    },
+    {
+      "id": "multi-domain-yon-instructed-gpt41",
+      "name": "Multi-Domain YON + Instructions (winning combo) [GPT-4.1]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_instructed_bias_index",
+        "value": 30,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4.1"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        },
+        {
+          "name": "rule_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 7,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 17824,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4.1 × Multi-Domain YON + Instructions (winning combo): 3 rule, 7 metric. Bias: 30%."
+    },
+    {
+      "id": "multi-domain-yon-instructed-claude-haiku",
+      "name": "Multi-Domain YON + Instructions (winning combo) [Claude Haiku 4.5]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_instructed_bias_index",
+        "value": 30,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        },
+        {
+          "name": "rule_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 7,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 17824,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 × Multi-Domain YON + Instructions (winning combo): 3 rule, 7 metric. Bias: 30%."
+    },
+    {
+      "id": "multi-domain-yon-instructed-gemini-flash",
+      "name": "Multi-Domain YON + Instructions (winning combo) [Gemini 2.5 Flash]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_instructed_bias_index",
+        "value": 0,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        },
+        {
+          "name": "rule_salient",
+          "value": 0,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 1,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 9,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 17824,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash × Multi-Domain YON + Instructions (winning combo): 0 rule, 1 metric. Bias: 0%."
+    },
+    {
+      "id": "multi-domain-yon-instructed-gemini3-flash",
+      "name": "Multi-Domain YON + Instructions (winning combo) [Gemini 3 Flash]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "multi_yon_instructed_bias_index",
+        "value": 33,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 3 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 4,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 4,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 17824,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Gemini 3 Flash × Multi-Domain YON + Instructions (winning combo): 2 rule, 4 metric. Bias: 33%."
+    },
+    {
+      "id": "unstructured-dump-gpt4o-mini",
+      "name": "Unstructured Brain Dump (chaotic) [GPT-4o-mini]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "dump_bias_index",
+        "value": 30,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        },
+        {
+          "name": "rule_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 7,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 12886,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o-mini × Unstructured Brain Dump (chaotic): 3 rule, 7 metric. Bias: 30%."
+    },
+    {
+      "id": "unstructured-dump-gpt5-mini",
+      "name": "Unstructured Brain Dump (chaotic) [GPT-5-mini]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "dump_bias_index",
+        "value": 20,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        },
+        {
+          "name": "rule_salient",
+          "value": 1,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 4,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 5,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 12886,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-5-mini × Unstructured Brain Dump (chaotic): 1 rule, 4 metric. Bias: 20%."
+    },
+    {
+      "id": "unstructured-dump-gpt4o",
+      "name": "Unstructured Brain Dump (chaotic) [GPT-4o]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "dump_bias_index",
+        "value": 30,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        },
+        {
+          "name": "rule_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 7,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 12886,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o × Unstructured Brain Dump (chaotic): 3 rule, 7 metric. Bias: 30%."
+    },
+    {
+      "id": "unstructured-dump-gpt41",
+      "name": "Unstructured Brain Dump (chaotic) [GPT-4.1]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "dump_bias_index",
+        "value": 30,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4.1"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        },
+        {
+          "name": "rule_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 7,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 12886,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4.1 × Unstructured Brain Dump (chaotic): 3 rule, 7 metric. Bias: 30%."
+    },
+    {
+      "id": "unstructured-dump-claude-haiku",
+      "name": "Unstructured Brain Dump (chaotic) [Claude Haiku 4.5]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "dump_bias_index",
+        "value": 30,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        },
+        {
+          "name": "rule_salient",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 7,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 0,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 12886,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 × Unstructured Brain Dump (chaotic): 3 rule, 7 metric. Bias: 30%."
+    },
+    {
+      "id": "unstructured-dump-gemini-flash",
+      "name": "Unstructured Brain Dump (chaotic) [Gemini 2.5 Flash]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "dump_bias_index",
+        "value": 50,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        },
+        {
+          "name": "rule_salient",
+          "value": 1,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 1,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 8,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 12886,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash × Unstructured Brain Dump (chaotic): 1 rule, 1 metric. Bias: 50%."
+    },
+    {
+      "id": "unstructured-dump-gemini3-flash",
+      "name": "Unstructured Brain Dump (chaotic) [Gemini 3 Flash]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "dump_bias_index",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 3 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        },
+        {
+          "name": "rule_salient",
+          "value": 2,
+          "unit": "/3"
+        },
+        {
+          "name": "metric_salient",
+          "value": 3,
+          "unit": "/7"
+        },
+        {
+          "name": "unclassified",
+          "value": 5,
+          "unit": "categories"
+        },
+        {
+          "name": "duration",
+          "value": 12886,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Gemini 3 Flash × Unstructured Brain Dump (chaotic): 2 rule, 3 metric. Bias: 40%."
+    },
+    {
+      "id": "B-diff-gpt4o-mini",
+      "name": "Multi-Domain Differential [GPT-4o-mini]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "b_yon_vs_baseline",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini"
+        },
+        {
+          "name": "multi-domain-yon",
+          "value": 30,
+          "unit": "%"
+        },
+        {
+          "name": "multi-domain-yon-enforced",
+          "value": 30,
+          "unit": "%"
+        },
+        {
+          "name": "multi-domain-yon-instructed",
+          "value": 30,
+          "unit": "%"
+        },
+        {
+          "name": "unstructured-dump",
+          "value": 30,
+          "unit": "%"
+        }
+      ],
+      "detail": "GPT-4o-mini: YON(30%) vs baseline(30%) = 0pp."
+    },
+    {
+      "id": "B-diff-gpt5-mini",
+      "name": "Multi-Domain Differential [GPT-5-mini]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "b_yon_vs_baseline",
+        "value": 30,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-mini"
+        },
+        {
+          "name": "multi-domain-yon",
+          "value": 50,
+          "unit": "%"
+        },
+        {
+          "name": "multi-domain-yon-enforced",
+          "value": 50,
+          "unit": "%"
+        },
+        {
+          "name": "multi-domain-yon-instructed",
+          "value": 50,
+          "unit": "%"
+        },
+        {
+          "name": "unstructured-dump",
+          "value": 20,
+          "unit": "%"
+        }
+      ],
+      "detail": "GPT-5-mini: YON(50%) vs baseline(20%) = 30pp."
+    },
+    {
+      "id": "B-diff-gpt4o",
+      "name": "Multi-Domain Differential [GPT-4o]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "b_yon_vs_baseline",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o"
+        },
+        {
+          "name": "multi-domain-yon",
+          "value": 22,
+          "unit": "%"
+        },
+        {
+          "name": "multi-domain-yon-enforced",
+          "value": 22,
+          "unit": "%"
+        },
+        {
+          "name": "multi-domain-yon-instructed",
+          "value": 30,
+          "unit": "%"
+        },
+        {
+          "name": "unstructured-dump",
+          "value": 30,
+          "unit": "%"
+        }
+      ],
+      "detail": "GPT-4o: YON(30%) vs baseline(30%) = 0pp."
+    },
+    {
+      "id": "B-diff-gpt41",
+      "name": "Multi-Domain Differential [GPT-4.1]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "b_yon_vs_baseline",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4.1"
+        },
+        {
+          "name": "multi-domain-yon",
+          "value": 22,
+          "unit": "%"
+        },
+        {
+          "name": "multi-domain-yon-enforced",
+          "value": 22,
+          "unit": "%"
+        },
+        {
+          "name": "multi-domain-yon-instructed",
+          "value": 30,
+          "unit": "%"
+        },
+        {
+          "name": "unstructured-dump",
+          "value": 30,
+          "unit": "%"
+        }
+      ],
+      "detail": "GPT-4.1: YON(30%) vs baseline(30%) = 0pp."
+    },
+    {
+      "id": "B-diff-claude-haiku",
+      "name": "Multi-Domain Differential [Claude Haiku 4.5]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "b_yon_vs_baseline",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5"
+        },
+        {
+          "name": "multi-domain-yon",
+          "value": 30,
+          "unit": "%"
+        },
+        {
+          "name": "multi-domain-yon-enforced",
+          "value": 22,
+          "unit": "%"
+        },
+        {
+          "name": "multi-domain-yon-instructed",
+          "value": 30,
+          "unit": "%"
+        },
+        {
+          "name": "unstructured-dump",
+          "value": 30,
+          "unit": "%"
+        }
+      ],
+      "detail": "Claude Haiku 4.5: YON(30%) vs baseline(30%) = 0pp."
+    },
+    {
+      "id": "B-diff-gemini-flash",
+      "name": "Multi-Domain Differential [Gemini 2.5 Flash]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "b_yon_vs_baseline",
+        "value": -50,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash"
+        },
+        {
+          "name": "multi-domain-yon",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "multi-domain-yon-enforced",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "multi-domain-yon-instructed",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "unstructured-dump",
+          "value": 50,
+          "unit": "%"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash: YON(0%) vs baseline(50%) = -50pp."
+    },
+    {
+      "id": "B-diff-gemini3-flash",
+      "name": "Multi-Domain Differential [Gemini 3 Flash]",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "b_yon_vs_baseline",
+        "value": -7,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 3 Flash"
+        },
+        {
+          "name": "multi-domain-yon",
+          "value": 33,
+          "unit": "%"
+        },
+        {
+          "name": "multi-domain-yon-enforced",
+          "value": 14,
+          "unit": "%"
+        },
+        {
+          "name": "multi-domain-yon-instructed",
+          "value": 33,
+          "unit": "%"
+        },
+        {
+          "name": "unstructured-dump",
+          "value": 40,
+          "unit": "%"
+        }
+      ],
+      "detail": "Gemini 3 Flash: YON(33%) vs baseline(40%) = -7pp."
+    },
+    {
+      "id": "C-compute-multi-domain-yon-instructed-gpt4o-mini",
+      "name": "Computation [GPT-4o-mini] × multi-domain-yon-instructed",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_multi-domain-yon-instructed_breaches",
+        "value": 5,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        }
+      ],
+      "detail": "GPT-4o-mini × multi-domain-yon-instructed: Found 5/11 breached metrics."
+    },
+    {
+      "id": "C-compute-multi-domain-yon-instructed-gpt5-mini",
+      "name": "Computation [GPT-5-mini] × multi-domain-yon-instructed",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_multi-domain-yon-instructed_breaches",
+        "value": 0,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        }
+      ],
+      "detail": "GPT-5-mini × multi-domain-yon-instructed: Found 0/11 breached metrics."
+    },
+    {
+      "id": "C-compute-multi-domain-yon-instructed-gpt4o",
+      "name": "Computation [GPT-4o] × multi-domain-yon-instructed",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_multi-domain-yon-instructed_breaches",
+        "value": 7,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        }
+      ],
+      "detail": "GPT-4o × multi-domain-yon-instructed: Found 7/11 breached metrics."
+    },
+    {
+      "id": "C-compute-multi-domain-yon-instructed-gpt41",
+      "name": "Computation [GPT-4.1] × multi-domain-yon-instructed",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_multi-domain-yon-instructed_breaches",
+        "value": 10,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4.1"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        }
+      ],
+      "detail": "GPT-4.1 × multi-domain-yon-instructed: Found 10/11 breached metrics."
+    },
+    {
+      "id": "C-compute-multi-domain-yon-instructed-claude-haiku",
+      "name": "Computation [Claude Haiku 4.5] × multi-domain-yon-instructed",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_multi-domain-yon-instructed_breaches",
+        "value": 10,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 × multi-domain-yon-instructed: Found 10/11 breached metrics."
+    },
+    {
+      "id": "C-compute-multi-domain-yon-instructed-gemini-flash",
+      "name": "Computation [Gemini 2.5 Flash] × multi-domain-yon-instructed",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_multi-domain-yon-instructed_breaches",
+        "value": 0,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash × multi-domain-yon-instructed: Found 0/11 breached metrics."
+    },
+    {
+      "id": "C-compute-multi-domain-yon-instructed-gemini3-flash",
+      "name": "Computation [Gemini 3 Flash] × multi-domain-yon-instructed",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_multi-domain-yon-instructed_breaches",
+        "value": 0,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 3 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        }
+      ],
+      "detail": "Gemini 3 Flash × multi-domain-yon-instructed: Found 0/11 breached metrics."
+    },
+    {
+      "id": "C-compute-multi-domain-yon-gpt4o-mini",
+      "name": "Computation [GPT-4o-mini] × multi-domain-yon",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_multi-domain-yon_breaches",
+        "value": 4,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        }
+      ],
+      "detail": "GPT-4o-mini × multi-domain-yon: Found 4/11 breached metrics."
+    },
+    {
+      "id": "C-compute-multi-domain-yon-gpt5-mini",
+      "name": "Computation [GPT-5-mini] × multi-domain-yon",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_multi-domain-yon_breaches",
+        "value": 0,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        }
+      ],
+      "detail": "GPT-5-mini × multi-domain-yon: Found 0/11 breached metrics."
+    },
+    {
+      "id": "C-compute-multi-domain-yon-gpt4o",
+      "name": "Computation [GPT-4o] × multi-domain-yon",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_multi-domain-yon_breaches",
+        "value": 11,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        }
+      ],
+      "detail": "GPT-4o × multi-domain-yon: Found 11/11 breached metrics."
+    },
+    {
+      "id": "C-compute-multi-domain-yon-gpt41",
+      "name": "Computation [GPT-4.1] × multi-domain-yon",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_multi-domain-yon_breaches",
+        "value": 10,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4.1"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        }
+      ],
+      "detail": "GPT-4.1 × multi-domain-yon: Found 10/11 breached metrics."
+    },
+    {
+      "id": "C-compute-multi-domain-yon-claude-haiku",
+      "name": "Computation [Claude Haiku 4.5] × multi-domain-yon",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_multi-domain-yon_breaches",
+        "value": 10,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 × multi-domain-yon: Found 10/11 breached metrics."
+    },
+    {
+      "id": "C-compute-multi-domain-yon-gemini-flash",
+      "name": "Computation [Gemini 2.5 Flash] × multi-domain-yon",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_multi-domain-yon_breaches",
+        "value": 0,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash × multi-domain-yon: Found 0/11 breached metrics."
+    },
+    {
+      "id": "C-compute-multi-domain-yon-gemini3-flash",
+      "name": "Computation [Gemini 3 Flash] × multi-domain-yon",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_multi-domain-yon_breaches",
+        "value": 0,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 3 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        }
+      ],
+      "detail": "Gemini 3 Flash × multi-domain-yon: Found 0/11 breached metrics."
+    },
+    {
+      "id": "C-compute-unstructured-dump-gpt4o-mini",
+      "name": "Computation [GPT-4o-mini] × unstructured-dump",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_unstructured-dump_breaches",
+        "value": 6,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        }
+      ],
+      "detail": "GPT-4o-mini × unstructured-dump: Found 6/11 breached metrics."
+    },
+    {
+      "id": "C-compute-unstructured-dump-gpt5-mini",
+      "name": "Computation [GPT-5-mini] × unstructured-dump",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_unstructured-dump_breaches",
+        "value": 0,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        }
+      ],
+      "detail": "GPT-5-mini × unstructured-dump: Found 0/11 breached metrics."
+    },
+    {
+      "id": "C-compute-unstructured-dump-gpt4o",
+      "name": "Computation [GPT-4o] × unstructured-dump",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_unstructured-dump_breaches",
+        "value": 9,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        }
+      ],
+      "detail": "GPT-4o × unstructured-dump: Found 9/11 breached metrics."
+    },
+    {
+      "id": "C-compute-unstructured-dump-gpt41",
+      "name": "Computation [GPT-4.1] × unstructured-dump",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_unstructured-dump_breaches",
+        "value": 11,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4.1"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        }
+      ],
+      "detail": "GPT-4.1 × unstructured-dump: Found 11/11 breached metrics."
+    },
+    {
+      "id": "C-compute-unstructured-dump-claude-haiku",
+      "name": "Computation [Claude Haiku 4.5] × unstructured-dump",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_unstructured-dump_breaches",
+        "value": 8,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 × unstructured-dump: Found 8/11 breached metrics."
+    },
+    {
+      "id": "C-compute-unstructured-dump-gemini-flash",
+      "name": "Computation [Gemini 2.5 Flash] × unstructured-dump",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_unstructured-dump_breaches",
+        "value": 1,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash × unstructured-dump: Found 1/11 breached metrics."
+    },
+    {
+      "id": "C-compute-unstructured-dump-gemini3-flash",
+      "name": "Computation [Gemini 3 Flash] × unstructured-dump",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "compute_unstructured-dump_breaches",
+        "value": 0,
+        "unit": "/11"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 3 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        }
+      ],
+      "detail": "Gemini 3 Flash × unstructured-dump: Found 0/11 breached metrics."
+    },
+    {
+      "id": "D-deps-multi-domain-yon-instructed-gpt4o-mini",
+      "name": "Dependencies [GPT-4o-mini] × multi-domain-yon-instructed",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_multi-domain-yon-instructed_cascades",
+        "value": 7,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        }
+      ],
+      "detail": "GPT-4o-mini × multi-domain-yon-instructed: Found 7/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-multi-domain-yon-instructed-gpt5-mini",
+      "name": "Dependencies [GPT-5-mini] × multi-domain-yon-instructed",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_multi-domain-yon-instructed_cascades",
+        "value": 0,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        }
+      ],
+      "detail": "GPT-5-mini × multi-domain-yon-instructed: Found 0/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-multi-domain-yon-instructed-gpt4o",
+      "name": "Dependencies [GPT-4o] × multi-domain-yon-instructed",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_multi-domain-yon-instructed_cascades",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        }
+      ],
+      "detail": "GPT-4o × multi-domain-yon-instructed: Found 6/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-multi-domain-yon-instructed-gpt41",
+      "name": "Dependencies [GPT-4.1] × multi-domain-yon-instructed",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_multi-domain-yon-instructed_cascades",
+        "value": 7,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4.1"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        }
+      ],
+      "detail": "GPT-4.1 × multi-domain-yon-instructed: Found 7/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-multi-domain-yon-instructed-claude-haiku",
+      "name": "Dependencies [Claude Haiku 4.5] × multi-domain-yon-instructed",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_multi-domain-yon-instructed_cascades",
+        "value": 7,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 × multi-domain-yon-instructed: Found 7/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-multi-domain-yon-instructed-gemini-flash",
+      "name": "Dependencies [Gemini 2.5 Flash] × multi-domain-yon-instructed",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_multi-domain-yon-instructed_cascades",
+        "value": 0,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash × multi-domain-yon-instructed: Found 0/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-multi-domain-yon-instructed-gemini3-flash",
+      "name": "Dependencies [Gemini 3 Flash] × multi-domain-yon-instructed",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_multi-domain-yon-instructed_cascades",
+        "value": 5,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 3 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon-instructed"
+        }
+      ],
+      "detail": "Gemini 3 Flash × multi-domain-yon-instructed: Found 5/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-multi-domain-yon-gpt4o-mini",
+      "name": "Dependencies [GPT-4o-mini] × multi-domain-yon",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_multi-domain-yon_cascades",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        }
+      ],
+      "detail": "GPT-4o-mini × multi-domain-yon: Found 6/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-multi-domain-yon-gpt5-mini",
+      "name": "Dependencies [GPT-5-mini] × multi-domain-yon",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_multi-domain-yon_cascades",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        }
+      ],
+      "detail": "GPT-5-mini × multi-domain-yon: Found 6/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-multi-domain-yon-gpt4o",
+      "name": "Dependencies [GPT-4o] × multi-domain-yon",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_multi-domain-yon_cascades",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        }
+      ],
+      "detail": "GPT-4o × multi-domain-yon: Found 6/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-multi-domain-yon-gpt41",
+      "name": "Dependencies [GPT-4.1] × multi-domain-yon",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_multi-domain-yon_cascades",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4.1"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        }
+      ],
+      "detail": "GPT-4.1 × multi-domain-yon: Found 6/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-multi-domain-yon-claude-haiku",
+      "name": "Dependencies [Claude Haiku 4.5] × multi-domain-yon",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_multi-domain-yon_cascades",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 × multi-domain-yon: Found 6/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-multi-domain-yon-gemini-flash",
+      "name": "Dependencies [Gemini 2.5 Flash] × multi-domain-yon",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_multi-domain-yon_cascades",
+        "value": 1,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash × multi-domain-yon: Found 1/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-multi-domain-yon-gemini3-flash",
+      "name": "Dependencies [Gemini 3 Flash] × multi-domain-yon",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_multi-domain-yon_cascades",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 3 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "multi-domain-yon"
+        }
+      ],
+      "detail": "Gemini 3 Flash × multi-domain-yon: Found 6/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-unstructured-dump-gpt4o-mini",
+      "name": "Dependencies [GPT-4o-mini] × unstructured-dump",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_unstructured-dump_cascades",
+        "value": 4,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        }
+      ],
+      "detail": "GPT-4o-mini × unstructured-dump: Found 4/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-unstructured-dump-gpt5-mini",
+      "name": "Dependencies [GPT-5-mini] × unstructured-dump",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_unstructured-dump_cascades",
+        "value": 2,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-mini"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        }
+      ],
+      "detail": "GPT-5-mini × unstructured-dump: Found 2/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-unstructured-dump-gpt4o",
+      "name": "Dependencies [GPT-4o] × unstructured-dump",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_unstructured-dump_cascades",
+        "value": 4,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        }
+      ],
+      "detail": "GPT-4o × unstructured-dump: Found 4/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-unstructured-dump-gpt41",
+      "name": "Dependencies [GPT-4.1] × unstructured-dump",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_unstructured-dump_cascades",
+        "value": 4,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4.1"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        }
+      ],
+      "detail": "GPT-4.1 × unstructured-dump: Found 4/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-unstructured-dump-claude-haiku",
+      "name": "Dependencies [Claude Haiku 4.5] × unstructured-dump",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_unstructured-dump_cascades",
+        "value": 7,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 × unstructured-dump: Found 7/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-unstructured-dump-gemini-flash",
+      "name": "Dependencies [Gemini 2.5 Flash] × unstructured-dump",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_unstructured-dump_cascades",
+        "value": 0,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash × unstructured-dump: Found 0/7 cross-section dependencies."
+    },
+    {
+      "id": "D-deps-unstructured-dump-gemini3-flash",
+      "name": "Dependencies [Gemini 3 Flash] × unstructured-dump",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "deps_unstructured-dump_cascades",
+        "value": 7,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 3 Flash"
+        },
+        {
+          "name": "format",
+          "value": 0,
+          "unit": "unstructured-dump"
+        }
+      ],
+      "detail": "Gemini 3 Flash × unstructured-dump: Found 7/7 cross-section dependencies."
+    }
+  ],
+  "summary": {
+    "total": 119,
+    "passed": 119,
+    "failed": 0,
+    "durationMs": 226049.48479999998
+  },
+  "timestamp": "2026-03-21T22:24:35.875Z"
+}

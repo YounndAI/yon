@@ -1,0 +1,111 @@
+{
+  "suiteId": "llm-error-recovery",
+  "suiteName": "LLM Error Recovery",
+  "pillar": "streaming",
+  "tests": [
+    {
+      "id": "fault-isolation",
+      "name": "Fault Isolation (§5 line independence)",
+      "passed": true,
+      "type": "gate",
+      "metric": {
+        "name": "surviving_accuracy",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "surviving_correct",
+          "value": 6,
+          "unit": "/6"
+        },
+        {
+          "name": "total_correct",
+          "value": 7,
+          "unit": "/15"
+        },
+        {
+          "name": "corrupted_records",
+          "value": 3,
+          "unit": "records"
+        },
+        {
+          "name": "duration",
+          "value": 2175,
+          "unit": "ms"
+        }
+      ],
+      "detail": "3/15 records corrupted. Surviving: 6/6 (100%). Q1: ✓, Q2: ✓, Q3: ✓, Q4: ✗, Q5: ✗, Q6: ✗, Q7: ✗, Q8: ✗, Q9: ✗, Q10: ✗, Q11: ✓, Q12: ✓, Q13: ✓, Q14: ✗, Q15: ✓"
+    },
+    {
+      "id": "corruption-boundary-detection",
+      "name": "Corruption Boundary Detection (§5 line independence)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "detection_accuracy",
+        "value": 56,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct_detections",
+          "value": 5,
+          "unit": "/9"
+        },
+        {
+          "name": "duration",
+          "value": 5291,
+          "unit": "ms"
+        }
+      ],
+      "detail": "LLM identified 5/9 record states correctly (56%)."
+    },
+    {
+      "id": "graceful-degradation",
+      "name": "Graceful Degradation (25% corruption, surviving fact extraction)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "surviving_fact_accuracy",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "surviving_correct",
+          "value": 2,
+          "unit": "/5"
+        },
+        {
+          "name": "total_questions",
+          "value": 8,
+          "unit": "questions"
+        },
+        {
+          "name": "corrupted_sections",
+          "value": 3,
+          "unit": "/12"
+        },
+        {
+          "name": "surviving_questions",
+          "value": 5,
+          "unit": "questions"
+        },
+        {
+          "name": "duration",
+          "value": 3826,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Corrupted sections [2,5,9]. 2/5 surviving facts extracted (40%)."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 5292.184999999998
+  },
+  "timestamp": "2026-03-19T14:01:39.167Z"
+}

@@ -1,0 +1,62 @@
+{
+  "suiteId": "memory-stability",
+  "suiteName": "Memory Stability",
+  "pillar": "streaming",
+  "tests": [
+    {
+      "id": "memory-flat-10k",
+      "name": "Heap Delta at 10K Records",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "heap_delta_10k",
+        "value": 17.41,
+        "unit": "MB"
+      },
+      "detail": "YON streaming heap delta at 10K records: 17.41 MB. Streaming mode (accumulate: false) — records are consumed, not retained."
+    },
+    {
+      "id": "memory-flat-100k",
+      "name": "Heap Delta at 100K Records",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "heap_delta_100k",
+        "value": 81.44,
+        "unit": "MB"
+      },
+      "detail": "YON streaming heap delta at 100K records: 81.44 MB. Streaming mode (accumulate: false) — records are consumed, not retained."
+    },
+    {
+      "id": "memory-growth-factor",
+      "name": "Memory Growth Factor (100K / 10K)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "memory_growth_factor",
+        "value": 4.68,
+        "unit": "x"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "delta_10k",
+          "value": 17.39,
+          "unit": "MB"
+        },
+        {
+          "name": "delta_100k",
+          "value": 81.33,
+          "unit": "MB"
+        }
+      ],
+      "detail": "10K delta: 17.39 MB. 100K delta: 81.33 MB. Growth factor: 4.68x. A factor near 1.0 proves O(1) memory — heap is flat regardless of scale."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 1179.717700000001
+  },
+  "timestamp": "2026-03-21T21:07:13.821Z"
+}

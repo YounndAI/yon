@@ -1,0 +1,116 @@
+{
+  "suiteId": "streaming-properties",
+  "suiteName": "Streaming Properties",
+  "pillar": "streaming",
+  "tests": [
+    {
+      "id": "time-to-first-record",
+      "name": "Time To First Record (TTFR)",
+      "passed": true,
+      "metric": {
+        "name": "ttfr_streaming",
+        "value": 0.08,
+        "unit": "ms",
+        "comparison": {
+          "baseline": 0.045,
+          "baselineLabel": "Full parse (block)",
+          "delta": "comparable"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "lines_scanned",
+          "value": 1,
+          "unit": "/128 lines"
+        }
+      ],
+      "detail": "Streaming TTFR: 0.080ms after 1/128 lines. Full parse: 0.045ms (all 128 lines). Streaming delivers first record without waiting for entire document."
+    },
+    {
+      "id": "incremental-parse-cost",
+      "name": "Incremental Parse Cost",
+      "passed": true,
+      "metric": {
+        "name": "avg_per_line",
+        "value": 0.003,
+        "unit": "ms/line"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "first_10_avg",
+          "value": 0.014,
+          "unit": "ms"
+        },
+        {
+          "name": "last_10_avg",
+          "value": 0.001,
+          "unit": "ms"
+        },
+        {
+          "name": "growth_ratio",
+          "value": 0.07,
+          "unit": "x"
+        }
+      ],
+      "detail": "Average: 0.0032ms/line. Growth ratio (last10/first10): 0.07x. O(1) confirmed."
+    },
+    {
+      "id": "error-recovery-boundary",
+      "name": "Error Recovery Boundary",
+      "passed": true,
+      "metric": {
+        "name": "recovery_rate",
+        "value": 99.2,
+        "unit": "%",
+        "comparison": {
+          "baseline": 0,
+          "baselineLabel": "JSON (entire doc invalid)",
+          "delta": "+99%"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "records_before_fault",
+          "value": 64,
+          "unit": "records"
+        },
+        {
+          "name": "records_after_fault",
+          "value": 63,
+          "unit": "records"
+        }
+      ],
+      "detail": "127/128 records recovered (64 before, 63 after). 1 record lost (the fault itself)."
+    },
+    {
+      "id": "streaming-parser-events",
+      "name": "Streaming Parser Events",
+      "passed": true,
+      "metric": {
+        "name": "events_emitted",
+        "value": 115,
+        "unit": "events"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "record_events",
+          "value": 115,
+          "unit": "records"
+        },
+        {
+          "name": "stream_duration",
+          "value": 0.22,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Streaming parser emitted 115 events (115 records) in 0.2ms."
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "durationMs": 1.9851999999996224
+  },
+  "timestamp": "2026-03-21T22:11:54.113Z"
+}

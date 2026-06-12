@@ -1,0 +1,132 @@
+{
+  "suiteId": "memory-efficiency",
+  "suiteName": "Memory Efficiency",
+  "pillar": "streaming",
+  "tests": [
+    {
+      "id": "streaming-memory",
+      "name": "Streaming Memory Profile (10K→100K)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_stream_growth_factor",
+        "value": 5.71,
+        "unit": "x",
+        "comparison": {
+          "baseline": 10.55,
+          "baselineLabel": "JSON full-doc growth factor",
+          "delta": "YON stream: 5.7x, JSON full-doc: 10.5x (10x data)"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_stream_delta_10k",
+          "value": 20.120000000000005,
+          "unit": "MB"
+        },
+        {
+          "name": "yon_fulldoc_delta_10k",
+          "value": 25.339999999999996,
+          "unit": "MB"
+        },
+        {
+          "name": "json_fulldoc_delta_10k",
+          "value": 1.1499999999999986,
+          "unit": "MB"
+        },
+        {
+          "name": "json_stream_delta_10k",
+          "value": 1.8400000000000034,
+          "unit": "MB"
+        },
+        {
+          "name": "yon_stream_delta_50k",
+          "value": 61.98,
+          "unit": "MB"
+        },
+        {
+          "name": "yon_fulldoc_delta_50k",
+          "value": 111.00999999999999,
+          "unit": "MB"
+        },
+        {
+          "name": "json_fulldoc_delta_50k",
+          "value": 6.020000000000003,
+          "unit": "MB"
+        },
+        {
+          "name": "json_stream_delta_50k",
+          "value": 7.549999999999997,
+          "unit": "MB"
+        },
+        {
+          "name": "yon_stream_delta_100k",
+          "value": 114.88,
+          "unit": "MB"
+        },
+        {
+          "name": "yon_fulldoc_delta_100k",
+          "value": 236.73000000000002,
+          "unit": "MB"
+        },
+        {
+          "name": "json_fulldoc_delta_100k",
+          "value": 12.130000000000003,
+          "unit": "MB"
+        },
+        {
+          "name": "json_stream_delta_100k",
+          "value": 15.18,
+          "unit": "MB"
+        }
+      ],
+      "detail": "10K: YON-stream Δ20.1MB, YON-full Δ25.3MB, JSON-full Δ1.1MB, JSON-stream Δ1.8MB. 50K: YON-stream Δ62.0MB, YON-full Δ111.0MB, JSON-full Δ6.0MB, JSON-stream Δ7.5MB. 100K: YON-stream Δ114.9MB, YON-full Δ236.7MB, JSON-full Δ12.1MB, JSON-stream Δ15.2MB. YON stream growth: 5.7x. JSON full-doc growth: 10.5x."
+    },
+    {
+      "id": "peak-memory",
+      "name": "Peak Memory at 100K Records (4-way)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_stream_peak_delta",
+        "value": 114.9,
+        "unit": "MB",
+        "comparison": {
+          "baseline": 12.130000000000003,
+          "baselineLabel": "JSON full-doc peak delta",
+          "delta": "comparable"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_stream_peak",
+          "value": 172.22,
+          "unit": "MB"
+        },
+        {
+          "name": "yon_fulldoc_peak",
+          "value": 294.06,
+          "unit": "MB"
+        },
+        {
+          "name": "json_fulldoc_peak",
+          "value": 52.35,
+          "unit": "MB"
+        },
+        {
+          "name": "json_stream_peak",
+          "value": 55.41,
+          "unit": "MB"
+        }
+      ],
+      "detail": "100K records. YON stream: Δ114.9MB. YON full-doc: Δ236.7MB. JSON full-doc: Δ12.1MB. JSON stream: Δ15.2MB."
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "durationMs": 3243.4450000000015
+  },
+  "timestamp": "2026-03-21T03:18:45.536Z"
+}

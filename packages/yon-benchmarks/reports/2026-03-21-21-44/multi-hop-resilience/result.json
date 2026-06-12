@@ -1,0 +1,114 @@
+{
+  "suiteId": "multi-hop-resilience",
+  "suiteName": "Multi-Hop Resilience",
+  "pillar": "streaming",
+  "tests": [
+    {
+      "id": "multi-hop-single-corruption",
+      "name": "Multi-Hop — Single Record Corruption",
+      "passed": true,
+      "metric": {
+        "name": "yon_survival_rate",
+        "value": 95,
+        "unit": "%",
+        "comparison": {
+          "baseline": 0,
+          "baselineLabel": "JSON survival %",
+          "delta": "20 vs 0 records"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_recovered",
+          "value": 20,
+          "unit": "records"
+        },
+        {
+          "name": "json_recovered",
+          "value": 0,
+          "unit": "records"
+        }
+      ],
+      "detail": "3-stage pipeline: Stage 2 corrupts 1 of 20 records. Stage 3 (YON): 20/21 records recovered (95%). Stage 3 (JSON): 0/20 records recovered (total failure). YON isolates corruption to the affected line. JSON's structural integrity cascades."
+    },
+    {
+      "id": "multi-hop-multi-corruption",
+      "name": "Multi-Hop — 3 Records Corrupted",
+      "passed": true,
+      "metric": {
+        "name": "yon_recovered",
+        "value": 18,
+        "unit": "records",
+        "comparison": {
+          "baseline": 0,
+          "baselineLabel": "JSON recovered",
+          "delta": "18 vs 0"
+        }
+      },
+      "detail": "3 corruption points injected at indices [3, 10, 17]. YON recovered 18/21 records. JSON: 0/20. Each YON corruption is an independent line failure. JSON corruption is always structural."
+    },
+    {
+      "id": "multi-hop-structural-cascade",
+      "name": "Multi-Hop — Structural Corruption Cascade",
+      "passed": true,
+      "metric": {
+        "name": "cascade_isolation",
+        "value": 1,
+        "unit": "YON isolated",
+        "comparison": {
+          "baseline": 0,
+          "baselineLabel": "JSON cascading failure",
+          "delta": "YON: 1 line lost | JSON: all 20 records lost"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_records",
+          "value": 20,
+          "unit": "records"
+        },
+        {
+          "name": "json_records",
+          "value": 0,
+          "unit": "records"
+        }
+      ],
+      "detail": "Corrupting YON's @ prefix: loses 1 line, others parse normally (20 survived). Corrupting JSON's [ bracket: structural cascade, 0 records recoverable. Format topology determines blast radius — flat > nested for resilience."
+    },
+    {
+      "id": "multi-hop-append-only",
+      "name": "Multi-Hop — Append-Only Stream Recovery",
+      "passed": true,
+      "metric": {
+        "name": "stream_continuity",
+        "value": 19,
+        "unit": "records",
+        "comparison": {
+          "baseline": 19,
+          "baselineLabel": "expected survivors",
+          "delta": "19/19 = 100%"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "pre_corruption",
+          "value": 10,
+          "unit": "records"
+        },
+        {
+          "name": "post_corruption",
+          "value": 9,
+          "unit": "records"
+        }
+      ],
+      "detail": "Append-only stream with corruption at record 10. Pre-corruption: 10/10 records survived. Post-corruption: 9/9 records survived. Mid-stream corruption does not poison the stream — both past and future records are safe."
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "durationMs": 0.8541999999997643
+  },
+  "timestamp": "2026-03-21T19:44:53.463Z"
+}

@@ -1,0 +1,88 @@
+{
+  "suiteId": "append-only-provenance",
+  "suiteName": "Append-Only Provenance",
+  "pillar": "lossless",
+  "tests": [
+    {
+      "id": "provenance-patch-chain",
+      "name": "Patch Chain Integrity",
+      "passed": true,
+      "metric": {
+        "name": "chain_integrity",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "patches_found",
+          "value": 10,
+          "unit": "/10"
+        },
+        {
+          "name": "roundtrip_intact",
+          "value": 1,
+          "unit": "bool"
+        }
+      ],
+      "detail": "10-patch chain: 10/10 patches parsed. All IDs found: true. Roundtrip intact: true."
+    },
+    {
+      "id": "provenance-stamp-audit",
+      "name": "Stamp Audit Trail",
+      "passed": true,
+      "metric": {
+        "name": "stamps_recovered",
+        "value": 5,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "stamps_with_full_data",
+          "value": 5,
+          "unit": "records"
+        }
+      ],
+      "detail": "5 @STAMP records interleaved with patches. Recovered: 5/5. All data extractable: true."
+    },
+    {
+      "id": "provenance-chain-growth",
+      "name": "Chain Growth Measurement",
+      "passed": true,
+      "metric": {
+        "name": "avg_growth_per_patch",
+        "value": 178,
+        "unit": "bytes"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "total_growth",
+          "value": 3553,
+          "unit": "bytes"
+        },
+        {
+          "name": "base_size",
+          "value": 255,
+          "unit": "bytes"
+        },
+        {
+          "name": "final_size",
+          "value": 3808,
+          "unit": "bytes"
+        },
+        {
+          "name": "max_deviation",
+          "value": 2,
+          "unit": "bytes"
+        }
+      ],
+      "detail": "20 patches + stamps. Base: 255 bytes → Final: 3808 bytes. Avg growth: 178 bytes/step. Max deviation: 2 bytes. Linear growth: VERIFIED."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 0.4962999999988824
+  },
+  "timestamp": "2026-03-21T21:07:06.290Z"
+}

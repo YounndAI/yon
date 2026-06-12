@@ -1,0 +1,48 @@
+{
+  "suiteId": "concurrency-stress",
+  "suiteName": "Concurrency & Updates",
+  "pillar": "streaming",
+  "tests": [
+    {
+      "id": "concurrent-parsing",
+      "name": "Concurrent Parsing (50 streams)",
+      "passed": true,
+      "metric": {
+        "name": "avg_latency",
+        "value": 0.4,
+        "unit": "ms/doc"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "total_time",
+          "value": 20,
+          "unit": "ms"
+        },
+        {
+          "name": "concurrency",
+          "value": 50,
+          "unit": "streams"
+        }
+      ],
+      "detail": "Parsed 50 docs in parallel. Failures: 0 (ID=0, Len=0). Expected len=101."
+    },
+    {
+      "id": "incremental-update",
+      "name": "Read-Modify-Write Cycle",
+      "passed": true,
+      "metric": {
+        "name": "process_time",
+        "value": 1.94,
+        "unit": "ms"
+      },
+      "detail": "Parsed 1000 records, modified 1 in memory, formatting entire doc. Cost: 1.94ms."
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "durationMs": 22.66319999999996
+  },
+  "timestamp": "2026-03-21T22:11:54.289Z"
+}

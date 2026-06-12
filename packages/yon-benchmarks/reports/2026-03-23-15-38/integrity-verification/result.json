@@ -1,0 +1,121 @@
+{
+  "suiteId": "integrity-verification",
+  "suiteName": "Integrity Verification",
+  "pillar": "lossless",
+  "tests": [
+    {
+      "id": "integrity-block-pass",
+      "name": "Block Integrity Pass",
+      "passed": true,
+      "metric": {
+        "name": "integrity_ok",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "result",
+          "value": 1,
+          "unit": "state"
+        },
+        {
+          "name": "duration",
+          "value": 2.64,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Valid SHA-256 hash → verifyBlockIntegrity() returns true. Integrity verified."
+    },
+    {
+      "id": "integrity-block-fail",
+      "name": "Block Integrity Fail",
+      "passed": true,
+      "metric": {
+        "name": "tamper_detected",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "result",
+          "value": 1,
+          "unit": "state"
+        },
+        {
+          "name": "duration",
+          "value": 0.06,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Tampered content with wrong hash → returns false. Tamper detection verified."
+    },
+    {
+      "id": "integrity-no-hash",
+      "name": "No Hash → null",
+      "passed": true,
+      "metric": {
+        "name": "skip_ok",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "result_null",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.01,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Block without sha256 field → returns null (graceful skip). No false positives."
+    },
+    {
+      "id": "integrity-document",
+      "name": "Document Integrity",
+      "passed": true,
+      "metric": {
+        "name": "document_ok",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "checked_count",
+          "value": 2,
+          "unit": "blocks"
+        },
+        {
+          "name": "valid_pass",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "tampered_fail",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "nohash_skipped",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.35,
+          "unit": "ms"
+        }
+      ],
+      "detail": "3 blocks: valid (true), tampered (false), no-hash (skipped). Document integrity verified."
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "durationMs": 3.249599999999191
+  },
+  "timestamp": "2026-03-23T13:38:24.751Z"
+}

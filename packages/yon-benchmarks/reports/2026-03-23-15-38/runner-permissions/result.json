@@ -1,0 +1,81 @@
+{
+  "suiteId": "runner-permissions",
+  "suiteName": "Runner Permission Model",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "perm-fail-closed-default",
+      "name": "Fail-Closed Default (Empty Allowlist)",
+      "passed": true,
+      "metric": {
+        "name": "denial_rate",
+        "value": 100,
+        "unit": "%"
+      },
+      "detail": "Tested 6 operations with empty allowlist. 6/6 denied. Fail-closed: VERIFIED."
+    },
+    {
+      "id": "perm-explicit-allow",
+      "name": "Explicit Allow (Selective Permit)",
+      "passed": true,
+      "metric": {
+        "name": "permission_accuracy",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct_allows",
+          "value": 3,
+          "unit": "/3"
+        },
+        {
+          "name": "correct_denials",
+          "value": 3,
+          "unit": "/3"
+        }
+      ],
+      "detail": "Allowlist: std:fs.*, std:data.*. Correct allows: 3/3. Correct denials: 3/3. Accuracy: 100%."
+    },
+    {
+      "id": "perm-explicit-deny",
+      "name": "Explicit DENY Overrides ALLOW",
+      "passed": true,
+      "metric": {
+        "name": "deny_override_correct",
+        "value": 1,
+        "unit": "bool"
+      },
+      "detail": "Allowlist: std:fs.* (ALLOW) + std:fs.write (DENY). std:fs.read allowed: true. std:fs.write denied: true. DENY overrides wildcard ALLOW: VERIFIED."
+    },
+    {
+      "id": "perm-glob-matching",
+      "name": "Glob Pattern Matching",
+      "passed": true,
+      "metric": {
+        "name": "glob_accuracy",
+        "value": 100,
+        "unit": "%"
+      },
+      "detail": "All 6 glob patterns resolved correctly."
+    },
+    {
+      "id": "perm-version-stripping",
+      "name": "Version Suffix Stripping",
+      "passed": true,
+      "metric": {
+        "name": "version_strip_correct",
+        "value": 4,
+        "unit": "/4"
+      },
+      "detail": "Entry: std:fs.read (ALLOW). std:fs.read@v1: true. std:fs.read@v2: true. std:fs.read (bare): true. std:fs.write@v1 (no match): true. Version stripping: VERIFIED."
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0,
+    "durationMs": 0.8567000000002736
+  },
+  "timestamp": "2026-03-23T13:38:21.007Z"
+}

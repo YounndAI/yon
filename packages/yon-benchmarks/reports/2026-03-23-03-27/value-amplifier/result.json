@@ -1,0 +1,613 @@
+{
+  "suiteId": "value-amplifier",
+  "suiteName": "Value Amplifier (Multi-Tier, Multi-Model)",
+  "pillar": "sapir-whorf",
+  "tests": [
+    {
+      "id": "cost-tier-full",
+      "name": "Full Document Cost (5 models, 3 domains, 6 formats)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "best_yon_delta",
+        "value": -1,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_accuracy",
+          "value": 77,
+          "unit": "%"
+        },
+        {
+          "name": "canon_accuracy",
+          "value": 76,
+          "unit": "%"
+        },
+        {
+          "name": "canon_card_accuracy",
+          "value": 73,
+          "unit": "%"
+        },
+        {
+          "name": "min_accuracy",
+          "value": 63,
+          "unit": "%"
+        },
+        {
+          "name": "ultra_accuracy",
+          "value": 71,
+          "unit": "%"
+        },
+        {
+          "name": "min_cold_accuracy",
+          "value": 57,
+          "unit": "%"
+        },
+        {
+          "name": "canon_delta",
+          "value": -1,
+          "unit": "pp"
+        },
+        {
+          "name": "canon_card_delta",
+          "value": -4,
+          "unit": "pp"
+        },
+        {
+          "name": "card_uplift",
+          "value": -3,
+          "unit": "pp"
+        },
+        {
+          "name": "min_delta",
+          "value": -14,
+          "unit": "pp"
+        },
+        {
+          "name": "ultra_delta",
+          "value": -6,
+          "unit": "pp"
+        },
+        {
+          "name": "training_data_gap",
+          "value": 6,
+          "unit": "pp"
+        },
+        {
+          "name": "models_tested",
+          "value": 5,
+          "unit": "models"
+        },
+        {
+          "name": "budget_ratio",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "duration",
+          "value": 48233,
+          "unit": "ms"
+        },
+        {
+          "name": "gpt5-nano(budget)_nl_acc",
+          "value": 38,
+          "unit": "%"
+        },
+        {
+          "name": "gpt5-nano(budget)_nl_cost",
+          "value": 0.2,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gpt5-nano(budget)_canon_acc",
+          "value": 72,
+          "unit": "%"
+        },
+        {
+          "name": "gpt5-nano(budget)_canon_cost",
+          "value": 0.26,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gpt5-nano(budget)_canon_card_acc",
+          "value": 47,
+          "unit": "%"
+        },
+        {
+          "name": "gpt5-nano(budget)_canon_card_cost",
+          "value": 0.52,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gpt5-nano(budget)_min_acc",
+          "value": 38,
+          "unit": "%"
+        },
+        {
+          "name": "gpt5-nano(budget)_min_cost",
+          "value": 0.18,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gpt5-nano(budget)_ultra_acc",
+          "value": 69,
+          "unit": "%"
+        },
+        {
+          "name": "gpt5-nano(budget)_ultra_cost",
+          "value": 0.2,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gpt5-nano(budget)_min_cold_acc",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "gpt5-nano(budget)_min_cold_cost",
+          "value": 0.18,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gemini-flash-lite(budget)_nl_acc",
+          "value": 72,
+          "unit": "%"
+        },
+        {
+          "name": "gemini-flash-lite(budget)_nl_cost",
+          "value": 0.27,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gemini-flash-lite(budget)_canon_acc",
+          "value": 75,
+          "unit": "%"
+        },
+        {
+          "name": "gemini-flash-lite(budget)_canon_cost",
+          "value": 0.4,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gemini-flash-lite(budget)_canon_card_acc",
+          "value": 75,
+          "unit": "%"
+        },
+        {
+          "name": "gemini-flash-lite(budget)_canon_card_cost",
+          "value": 0.91,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gemini-flash-lite(budget)_min_acc",
+          "value": 75,
+          "unit": "%"
+        },
+        {
+          "name": "gemini-flash-lite(budget)_min_cost",
+          "value": 0.24,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gemini-flash-lite(budget)_ultra_acc",
+          "value": 72,
+          "unit": "%"
+        },
+        {
+          "name": "gemini-flash-lite(budget)_ultra_cost",
+          "value": 0.29,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gemini-flash-lite(budget)_min_cold_acc",
+          "value": 69,
+          "unit": "%"
+        },
+        {
+          "name": "gemini-flash-lite(budget)_min_cold_cost",
+          "value": 0.24,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gpt4o-mini(standard)_nl_acc",
+          "value": 88,
+          "unit": "%"
+        },
+        {
+          "name": "gpt4o-mini(standard)_nl_cost",
+          "value": 0.41,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gpt4o-mini(standard)_canon_acc",
+          "value": 78,
+          "unit": "%"
+        },
+        {
+          "name": "gpt4o-mini(standard)_canon_cost",
+          "value": 0.6,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gpt4o-mini(standard)_canon_card_acc",
+          "value": 78,
+          "unit": "%"
+        },
+        {
+          "name": "gpt4o-mini(standard)_canon_card_cost",
+          "value": 1.37,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gpt4o-mini(standard)_min_acc",
+          "value": 72,
+          "unit": "%"
+        },
+        {
+          "name": "gpt4o-mini(standard)_min_cost",
+          "value": 0.36,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gpt4o-mini(standard)_ultra_acc",
+          "value": 72,
+          "unit": "%"
+        },
+        {
+          "name": "gpt4o-mini(standard)_ultra_cost",
+          "value": 0.43,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gpt4o-mini(standard)_min_cold_acc",
+          "value": 69,
+          "unit": "%"
+        },
+        {
+          "name": "gpt4o-mini(standard)_min_cold_cost",
+          "value": 0.36,
+          "unit": "$/100K"
+        },
+        {
+          "name": "claude-haiku(standard)_nl_acc",
+          "value": 91,
+          "unit": "%"
+        },
+        {
+          "name": "claude-haiku(standard)_nl_cost",
+          "value": 3.02,
+          "unit": "$/100K"
+        },
+        {
+          "name": "claude-haiku(standard)_canon_acc",
+          "value": 81,
+          "unit": "%"
+        },
+        {
+          "name": "claude-haiku(standard)_canon_cost",
+          "value": 4.31,
+          "unit": "$/100K"
+        },
+        {
+          "name": "claude-haiku(standard)_canon_card_acc",
+          "value": 81,
+          "unit": "%"
+        },
+        {
+          "name": "claude-haiku(standard)_canon_card_cost",
+          "value": 9.44,
+          "unit": "$/100K"
+        },
+        {
+          "name": "claude-haiku(standard)_min_acc",
+          "value": 72,
+          "unit": "%"
+        },
+        {
+          "name": "claude-haiku(standard)_min_cost",
+          "value": 2.68,
+          "unit": "$/100K"
+        },
+        {
+          "name": "claude-haiku(standard)_ultra_acc",
+          "value": 69,
+          "unit": "%"
+        },
+        {
+          "name": "claude-haiku(standard)_ultra_cost",
+          "value": 3.19,
+          "unit": "$/100K"
+        },
+        {
+          "name": "claude-haiku(standard)_min_cold_acc",
+          "value": 72,
+          "unit": "%"
+        },
+        {
+          "name": "claude-haiku(standard)_min_cold_cost",
+          "value": 2.68,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gemini-flash(standard)_nl_acc",
+          "value": 97,
+          "unit": "%"
+        },
+        {
+          "name": "gemini-flash(standard)_nl_cost",
+          "value": 1.21,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gemini-flash(standard)_canon_acc",
+          "value": 75,
+          "unit": "%"
+        },
+        {
+          "name": "gemini-flash(standard)_canon_cost",
+          "value": 1.59,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gemini-flash(standard)_canon_card_acc",
+          "value": 81,
+          "unit": "%"
+        },
+        {
+          "name": "gemini-flash(standard)_canon_card_cost",
+          "value": 3.13,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gemini-flash(standard)_min_acc",
+          "value": 59,
+          "unit": "%"
+        },
+        {
+          "name": "gemini-flash(standard)_min_cost",
+          "value": 1.1,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gemini-flash(standard)_ultra_acc",
+          "value": 75,
+          "unit": "%"
+        },
+        {
+          "name": "gemini-flash(standard)_ultra_cost",
+          "value": 1.26,
+          "unit": "$/100K"
+        },
+        {
+          "name": "gemini-flash(standard)_min_cold_acc",
+          "value": 75,
+          "unit": "%"
+        },
+        {
+          "name": "gemini-flash(standard)_min_cold_cost",
+          "value": 1.1,
+          "unit": "$/100K"
+        }
+      ],
+      "detail": "Full: NL 77% | Canon 76% | Canon+Card 73% | Min 63% | Ultra 71% | Cold 57%. Best YON Δ-1pp. Card uplift: -3pp. Training gap: 6pp. GPT-5-nano (budget): NL 38% | Canon 72% | Canon+Card 47% | Min 38% | Ultra 69% | Cold 0%. Gemini 2.5 Flash-Lite (budget): NL 72% | Canon 75% | Canon+Card 75% | Min 75% | Ultra 72% | Cold 69%. GPT-4o-mini (standard): NL 88% | Canon 78% | Canon+Card 78% | Min 72% | Ultra 72% | Cold 69%. Claude Haiku 4.5 (standard): NL 91% | Canon 81% | Canon+Card 81% | Min 72% | Ultra 69% | Cold 72%. Gemini 2.5 Flash (standard): NL 97% | Canon 75% | Canon+Card 81% | Min 59% | Ultra 75% | Cold 75%",
+      "outcome": "tied"
+    },
+    {
+      "id": "tier-amplifier-budget",
+      "name": "Budget Tier Amplifier (2 models)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "budget_tier_delta",
+        "value": 11,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_accuracy",
+          "value": 44,
+          "unit": "%"
+        },
+        {
+          "name": "yon_accuracy",
+          "value": 55,
+          "unit": "%"
+        },
+        {
+          "name": "models_in_tier",
+          "value": 2,
+          "unit": "models"
+        }
+      ],
+      "detail": "Budget: YON 55% vs NL 44% (Δ+11pp, 2 models)",
+      "outcome": "advantage"
+    },
+    {
+      "id": "tier-amplifier-standard",
+      "name": "Standard Tier Amplifier (3 models)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "standard_tier_delta",
+        "value": -16,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_accuracy",
+          "value": 92,
+          "unit": "%"
+        },
+        {
+          "name": "yon_accuracy",
+          "value": 76,
+          "unit": "%"
+        },
+        {
+          "name": "models_in_tier",
+          "value": 3,
+          "unit": "models"
+        }
+      ],
+      "detail": "Standard: YON 76% vs NL 92% (Δ-16pp, 3 models)",
+      "outcome": "disadvantage"
+    },
+    {
+      "id": "value-amplifier-gradient",
+      "name": "Value Amplifier Gradient (budget > standard > premium)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "gradient_holds",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "budget_delta",
+          "value": 11,
+          "unit": "pp"
+        },
+        {
+          "name": "standard_delta",
+          "value": -16,
+          "unit": "pp"
+        }
+      ],
+      "detail": "Gradient: Budget=11pp > Standard=-16pp. Hypothesis HOLDS"
+    },
+    {
+      "id": "compression-value",
+      "name": "Compression Value Analysis (5 models, 3 datasets, 5 formats)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "best_efficiency",
+        "value": 175.89,
+        "unit": "acc/1Ktok"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_prose_tokens",
+          "value": 506,
+          "unit": "tokens"
+        },
+        {
+          "name": "nl_prose_accuracy_avg",
+          "value": 89,
+          "unit": "%"
+        },
+        {
+          "name": "nl_prose_efficiency",
+          "value": 175.89,
+          "unit": "acc/1Ktok"
+        },
+        {
+          "name": "yon_canon_tokens",
+          "value": 985,
+          "unit": "tokens"
+        },
+        {
+          "name": "yon_canon_accuracy_avg",
+          "value": 69,
+          "unit": "%"
+        },
+        {
+          "name": "yon_canon_efficiency",
+          "value": 70.05,
+          "unit": "acc/1Ktok"
+        },
+        {
+          "name": "yon_min_tokens",
+          "value": 441,
+          "unit": "tokens"
+        },
+        {
+          "name": "yon_min_accuracy_avg",
+          "value": 60,
+          "unit": "%"
+        },
+        {
+          "name": "yon_min_efficiency",
+          "value": 136.05,
+          "unit": "acc/1Ktok"
+        },
+        {
+          "name": "yon_min_card_tokens",
+          "value": 2101,
+          "unit": "tokens"
+        },
+        {
+          "name": "yon_min_card_accuracy_avg",
+          "value": 67,
+          "unit": "%"
+        },
+        {
+          "name": "yon_min_card_efficiency",
+          "value": 31.89,
+          "unit": "acc/1Ktok"
+        },
+        {
+          "name": "yon_ultra_tokens",
+          "value": 611,
+          "unit": "tokens"
+        },
+        {
+          "name": "yon_ultra_accuracy_avg",
+          "value": 62,
+          "unit": "%"
+        },
+        {
+          "name": "yon_ultra_efficiency",
+          "value": 101.47,
+          "unit": "acc/1Ktok"
+        },
+        {
+          "name": "models_tested",
+          "value": 5,
+          "unit": "models"
+        },
+        {
+          "name": "datasets_tested",
+          "value": 3,
+          "unit": "datasets"
+        },
+        {
+          "name": "duration",
+          "value": 194869,
+          "unit": "ms"
+        },
+        {
+          "name": "nl_entries_at_10k",
+          "value": 19,
+          "unit": "docs"
+        },
+        {
+          "name": "min_card_entries_at_10k",
+          "value": 18,
+          "unit": "docs"
+        },
+        {
+          "name": "nl_entries_at_100k",
+          "value": 197,
+          "unit": "docs"
+        },
+        {
+          "name": "min_card_entries_at_100k",
+          "value": 222,
+          "unit": "docs"
+        }
+      ],
+      "detail": "Best efficiency: NL Prose (175.89 acc/1Ktok). Token savings: YON Min uses 13% fewer tokens than NL. NL Prose: 89% @ 506tok (175.89 acc/1Ktok) | YON Canon: 69% @ 985tok (70.05 acc/1Ktok) | YON Min: 60% @ 441tok (136.05 acc/1Ktok) | YON Min+Card: 67% @ 2101tok (31.89 acc/1Ktok) | YON Ultra: 62% @ 611tok (101.47 acc/1Ktok)",
+      "outcome": "disadvantage"
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0,
+    "durationMs": 343602.0982
+  },
+  "timestamp": "2026-03-23T01:35:59.359Z"
+}

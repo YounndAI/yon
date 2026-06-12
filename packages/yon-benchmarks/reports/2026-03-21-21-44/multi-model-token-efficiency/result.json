@@ -1,0 +1,68 @@
+{
+  "suiteId": "multi-model-token-efficiency",
+  "suiteName": "Multi-Model Token Efficiency",
+  "pillar": "cognitive-economy",
+  "tests": [
+    {
+      "id": "prompt-token-comparison",
+      "name": "Prompt Tokens (Multi-Format, tiktoken)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_json_cl100k",
+        "value": 13,
+        "unit": "% structural baseline",
+        "comparison": {
+          "baseline": 343,
+          "baselineLabel": "JSON prompt tokens (cl100k)",
+          "delta": "+13% structural baseline"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_tokens_cl100k",
+          "value": 387,
+          "unit": "tokens"
+        },
+        {
+          "name": "json_tokens_cl100k",
+          "value": 343,
+          "unit": "tokens"
+        },
+        {
+          "name": "prose_tokens_cl100k",
+          "value": 212,
+          "unit": "tokens"
+        },
+        {
+          "name": "yon_vs_prose",
+          "value": 83,
+          "unit": "% baseline vs prose"
+        },
+        {
+          "name": "yon_tokens_o200k",
+          "value": 391,
+          "unit": "tokens"
+        },
+        {
+          "name": "json_tokens_o200k",
+          "value": 356,
+          "unit": "tokens"
+        },
+        {
+          "name": "prose_tokens_o200k",
+          "value": 211,
+          "unit": "tokens"
+        }
+      ],
+      "detail": "Three-way prompt token comparison (4 sections, 12 rules). cl100k (GPT-4): YON=387 JSON=343 Prose=212 (YON +13% structural baseline, +83% vs prose). o200k (GPT-4o): YON=391 JSON=356 Prose=211 (YON +10% structural baseline, +85% vs prose)"
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "durationMs": 286.82970000000023
+  },
+  "timestamp": "2026-03-21T19:44:59.757Z"
+}

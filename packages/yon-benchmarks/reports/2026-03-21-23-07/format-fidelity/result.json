@@ -1,0 +1,80 @@
+{
+  "suiteId": "format-fidelity",
+  "suiteName": "Format Fidelity",
+  "pillar": "lossless",
+  "tests": [
+    {
+      "id": "roundtrip-json",
+      "name": "Roundtrip Parity (YON→JSON→YON)",
+      "passed": true,
+      "metric": {
+        "name": "field_preservation",
+        "value": 100,
+        "unit": "%"
+      },
+      "detail": "2/2 keys preserved."
+    },
+    {
+      "id": "roundtrip-yaml",
+      "name": "Roundtrip Parity (YON→YAML→YON)",
+      "passed": true,
+      "metric": {
+        "name": "field_preservation",
+        "value": 100,
+        "unit": "%"
+      },
+      "detail": "2/2 keys preserved."
+    },
+    {
+      "id": "escape-fidelity",
+      "name": "Escape Fidelity",
+      "passed": true,
+      "metric": {
+        "name": "blocks_intact",
+        "value": 5,
+        "unit": "/5 blocks",
+        "comparison": {
+          "baseline": 141,
+          "baselineLabel": "JSON escapes required",
+          "delta": "0 vs 141"
+        }
+      },
+      "detail": "YON: 5/5 blocks preserved with 0 escapes. JSON equivalent requires 141 escape sequences."
+    },
+    {
+      "id": "optimization-ladder",
+      "name": "Optimization Ladder",
+      "passed": true,
+      "metric": {
+        "name": "semantic_parity",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "canon_bytes",
+          "value": 1272,
+          "unit": "bytes"
+        },
+        {
+          "name": "min_savings",
+          "value": -1,
+          "unit": "%"
+        },
+        {
+          "name": "ultra_savings",
+          "value": 0.2,
+          "unit": "%"
+        }
+      ],
+      "detail": "Canon: 1272B (17 records). Min: 1285B (−-1.0%). Ultra: 1270B (−0.2%). Record counts: identical."
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "durationMs": 15.958399999999529
+  },
+  "timestamp": "2026-03-21T21:07:06.260Z"
+}

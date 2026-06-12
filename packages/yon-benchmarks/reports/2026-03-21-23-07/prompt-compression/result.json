@@ -1,0 +1,943 @@
+{
+  "suiteId": "prompt-compression",
+  "suiteName": "Prompt Compression",
+  "pillar": "cognitive-economy",
+  "tests": [
+    {
+      "id": "token-efficiency-landing-page",
+      "name": "Token Efficiency — Landing Page Brief",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "advantage",
+      "metric": {
+        "name": "token_delta_ultra",
+        "value": 35,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_tokens",
+          "value": 350,
+          "unit": "tok"
+        },
+        {
+          "name": "canon_tokens",
+          "value": 421,
+          "unit": "tok"
+        },
+        {
+          "name": "min_tokens",
+          "value": 309,
+          "unit": "tok"
+        },
+        {
+          "name": "ultra_tokens",
+          "value": 226,
+          "unit": "tok"
+        },
+        {
+          "name": "structural_ratio_canon",
+          "value": 73,
+          "unit": "%"
+        },
+        {
+          "name": "filler_density_nl",
+          "value": 6,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_nl",
+          "value": 1,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_canon",
+          "value": 0,
+          "unit": "%"
+        }
+      ],
+      "detail": "Token efficiency measures raw compression — characters and tokens consumed per format.\nCanon YON adds structure (73% of lines are typed records) at the cost of 20% more tokens than natural language.\nUltra YON trades human readability for density: 35% fewer tokens than NL.\nNL carries 6% discourse fillers (\"ok so\", \"basically\"). YON eliminates them.\nNL contains 1% hedging markers (§6.1-protected). Canon preserves 0%.\n**Operational characteristic:** Canon prioritizes structure over compression. The token cost is real — structure is not free.\nUltra demonstrates that aggressive aliasing recovers the baseline cost and then some.| Metric | NL | Canon YON | Min YON | Ultra YON | Delta |\n|--------|----:|----------:|--------:|----------:|------:|\n| Characters | 1581 | 1595 | 1086 | 749 | **+1%** |\n| Tokens (cl100k) | 350 | 421 | 309 | 226 | Canon +20%, Ultra **-35%** |\n| Structural Token Ratio | 0% | **73%** | 100% | 100% | Verified |\n| Discourse Filler Density | 6% | **1%** | 0% | 0% | Verified |\n| Hedging Density (§6.1) | 1% | **0%** | 0% | 0% | Caution |"
+    },
+    {
+      "id": "comprehension-landing-page",
+      "name": "Comprehension Quality — Landing Page Brief",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "advantage",
+      "metric": {
+        "name": "yon_avg",
+        "value": 7.2,
+        "unit": "/10",
+        "comparison": {
+          "baseline": 5.1,
+          "baselineLabel": "NL avg",
+          "delta": "+2.1"
+        }
+      },
+      "detail": "Three LLMs rated both formats blindly (\"Format A\" vs \"Format B\") on 5 comprehension dimensions.\nYON averaged 7.2/10 across all models. NL averaged 5.1/10 — a gap of +2.1 points.\nTyped records (@SEC, @MAP, @RULE) eliminate the inference cost that prose imposes on every dimension.\n\n**Operational characteristic:** Blind evaluation prevents format-name bias, but models may still favor structure inherently. Results are directional, not absolute.\n| Dimension | OpenAI (NL→YON) | Anthropic (NL→YON) | Google (NL→YON) | Average |\n|-----------|:---:|:---:|:---:|:---:|\n| Section Boundary Clarity | 7→**9** | 4→**9** | 5→**5** | 5.3→**7.7** |\n| Attribute Extraction Accuracy | 8→**8** | 5→**8** | 5→**5** | 6.0→**7.0** |\n| Intent Detection | 6→**9** | 3→**7** | 5→**5** | 4.7→**7.0** |\n| Internal Consistency | 7→**9** | 4→**9** | 5→**5** | 5.3→**7.7** |\n| Hallucination Risk (10=lowest risk) | 5→**7** | 3→**8** | 5→**5** | 4.3→**6.7** |",
+      "secondaryMetrics": [
+        {
+          "name": "nl_overall",
+          "value": 5.1,
+          "unit": "/10"
+        },
+        {
+          "name": "yon_overall",
+          "value": 7.2,
+          "unit": "/10"
+        },
+        {
+          "name": "duration",
+          "value": 2726,
+          "unit": "ms"
+        }
+      ]
+    },
+    {
+      "id": "token-efficiency-api-spec",
+      "name": "Token Efficiency — API Spec",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "advantage",
+      "metric": {
+        "name": "token_delta_ultra",
+        "value": 25,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_tokens",
+          "value": 420,
+          "unit": "tok"
+        },
+        {
+          "name": "canon_tokens",
+          "value": 589,
+          "unit": "tok"
+        },
+        {
+          "name": "min_tokens",
+          "value": 429,
+          "unit": "tok"
+        },
+        {
+          "name": "ultra_tokens",
+          "value": 315,
+          "unit": "tok"
+        },
+        {
+          "name": "structural_ratio_canon",
+          "value": 77,
+          "unit": "%"
+        },
+        {
+          "name": "filler_density_nl",
+          "value": 1,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_nl",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_canon",
+          "value": 0,
+          "unit": "%"
+        }
+      ],
+      "detail": "Token efficiency measures raw compression — characters and tokens consumed per format.\nCanon YON adds structure (77% of lines are typed records) at the cost of 40% more tokens than natural language.\nUltra YON trades human readability for density: 25% fewer tokens than NL.\nNL carries 1% discourse fillers (\"ok so\", \"basically\"). YON eliminates them.\n**Operational characteristic:** Canon prioritizes structure over compression. The token cost is real — structure is not free.\nUltra demonstrates that aggressive aliasing recovers the baseline cost and then some.| Metric | NL | Canon YON | Min YON | Ultra YON | Delta |\n|--------|----:|----------:|--------:|----------:|------:|\n| Characters | 1574 | 2048 | 1324 | 906 | **+30%** |\n| Tokens (cl100k) | 420 | 589 | 429 | 315 | Canon +40%, Ultra **-25%** |\n| Structural Token Ratio | 0% | **77%** | 100% | 100% | Verified |\n| Discourse Filler Density | 1% | **0%** | 0% | 0% | Verified |\n| Hedging Density (§6.1) | 0% | **0%** | 0% | 0% | Verified |"
+    },
+    {
+      "id": "comprehension-api-spec",
+      "name": "Comprehension Quality — API Spec",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "advantage",
+      "metric": {
+        "name": "yon_avg",
+        "value": 7.3,
+        "unit": "/10",
+        "comparison": {
+          "baseline": 6.5,
+          "baselineLabel": "NL avg",
+          "delta": "+0.9"
+        }
+      },
+      "detail": "Three LLMs rated both formats blindly (\"Format A\" vs \"Format B\") on 5 comprehension dimensions.\nYON averaged 7.3/10 across all models. NL averaged 6.5/10 — a gap of +0.9 points.\nTyped records (@SEC, @MAP, @RULE) eliminate the inference cost that prose imposes on every dimension.\n\n**Operational characteristic:** Blind evaluation prevents format-name bias, but models may still favor structure inherently. Results are directional, not absolute.\n| Dimension | OpenAI (NL→YON) | Anthropic (NL→YON) | Google (NL→YON) | Average |\n|-----------|:---:|:---:|:---:|:---:|\n| Section Boundary Clarity | 8→**9** | 6→**9** | 5→**5** | 6.3→**7.7** |\n| Attribute Extraction Accuracy | 9→**8** | 7→**9** | 5→**5** | 7.0→**7.3** |\n| Intent Detection | 7→**9** | 8→**8** | 5→**5** | 6.7→**7.3** |\n| Internal Consistency | 8→**9** | 7→**9** | 5→**5** | 6.7→**7.7** |\n| Hallucination Risk (10=lowest risk) | 6→**7** | 6→**8** | 5→**5** | 5.7→**6.7** |",
+      "secondaryMetrics": [
+        {
+          "name": "nl_overall",
+          "value": 6.5,
+          "unit": "/10"
+        },
+        {
+          "name": "yon_overall",
+          "value": 7.3,
+          "unit": "/10"
+        },
+        {
+          "name": "duration",
+          "value": 2802,
+          "unit": "ms"
+        }
+      ]
+    },
+    {
+      "id": "token-efficiency-bug-report",
+      "name": "Token Efficiency — Bug Report (Incident)",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "advantage",
+      "metric": {
+        "name": "token_delta_ultra",
+        "value": 61,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_tokens",
+          "value": 377,
+          "unit": "tok"
+        },
+        {
+          "name": "canon_tokens",
+          "value": 414,
+          "unit": "tok"
+        },
+        {
+          "name": "min_tokens",
+          "value": 234,
+          "unit": "tok"
+        },
+        {
+          "name": "ultra_tokens",
+          "value": 146,
+          "unit": "tok"
+        },
+        {
+          "name": "structural_ratio_canon",
+          "value": 75,
+          "unit": "%"
+        },
+        {
+          "name": "filler_density_nl",
+          "value": 2,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_nl",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_canon",
+          "value": 0,
+          "unit": "%"
+        }
+      ],
+      "detail": "Token efficiency measures raw compression — characters and tokens consumed per format.\nCanon YON adds structure (75% of lines are typed records) at the cost of 10% more tokens than natural language.\nUltra YON trades human readability for density: 61% fewer tokens than NL.\nNL carries 2% discourse fillers (\"ok so\", \"basically\"). YON eliminates them.\n**Operational characteristic:** Canon prioritizes structure over compression. The token cost is real — structure is not free.\nUltra demonstrates that aggressive aliasing recovers the baseline cost and then some.| Metric | NL | Canon YON | Min YON | Ultra YON | Delta |\n|--------|----:|----------:|--------:|----------:|------:|\n| Characters | 1744 | 1650 | 854 | 478 | **-5%** |\n| Tokens (cl100k) | 377 | 414 | 234 | 146 | Canon +10%, Ultra **-61%** |\n| Structural Token Ratio | 0% | **75%** | 100% | 100% | Verified |\n| Discourse Filler Density | 2% | **0%** | 0% | 0% | Verified |\n| Hedging Density (§6.1) | 0% | **0%** | 0% | 0% | Verified |"
+    },
+    {
+      "id": "comprehension-bug-report",
+      "name": "Comprehension Quality — Bug Report (Incident)",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "advantage",
+      "metric": {
+        "name": "yon_avg",
+        "value": 7.3,
+        "unit": "/10",
+        "comparison": {
+          "baseline": 5.7,
+          "baselineLabel": "NL avg",
+          "delta": "+1.6"
+        }
+      },
+      "detail": "Three LLMs rated both formats blindly (\"Format A\" vs \"Format B\") on 5 comprehension dimensions.\nYON averaged 7.3/10 across all models. NL averaged 5.7/10 — a gap of +1.6 points.\nTyped records (@SEC, @MAP, @RULE) eliminate the inference cost that prose imposes on every dimension.\n\n**Operational characteristic:** Blind evaluation prevents format-name bias, but models may still favor structure inherently. Results are directional, not absolute.\n| Dimension | OpenAI (NL→YON) | Anthropic (NL→YON) | Google (NL→YON) | Average |\n|-----------|:---:|:---:|:---:|:---:|\n| Section Boundary Clarity | 8→**9** | 3→**9** | 5→**5** | 5.3→**7.7** |\n| Attribute Extraction Accuracy | 9→**8** | 4→**9** | 5→**5** | 6.0→**7.3** |\n| Intent Detection | 8→**9** | 7→**8** | 5→**5** | 6.7→**7.3** |\n| Internal Consistency | 7→**9** | 4→**9** | 5→**5** | 5.3→**7.7** |\n| Hallucination Risk (10=lowest risk) | 6→**7** | 5→**8** | 5→**5** | 5.3→**6.7** |",
+      "secondaryMetrics": [
+        {
+          "name": "nl_overall",
+          "value": 5.7,
+          "unit": "/10"
+        },
+        {
+          "name": "yon_overall",
+          "value": 7.3,
+          "unit": "/10"
+        },
+        {
+          "name": "duration",
+          "value": 3278,
+          "unit": "ms"
+        }
+      ]
+    },
+    {
+      "id": "token-efficiency-infra-runbook",
+      "name": "Token Efficiency — Infra Runbook (K8s)",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "advantage",
+      "metric": {
+        "name": "token_delta_ultra",
+        "value": 25,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_tokens",
+          "value": 400,
+          "unit": "tok"
+        },
+        {
+          "name": "canon_tokens",
+          "value": 617,
+          "unit": "tok"
+        },
+        {
+          "name": "min_tokens",
+          "value": 417,
+          "unit": "tok"
+        },
+        {
+          "name": "ultra_tokens",
+          "value": 299,
+          "unit": "tok"
+        },
+        {
+          "name": "structural_ratio_canon",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "filler_density_nl",
+          "value": 2,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_nl",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_canon",
+          "value": 0,
+          "unit": "%"
+        }
+      ],
+      "detail": "Token efficiency measures raw compression — characters and tokens consumed per format.\nCanon YON adds structure (80% of lines are typed records) at the cost of 54% more tokens than natural language.\nUltra YON trades human readability for density: 25% fewer tokens than NL.\nNL carries 2% discourse fillers (\"ok so\", \"basically\"). YON eliminates them.\n**Operational characteristic:** Canon prioritizes structure over compression. The token cost is real — structure is not free.\nUltra demonstrates that aggressive aliasing recovers the baseline cost and then some.| Metric | NL | Canon YON | Min YON | Ultra YON | Delta |\n|--------|----:|----------:|--------:|----------:|------:|\n| Characters | 1581 | 2094 | 1264 | 829 | **+32%** |\n| Tokens (cl100k) | 400 | 617 | 417 | 299 | Canon +54%, Ultra **-25%** |\n| Structural Token Ratio | 0% | **80%** | 100% | 100% | Verified |\n| Discourse Filler Density | 2% | **0%** | 0% | 0% | Verified |\n| Hedging Density (§6.1) | 0% | **0%** | 0% | 0% | Verified |"
+    },
+    {
+      "id": "comprehension-infra-runbook",
+      "name": "Comprehension Quality — Infra Runbook (K8s)",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "advantage",
+      "metric": {
+        "name": "yon_avg",
+        "value": 7.3,
+        "unit": "/10",
+        "comparison": {
+          "baseline": 6.5,
+          "baselineLabel": "NL avg",
+          "delta": "+0.9"
+        }
+      },
+      "detail": "Three LLMs rated both formats blindly (\"Format A\" vs \"Format B\") on 5 comprehension dimensions.\nYON averaged 7.3/10 across all models. NL averaged 6.5/10 — a gap of +0.9 points.\nTyped records (@SEC, @MAP, @RULE) eliminate the inference cost that prose imposes on every dimension.\n\n**Operational characteristic:** Blind evaluation prevents format-name bias, but models may still favor structure inherently. Results are directional, not absolute.\n| Dimension | OpenAI (NL→YON) | Anthropic (NL→YON) | Google (NL→YON) | Average |\n|-----------|:---:|:---:|:---:|:---:|\n| Section Boundary Clarity | 8→**9** | 6→**9** | 5→**5** | 6.3→**7.7** |\n| Attribute Extraction Accuracy | 9→**8** | 7→**9** | 5→**5** | 7.0→**7.3** |\n| Intent Detection | 7→**9** | 8→**8** | 5→**5** | 6.7→**7.3** |\n| Internal Consistency | 8→**9** | 7→**9** | 5→**5** | 6.7→**7.7** |\n| Hallucination Risk (10=lowest risk) | 6→**7** | 6→**8** | 5→**5** | 5.7→**6.7** |",
+      "secondaryMetrics": [
+        {
+          "name": "nl_overall",
+          "value": 6.5,
+          "unit": "/10"
+        },
+        {
+          "name": "yon_overall",
+          "value": 7.3,
+          "unit": "/10"
+        },
+        {
+          "name": "duration",
+          "value": 2815,
+          "unit": "ms"
+        }
+      ]
+    },
+    {
+      "id": "token-efficiency-data-pipeline",
+      "name": "Token Efficiency — Data Pipeline (ETL)",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "advantage",
+      "metric": {
+        "name": "token_delta_ultra",
+        "value": 39,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_tokens",
+          "value": 420,
+          "unit": "tok"
+        },
+        {
+          "name": "canon_tokens",
+          "value": 645,
+          "unit": "tok"
+        },
+        {
+          "name": "min_tokens",
+          "value": 432,
+          "unit": "tok"
+        },
+        {
+          "name": "ultra_tokens",
+          "value": 256,
+          "unit": "tok"
+        },
+        {
+          "name": "structural_ratio_canon",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "filler_density_nl",
+          "value": 1,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_nl",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_canon",
+          "value": 0,
+          "unit": "%"
+        }
+      ],
+      "detail": "Token efficiency measures raw compression — characters and tokens consumed per format.\nCanon YON adds structure (80% of lines are typed records) at the cost of 54% more tokens than natural language.\nUltra YON trades human readability for density: 39% fewer tokens than NL.\nNL carries 1% discourse fillers (\"ok so\", \"basically\"). YON eliminates them.\n**Operational characteristic:** Canon prioritizes structure over compression. The token cost is real — structure is not free.\nUltra demonstrates that aggressive aliasing recovers the baseline cost and then some.| Metric | NL | Canon YON | Min YON | Ultra YON | Delta |\n|--------|----:|----------:|--------:|----------:|------:|\n| Characters | 1857 | 2234 | 1401 | 727 | **+20%** |\n| Tokens (cl100k) | 420 | 645 | 432 | 256 | Canon +54%, Ultra **-39%** |\n| Structural Token Ratio | 0% | **80%** | 100% | 100% | Verified |\n| Discourse Filler Density | 1% | **0%** | 0% | 0% | Verified |\n| Hedging Density (§6.1) | 0% | **0%** | 0% | 0% | Verified |"
+    },
+    {
+      "id": "comprehension-data-pipeline",
+      "name": "Comprehension Quality — Data Pipeline (ETL)",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "advantage",
+      "metric": {
+        "name": "yon_avg",
+        "value": 7.3,
+        "unit": "/10",
+        "comparison": {
+          "baseline": 6.5,
+          "baselineLabel": "NL avg",
+          "delta": "+0.9"
+        }
+      },
+      "detail": "Three LLMs rated both formats blindly (\"Format A\" vs \"Format B\") on 5 comprehension dimensions.\nYON averaged 7.3/10 across all models. NL averaged 6.5/10 — a gap of +0.9 points.\nTyped records (@SEC, @MAP, @RULE) eliminate the inference cost that prose imposes on every dimension.\n\n**Operational characteristic:** Blind evaluation prevents format-name bias, but models may still favor structure inherently. Results are directional, not absolute.\n| Dimension | OpenAI (NL→YON) | Anthropic (NL→YON) | Google (NL→YON) | Average |\n|-----------|:---:|:---:|:---:|:---:|\n| Section Boundary Clarity | 8→**9** | 6→**9** | 5→**5** | 6.3→**7.7** |\n| Attribute Extraction Accuracy | 9→**8** | 7→**9** | 5→**5** | 7.0→**7.3** |\n| Intent Detection | 8→**9** | 8→**8** | 5→**5** | 7.0→**7.3** |\n| Internal Consistency | 7→**9** | 7→**9** | 5→**5** | 6.3→**7.7** |\n| Hallucination Risk (10=lowest risk) | 6→**7** | 6→**8** | 5→**5** | 5.7→**6.7** |",
+      "secondaryMetrics": [
+        {
+          "name": "nl_overall",
+          "value": 6.5,
+          "unit": "/10"
+        },
+        {
+          "name": "yon_overall",
+          "value": 7.3,
+          "unit": "/10"
+        },
+        {
+          "name": "duration",
+          "value": 2842,
+          "unit": "ms"
+        }
+      ]
+    },
+    {
+      "id": "token-efficiency-full-api-spec",
+      "name": "Token Efficiency — Full API Spec (Billing)",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "advantage",
+      "metric": {
+        "name": "token_delta_ultra",
+        "value": 64,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_tokens",
+          "value": 2181,
+          "unit": "tok"
+        },
+        {
+          "name": "canon_tokens",
+          "value": 2240,
+          "unit": "tok"
+        },
+        {
+          "name": "min_tokens",
+          "value": 1134,
+          "unit": "tok"
+        },
+        {
+          "name": "ultra_tokens",
+          "value": 791,
+          "unit": "tok"
+        },
+        {
+          "name": "structural_ratio_canon",
+          "value": 75,
+          "unit": "%"
+        },
+        {
+          "name": "filler_density_nl",
+          "value": 1,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_nl",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_canon",
+          "value": 0,
+          "unit": "%"
+        }
+      ],
+      "detail": "Token efficiency measures raw compression — characters and tokens consumed per format.\nCanon YON adds structure (75% of lines are typed records) at the cost of 3% more tokens than natural language.\nUltra YON trades human readability for density: 64% fewer tokens than NL.\nNL carries 1% discourse fillers (\"ok so\", \"basically\"). YON eliminates them.\n**Operational characteristic:** Canon prioritizes structure over compression. The token cost is real — structure is not free.\nUltra demonstrates that aggressive aliasing recovers the baseline cost and then some.| Metric | NL | Canon YON | Min YON | Ultra YON | Delta |\n|--------|----:|----------:|--------:|----------:|------:|\n| Characters | 9128 | 8195 | 3632 | 2104 | **-10%** |\n| Tokens (cl100k) | 2181 | 2240 | 1134 | 791 | Canon +3%, Ultra **-64%** |\n| Structural Token Ratio | 0% | **75%** | 80% | 100% | Verified |\n| Discourse Filler Density | 1% | **0%** | 0% | 1% | Verified |\n| Hedging Density (§6.1) | 0% | **0%** | 0% | 0% | Verified |"
+    },
+    {
+      "id": "comprehension-full-api-spec",
+      "name": "Comprehension Quality — Full API Spec (Billing)",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "advantage",
+      "metric": {
+        "name": "yon_avg",
+        "value": 7.4,
+        "unit": "/10",
+        "comparison": {
+          "baseline": 6.7,
+          "baselineLabel": "NL avg",
+          "delta": "+0.7"
+        }
+      },
+      "detail": "Three LLMs rated both formats blindly (\"Format A\" vs \"Format B\") on 5 comprehension dimensions.\nYON averaged 7.4/10 across all models. NL averaged 6.7/10 — a gap of +0.7 points.\nTyped records (@SEC, @MAP, @RULE) eliminate the inference cost that prose imposes on every dimension.\n\n**Operational characteristic:** Blind evaluation prevents format-name bias, but models may still favor structure inherently. Results are directional, not absolute.\n| Dimension | OpenAI (NL→YON) | Anthropic (NL→YON) | Google (NL→YON) | Average |\n|-----------|:---:|:---:|:---:|:---:|\n| Section Boundary Clarity | 8→**9** | 6→**9** | 5→**5** | 6.3→**7.7** |\n| Attribute Extraction Accuracy | 9→**8** | 7→**9** | 5→**5** | 7.0→**7.3** |\n| Intent Detection | 8→**9** | 8→**8** | 5→**5** | 7.0→**7.3** |\n| Internal Consistency | 9→**9** | 7→**9** | 5→**5** | 7.0→**7.7** |\n| Hallucination Risk (10=lowest risk) | 7→**7** | 6→**9** | 5→**5** | 6.0→**7.0** |",
+      "secondaryMetrics": [
+        {
+          "name": "nl_overall",
+          "value": 6.7,
+          "unit": "/10"
+        },
+        {
+          "name": "yon_overall",
+          "value": 7.4,
+          "unit": "/10"
+        },
+        {
+          "name": "duration",
+          "value": 3400,
+          "unit": "ms"
+        }
+      ]
+    },
+    {
+      "id": "token-efficiency-architecture-adr",
+      "name": "Token Efficiency — Architecture ADR (Temporal+Kafka)",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "advantage",
+      "metric": {
+        "name": "token_delta_ultra",
+        "value": 55,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_tokens",
+          "value": 2349,
+          "unit": "tok"
+        },
+        {
+          "name": "canon_tokens",
+          "value": 2698,
+          "unit": "tok"
+        },
+        {
+          "name": "min_tokens",
+          "value": 1553,
+          "unit": "tok"
+        },
+        {
+          "name": "ultra_tokens",
+          "value": 1055,
+          "unit": "tok"
+        },
+        {
+          "name": "structural_ratio_canon",
+          "value": 67,
+          "unit": "%"
+        },
+        {
+          "name": "filler_density_nl",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_nl",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_canon",
+          "value": 0,
+          "unit": "%"
+        }
+      ],
+      "detail": "Token efficiency measures raw compression — characters and tokens consumed per format.\nCanon YON adds structure (67% of lines are typed records) at the cost of 15% more tokens than natural language.\nUltra YON trades human readability for density: 55% fewer tokens than NL.\nNL carries 0% discourse fillers (\"ok so\", \"basically\"). YON eliminates them.\n**Operational characteristic:** Canon prioritizes structure over compression. The token cost is real — structure is not free.\nUltra demonstrates that aggressive aliasing recovers the baseline cost and then some.| Metric | NL | Canon YON | Min YON | Ultra YON | Delta |\n|--------|----:|----------:|--------:|----------:|------:|\n| Characters | 10985 | 10253 | 5115 | 2979 | **-7%** |\n| Tokens (cl100k) | 2349 | 2698 | 1553 | 1055 | Canon +15%, Ultra **-55%** |\n| Structural Token Ratio | 0% | **67%** | 78% | 100% | Verified |\n| Discourse Filler Density | 0% | **0%** | 0% | 0% | Verified |\n| Hedging Density (§6.1) | 0% | **0%** | 0% | 0% | Verified |"
+    },
+    {
+      "id": "comprehension-architecture-adr",
+      "name": "Comprehension Quality — Architecture ADR (Temporal+Kafka)",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "tied",
+      "metric": {
+        "name": "yon_avg",
+        "value": 7.4,
+        "unit": "/10",
+        "comparison": {
+          "baseline": 7.4,
+          "baselineLabel": "NL avg",
+          "delta": "+0"
+        }
+      },
+      "detail": "Three LLMs rated both formats blindly (\"Format A\" vs \"Format B\") on 5 comprehension dimensions.\nYON averaged 7.4/10 across all models. NL averaged 7.4/10 — a gap of +0 points.\nTyped records (@SEC, @MAP, @RULE) eliminate the inference cost that prose imposes on every dimension.\n\n**Operational characteristic:** Blind evaluation prevents format-name bias, but models may still favor structure inherently. Results are directional, not absolute.\n| Dimension | OpenAI (NL→YON) | Anthropic (NL→YON) | Google (NL→YON) | Average |\n|-----------|:---:|:---:|:---:|:---:|\n| Section Boundary Clarity | 9→**9** | 9→**9** | 5→**5** | 7.7→**7.7** |\n| Attribute Extraction Accuracy | 8→**8** | 9→**9** | 5→**5** | 7.3→**7.3** |\n| Intent Detection | 9→**9** | 9→**9** | 5→**5** | 7.7→**7.7** |\n| Internal Consistency | 9→**9** | 9→**9** | 5→**5** | 7.7→**7.7** |\n| Hallucination Risk (10=lowest risk) | 7→**7** | 8→**8** | 5→**5** | 6.7→**6.7** |",
+      "secondaryMetrics": [
+        {
+          "name": "nl_overall",
+          "value": 7.4,
+          "unit": "/10"
+        },
+        {
+          "name": "yon_overall",
+          "value": 7.4,
+          "unit": "/10"
+        },
+        {
+          "name": "duration",
+          "value": 3129,
+          "unit": "ms"
+        }
+      ]
+    },
+    {
+      "id": "token-efficiency-incident-postmortem",
+      "name": "Token Efficiency — Incident Postmortem (SEV-1)",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "advantage",
+      "metric": {
+        "name": "token_delta_ultra",
+        "value": 60,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_tokens",
+          "value": 2308,
+          "unit": "tok"
+        },
+        {
+          "name": "canon_tokens",
+          "value": 1877,
+          "unit": "tok"
+        },
+        {
+          "name": "min_tokens",
+          "value": 1259,
+          "unit": "tok"
+        },
+        {
+          "name": "ultra_tokens",
+          "value": 932,
+          "unit": "tok"
+        },
+        {
+          "name": "structural_ratio_canon",
+          "value": 62,
+          "unit": "%"
+        },
+        {
+          "name": "filler_density_nl",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_nl",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_canon",
+          "value": 0,
+          "unit": "%"
+        }
+      ],
+      "detail": "Token efficiency measures raw compression — characters and tokens consumed per format.\nCanon YON adds structure (62% of lines are typed records) at the cost of 19% fewer tokens than natural language.\nUltra YON trades human readability for density: 60% fewer tokens than NL.\nNL carries 0% discourse fillers (\"ok so\", \"basically\"). YON eliminates them.\n**Operational characteristic:** Canon prioritizes structure over compression. The token cost is real — structure is not free.\nUltra demonstrates that aggressive aliasing recovers the baseline cost and then some.| Metric | NL | Canon YON | Min YON | Ultra YON | Delta |\n|--------|----:|----------:|--------:|----------:|------:|\n| Characters | 10583 | 6533 | 3686 | 2364 | **-38%** |\n| Tokens (cl100k) | 2308 | 1877 | 1259 | 932 | Canon -19%, Ultra **-60%** |\n| Structural Token Ratio | 0% | **62%** | 71% | 100% | Verified |\n| Discourse Filler Density | 0% | **0%** | 0% | 1% | Verified |\n| Hedging Density (§6.1) | 0% | **0%** | 0% | 0% | Verified |"
+    },
+    {
+      "id": "comprehension-incident-postmortem",
+      "name": "Comprehension Quality — Incident Postmortem (SEV-1)",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "tied",
+      "metric": {
+        "name": "yon_avg",
+        "value": 7.3,
+        "unit": "/10",
+        "comparison": {
+          "baseline": 7.4,
+          "baselineLabel": "NL avg",
+          "delta": "+-0.1"
+        }
+      },
+      "detail": "Three LLMs rated both formats blindly (\"Format A\" vs \"Format B\") on 5 comprehension dimensions.\nYON averaged 7.3/10 across all models. NL averaged 7.4/10 — a gap of +-0.1 points.\nTyped records (@SEC, @MAP, @RULE) eliminate the inference cost that prose imposes on every dimension.\n\n**Operational characteristic:** Blind evaluation prevents format-name bias, but models may still favor structure inherently. Results are directional, not absolute.\n| Dimension | OpenAI (NL→YON) | Anthropic (NL→YON) | Google (NL→YON) | Average |\n|-----------|:---:|:---:|:---:|:---:|\n| Section Boundary Clarity | 9→**9** | 9→**9** | 5→**5** | 7.7→**7.7** |\n| Attribute Extraction Accuracy | 8→**8** | 9→**9** | 5→**5** | 7.3→**7.3** |\n| Intent Detection | 9→**9** | 9→**8** | 5→**5** | 7.7→**7.3** |\n| Internal Consistency | 9→**9** | 9→**9** | 5→**5** | 7.7→**7.7** |\n| Hallucination Risk (10=lowest risk) | 7→**7** | 8→**8** | 5→**5** | 6.7→**6.7** |",
+      "secondaryMetrics": [
+        {
+          "name": "nl_overall",
+          "value": 7.4,
+          "unit": "/10"
+        },
+        {
+          "name": "yon_overall",
+          "value": 7.3,
+          "unit": "/10"
+        },
+        {
+          "name": "duration",
+          "value": 3253,
+          "unit": "ms"
+        }
+      ]
+    },
+    {
+      "id": "token-efficiency-multilingual-policy",
+      "name": "Token Efficiency — Multilingual Policy (EU Privacy)",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "advantage",
+      "metric": {
+        "name": "token_delta_ultra",
+        "value": 46,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_tokens",
+          "value": 1364,
+          "unit": "tok"
+        },
+        {
+          "name": "canon_tokens",
+          "value": 1780,
+          "unit": "tok"
+        },
+        {
+          "name": "min_tokens",
+          "value": 1141,
+          "unit": "tok"
+        },
+        {
+          "name": "ultra_tokens",
+          "value": 733,
+          "unit": "tok"
+        },
+        {
+          "name": "structural_ratio_canon",
+          "value": 78,
+          "unit": "%"
+        },
+        {
+          "name": "filler_density_nl",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_nl",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_canon",
+          "value": 0,
+          "unit": "%"
+        }
+      ],
+      "detail": "Token efficiency measures raw compression — characters and tokens consumed per format.\nCanon YON adds structure (78% of lines are typed records) at the cost of 30% more tokens than natural language.\nUltra YON trades human readability for density: 46% fewer tokens than NL.\nNL carries 0% discourse fillers (\"ok so\", \"basically\"). YON eliminates them.\n**Operational characteristic:** Canon prioritizes structure over compression. The token cost is real — structure is not free.\nUltra demonstrates that aggressive aliasing recovers the baseline cost and then some.| Metric | NL | Canon YON | Min YON | Ultra YON | Delta |\n|--------|----:|----------:|--------:|----------:|------:|\n| Characters | 6014 | 6483 | 3625 | 1988 | **+8%** |\n| Tokens (cl100k) | 1364 | 1780 | 1141 | 733 | Canon +30%, Ultra **-46%** |\n| Structural Token Ratio | 0% | **78%** | 75% | 100% | Verified |\n| Discourse Filler Density | 0% | **0%** | 0% | 0% | Verified |\n| Hedging Density (§6.1) | 0% | **0%** | 0% | 0% | Verified |"
+    },
+    {
+      "id": "comprehension-multilingual-policy",
+      "name": "Comprehension Quality — Multilingual Policy (EU Privacy)",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "tied",
+      "metric": {
+        "name": "yon_avg",
+        "value": 7.3,
+        "unit": "/10",
+        "comparison": {
+          "baseline": 7.2,
+          "baselineLabel": "NL avg",
+          "delta": "+0.1"
+        }
+      },
+      "detail": "Three LLMs rated both formats blindly (\"Format A\" vs \"Format B\") on 5 comprehension dimensions.\nYON averaged 7.3/10 across all models. NL averaged 7.2/10 — a gap of +0.1 points.\nTyped records (@SEC, @MAP, @RULE) eliminate the inference cost that prose imposes on every dimension.\n\n**Operational characteristic:** Blind evaluation prevents format-name bias, but models may still favor structure inherently. Results are directional, not absolute.\n| Dimension | OpenAI (NL→YON) | Anthropic (NL→YON) | Google (NL→YON) | Average |\n|-----------|:---:|:---:|:---:|:---:|\n| Section Boundary Clarity | 8→**9** | 9→**9** | 5→**5** | 7.3→**7.7** |\n| Attribute Extraction Accuracy | 9→**8** | 8→**9** | 5→**5** | 7.3→**7.3** |\n| Intent Detection | 9→**9** | 9→**8** | 5→**5** | 7.7→**7.3** |\n| Internal Consistency | 8→**9** | 9→**9** | 5→**5** | 7.3→**7.7** |\n| Hallucination Risk (10=lowest risk) | 7→**7** | 7→**8** | 5→**5** | 6.3→**6.7** |",
+      "secondaryMetrics": [
+        {
+          "name": "nl_overall",
+          "value": 7.2,
+          "unit": "/10"
+        },
+        {
+          "name": "yon_overall",
+          "value": 7.3,
+          "unit": "/10"
+        },
+        {
+          "name": "duration",
+          "value": 3173,
+          "unit": "ms"
+        }
+      ]
+    },
+    {
+      "id": "token-efficiency-creative-brainstorm",
+      "name": "Token Efficiency — Creative Brainstorm (Negative Control)",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "advantage",
+      "metric": {
+        "name": "token_delta_ultra",
+        "value": 58,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_tokens",
+          "value": 977,
+          "unit": "tok"
+        },
+        {
+          "name": "canon_tokens",
+          "value": 743,
+          "unit": "tok"
+        },
+        {
+          "name": "min_tokens",
+          "value": 530,
+          "unit": "tok"
+        },
+        {
+          "name": "ultra_tokens",
+          "value": 414,
+          "unit": "tok"
+        },
+        {
+          "name": "structural_ratio_canon",
+          "value": 54,
+          "unit": "%"
+        },
+        {
+          "name": "filler_density_nl",
+          "value": 2,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_nl",
+          "value": 1,
+          "unit": "%"
+        },
+        {
+          "name": "hedging_density_canon",
+          "value": 1,
+          "unit": "%"
+        }
+      ],
+      "detail": "Token efficiency measures raw compression — characters and tokens consumed per format.\nCanon YON adds structure (54% of lines are typed records) at the cost of 24% fewer tokens than natural language.\nUltra YON trades human readability for density: 58% fewer tokens than NL.\nNL carries 2% discourse fillers (\"ok so\", \"basically\"). YON eliminates them.\nNL contains 1% hedging markers (§6.1-protected). Canon preserves 1%.\n**Operational characteristic:** Canon prioritizes structure over compression. The token cost is real — structure is not free.\nUltra demonstrates that aggressive aliasing recovers the baseline cost and then some.| Metric | NL | Canon YON | Min YON | Ultra YON | Delta |\n|--------|----:|----------:|--------:|----------:|------:|\n| Characters | 4611 | 3078 | 1931 | 1307 | **-33%** |\n| Tokens (cl100k) | 977 | 743 | 530 | 414 | Canon -24%, Ultra **-58%** |\n| Structural Token Ratio | 0% | **54%** | 75% | 100% | Verified |\n| Discourse Filler Density | 2% | **0%** | 0% | 0% | Verified |\n| Hedging Density (§6.1) | 1% | **1%** | 0% | 0% | Verified |"
+    },
+    {
+      "id": "comprehension-creative-brainstorm",
+      "name": "Comprehension Quality — Creative Brainstorm (Negative Control)",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "advantage",
+      "metric": {
+        "name": "yon_avg",
+        "value": 7.1,
+        "unit": "/10",
+        "comparison": {
+          "baseline": 5.9,
+          "baselineLabel": "NL avg",
+          "delta": "+1.1"
+        }
+      },
+      "detail": "Three LLMs rated both formats blindly (\"Format A\" vs \"Format B\") on 5 comprehension dimensions.\nYON averaged 7.1/10 across all models. NL averaged 5.9/10 — a gap of +1.1 points.\nTyped records (@SEC, @MAP, @RULE) eliminate the inference cost that prose imposes on every dimension.\n\n**Operational characteristic:** Blind evaluation prevents format-name bias, but models may still favor structure inherently. Results are directional, not absolute.\n| Dimension | OpenAI (NL→YON) | Anthropic (NL→YON) | Google (NL→YON) | Average |\n|-----------|:---:|:---:|:---:|:---:|\n| Section Boundary Clarity | 8→**8** | 6→**9** | 5→**5** | 6.3→**7.3** |\n| Attribute Extraction Accuracy | 7→**9** | 4→**9** | 5→**5** | 5.3→**7.7** |\n| Intent Detection | 9→**7** | 8→**8** | 5→**5** | 7.3→**6.7** |\n| Internal Consistency | 8→**8** | 5→**9** | 5→**5** | 6.0→**7.3** |\n| Hallucination Risk (10=lowest risk) | 6→**6** | 3→**8** | 5→**5** | 4.7→**6.3** |",
+      "secondaryMetrics": [
+        {
+          "name": "nl_overall",
+          "value": 5.9,
+          "unit": "/10"
+        },
+        {
+          "name": "yon_overall",
+          "value": 7.1,
+          "unit": "/10"
+        },
+        {
+          "name": "duration",
+          "value": 2899,
+          "unit": "ms"
+        }
+      ]
+    },
+    {
+      "id": "deep-eval-summary",
+      "name": "Deep Evaluation Summary (10 scenarios × 2 categories)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "scenarios",
+        "value": 10,
+        "unit": "evaluated"
+      },
+      "detail": "| Category | Tests | Aggregate |\n|----------|:-----:|-----------|\n| token-efficiency | 10 tests | avg metric: 46.8 % |\n| comprehension | 10 tests | avg metric: 7.3 /10 |",
+      "secondaryMetrics": [
+        {
+          "name": "total_tests",
+          "value": 20,
+          "unit": "tests"
+        },
+        {
+          "name": "categories",
+          "value": 2,
+          "unit": "categories"
+        },
+        {
+          "name": "models",
+          "value": 3,
+          "unit": "models"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total": 21,
+    "passed": 21,
+    "failed": 0,
+    "durationMs": 3530.445699999982
+  },
+  "timestamp": "2026-03-21T21:09:15.051Z"
+}

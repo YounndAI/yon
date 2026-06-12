@@ -1,0 +1,93 @@
+{
+  "suiteId": "agent-handoff-fidelity",
+  "suiteName": "Agent Handoff Fidelity",
+  "pillar": "streaming",
+  "tests": [
+    {
+      "id": "handoff-completeness",
+      "name": "3-Hop Handoff — Record Completeness",
+      "passed": true,
+      "metric": {
+        "name": "handoff_completeness",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "hop1_records",
+          "value": 200,
+          "unit": "records"
+        },
+        {
+          "name": "hop2_records",
+          "value": 200,
+          "unit": "records"
+        },
+        {
+          "name": "hop3_records",
+          "value": 200,
+          "unit": "records"
+        },
+        {
+          "name": "total_errors",
+          "value": 0,
+          "unit": "errors"
+        }
+      ],
+      "detail": "Relayed 200 records through 3 streaming hops. Hop 1: 200, Hop 2: 200, Hop 3: 200. Completeness: 100%."
+    },
+    {
+      "id": "handoff-field-preservation",
+      "name": "3-Hop Handoff — Field Preservation",
+      "passed": true,
+      "metric": {
+        "name": "field_preservation",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "records_checked",
+          "value": 50,
+          "unit": "records"
+        },
+        {
+          "name": "fields_intact",
+          "value": 50,
+          "unit": "records"
+        }
+      ],
+      "detail": "Checked 5 fields across 50 records after 3 hops. 50/50 records had all fields intact (100%)."
+    },
+    {
+      "id": "handoff-ordering",
+      "name": "3-Hop Handoff — Ordering Integrity",
+      "passed": true,
+      "metric": {
+        "name": "ordering_integrity",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "sequence_pairs_checked",
+          "value": 199,
+          "unit": "pairs"
+        },
+        {
+          "name": "in_order",
+          "value": 199,
+          "unit": "pairs"
+        }
+      ],
+      "detail": "Checked 200 records for ordering after 3-hop relay. 199/199 sequential pairs in order (100%)."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 4.376000000000204
+  },
+  "timestamp": "2026-03-22T15:12:25.159Z"
+}

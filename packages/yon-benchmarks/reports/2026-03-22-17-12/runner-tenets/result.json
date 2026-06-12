@@ -1,0 +1,164 @@
+{
+  "suiteId": "runner-tenets",
+  "suiteName": "Runner Tenets",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "tenet-extraction",
+      "name": "Extract @TENET Records",
+      "passed": true,
+      "metric": {
+        "name": "extraction_ok",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "count",
+          "value": 2,
+          "unit": "tenets"
+        },
+        {
+          "name": "has_no_pii",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "has_cite",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.13,
+          "unit": "ms"
+        }
+      ],
+      "detail": "2 @TENET records extracted. L0 precedence=100, L2 precedence=50. Levels and precedence verified."
+    },
+    {
+      "id": "tenet-merge-precedence",
+      "name": "Merge Precedence (Safety Floor)",
+      "passed": true,
+      "metric": {
+        "name": "precedence_ok",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "total_tenets",
+          "value": 2,
+          "unit": "tenets"
+        },
+        {
+          "name": "safety_is_runner",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "safety_is_L0",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "doc_only_present",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.07,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Runner tn:safety (L0) overrides document tn:safety (L3). Doc-only tn:doc-only added. Immutable safety floor verified."
+    },
+    {
+      "id": "tenet-check-allow",
+      "name": "onTenetCheck — Allow",
+      "passed": true,
+      "metric": {
+        "name": "allow_ok",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "result_null",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.03,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Callback returns true → check() returns null. Allow path verified."
+    },
+    {
+      "id": "tenet-check-reject",
+      "name": "onTenetCheck — Reject",
+      "passed": true,
+      "metric": {
+        "name": "reject_ok",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "is_error",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "has_message",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.02,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Callback returns false → RunnerError with \"rejected by tenet check\". Reject path verified."
+    },
+    {
+      "id": "tenet-no-callback-passthrough",
+      "name": "No Callback Passthrough",
+      "passed": true,
+      "metric": {
+        "name": "passthrough_ok",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "has_tenets",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "result_null",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.01,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Tenets loaded but no callback → check() returns null. Passthrough verified."
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0,
+    "durationMs": 0.4775000000000773
+  },
+  "timestamp": "2026-03-22T15:12:15.223Z"
+}

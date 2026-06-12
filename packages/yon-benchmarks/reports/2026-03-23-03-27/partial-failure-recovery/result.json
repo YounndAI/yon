@@ -1,0 +1,100 @@
+{
+  "suiteId": "partial-failure-recovery",
+  "suiteName": "Partial Failure Recovery",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "partial-yon-recovery",
+      "name": "YON Recovery — 3 Corrupt Points",
+      "passed": true,
+      "metric": {
+        "name": "yon_recovery_rate",
+        "value": 99.7,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "records_recovered",
+          "value": 997,
+          "unit": "records"
+        },
+        {
+          "name": "records_total",
+          "value": 1000,
+          "unit": "records"
+        },
+        {
+          "name": "corrupt_points",
+          "value": 3,
+          "unit": "points"
+        }
+      ],
+      "detail": "1000 records with corruption at indices [250, 500, 750]. YON recovered 997/1000 records (99.7%). Each corrupt line costs exactly one record."
+    },
+    {
+      "id": "partial-json-cascade",
+      "name": "JSON Cascade — 3 Corrupt Points",
+      "passed": true,
+      "metric": {
+        "name": "json_recovery_rate",
+        "value": 0,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "records_recovered",
+          "value": 0,
+          "unit": "records"
+        },
+        {
+          "name": "records_total",
+          "value": 1000,
+          "unit": "records"
+        }
+      ],
+      "outcome": "advantage",
+      "detail": "Same 1000 records with same corruption points. JSON recovered 0/1000 records (0%). A single corruption in a bracket-delimited format cascades to total failure."
+    },
+    {
+      "id": "partial-recovery-delta",
+      "name": "Recovery Delta — YON vs JSON",
+      "passed": true,
+      "metric": {
+        "name": "recovery_delta",
+        "value": 99.7,
+        "unit": "%",
+        "comparison": {
+          "baseline": 0,
+          "baselineLabel": "JSON recovery",
+          "delta": "+99.7%"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_recovered",
+          "value": 997,
+          "unit": "records"
+        },
+        {
+          "name": "json_recovered",
+          "value": 0,
+          "unit": "records"
+        },
+        {
+          "name": "records_saved",
+          "value": 997,
+          "unit": "records"
+        }
+      ],
+      "outcome": "advantage",
+      "detail": "YON: 997/1000. JSON: 0/1000. Delta: 997 records saved (99.7%). Line independence eliminates cascade failure."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 2.6944000000003143
+  },
+  "timestamp": "2026-03-23T01:27:29.496Z"
+}

@@ -1,0 +1,83 @@
+{
+  "suiteId": "ai-sdk-streaming-integration",
+  "suiteName": "AI SDK Streaming Integration",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "ai-sdk-ttfr",
+      "name": "AI SDK Integration — Time to First Record",
+      "passed": true,
+      "metric": {
+        "name": "integration_ttfr_ms",
+        "value": 0.04,
+        "unit": "ms"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "total_records",
+          "value": 100,
+          "unit": "records"
+        },
+        {
+          "name": "total_chunks",
+          "value": 129,
+          "unit": "chunks"
+        }
+      ],
+      "detail": "Streamed 100 records through 129 simulated AI SDK chunks. TTFR: 0.040ms. Total records: 100."
+    },
+    {
+      "id": "ai-sdk-completeness",
+      "name": "AI SDK Integration — Record Completeness",
+      "passed": true,
+      "metric": {
+        "name": "integration_completeness",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "records_received",
+          "value": 100,
+          "unit": "records"
+        },
+        {
+          "name": "errors",
+          "value": 0,
+          "unit": "errors"
+        }
+      ],
+      "detail": "100/100 records received through chunked delivery (100%). Errors: 0. YON's line-buffered parser handles arbitrary chunk boundaries."
+    },
+    {
+      "id": "ai-sdk-error-handling",
+      "name": "AI SDK Integration — Mid-Stream Error Handling",
+      "passed": true,
+      "metric": {
+        "name": "integration_error_recovery",
+        "value": 99,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "records_recovered",
+          "value": 99,
+          "unit": "records"
+        },
+        {
+          "name": "errors_handled",
+          "value": 1,
+          "unit": "errors"
+        }
+      ],
+      "detail": "Injected corruption mid-stream. Recovered 99/100 records (99%). Errors handled: 1. Parser continues after mid-stream corruption."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 0.7739000000001397
+  },
+  "timestamp": "2026-03-23T01:27:29.502Z"
+}

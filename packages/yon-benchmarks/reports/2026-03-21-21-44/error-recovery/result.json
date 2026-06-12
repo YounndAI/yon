@@ -1,0 +1,90 @@
+{
+  "suiteId": "error-recovery",
+  "suiteName": "Error Recovery",
+  "pillar": "streaming",
+  "tests": [
+    {
+      "id": "single-line-corruption",
+      "name": "Single-Line Corruption Recovery",
+      "passed": true,
+      "metric": {
+        "name": "yon_recovered",
+        "value": 99,
+        "unit": "%",
+        "comparison": {
+          "baseline": 0,
+          "baselineLabel": "JSON recovery %",
+          "delta": "99% vs 0%"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_records",
+          "value": 100,
+          "unit": "records"
+        },
+        {
+          "name": "json_records",
+          "value": 0,
+          "unit": "records"
+        }
+      ],
+      "detail": "YON recovered 100/101 records (99%). JSON: total failure (0/100). Line-oriented format enables record-level fault isolation."
+    },
+    {
+      "id": "multi-point-corruption",
+      "name": "Multi-Point Corruption Recovery (5 faults)",
+      "passed": true,
+      "metric": {
+        "name": "survived_records",
+        "value": 96,
+        "unit": "records",
+        "comparison": {
+          "baseline": 0,
+          "baselineLabel": "JSON recovery (total fail)",
+          "delta": "96 vs 0"
+        }
+      },
+      "detail": "5 corruption points injected. YON recovered 96/101 records (95%). JSON: total failure. Each fault is isolated to its line."
+    },
+    {
+      "id": "truncation-recovery",
+      "name": "Stream Truncation Recovery (60% of doc)",
+      "passed": true,
+      "metric": {
+        "name": "recovered_records",
+        "value": 60,
+        "unit": "records",
+        "comparison": {
+          "baseline": 0,
+          "baselineLabel": "JSON truncation recovery",
+          "delta": "60 vs 0"
+        }
+      },
+      "detail": "Document truncated at 60%. YON recovered 60 records (all complete lines before cut point). JSON: total failure. Streaming-first design means every complete line is immediately usable."
+    },
+    {
+      "id": "encoding-corruption",
+      "name": "Encoding Corruption Resilience",
+      "passed": true,
+      "metric": {
+        "name": "recovered_records",
+        "value": 51,
+        "unit": "records",
+        "comparison": {
+          "baseline": 51,
+          "baselineLabel": "total records",
+          "delta": "100% survived"
+        }
+      },
+      "detail": "3 lines corrupted with replacement characters. YON recovered 51/51 records (100%). Line-per-record isolation limits blast radius."
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "durationMs": 0.9206000000003769
+  },
+  "timestamp": "2026-03-21T19:44:53.335Z"
+}

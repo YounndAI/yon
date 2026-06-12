@@ -1,0 +1,98 @@
+{
+  "suiteId": "llm-multi-hop-pipeline",
+  "suiteName": "LLM Multi-Hop Pipeline",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "three-hop-yon-relay",
+      "name": "Three-Hop YON Relay (cross-model)",
+      "passed": true,
+      "type": "gate",
+      "metric": {
+        "name": "yon_relay_accuracy",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "original_facts",
+          "value": 8,
+          "unit": "/8"
+        },
+        {
+          "name": "added_facts",
+          "value": 2,
+          "unit": "/2"
+        },
+        {
+          "name": "duration",
+          "value": 24328,
+          "unit": "ms"
+        }
+      ],
+      "detail": "3-hop relay. Original facts: 8/8. Added facts: 2/2. Total: 10/10 (100%). Q1: ✓, Q2: ✓, Q3: ✓, Q4: ✓, Q5: ✓, Q6: ✓ (modified), Q7: ✓, Q8: ✓",
+      "outcome": "advantage"
+    },
+    {
+      "id": "three-hop-json-relay",
+      "name": "Three-Hop JSON Relay (comparison)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "json_relay_accuracy",
+        "value": 88,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct_answers",
+          "value": 7,
+          "unit": "/8"
+        },
+        {
+          "name": "duration",
+          "value": 33044,
+          "unit": "ms"
+        }
+      ],
+      "detail": "3-hop JSON relay. Facts at hop 3: 7/8 (88%).",
+      "outcome": "disadvantage"
+    },
+    {
+      "id": "intermediate-parse-validity",
+      "name": "Intermediate YON Parse Validity (§3 compliance)",
+      "passed": true,
+      "type": "gate",
+      "metric": {
+        "name": "parse_valid",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "record_count",
+          "value": 25,
+          "unit": "records"
+        },
+        {
+          "name": "yon_bytes",
+          "value": 1907,
+          "unit": "bytes"
+        },
+        {
+          "name": "duration",
+          "value": 13685,
+          "unit": "ms"
+        }
+      ],
+      "detail": "LLM-generated YON parses successfully: 25 records."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 71074.2266
+  },
+  "timestamp": "2026-03-23T13:39:52.377Z"
+}

@@ -1,0 +1,101 @@
+{
+  "suiteId": "context-window-128k",
+  "suiteName": "Context Window Efficiency 128K",
+  "pillar": "cognitive-economy",
+  "tests": [
+    {
+      "id": "context-128k-records",
+      "name": "128K Context Window — Record Capacity",
+      "passed": true,
+      "metric": {
+        "name": "yon_records_128k",
+        "value": 3045,
+        "unit": "records",
+        "comparison": {
+          "baseline": 2694,
+          "baselineLabel": "JSON records at 128K",
+          "delta": "351 records"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "json_records_128k",
+          "value": 2694,
+          "unit": "records"
+        },
+        {
+          "name": "capacity_delta",
+          "value": -13,
+          "unit": "%"
+        }
+      ],
+      "outcome": "advantage",
+      "detail": "At 128K tokens: YON fits 3045 records, JSON fits 2694 records. Delta: -13%. YON's per-line tags are structural cost; JSON's nesting compresses at scale."
+    },
+    {
+      "id": "context-128k-density",
+      "name": "128K Context Window — Tokens per Record",
+      "passed": true,
+      "metric": {
+        "name": "yon_tokens_per_record",
+        "value": 41,
+        "unit": "tokens",
+        "comparison": {
+          "baseline": 36,
+          "baselineLabel": "JSON tokens per record",
+          "delta": "14%"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "json_tokens_per_record",
+          "value": 36,
+          "unit": "tokens"
+        },
+        {
+          "name": "overhead_ratio",
+          "value": 114,
+          "unit": "%"
+        }
+      ],
+      "outcome": "disadvantage",
+      "detail": "Per-record density: YON 41 tokens, JSON 36 tokens (114% of JSON). YON tag overhead (@MAP, type suffixes) adds structural cost per record."
+    },
+    {
+      "id": "context-128k-overhead",
+      "name": "128K Context Window — Structural Overhead at Scale",
+      "passed": true,
+      "metric": {
+        "name": "structural_overhead_pct",
+        "value": -12,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_total_tokens",
+          "value": 41478,
+          "unit": "tokens"
+        },
+        {
+          "name": "json_total_tokens",
+          "value": 46963,
+          "unit": "tokens"
+        },
+        {
+          "name": "records_measured",
+          "value": 1000,
+          "unit": "records"
+        }
+      ],
+      "outcome": "tied",
+      "detail": "At 1000 records: YON 41478 tokens, JSON 46963 tokens (+-12% overhead). This is the structural baseline that buys recoverability, explicit typing, and streaming."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 933.6700999999994
+  },
+  "timestamp": "2026-03-21T18:11:09.858Z"
+}

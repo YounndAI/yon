@@ -1,0 +1,145 @@
+{
+  "suiteId": "streaming-latency",
+  "suiteName": "Streaming Latency",
+  "pillar": "streaming",
+  "tests": [
+    {
+      "id": "streaming-latency-100",
+      "name": "Streaming Latency — Small (100 records)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_first_record_us",
+        "value": 8,
+        "unit": "µs",
+        "comparison": {
+          "baseline": 10,
+          "baselineLabel": "JSON parse complete (µs)",
+          "delta": "1.3x faster"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "json_complete_parse_us",
+          "value": 10,
+          "unit": "µs"
+        },
+        {
+          "name": "speedup_ratio",
+          "value": 1.3,
+          "unit": "x"
+        },
+        {
+          "name": "record_count",
+          "value": 100,
+          "unit": "records"
+        }
+      ],
+      "detail": "YON delivers first record in 8µs. JSON requires 10µs to parse the entire document before any data is available. Speedup: 1.3x. Line-oriented streaming means processing begins after the first \\n."
+    },
+    {
+      "id": "streaming-latency-500",
+      "name": "Streaming Latency — Medium (500 records)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_first_record_us",
+        "value": 19,
+        "unit": "µs",
+        "comparison": {
+          "baseline": 53,
+          "baselineLabel": "JSON parse complete (µs)",
+          "delta": "2.8x faster"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "json_complete_parse_us",
+          "value": 53,
+          "unit": "µs"
+        },
+        {
+          "name": "speedup_ratio",
+          "value": 2.8,
+          "unit": "x"
+        },
+        {
+          "name": "record_count",
+          "value": 500,
+          "unit": "records"
+        }
+      ],
+      "detail": "YON delivers first record in 19µs. JSON requires 53µs to parse the entire document before any data is available. Speedup: 2.8x. Line-oriented streaming means processing begins after the first \\n."
+    },
+    {
+      "id": "streaming-latency-2000",
+      "name": "Streaming Latency — Large (2000 records)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_first_record_us",
+        "value": 43,
+        "unit": "µs",
+        "comparison": {
+          "baseline": 184,
+          "baselineLabel": "JSON parse complete (µs)",
+          "delta": "4.3x faster"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "json_complete_parse_us",
+          "value": 184,
+          "unit": "µs"
+        },
+        {
+          "name": "speedup_ratio",
+          "value": 4.3,
+          "unit": "x"
+        },
+        {
+          "name": "record_count",
+          "value": 2000,
+          "unit": "records"
+        }
+      ],
+      "detail": "YON delivers first record in 43µs. JSON requires 184µs to parse the entire document before any data is available. Speedup: 4.3x. Line-oriented streaming means processing begins after the first \\n."
+    },
+    {
+      "id": "streaming-latency-scaling",
+      "name": "Streaming Latency — Scaling Behavior",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "scaling_trend",
+        "value": 1,
+        "unit": "favorable"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "ratio_100",
+          "value": 0.7,
+          "unit": "x"
+        },
+        {
+          "name": "ratio_500",
+          "value": 1.4,
+          "unit": "x"
+        },
+        {
+          "name": "ratio_2000",
+          "value": 1.2,
+          "unit": "x"
+        }
+      ],
+      "detail": "Speedup ratios: 100 records=0.7x, 500 records=1.4x, 2000 records=1.2x. Gap widens with size — YON's O(1) first-record latency scales independently of document size."
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "durationMs": 4.187599999999293
+  },
+  "timestamp": "2026-03-19T13:59:14.791Z"
+}

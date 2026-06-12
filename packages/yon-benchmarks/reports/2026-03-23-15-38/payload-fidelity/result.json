@@ -1,0 +1,220 @@
+{
+  "suiteId": "payload-fidelity",
+  "suiteName": "Payload Fidelity",
+  "pillar": "lossless",
+  "tests": [
+    {
+      "id": "payload-fidelity-javascript",
+      "name": "Payload Fidelity — JavaScript",
+      "passed": true,
+      "metric": {
+        "name": "byte_fidelity",
+        "value": 100,
+        "unit": "%",
+        "comparison": {
+          "baseline": 22,
+          "baselineLabel": "JSON escape sequences needed",
+          "delta": "22 escapes avoided"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "payload_bytes",
+          "value": 428,
+          "unit": "bytes"
+        },
+        {
+          "name": "json_escapes",
+          "value": 22,
+          "unit": "sequences"
+        },
+        {
+          "name": "yon_escapes",
+          "value": 0,
+          "unit": "sequences"
+        },
+        {
+          "name": "parse_success",
+          "value": 1,
+          "unit": "bool"
+        }
+      ],
+      "detail": "JavaScript: 428 bytes embedded in @BEGIN/javascript...@END. Byte-for-byte match: yes. JSON would need 22 escape sequences. YON needs 0. Verbatim embedding eliminates escape-related corruption risk."
+    },
+    {
+      "id": "payload-fidelity-python",
+      "name": "Payload Fidelity — Python",
+      "passed": true,
+      "metric": {
+        "name": "byte_fidelity",
+        "value": 100,
+        "unit": "%",
+        "comparison": {
+          "baseline": 26,
+          "baselineLabel": "JSON escape sequences needed",
+          "delta": "26 escapes avoided"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "payload_bytes",
+          "value": 525,
+          "unit": "bytes"
+        },
+        {
+          "name": "json_escapes",
+          "value": 26,
+          "unit": "sequences"
+        },
+        {
+          "name": "yon_escapes",
+          "value": 0,
+          "unit": "sequences"
+        },
+        {
+          "name": "parse_success",
+          "value": 1,
+          "unit": "bool"
+        }
+      ],
+      "detail": "Python: 525 bytes embedded in @BEGIN/python...@END. Byte-for-byte match: yes. JSON would need 26 escape sequences. YON needs 0. Verbatim embedding eliminates escape-related corruption risk."
+    },
+    {
+      "id": "payload-fidelity-sql",
+      "name": "Payload Fidelity — SQL",
+      "passed": true,
+      "metric": {
+        "name": "byte_fidelity",
+        "value": 100,
+        "unit": "%",
+        "comparison": {
+          "baseline": 17,
+          "baselineLabel": "JSON escape sequences needed",
+          "delta": "17 escapes avoided"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "payload_bytes",
+          "value": 534,
+          "unit": "bytes"
+        },
+        {
+          "name": "json_escapes",
+          "value": 17,
+          "unit": "sequences"
+        },
+        {
+          "name": "yon_escapes",
+          "value": 0,
+          "unit": "sequences"
+        },
+        {
+          "name": "parse_success",
+          "value": 1,
+          "unit": "bool"
+        }
+      ],
+      "detail": "SQL: 534 bytes embedded in @BEGIN/sql...@END. Byte-for-byte match: yes. JSON would need 17 escape sequences. YON needs 0. Verbatim embedding eliminates escape-related corruption risk."
+    },
+    {
+      "id": "payload-fidelity-html",
+      "name": "Payload Fidelity — HTML",
+      "passed": true,
+      "metric": {
+        "name": "byte_fidelity",
+        "value": 100,
+        "unit": "%",
+        "comparison": {
+          "baseline": 32,
+          "baselineLabel": "JSON escape sequences needed",
+          "delta": "32 escapes avoided"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "payload_bytes",
+          "value": 526,
+          "unit": "bytes"
+        },
+        {
+          "name": "json_escapes",
+          "value": 32,
+          "unit": "sequences"
+        },
+        {
+          "name": "yon_escapes",
+          "value": 0,
+          "unit": "sequences"
+        },
+        {
+          "name": "parse_success",
+          "value": 1,
+          "unit": "bool"
+        }
+      ],
+      "detail": "HTML: 526 bytes embedded in @BEGIN/html...@END. Byte-for-byte match: yes. JSON would need 32 escape sequences. YON needs 0. Verbatim embedding eliminates escape-related corruption risk."
+    },
+    {
+      "id": "payload-fidelity-text",
+      "name": "Payload Fidelity — Unicode & Multilingual",
+      "passed": true,
+      "metric": {
+        "name": "byte_fidelity",
+        "value": 100,
+        "unit": "%",
+        "comparison": {
+          "baseline": 20,
+          "baselineLabel": "JSON escape sequences needed",
+          "delta": "20 escapes avoided"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "payload_bytes",
+          "value": 368,
+          "unit": "bytes"
+        },
+        {
+          "name": "json_escapes",
+          "value": 20,
+          "unit": "sequences"
+        },
+        {
+          "name": "yon_escapes",
+          "value": 0,
+          "unit": "sequences"
+        },
+        {
+          "name": "parse_success",
+          "value": 1,
+          "unit": "bool"
+        }
+      ],
+      "detail": "Unicode & Multilingual: 368 bytes embedded in @BEGIN/text...@END. Byte-for-byte match: yes. JSON would need 20 escape sequences. YON needs 0. Verbatim embedding eliminates escape-related corruption risk."
+    },
+    {
+      "id": "payload-fidelity-escape-comparison",
+      "name": "Payload Fidelity — Escape Sequence Comparison",
+      "passed": true,
+      "metric": {
+        "name": "total_json_escapes",
+        "value": 117,
+        "unit": "sequences",
+        "comparison": {
+          "baseline": 0,
+          "baselineLabel": "YON escape sequences",
+          "delta": "117 escapes eliminated"
+        }
+      },
+      "detail": "Across 5 embedded payloads, JSON requires 117 escape sequences. YON @BEGIN/@END requires 0. Each escape is a potential corruption point in multi-hop pipelines."
+    }
+  ],
+  "summary": {
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "durationMs": 0.39580000000023574
+  },
+  "timestamp": "2026-03-23T13:38:24.743Z"
+}

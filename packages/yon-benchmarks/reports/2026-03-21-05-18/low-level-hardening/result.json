@@ -1,0 +1,66 @@
+{
+  "suiteId": "low-level-hardening",
+  "suiteName": "Low-Level Hardening",
+  "pillar": "streaming",
+  "tests": [
+    {
+      "id": "memory-pressure",
+      "name": "Memory Pressure (100K records)",
+      "passed": true,
+      "metric": {
+        "name": "rss_delta",
+        "value": 135.94,
+        "unit": "MB"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "records",
+          "value": 100001,
+          "unit": "records"
+        },
+        {
+          "name": "duration",
+          "value": 96,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Parsed 100000 records. Heap delta: 135.94 MB. Proves parser handles medium-scale workloads without explosion."
+    },
+    {
+      "id": "binary-safety",
+      "name": "Binary Safety & Unicode",
+      "passed": true,
+      "metric": {
+        "name": "correct_fields",
+        "value": 4,
+        "unit": "/4 cases"
+      },
+      "detail": "Handled ZWJ Emoji (👨‍👩‍👧‍👦), Null bytes, Control chars, and Kanji. All preserved verbatim."
+    },
+    {
+      "id": "streaming-backpressure",
+      "name": "Streaming Backpressure",
+      "passed": true,
+      "metric": {
+        "name": "records_processed",
+        "value": 1000,
+        "unit": "/1000"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "duration",
+          "value": 1433,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Successfully processed 1000/1000 records from a slow, jittery stream. Proves generator-based parser handles backpressure naturally."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 1529.6640000000007
+  },
+  "timestamp": "2026-03-21T03:18:42.140Z"
+}

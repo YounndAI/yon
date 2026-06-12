@@ -1,0 +1,623 @@
+{
+  "suiteId": "blub-perception",
+  "suiteName": "Blub Perception",
+  "pillar": "sapir-whorf",
+  "tests": [
+    {
+      "id": "depth-3-accuracy",
+      "name": "Depth 3: Scope Resolution Accuracy",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_json_delta",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "md_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yon_citation_rate",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_citation_rate",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yon_tokens",
+          "value": 179,
+          "unit": "tokens"
+        },
+        {
+          "name": "json_tokens",
+          "value": 272,
+          "unit": "tokens"
+        }
+      ],
+      "detail": "Depth 3: YON=80% vs JSON=80% vs YAML=80% vs MD=80% (Δyon-json 0pp)"
+    },
+    {
+      "id": "depth-5-accuracy",
+      "name": "Depth 5: Scope Resolution Accuracy",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_json_delta",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "md_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yon_citation_rate",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_citation_rate",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yon_tokens",
+          "value": 338,
+          "unit": "tokens"
+        },
+        {
+          "name": "json_tokens",
+          "value": 520,
+          "unit": "tokens"
+        }
+      ],
+      "detail": "Depth 5: YON=80% vs JSON=80% vs YAML=80% vs MD=80% (Δyon-json 0pp)"
+    },
+    {
+      "id": "depth-7-accuracy",
+      "name": "Depth 7: Scope Resolution Accuracy",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_json_delta",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "md_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yon_citation_rate",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_citation_rate",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yon_tokens",
+          "value": 500,
+          "unit": "tokens"
+        },
+        {
+          "name": "json_tokens",
+          "value": 827,
+          "unit": "tokens"
+        }
+      ],
+      "detail": "Depth 7: YON=80% vs JSON=80% vs YAML=80% vs MD=80% (Δyon-json 0pp)"
+    },
+    {
+      "id": "breakpoint-detection",
+      "name": "Breakpoint Detection: Depth Where JSON Advantage Collapses",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "breakpoint_depth",
+        "value": -1,
+        "unit": "levels"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "delta_depth_3",
+          "value": 0,
+          "unit": "pp"
+        },
+        {
+          "name": "delta_depth_5",
+          "value": 0,
+          "unit": "pp"
+        },
+        {
+          "name": "delta_depth_7",
+          "value": 0,
+          "unit": "pp"
+        }
+      ],
+      "detail": "No breakpoint detected. Deltas: d3=0pp, d5=0pp, d7=0pp"
+    },
+    {
+      "id": "overall-format-effect",
+      "name": "Overall: 4-Way Scope Resolution Comparison",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_json_overall",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_overall_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_overall_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_overall_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "md_overall_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yon_overall_citation",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_overall_citation",
+          "value": 80,
+          "unit": "%"
+        }
+      ],
+      "detail": "Overall: YON=80% vs JSON=80% vs YAML=80% vs MD=80%"
+    },
+    {
+      "id": "per-model-gpt5-nano(budget)",
+      "name": "Per-Model: GPT-5-nano (budget)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_vs_json",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "md_accuracy",
+          "value": 0,
+          "unit": "%"
+        }
+      ],
+      "detail": "GPT-5-nano (budget): YON=0% vs JSON=0% vs YAML=0% vs MD=0%"
+    },
+    {
+      "id": "per-model-gemini-flash-lite(budget)",
+      "name": "Per-Model: Gemini 2.5 Flash-Lite (budget)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_vs_json",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "md_accuracy",
+          "value": 100,
+          "unit": "%"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash-Lite (budget): YON=100% vs JSON=100% vs YAML=100% vs MD=100%"
+    },
+    {
+      "id": "per-model-gpt4o-mini(standard)",
+      "name": "Per-Model: GPT-4o-mini (standard)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_vs_json",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "md_accuracy",
+          "value": 100,
+          "unit": "%"
+        }
+      ],
+      "detail": "GPT-4o-mini (standard): YON=100% vs JSON=100% vs YAML=100% vs MD=100%"
+    },
+    {
+      "id": "per-model-claude-haiku(standard)",
+      "name": "Per-Model: Claude Haiku 4.5 (standard)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_vs_json",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "md_accuracy",
+          "value": 100,
+          "unit": "%"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 (standard): YON=100% vs JSON=100% vs YAML=100% vs MD=100%"
+    },
+    {
+      "id": "per-model-gemini-flash(standard)",
+      "name": "Per-Model: Gemini 2.5 Flash (standard)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_vs_json",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "md_accuracy",
+          "value": 100,
+          "unit": "%"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash (standard): YON=100% vs JSON=100% vs YAML=100% vs MD=100%"
+    },
+    {
+      "id": "token-density",
+      "name": "Token Density: All Formats",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "json_to_yon_ratio",
+        "value": 159,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_avg_tokens",
+          "value": 339,
+          "unit": "tokens"
+        },
+        {
+          "name": "json_avg_tokens",
+          "value": 540,
+          "unit": "tokens"
+        },
+        {
+          "name": "yaml_avg_tokens",
+          "value": 468,
+          "unit": "tokens"
+        },
+        {
+          "name": "md_avg_tokens",
+          "value": 274,
+          "unit": "tokens"
+        }
+      ],
+      "detail": "Avg tokens: YON=339 JSON=540 YAML=468 MD=274"
+    },
+    {
+      "id": "feature-type-extraction",
+      "name": "Feature: Type Extraction: Explicit vs Implicit Types",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_json_delta",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 60,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 60,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 60,
+          "unit": "%"
+        }
+      ],
+      "detail": "Type Extraction: Explicit vs Implicit Types: YON=60% JSON=60% YAML=40% MD=60%"
+    },
+    {
+      "id": "feature-severity-ranking",
+      "name": "Feature: Rule Severity: Priority Ordering",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_json_delta",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 60,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 60,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 60,
+          "unit": "%"
+        }
+      ],
+      "detail": "Rule Severity: Priority Ordering: YON=60% JSON=60% YAML=40% MD=60%"
+    },
+    {
+      "id": "feature-cross-section",
+      "name": "Feature: Cross-Section: Inter-Stage Dependencies",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_json_delta",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 60,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 60,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 60,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 60,
+          "unit": "%"
+        }
+      ],
+      "detail": "Cross-Section: Inter-Stage Dependencies: YON=60% JSON=60% YAML=60% MD=60%"
+    },
+    {
+      "id": "feature-ref-resolution",
+      "name": "Feature: Reference Resolution: Cross-Reference Chain Tracing",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_json_delta",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 60,
+          "unit": "%"
+        }
+      ],
+      "detail": "Reference Resolution: Cross-Reference Chain Tracing: YON=80% JSON=80% YAML=80% MD=60%"
+    },
+    {
+      "id": "feature-battery-summary",
+      "name": "Battery B: Structural Feature Tests Summary",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_json_features",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_feature_accuracy",
+          "value": 65,
+          "unit": "%"
+        },
+        {
+          "name": "json_feature_accuracy",
+          "value": 65,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_feature_accuracy",
+          "value": 55,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_feature_accuracy",
+          "value": 60,
+          "unit": "%"
+        }
+      ],
+      "detail": "Battery B overall: YON=65% JSON=65% YAML=55% MD=60%"
+    }
+  ],
+  "summary": {
+    "total": 16,
+    "passed": 16,
+    "failed": 0,
+    "durationMs": 91460.28569999989
+  },
+  "timestamp": "2026-03-22T14:19:41.677Z"
+}

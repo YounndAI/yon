@@ -1,0 +1,129 @@
+{
+  "suiteId": "comparative-throughput",
+  "suiteName": "Comparative Throughput",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "parse-throughput",
+      "name": "Parse Throughput (Multi-Format)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_parse_ops",
+        "value": 13699,
+        "unit": "ops/s",
+        "comparison": {
+          "baseline": 100000,
+          "baselineLabel": "JSON.parse ops/s",
+          "delta": "13699 vs 100000 (JSON) vs 7463 (YAML)"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "json_parse_ops",
+          "value": 100000,
+          "unit": "ops/s"
+        },
+        {
+          "name": "yaml_parse_ops",
+          "value": 7463,
+          "unit": "ops/s"
+        },
+        {
+          "name": "yon_parse_min_ops",
+          "value": 3623,
+          "unit": "ops/s"
+        },
+        {
+          "name": "yon_parse_max_ops",
+          "value": 71429,
+          "unit": "ops/s"
+        },
+        {
+          "name": "json_parse_min_ops",
+          "value": 17544,
+          "unit": "ops/s"
+        },
+        {
+          "name": "json_parse_max_ops",
+          "value": 100000,
+          "unit": "ops/s"
+        },
+        {
+          "name": "yon_parse_p50_ms",
+          "value": 0.073,
+          "unit": "ms"
+        },
+        {
+          "name": "json_parse_p50_ms",
+          "value": 0.01,
+          "unit": "ms"
+        },
+        {
+          "name": "yaml_parse_p50_ms",
+          "value": 0.134,
+          "unit": "ms"
+        }
+      ],
+      "detail": "YON: 0.063ms ± 0.045ms (P50=0.073, P95=0.117, P99=0.172, n=100). JSON: 0.010ms ± 0.005ms (P50=0.010, P95=0.011, P99=0.014, n=100). YAML: 0.144ms ± 0.057ms (P50=0.134, P95=0.256, P99=0.342, n=100). Machine: Intel(R) Core(TM) Ultra 9 275HX (24 cores). At typical prompt sizes, parse latency is <1ms — negligible vs 500ms–3s model inference."
+    },
+    {
+      "id": "serialize-throughput",
+      "name": "Serialize Throughput (Multi-Format)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_serialize_ops",
+        "value": 20833,
+        "unit": "ops/s",
+        "comparison": {
+          "baseline": 142857,
+          "baselineLabel": "JSON.stringify ops/s",
+          "delta": "20833 vs 142857 (JSON) vs 9901 (YAML)"
+        }
+      },
+      "detail": "YON: 0.051ms ± 0.012ms (P50=0.048, P95=0.068, P99=0.094, n=100). JSON: 0.007ms ± 0.004ms (P50=0.007, P95=0.007, P99=0.008, n=100). YAML: 0.119ms ± 0.041ms (P50=0.101, P95=0.212, P99=0.275, n=100)"
+    },
+    {
+      "id": "byte-efficiency",
+      "name": "Structural Density (Multi-Format)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_bytes",
+        "value": 1789,
+        "unit": "bytes",
+        "comparison": {
+          "baseline": 3838,
+          "baselineLabel": "JSON bytes",
+          "delta": "1789B (YON) vs 3838B (JSON min) vs 4614B (YAML)"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "json_bytes",
+          "value": 3838,
+          "unit": "bytes"
+        },
+        {
+          "name": "json_min_bytes",
+          "value": 3838,
+          "unit": "bytes"
+        },
+        {
+          "name": "yaml_bytes",
+          "value": 4614,
+          "unit": "bytes"
+        }
+      ],
+      "detail": "20 records. YON: 1789B. JSON: 3838B (min: 3838B). YAML: 4614B. Measures structural baseline — YON trades bytes for type safety, streaming, and addressability."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 55.970900000000256
+  },
+  "timestamp": "2026-03-21T03:18:36.371Z"
+}

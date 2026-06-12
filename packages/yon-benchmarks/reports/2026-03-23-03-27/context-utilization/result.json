@@ -1,0 +1,116 @@
+{
+  "suiteId": "context-utilization",
+  "suiteName": "Context Window Utilization",
+  "pillar": "cognitive-economy",
+  "tests": [
+    {
+      "id": "context-small",
+      "name": "Small Context Window (8K tokens)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_records",
+        "value": 169,
+        "unit": "records",
+        "comparison": {
+          "baseline": 184,
+          "baselineLabel": "JSON records",
+          "delta": "8% fewer records"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_tokens_used",
+          "value": 7966,
+          "unit": "tokens"
+        },
+        {
+          "name": "json_tokens_used",
+          "value": 7975,
+          "unit": "tokens"
+        },
+        {
+          "name": "budget",
+          "value": 8000,
+          "unit": "tokens"
+        }
+      ],
+      "detail": "YON fits 169 records (7966 tokens). JSON fits 184 records (7975 tokens). YON structural baseline: 8% fewer records per window. Per-record tags buy typed fields, fault isolation, and streaming — cost recouped at first pipeline failure."
+    },
+    {
+      "id": "context-medium",
+      "name": "Medium Context Window (32K tokens)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_records",
+        "value": 680,
+        "unit": "records",
+        "comparison": {
+          "baseline": 737,
+          "baselineLabel": "JSON records",
+          "delta": "8% fewer records"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_tokens_used",
+          "value": 31983,
+          "unit": "tokens"
+        },
+        {
+          "name": "json_tokens_used",
+          "value": 31939,
+          "unit": "tokens"
+        },
+        {
+          "name": "budget",
+          "value": 32000,
+          "unit": "tokens"
+        }
+      ],
+      "detail": "YON fits 680 records (31983 tokens). JSON fits 737 records (31939 tokens). YON structural baseline: 8% fewer records per window. Per-record tags buy typed fields, fault isolation, and streaming — cost recouped at first pipeline failure."
+    },
+    {
+      "id": "context-large",
+      "name": "Large Context Window (128K tokens)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_records",
+        "value": 2652,
+        "unit": "records",
+        "comparison": {
+          "baseline": 0,
+          "baselineLabel": "JSON records",
+          "delta": "+0% more records"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_tokens_used",
+          "value": 127971,
+          "unit": "tokens"
+        },
+        {
+          "name": "json_tokens_used",
+          "value": 1,
+          "unit": "tokens"
+        },
+        {
+          "name": "budget",
+          "value": 128000,
+          "unit": "tokens"
+        }
+      ],
+      "detail": "YON fits 2652 records (127971 tokens). JSON fits 0 records (1 tokens). YON advantage: +0% more records in same budget."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 664.7612999999983
+  },
+  "timestamp": "2026-03-23T01:27:39.140Z"
+}

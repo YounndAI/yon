@@ -1,0 +1,564 @@
+{
+  "suiteId": "pliability",
+  "suiteName": "Pliability (Format Comprehension)",
+  "pillar": "sapir-whorf",
+  "tests": [
+    {
+      "id": "comprehension-yon",
+      "name": "Comprehension: YON Canon",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "accuracy",
+        "value": 92,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "GPT-5-nano (budget)_score",
+          "value": 90,
+          "unit": "%"
+        },
+        {
+          "name": "Gemini 2.5 Flash-Lite (budget)_score",
+          "value": 90,
+          "unit": "%"
+        },
+        {
+          "name": "GPT-4o-mini (standard)_score",
+          "value": 90,
+          "unit": "%"
+        },
+        {
+          "name": "Claude Haiku 4.5 (standard)_score",
+          "value": 90,
+          "unit": "%"
+        },
+        {
+          "name": "Gemini 2.5 Flash (standard)_score",
+          "value": 100,
+          "unit": "%"
+        }
+      ],
+      "detail": "YON Canon: 92% avg across 5 models. GPT-5-nano (budget)=90%, Gemini 2.5 Flash-Lite (budget)=90%, GPT-4o-mini (standard)=90%, Claude Haiku 4.5 (standard)=90%, Gemini 2.5 Flash (standard)=100%"
+    },
+    {
+      "id": "comprehension-json",
+      "name": "Comprehension: JSON",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "accuracy",
+        "value": 94,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "GPT-5-nano (budget)_score",
+          "value": 90,
+          "unit": "%"
+        },
+        {
+          "name": "Gemini 2.5 Flash-Lite (budget)_score",
+          "value": 90,
+          "unit": "%"
+        },
+        {
+          "name": "GPT-4o-mini (standard)_score",
+          "value": 90,
+          "unit": "%"
+        },
+        {
+          "name": "Claude Haiku 4.5 (standard)_score",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "Gemini 2.5 Flash (standard)_score",
+          "value": 100,
+          "unit": "%"
+        }
+      ],
+      "detail": "JSON: 94% avg across 5 models. GPT-5-nano (budget)=90%, Gemini 2.5 Flash-Lite (budget)=90%, GPT-4o-mini (standard)=90%, Claude Haiku 4.5 (standard)=100%, Gemini 2.5 Flash (standard)=100%"
+    },
+    {
+      "id": "comprehension-yaml",
+      "name": "Comprehension: YAML",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "accuracy",
+        "value": 94,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "GPT-5-nano (budget)_score",
+          "value": 90,
+          "unit": "%"
+        },
+        {
+          "name": "Gemini 2.5 Flash-Lite (budget)_score",
+          "value": 90,
+          "unit": "%"
+        },
+        {
+          "name": "GPT-4o-mini (standard)_score",
+          "value": 90,
+          "unit": "%"
+        },
+        {
+          "name": "Claude Haiku 4.5 (standard)_score",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "Gemini 2.5 Flash (standard)_score",
+          "value": 100,
+          "unit": "%"
+        }
+      ],
+      "detail": "YAML: 94% avg across 5 models. GPT-5-nano (budget)=90%, Gemini 2.5 Flash-Lite (budget)=90%, GPT-4o-mini (standard)=90%, Claude Haiku 4.5 (standard)=100%, Gemini 2.5 Flash (standard)=100%"
+    },
+    {
+      "id": "comprehension-natural-language",
+      "name": "Comprehension: Natural Language",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "accuracy",
+        "value": 90,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "GPT-5-nano (budget)_score",
+          "value": 90,
+          "unit": "%"
+        },
+        {
+          "name": "Gemini 2.5 Flash-Lite (budget)_score",
+          "value": 90,
+          "unit": "%"
+        },
+        {
+          "name": "GPT-4o-mini (standard)_score",
+          "value": 90,
+          "unit": "%"
+        },
+        {
+          "name": "Claude Haiku 4.5 (standard)_score",
+          "value": 90,
+          "unit": "%"
+        },
+        {
+          "name": "Gemini 2.5 Flash (standard)_score",
+          "value": 90,
+          "unit": "%"
+        }
+      ],
+      "detail": "Natural Language: 90% avg across 5 models. GPT-5-nano (budget)=90%, Gemini 2.5 Flash-Lite (budget)=90%, GPT-4o-mini (standard)=90%, Claude Haiku 4.5 (standard)=90%, Gemini 2.5 Flash (standard)=90%"
+    },
+    {
+      "id": "comprehension-parity",
+      "name": "Comprehension Format Parity",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_accuracy",
+        "value": 92,
+        "unit": "%",
+        "comparison": {
+          "baseline": 90,
+          "baselineLabel": "Natural Language",
+          "delta": "2pp"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "json_accuracy",
+          "value": 94,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 94,
+          "unit": "%"
+        },
+        {
+          "name": "nl_accuracy",
+          "value": 90,
+          "unit": "%"
+        }
+      ],
+      "detail": "YON=92% JSON=94% YAML=94% NL=90%. Delta vs NL: 2pp"
+    },
+    {
+      "id": "generation-cold",
+      "name": "Generation: Cold Start (zero context)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "validity",
+        "value": 4,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "GPT-5-nano (budget)_score",
+          "value": 10,
+          "unit": "%"
+        },
+        {
+          "name": "Gemini 2.5 Flash-Lite (budget)_score",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "GPT-4o-mini (standard)_score",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "Claude Haiku 4.5 (standard)_score",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "Gemini 2.5 Flash (standard)_score",
+          "value": 10,
+          "unit": "%"
+        }
+      ],
+      "detail": "Cold Start (zero context): 4% avg. GPT-5-nano (budget)=10%, Gemini 2.5 Flash-Lite (budget)=0%, GPT-4o-mini (standard)=0%, Claude Haiku 4.5 (standard)=0%, Gemini 2.5 Flash (standard)=10%"
+    },
+    {
+      "id": "generation-trained",
+      "name": "Generation: Trained (READ Card)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "validity",
+        "value": 70,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "GPT-5-nano (budget)_score",
+          "value": 10,
+          "unit": "%"
+        },
+        {
+          "name": "Gemini 2.5 Flash-Lite (budget)_score",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "GPT-4o-mini (standard)_score",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "Claude Haiku 4.5 (standard)_score",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "Gemini 2.5 Flash (standard)_score",
+          "value": 100,
+          "unit": "%"
+        }
+      ],
+      "detail": "Trained (READ Card): 70% avg. GPT-5-nano (budget)=10%, Gemini 2.5 Flash-Lite (budget)=80%, GPT-4o-mini (standard)=80%, Claude Haiku 4.5 (standard)=80%, Gemini 2.5 Flash (standard)=100%"
+    },
+    {
+      "id": "generation-instructed",
+      "name": "Generation: Instructed (WRITE Card)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "validity",
+        "value": 82,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "GPT-5-nano (budget)_score",
+          "value": 10,
+          "unit": "%"
+        },
+        {
+          "name": "Gemini 2.5 Flash-Lite (budget)_score",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "GPT-4o-mini (standard)_score",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "Claude Haiku 4.5 (standard)_score",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "Gemini 2.5 Flash (standard)_score",
+          "value": 100,
+          "unit": "%"
+        }
+      ],
+      "detail": "Instructed (WRITE Card): 82% avg. GPT-5-nano (budget)=10%, Gemini 2.5 Flash-Lite (budget)=100%, GPT-4o-mini (standard)=100%, Claude Haiku 4.5 (standard)=100%, Gemini 2.5 Flash (standard)=100%"
+    },
+    {
+      "id": "generation-few-shot",
+      "name": "Generation: Few-Shot (Grammar Examples)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "validity",
+        "value": 78,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "GPT-5-nano (budget)_score",
+          "value": 10,
+          "unit": "%"
+        },
+        {
+          "name": "Gemini 2.5 Flash-Lite (budget)_score",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "GPT-4o-mini (standard)_score",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "Claude Haiku 4.5 (standard)_score",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "Gemini 2.5 Flash (standard)_score",
+          "value": 100,
+          "unit": "%"
+        }
+      ],
+      "detail": "Few-Shot (Grammar Examples): 78% avg. GPT-5-nano (budget)=10%, Gemini 2.5 Flash-Lite (budget)=100%, GPT-4o-mini (standard)=100%, Claude Haiku 4.5 (standard)=80%, Gemini 2.5 Flash (standard)=100%"
+    },
+    {
+      "id": "generation-card-uplift",
+      "name": "WRITE Card Uplift",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "instructed_validity",
+        "value": 82,
+        "unit": "%",
+        "comparison": {
+          "baseline": 4,
+          "baselineLabel": "Cold Start",
+          "delta": "+78pp"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "cold_validity",
+          "value": 4,
+          "unit": "%"
+        },
+        {
+          "name": "trained_validity",
+          "value": 70,
+          "unit": "%"
+        },
+        {
+          "name": "trained_uplift",
+          "value": 66,
+          "unit": "pp"
+        }
+      ],
+      "detail": "Cold=4% → Trained=70% (+66pp) → Instructed=82% (+78pp). WRITE Card uplift: 78pp"
+    },
+    {
+      "id": "per-model-gpt5-nano(budget)",
+      "name": "Per-Model: GPT-5-nano (budget)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_comprehension",
+        "value": 90,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "json_comprehension",
+          "value": 90,
+          "unit": "%"
+        },
+        {
+          "name": "cold_generation",
+          "value": 10,
+          "unit": "%"
+        },
+        {
+          "name": "instructed_generation",
+          "value": 10,
+          "unit": "%"
+        },
+        {
+          "name": "card_uplift",
+          "value": 0,
+          "unit": "pp"
+        }
+      ],
+      "detail": "GPT-5-nano (budget): Comp YON=90% JSON=90% | Gen Cold=10% Instructed=10% (uplift: 0pp)"
+    },
+    {
+      "id": "per-model-gemini-flash-lite(budget)",
+      "name": "Per-Model: Gemini 2.5 Flash-Lite (budget)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_comprehension",
+        "value": 90,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "json_comprehension",
+          "value": 90,
+          "unit": "%"
+        },
+        {
+          "name": "cold_generation",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "instructed_generation",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "card_uplift",
+          "value": 100,
+          "unit": "pp"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash-Lite (budget): Comp YON=90% JSON=90% | Gen Cold=0% Instructed=100% (uplift: 100pp)"
+    },
+    {
+      "id": "per-model-gpt4o-mini(standard)",
+      "name": "Per-Model: GPT-4o-mini (standard)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_comprehension",
+        "value": 90,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "json_comprehension",
+          "value": 90,
+          "unit": "%"
+        },
+        {
+          "name": "cold_generation",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "instructed_generation",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "card_uplift",
+          "value": 100,
+          "unit": "pp"
+        }
+      ],
+      "detail": "GPT-4o-mini (standard): Comp YON=90% JSON=90% | Gen Cold=0% Instructed=100% (uplift: 100pp)"
+    },
+    {
+      "id": "per-model-claude-haiku(standard)",
+      "name": "Per-Model: Claude Haiku 4.5 (standard)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_comprehension",
+        "value": 90,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "json_comprehension",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "cold_generation",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "instructed_generation",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "card_uplift",
+          "value": 100,
+          "unit": "pp"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 (standard): Comp YON=90% JSON=100% | Gen Cold=0% Instructed=100% (uplift: 100pp)"
+    },
+    {
+      "id": "per-model-gemini-flash(standard)",
+      "name": "Per-Model: Gemini 2.5 Flash (standard)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_comprehension",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "json_comprehension",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "cold_generation",
+          "value": 10,
+          "unit": "%"
+        },
+        {
+          "name": "instructed_generation",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "card_uplift",
+          "value": 90,
+          "unit": "pp"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash (standard): Comp YON=100% JSON=100% | Gen Cold=10% Instructed=100% (uplift: 90pp)"
+    }
+  ],
+  "summary": {
+    "total": 15,
+    "passed": 15,
+    "failed": 0,
+    "durationMs": 19896.204999999987
+  },
+  "timestamp": "2026-03-22T14:02:04.276Z"
+}

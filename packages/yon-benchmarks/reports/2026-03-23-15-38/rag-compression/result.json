@@ -1,0 +1,98 @@
+{
+  "suiteId": "rag-compression",
+  "suiteName": "RAG Context Efficiency",
+  "pillar": "cognitive-economy",
+  "tests": [
+    {
+      "id": "rag-per-rule-cost",
+      "name": "Per-Rule Token Cost",
+      "passed": true,
+      "metric": {
+        "name": "yon_tokens_per_rule",
+        "value": 20,
+        "unit": "tokens/rule",
+        "comparison": {
+          "baseline": 14,
+          "baselineLabel": "NL tokens/rule",
+          "delta": "+6 structural baseline"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_total_tokens",
+          "value": 135,
+          "unit": "tokens"
+        },
+        {
+          "name": "yon_total_tokens",
+          "value": 201,
+          "unit": "tokens"
+        },
+        {
+          "name": "baseline_per_rule",
+          "value": 6,
+          "unit": "tokens"
+        }
+      ],
+      "detail": "10 rules. NL: 14 tok/rule. YON: 20 tok/rule. Structural baseline: +6 tok/rule for structure. Characteristic: ACCEPTABLE — each rule individually addressable."
+    },
+    {
+      "id": "rag-retrieval-precision",
+      "name": "Retrieval Precision (Exact Match)",
+      "passed": true,
+      "metric": {
+        "name": "yon_retrieval_precision",
+        "value": 88,
+        "unit": "%",
+        "comparison": {
+          "baseline": 63,
+          "baselineLabel": "NL retrieval precision",
+          "delta": "+25pp"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_found",
+          "value": 5,
+          "unit": "/8"
+        },
+        {
+          "name": "yon_found",
+          "value": 7,
+          "unit": "/8"
+        }
+      ],
+      "detail": "8 queries. NL: 5/8 (63%). YON: 7/8 (88%). YON preserves typed fields (lvl=, must_not) enabling structured search."
+    },
+    {
+      "id": "rag-rule-addressability",
+      "name": "Rule Addressability",
+      "passed": true,
+      "metric": {
+        "name": "yon_rules_extractable",
+        "value": 10,
+        "unit": "/10"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_has_metadata",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "nl_has_metadata",
+          "value": 0,
+          "unit": "bool"
+        }
+      ],
+      "detail": "YON: 10/10 rules individually addressable with metadata. NL: 10 sentences, no structured metadata. RAG advantage: each YON @RULE is a self-contained retrievable record."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 61.42000000000189
+  },
+  "timestamp": "2026-03-23T13:38:40.309Z"
+}

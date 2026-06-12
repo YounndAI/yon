@@ -1,0 +1,91 @@
+{
+  "suiteId": "type-safety",
+  "suiteName": "Type Safety",
+  "pillar": "lossless",
+  "tests": [
+    {
+      "id": "type-zip-code-preservation",
+      "name": "Zip Code Preservation (:str)",
+      "passed": true,
+      "metric": {
+        "name": "type_preservation",
+        "value": 3,
+        "unit": "/3",
+        "comparison": {
+          "baseline": 1,
+          "baselineLabel": "JSON (no type annotation)",
+          "delta": "YON: explicit :str (3/3) | JSON: implicit (1/1)"
+        }
+      },
+      "detail": "YON :str type hint preserved in AST: true. Leading zero preserved: true. Roundtrip survived: true. JSON preserves string value (true) but has no type annotation to enforce it."
+    },
+    {
+      "id": "type-bool-coercion",
+      "name": "Boolean Coercion Prevention (:bool)",
+      "passed": true,
+      "metric": {
+        "name": "type_distinction",
+        "value": 1,
+        "unit": "bool",
+        "comparison": {
+          "baseline": 1,
+          "baselineLabel": "JSON value-based distinction",
+          "delta": "YON: explicit :bool/:str annotations prevent ambiguity"
+        }
+      },
+      "detail": "active:bool=true → typeHint=bool: true. name:str=\"true\" → typeHint=str: true. YON annotations prevent coercion. JSON relies on value encoding (true)."
+    },
+    {
+      "id": "type-int-float-distinction",
+      "name": "Int/Float Distinction (:int/:float)",
+      "passed": true,
+      "metric": {
+        "name": "type_score",
+        "value": 4,
+        "unit": "/4"
+      },
+      "detail": "port:int → true, ratio:float → true, count:int → true. Roundtrip preserved: true. Score: 4/4."
+    },
+    {
+      "id": "self-describing-budget",
+      "name": "Self-Describing Type Budget (§9 Characteristic)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "type_annotations",
+        "value": 5,
+        "unit": "explicit types"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "json_min_bytes",
+          "value": 143,
+          "unit": "bytes"
+        },
+        {
+          "name": "json_pretty_bytes",
+          "value": 176,
+          "unit": "bytes"
+        },
+        {
+          "name": "yon_bytes",
+          "value": 325,
+          "unit": "bytes"
+        },
+        {
+          "name": "yon_vs_json_pretty",
+          "value": 185,
+          "unit": "%"
+        }
+      ],
+      "detail": "YON: 325B with 5 explicit type annotations (:int, :bool). JSON minified: 143B (no types). JSON pretty: 176B (no types). The rationale: \"one explicit type annotation eliminates an entire class of downstream inference bugs.\" Cost: ~182B. Benefit: zero type-coercion errors."
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "durationMs": 0.3731999999999971
+  },
+  "timestamp": "2026-03-23T01:27:29.545Z"
+}

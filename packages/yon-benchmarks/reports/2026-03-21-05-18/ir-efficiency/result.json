@@ -1,0 +1,38 @@
+{
+  "suiteId": "ir-efficiency",
+  "suiteName": "IR Efficiency",
+  "pillar": "cognitive-economy",
+  "tests": [
+    {
+      "id": "ir-expansion",
+      "name": "AST Expansion Ratio",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "expansion_ratio",
+        "value": 2.41,
+        "unit": "x"
+      },
+      "detail": "Source: 1272B. AST (JSON): 3066B. Ratio: 2.41x."
+    },
+    {
+      "id": "validation-speed",
+      "name": "Validation Throughput",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "validations_per_second",
+        "value": 140990,
+        "unit": "ops/s"
+      },
+      "detail": "Validated 1000 times in 7.09ms. Throughput: 140,990 ops/s."
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "durationMs": 7.774499999999534
+  },
+  "timestamp": "2026-03-21T03:18:48.108Z"
+}

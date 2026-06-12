@@ -1,0 +1,186 @@
+{
+  "suiteId": "scale-curves",
+  "suiteName": "Scale Curves",
+  "pillar": "streaming",
+  "tests": [
+    {
+      "id": "parse-time-vs-size",
+      "name": "Parse Time vs Document Size",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_10k_parse_ms",
+        "value": 8.436,
+        "unit": "ms",
+        "comparison": {
+          "baseline": 1.834,
+          "baselineLabel": "JSON 10K parse ms",
+          "delta": "See detail for full curve"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_10_records",
+          "value": 0.007,
+          "unit": "ms",
+          "comparison": {
+            "baseline": 0.002,
+            "baselineLabel": "JSON 10 records",
+            "delta": "0.007ms vs 0.002ms"
+          }
+        },
+        {
+          "name": "yon_100_records",
+          "value": 0.063,
+          "unit": "ms",
+          "comparison": {
+            "baseline": 0.017,
+            "baselineLabel": "JSON 100 records",
+            "delta": "0.063ms vs 0.017ms"
+          }
+        },
+        {
+          "name": "yon_1000_records",
+          "value": 0.825,
+          "unit": "ms",
+          "comparison": {
+            "baseline": 0.165,
+            "baselineLabel": "JSON 1000 records",
+            "delta": "0.825ms vs 0.165ms"
+          }
+        },
+        {
+          "name": "yon_10000_records",
+          "value": 8.436,
+          "unit": "ms",
+          "comparison": {
+            "baseline": 1.834,
+            "baselineLabel": "JSON 10000 records",
+            "delta": "8.436ms vs 1.834ms"
+          }
+        }
+      ],
+      "detail": "10 records: YON 0.007ms ± 0.001ms (P50=0.007, P95=0.008, P99=0.009, n=30) | JSON 0.002ms ± 0.000ms (P50=0.002, P95=0.003, P99=0.003, n=30)\n100 records: YON 0.063ms ± 0.011ms (P50=0.060, P95=0.085, P99=0.104, n=30) | JSON 0.017ms ± 0.002ms (P50=0.017, P95=0.018, P99=0.023, n=30)\n1000 records: YON 0.825ms ± 0.438ms (P50=0.674, P95=1.504, P99=2.010, n=10) | JSON 0.165ms ± 0.003ms (P50=0.164, P95=0.169, P99=0.170, n=10)\n10000 records: YON 8.436ms ± 0.158ms (P50=8.466, P95=8.642, P99=8.670, n=5) | JSON 1.834ms ± 0.497ms (P50=1.575, P95=2.590, P99=2.779, n=5)\nYON scaling: 10→100: 9.0x, 100→1000: 13.1x, 1000→10000: 10.2x"
+    },
+    {
+      "id": "memory-scaling",
+      "name": "Memory Scaling (RSS Delta)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_10k_memory_kb",
+        "value": 2896,
+        "unit": "KB"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "memory_10_records",
+          "value": 0,
+          "unit": "KB",
+          "comparison": {
+            "baseline": 0,
+            "baselineLabel": "JSON KB",
+            "delta": "0KB vs 0KB"
+          }
+        },
+        {
+          "name": "memory_100_records",
+          "value": 152,
+          "unit": "KB",
+          "comparison": {
+            "baseline": 72,
+            "baselineLabel": "JSON KB",
+            "delta": "152KB vs 72KB"
+          }
+        },
+        {
+          "name": "memory_1000_records",
+          "value": 0,
+          "unit": "KB",
+          "comparison": {
+            "baseline": 28,
+            "baselineLabel": "JSON KB",
+            "delta": "0KB vs 28KB"
+          }
+        },
+        {
+          "name": "memory_10000_records",
+          "value": 2896,
+          "unit": "KB",
+          "comparison": {
+            "baseline": 168,
+            "baselineLabel": "JSON KB",
+            "delta": "2896KB vs 168KB"
+          }
+        }
+      ],
+      "detail": "10 records: YON +0KB | JSON +0KB\n100 records: YON +152KB | JSON +72KB\n1000 records: YON +0KB | JSON +28KB\n10000 records: YON +2896KB | JSON +168KB\nNote: RSS deltas are approximate; GC timing affects accuracy."
+    },
+    {
+      "id": "bytes-vs-size",
+      "name": "Wire Size vs Document Size",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_10k_bytes",
+        "value": 751179,
+        "unit": "bytes",
+        "comparison": {
+          "baseline": 671127,
+          "baselineLabel": "JSON bytes",
+          "delta": "751179B vs 671127B"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "bytes_10_records",
+          "value": 753,
+          "unit": "bytes",
+          "comparison": {
+            "baseline": 627,
+            "baselineLabel": "JSON bytes",
+            "delta": "753B vs 627B (20.1%)"
+          }
+        },
+        {
+          "name": "bytes_100_records",
+          "value": 7175,
+          "unit": "bytes",
+          "comparison": {
+            "baseline": 6327,
+            "baselineLabel": "JSON bytes",
+            "delta": "7175B vs 6327B (13.4%)"
+          }
+        },
+        {
+          "name": "bytes_1000_records",
+          "value": 73177,
+          "unit": "bytes",
+          "comparison": {
+            "baseline": 65127,
+            "baselineLabel": "JSON bytes",
+            "delta": "73177B vs 65127B (12.4%)"
+          }
+        },
+        {
+          "name": "bytes_10000_records",
+          "value": 751179,
+          "unit": "bytes",
+          "comparison": {
+            "baseline": 671127,
+            "baselineLabel": "JSON bytes",
+            "delta": "751179B vs 671127B (11.9%)"
+          }
+        }
+      ],
+      "detail": "10 records: YON 753B | JSON 627B\n100 records: YON 7175B | JSON 6327B\n1000 records: YON 73177B | JSON 65127B\n10000 records: YON 751179B | JSON 671127B"
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 154.36529999999993
+  },
+  "timestamp": "2026-03-19T13:59:13.164Z"
+}

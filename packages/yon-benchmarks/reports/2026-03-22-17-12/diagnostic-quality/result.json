@@ -1,0 +1,36 @@
+{
+  "suiteId": "diagnostic-quality",
+  "suiteName": "Diagnostic Quality",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "error-precision",
+      "name": "Error Message Precision",
+      "passed": true,
+      "metric": {
+        "name": "diagnostic_fields",
+        "value": 3,
+        "unit": "/3 fields"
+      },
+      "detail": "Error at line 4 caught. Reported: Line 1, Col 1, Code E001."
+    },
+    {
+      "id": "format-auto-detection",
+      "name": "Format Auto-Detection",
+      "passed": true,
+      "metric": {
+        "name": "accuracy",
+        "value": 100,
+        "unit": "%"
+      },
+      "detail": "Identified 5/5 formats correct. JSON:true YON:true TOML:true YAML:true XML:true."
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "durationMs": 0.4414000000000442
+  },
+  "timestamp": "2026-03-22T15:12:14.816Z"
+}

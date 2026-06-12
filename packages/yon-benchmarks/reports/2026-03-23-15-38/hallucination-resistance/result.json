@@ -1,0 +1,77 @@
+{
+  "suiteId": "hallucination-resistance",
+  "suiteName": "Hallucination Resistance",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "syntax-invention-detection",
+      "name": "Syntax Invention Detection",
+      "passed": true,
+      "metric": {
+        "name": "rejected",
+        "value": 1,
+        "unit": "bool"
+      },
+      "detail": "Parser correctly rejected invented tags. Error: E001: First non-comment record must be @DOC (line 1)"
+    },
+    {
+      "id": "json-bleed-detection",
+      "name": "JSON Bleed Detection",
+      "passed": true,
+      "metric": {
+        "name": "rejected",
+        "value": 1,
+        "unit": "bool"
+      },
+      "detail": "Parser correctly rejected JSON masquerading as YON. Error: E001: First non-comment record must be @DOC (line 1)"
+    },
+    {
+      "id": "missing-doc-validation",
+      "name": "Missing @DOC Validation",
+      "passed": true,
+      "metric": {
+        "name": "rejected",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct_error_code",
+          "value": 1,
+          "unit": "bool"
+        }
+      ],
+      "detail": "Parser correctly rejected document without @DOC. E001 error code emitted."
+    },
+    {
+      "id": "diagnostic-quality",
+      "name": "Diagnostic Quality",
+      "passed": true,
+      "metric": {
+        "name": "errors_detected",
+        "value": 3,
+        "unit": "errors"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "line_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "code_accuracy",
+          "value": 100,
+          "unit": "%"
+        }
+      ],
+      "detail": "3 errors detected across 3 invalid vectors. 3 include line numbers (100%). 3 include error codes (100%)."
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "durationMs": 15.383500000000822
+  },
+  "timestamp": "2026-03-23T13:38:20.507Z"
+}

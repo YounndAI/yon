@@ -1,0 +1,139 @@
+{
+  "suiteId": "generator-validity",
+  "suiteName": "Generator Validity",
+  "pillar": "emitter-faithfulness",
+  "tests": [
+    {
+      "id": "generator-doc-header",
+      "name": "Builder @DOC Header",
+      "passed": true,
+      "metric": {
+        "name": "valid",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "validate_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.06,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Builder emits yon('rule').id().title().profile('decl'). Parse: true. Validate: true."
+    },
+    {
+      "id": "generator-workflow",
+      "name": "Builder Workflow (@STEP, @CHECK, @CATCH, @RETRY)",
+      "passed": true,
+      "metric": {
+        "name": "records_emitted",
+        "value": 7,
+        "unit": "records"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.14,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Builder emits workflow with @STEP, @CHECK, @CATCH, @RETRY. 7 records parsed. All workflow tags present: true."
+    },
+    {
+      "id": "generator-declarative",
+      "name": "Builder Declarative (@RULE, @MAP, @NOTE, @META)",
+      "passed": true,
+      "metric": {
+        "name": "records_emitted",
+        "value": 7,
+        "unit": "records"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.1,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Builder emits declarative doc with @RULE, @MAP, @NOTE, @META. 7 records parsed. All declarative tags present: true."
+    },
+    {
+      "id": "generator-content-block",
+      "name": "Builder Content Block (@BEGIN/@END)",
+      "passed": true,
+      "metric": {
+        "name": "block_present",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.07,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Builder emits @BEGIN/@END content block with JSON payload. Parse: true. Block present: true."
+    },
+    {
+      "id": "generator-validation",
+      "name": "Builder .validate() Error Detection",
+      "passed": true,
+      "metric": {
+        "name": "detection_correct",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "valid_accepted",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "invalid_rejected",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.08,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Builder.validate() accepts valid documents (true) and rejects invalid ones (true)."
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0,
+    "durationMs": 0.6617000000005646
+  },
+  "timestamp": "2026-03-21T18:10:53.247Z"
+}

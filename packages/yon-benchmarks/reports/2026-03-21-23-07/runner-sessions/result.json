@@ -1,0 +1,136 @@
+{
+  "suiteId": "runner-sessions",
+  "suiteName": "Runner Sessions",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "session-create-active",
+      "name": "Session Create + isActive",
+      "passed": true,
+      "metric": {
+        "name": "session_active",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "before_active",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "after_active",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.06,
+          "unit": "ms"
+        }
+      ],
+      "detail": "SessionManager inactive before create(), active after. Config verified."
+    },
+    {
+      "id": "session-checkpoint-recover",
+      "name": "Checkpoint + Recover",
+      "passed": true,
+      "metric": {
+        "name": "roundtrip_ok",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "has_label",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "recovered",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "blocks_count",
+          "value": 2,
+          "unit": "blocks"
+        },
+        {
+          "name": "duration",
+          "value": 0.1,
+          "unit": "ms"
+        }
+      ],
+      "detail": "checkpoint(\"after-init\") → recover(\"after-init\"). 2 blocks snaphotted. Roundtrip verified."
+    },
+    {
+      "id": "session-ttl-expiry",
+      "name": "TTL Expiry Rejects",
+      "passed": true,
+      "metric": {
+        "name": "expired_rejected",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "is_active",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "recover_null",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 4.07,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Session with TTL=1ms expires. isActive()=false, recover()=null. Safety verified."
+    },
+    {
+      "id": "session-selective-includes",
+      "name": "Selective Includes",
+      "passed": true,
+      "metric": {
+        "name": "selective_ok",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "snapshot_size",
+          "value": 2,
+          "unit": "blocks"
+        },
+        {
+          "name": "has_config",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "has_temp",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.02,
+          "unit": "ms"
+        }
+      ],
+      "detail": "includes=[\"blk:config\",\"blk:state\"] → 2 blocks (blk:temp excluded). Selective checkpoint verified."
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "durationMs": 4.5077000000001135
+  },
+  "timestamp": "2026-03-21T21:07:02.629Z"
+}

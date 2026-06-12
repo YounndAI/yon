@@ -1,0 +1,4939 @@
+{
+  "suiteId": "cognitive-horizon",
+  "suiteName": "Cognitive Horizon (Extended Mind)",
+  "pillar": "sapir-whorf",
+  "tests": [
+    {
+      "id": "horizon-markdown-q1-openai",
+      "name": "Markdown Q1 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q1_match_count",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q1: ✓ (6/4 keywords: admin, description, quantity, unit_price, at least 1, draft)"
+    },
+    {
+      "id": "horizon-markdown-q2-openai",
+      "name": "Markdown Q2 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q2_match_count",
+        "value": 0,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q2: ✗ (0/3 keywords: none)"
+    },
+    {
+      "id": "horizon-markdown-q3-openai",
+      "name": "Markdown Q3 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q3_match_count",
+        "value": 0,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q3: ✗ (0/3 keywords: none)"
+    },
+    {
+      "id": "horizon-markdown-q4-openai",
+      "name": "Markdown Q4 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q4_match_count",
+        "value": 4,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q4: ✓ (4/3 keywords: manager, admin, cannot, prod)"
+    },
+    {
+      "id": "horizon-markdown-q5-openai",
+      "name": "Markdown Q5 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q5_match_count",
+        "value": 5,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q5: ✓ (5/3 keywords: VAL_002, 400, greater than zero, total, must be)"
+    },
+    {
+      "id": "horizon-markdown-q6-openai",
+      "name": "Markdown Q6 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q6_match_count",
+        "value": 0,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q6: ✗ (0/3 keywords: none)"
+    },
+    {
+      "id": "horizon-markdown-q7-openai",
+      "name": "Markdown Q7 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q7_match_count",
+        "value": 8,
+        "unit": "/8"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q7: ✓ (8/3 keywords: not exposed, no, internally, system, append-only, create, update, status_change)"
+    },
+    {
+      "id": "horizon-markdown-q8-openai",
+      "name": "Markdown Q8 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q8_match_count",
+        "value": 0,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q8: ✗ (0/3 keywords: none)"
+    },
+    {
+      "id": "horizon-markdown-q9-openai",
+      "name": "Markdown Q9 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q9_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q9: ✓ (6/4 keywords: email, full_name, phone, 3, redacted, PII)"
+    },
+    {
+      "id": "horizon-markdown-q10-openai",
+      "name": "Markdown Q10 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q10_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q10: ✓ (6/3 keywords: USD, only, off, multi-currency, prod, new_payment_flow)"
+    },
+    {
+      "id": "horizon-markdown-openai-agg",
+      "name": "Markdown (verbose) [GPT-5-nano (budget)] — Aggregate",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "markdown_accuracy",
+        "value": 60,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 6,
+          "unit": "/10"
+        },
+        {
+          "name": "tokens",
+          "value": 4328,
+          "unit": "approx"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        }
+      ],
+      "detail": "GPT-5-nano (budget) × Markdown (verbose): 6/10 (60%) @ ~4328 tokens"
+    },
+    {
+      "id": "horizon-markdown-q1-openai",
+      "name": "Markdown Q1 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q1_match_count",
+        "value": 7,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q1: ✓ (7/4 keywords: admin, allow, description, quantity, unit_price, at least 1, draft)"
+    },
+    {
+      "id": "horizon-markdown-q2-openai",
+      "name": "Markdown Q2 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q2_match_count",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q2: ✓ (6/3 keywords: rate limit, 429, RATE_001, 120, viewer, 0.5)"
+    },
+    {
+      "id": "horizon-markdown-q3-openai",
+      "name": "Markdown Q3 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q3_match_count",
+        "value": 4,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q3: ✓ (4/3 keywords: info, changed fields, admin, payment_method)"
+    },
+    {
+      "id": "horizon-markdown-q4-openai",
+      "name": "Markdown Q4 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q4_match_count",
+        "value": 4,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q4: ✓ (4/3 keywords: manager, admin, cannot, prod)"
+    },
+    {
+      "id": "horizon-markdown-q5-openai",
+      "name": "Markdown Q5 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q5_match_count",
+        "value": 5,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q5: ✓ (5/3 keywords: VAL_002, 400, greater than zero, total, must be)"
+    },
+    {
+      "id": "horizon-markdown-q6-openai",
+      "name": "Markdown Q6 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q6_match_count",
+        "value": 2,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q6: ✗ (2/3 keywords: Chen Wei, payments)"
+    },
+    {
+      "id": "horizon-markdown-q7-openai",
+      "name": "Markdown Q7 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q7_match_count",
+        "value": 7,
+        "unit": "/8"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q7: ✓ (7/3 keywords: not exposed, no, internally, system, append-only, create, update)"
+    },
+    {
+      "id": "horizon-markdown-q8-openai",
+      "name": "Markdown Q8 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q8_match_count",
+        "value": 5,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q8: ✓ (5/3 keywords: GET /invoices, own team, viewer, cannot, payments)"
+    },
+    {
+      "id": "horizon-markdown-q9-openai",
+      "name": "Markdown Q9 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q9_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q9: ✓ (6/4 keywords: email, full_name, phone, 3, redacted, PII)"
+    },
+    {
+      "id": "horizon-markdown-q10-openai",
+      "name": "Markdown Q10 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q10_match_count",
+        "value": 5,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q10: ✓ (5/3 keywords: USD, only, off, prod, new_payment_flow)"
+    },
+    {
+      "id": "horizon-markdown-openai-agg",
+      "name": "Markdown (verbose) [GPT-4o-mini (standard)] — Aggregate",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "markdown_accuracy",
+        "value": 90,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 9,
+          "unit": "/10"
+        },
+        {
+          "name": "tokens",
+          "value": 4328,
+          "unit": "approx"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        }
+      ],
+      "detail": "GPT-4o-mini (standard) × Markdown (verbose): 9/10 (90%) @ ~4328 tokens"
+    },
+    {
+      "id": "horizon-markdown-q1-google",
+      "name": "Markdown Q1 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q1_match_count",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q1: ✓ (6/4 keywords: admin, description, quantity, unit_price, at least 1, draft)"
+    },
+    {
+      "id": "horizon-markdown-q2-google",
+      "name": "Markdown Q2 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q2_match_count",
+        "value": 7,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q2: ✓ (7/3 keywords: rate limit, 429, RATE_001, retry-after, 120, viewer, 0.5)"
+    },
+    {
+      "id": "horizon-markdown-q3-google",
+      "name": "Markdown Q3 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q3_match_count",
+        "value": 3,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q3: ✓ (3/3 keywords: info, changed fields, payment_method)"
+    },
+    {
+      "id": "horizon-markdown-q4-google",
+      "name": "Markdown Q4 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q4_match_count",
+        "value": 4,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q4: ✓ (4/3 keywords: manager, admin, cannot, prod)"
+    },
+    {
+      "id": "horizon-markdown-q5-google",
+      "name": "Markdown Q5 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q5_match_count",
+        "value": 5,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q5: ✓ (5/3 keywords: VAL_002, 400, greater than zero, total, must be)"
+    },
+    {
+      "id": "horizon-markdown-q6-google",
+      "name": "Markdown Q6 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q6_match_count",
+        "value": 4,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q6: ✓ (4/3 keywords: P1, 15 min, payments, PagerDuty)"
+    },
+    {
+      "id": "horizon-markdown-q7-google",
+      "name": "Markdown Q7 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q7_match_count",
+        "value": 6,
+        "unit": "/8"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q7: ✓ (6/3 keywords: no, internally, system, append-only, create, update)"
+    },
+    {
+      "id": "horizon-markdown-q8-google",
+      "name": "Markdown Q8 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q8_match_count",
+        "value": 5,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q8: ✓ (5/3 keywords: GET /invoices, own team, viewer, cannot, payments)"
+    },
+    {
+      "id": "horizon-markdown-q9-google",
+      "name": "Markdown Q9 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q9_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q9: ✓ (6/4 keywords: email, full_name, phone, 3, redacted, PII)"
+    },
+    {
+      "id": "horizon-markdown-q10-google",
+      "name": "Markdown Q10 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q10_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q10: ✓ (6/3 keywords: USD, only, off, multi-currency, prod, new_payment_flow)"
+    },
+    {
+      "id": "horizon-markdown-google-agg",
+      "name": "Markdown (verbose) [Gemini 2.5 Flash-Lite (budget)] — Aggregate",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "markdown_accuracy",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 10,
+          "unit": "/10"
+        },
+        {
+          "name": "tokens",
+          "value": 4328,
+          "unit": "approx"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash-Lite (budget) × Markdown (verbose): 10/10 (100%) @ ~4328 tokens"
+    },
+    {
+      "id": "horizon-markdown-q1-google",
+      "name": "Markdown Q1 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q1_match_count",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q1: ✓ (6/4 keywords: admin, description, quantity, unit_price, at least 1, draft)"
+    },
+    {
+      "id": "horizon-markdown-q2-google",
+      "name": "Markdown Q2 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q2_match_count",
+        "value": 7,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q2: ✓ (7/3 keywords: rate limit, 429, RATE_001, retry-after, 120, viewer, 0.5)"
+    },
+    {
+      "id": "horizon-markdown-q3-google",
+      "name": "Markdown Q3 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q3_match_count",
+        "value": 4,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q3: ✓ (4/3 keywords: info, changed fields, payment_method, not values)"
+    },
+    {
+      "id": "horizon-markdown-q4-google",
+      "name": "Markdown Q4 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q4_match_count",
+        "value": 4,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q4: ✓ (4/3 keywords: manager, admin, cannot, prod)"
+    },
+    {
+      "id": "horizon-markdown-q5-google",
+      "name": "Markdown Q5 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q5_match_count",
+        "value": 5,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q5: ✓ (5/3 keywords: VAL_002, 400, greater than zero, total, must be)"
+    },
+    {
+      "id": "horizon-markdown-q6-google",
+      "name": "Markdown Q6 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q6_match_count",
+        "value": 3,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q6: ✓ (3/3 keywords: Chen Wei, payments, PagerDuty)"
+    },
+    {
+      "id": "horizon-markdown-q7-google",
+      "name": "Markdown Q7 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q7_match_count",
+        "value": 6,
+        "unit": "/8"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q7: ✓ (6/3 keywords: not exposed, no, internally, system, create, update)"
+    },
+    {
+      "id": "horizon-markdown-q8-google",
+      "name": "Markdown Q8 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q8_match_count",
+        "value": 5,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q8: ✓ (5/3 keywords: GET /invoices, own team, viewer, cannot, payments)"
+    },
+    {
+      "id": "horizon-markdown-q9-google",
+      "name": "Markdown Q9 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q9_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q9: ✓ (6/4 keywords: email, full_name, phone, 3, redacted, PII)"
+    },
+    {
+      "id": "horizon-markdown-q10-google",
+      "name": "Markdown Q10 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q10_match_count",
+        "value": 5,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q10: ✓ (5/3 keywords: USD, only, off, prod, new_payment_flow)"
+    },
+    {
+      "id": "horizon-markdown-google-agg",
+      "name": "Markdown (verbose) [Gemini 2.5 Flash (standard)] — Aggregate",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "markdown_accuracy",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 10,
+          "unit": "/10"
+        },
+        {
+          "name": "tokens",
+          "value": 4328,
+          "unit": "approx"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash (standard) × Markdown (verbose): 10/10 (100%) @ ~4328 tokens"
+    },
+    {
+      "id": "horizon-markdown-q1-anthropic",
+      "name": "Markdown Q1 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q1_match_count",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q1: ✓ (6/4 keywords: admin, description, quantity, unit_price, at least 1, draft)"
+    },
+    {
+      "id": "horizon-markdown-q2-anthropic",
+      "name": "Markdown Q2 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q2_match_count",
+        "value": 7,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q2: ✓ (7/3 keywords: rate limit, 429, RATE_001, retry-after, 120, viewer, 0.5)"
+    },
+    {
+      "id": "horizon-markdown-q3-anthropic",
+      "name": "Markdown Q3 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q3_match_count",
+        "value": 4,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q3: ✓ (4/3 keywords: info, changed fields, admin, payment_method)"
+    },
+    {
+      "id": "horizon-markdown-q4-anthropic",
+      "name": "Markdown Q4 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q4_match_count",
+        "value": 4,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q4: ✓ (4/3 keywords: manager, admin, cannot, prod)"
+    },
+    {
+      "id": "horizon-markdown-q5-anthropic",
+      "name": "Markdown Q5 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q5_match_count",
+        "value": 5,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q5: ✓ (5/3 keywords: VAL_002, 400, greater than zero, total, must be)"
+    },
+    {
+      "id": "horizon-markdown-q6-anthropic",
+      "name": "Markdown Q6 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q6_match_count",
+        "value": 5,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q6: ✓ (5/3 keywords: 99.99, Chen Wei, P1, 15 min, payments)"
+    },
+    {
+      "id": "horizon-markdown-q7-anthropic",
+      "name": "Markdown Q7 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q7_match_count",
+        "value": 8,
+        "unit": "/8"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q7: ✓ (8/3 keywords: not exposed, no, internally, system, append-only, create, update, status_change)"
+    },
+    {
+      "id": "horizon-markdown-q8-anthropic",
+      "name": "Markdown Q8 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q8_match_count",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q8: ✓ (6/3 keywords: GET /invoices, own team, viewer, cannot, payments, read-only)"
+    },
+    {
+      "id": "horizon-markdown-q9-anthropic",
+      "name": "Markdown Q9 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q9_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q9: ✓ (6/4 keywords: email, full_name, phone, 3, redacted, PII)"
+    },
+    {
+      "id": "horizon-markdown-q10-anthropic",
+      "name": "Markdown Q10 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q10_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "markdown"
+        }
+      ],
+      "detail": "Q10: ✓ (6/3 keywords: USD, only, off, multi-currency, prod, new_payment_flow)"
+    },
+    {
+      "id": "horizon-markdown-anthropic-agg",
+      "name": "Markdown (verbose) [Claude Haiku 4.5 (standard)] — Aggregate",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "markdown_accuracy",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 10,
+          "unit": "/10"
+        },
+        {
+          "name": "tokens",
+          "value": 4328,
+          "unit": "approx"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 (standard) × Markdown (verbose): 10/10 (100%) @ ~4328 tokens"
+    },
+    {
+      "id": "horizon-yon_canon-q1-openai",
+      "name": "YON Canon Q1 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q1_match_count",
+        "value": 7,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q1: ✓ (7/4 keywords: admin, allow, description, quantity, unit_price, at least 1, draft)"
+    },
+    {
+      "id": "horizon-yon_canon-q2-openai",
+      "name": "YON Canon Q2 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q2_match_count",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q2: ✓ (6/3 keywords: rate limit, 429, RATE_001, retry-after, 120, viewer)"
+    },
+    {
+      "id": "horizon-yon_canon-q3-openai",
+      "name": "YON Canon Q3 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q3_match_count",
+        "value": 4,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q3: ✓ (4/3 keywords: info, changed fields, payment_method, not values)"
+    },
+    {
+      "id": "horizon-yon_canon-q4-openai",
+      "name": "YON Canon Q4 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q4_match_count",
+        "value": 4,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q4: ✓ (4/3 keywords: manager, admin, cannot, prod)"
+    },
+    {
+      "id": "horizon-yon_canon-q5-openai",
+      "name": "YON Canon Q5 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q5_match_count",
+        "value": 5,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q5: ✓ (5/3 keywords: VAL_002, 400, greater than zero, total, must be)"
+    },
+    {
+      "id": "horizon-yon_canon-q6-openai",
+      "name": "YON Canon Q6 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q6_match_count",
+        "value": 0,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q6: ✗ (0/3 keywords: none)"
+    },
+    {
+      "id": "horizon-yon_canon-q7-openai",
+      "name": "YON Canon Q7 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q7_match_count",
+        "value": 8,
+        "unit": "/8"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q7: ✓ (8/3 keywords: not exposed, no, internally, system, append-only, create, update, status_change)"
+    },
+    {
+      "id": "horizon-yon_canon-q8-openai",
+      "name": "YON Canon Q8 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q8_match_count",
+        "value": 0,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q8: ✗ (0/3 keywords: none)"
+    },
+    {
+      "id": "horizon-yon_canon-q9-openai",
+      "name": "YON Canon Q9 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q9_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q9: ✓ (6/4 keywords: email, full_name, phone, 3, redacted, PII)"
+    },
+    {
+      "id": "horizon-yon_canon-q10-openai",
+      "name": "YON Canon Q10 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q10_match_count",
+        "value": 0,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q10: ✗ (0/3 keywords: none)"
+    },
+    {
+      "id": "horizon-yon_canon-openai-agg",
+      "name": "YON Canon (fmt=full) [GPT-5-nano (budget)] — Aggregate",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_canon_accuracy",
+        "value": 70,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 7,
+          "unit": "/10"
+        },
+        {
+          "name": "tokens",
+          "value": 5426,
+          "unit": "approx"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        }
+      ],
+      "detail": "GPT-5-nano (budget) × YON Canon (fmt=full): 7/10 (70%) @ ~5426 tokens"
+    },
+    {
+      "id": "horizon-yon_canon-q1-openai",
+      "name": "YON Canon Q1 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q1_match_count",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q1: ✓ (6/4 keywords: admin, description, quantity, unit_price, at least 1, draft)"
+    },
+    {
+      "id": "horizon-yon_canon-q2-openai",
+      "name": "YON Canon Q2 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q2_match_count",
+        "value": 5,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q2: ✓ (5/3 keywords: rate limit, 429, RATE_001, 120, viewer)"
+    },
+    {
+      "id": "horizon-yon_canon-q3-openai",
+      "name": "YON Canon Q3 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q3_match_count",
+        "value": 3,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q3: ✓ (3/3 keywords: info, changed fields, payment_method)"
+    },
+    {
+      "id": "horizon-yon_canon-q4-openai",
+      "name": "YON Canon Q4 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q4_match_count",
+        "value": 4,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q4: ✓ (4/3 keywords: manager, admin, cannot, prod)"
+    },
+    {
+      "id": "horizon-yon_canon-q5-openai",
+      "name": "YON Canon Q5 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q5_match_count",
+        "value": 5,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q5: ✓ (5/3 keywords: VAL_002, 400, greater than zero, total, must be)"
+    },
+    {
+      "id": "horizon-yon_canon-q6-openai",
+      "name": "YON Canon Q6 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q6_match_count",
+        "value": 1,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q6: ✗ (1/3 keywords: payments)"
+    },
+    {
+      "id": "horizon-yon_canon-q7-openai",
+      "name": "YON Canon Q7 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q7_match_count",
+        "value": 7,
+        "unit": "/8"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q7: ✓ (7/3 keywords: not exposed, no, internally, system, append-only, create, update)"
+    },
+    {
+      "id": "horizon-yon_canon-q8-openai",
+      "name": "YON Canon Q8 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q8_match_count",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q8: ✓ (6/3 keywords: GET /invoices, own team, viewer, cannot, payments, deny)"
+    },
+    {
+      "id": "horizon-yon_canon-q9-openai",
+      "name": "YON Canon Q9 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q9_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q9: ✓ (6/4 keywords: email, full_name, phone, 3, redacted, PII)"
+    },
+    {
+      "id": "horizon-yon_canon-q10-openai",
+      "name": "YON Canon Q10 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q10_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q10: ✓ (6/3 keywords: USD, only, off, multi-currency, prod, new_payment_flow)"
+    },
+    {
+      "id": "horizon-yon_canon-openai-agg",
+      "name": "YON Canon (fmt=full) [GPT-4o-mini (standard)] — Aggregate",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_canon_accuracy",
+        "value": 90,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 9,
+          "unit": "/10"
+        },
+        {
+          "name": "tokens",
+          "value": 5426,
+          "unit": "approx"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        }
+      ],
+      "detail": "GPT-4o-mini (standard) × YON Canon (fmt=full): 9/10 (90%) @ ~5426 tokens"
+    },
+    {
+      "id": "horizon-yon_canon-q1-google",
+      "name": "YON Canon Q1 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q1_match_count",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q1: ✓ (6/4 keywords: admin, description, quantity, unit_price, at least 1, draft)"
+    },
+    {
+      "id": "horizon-yon_canon-q2-google",
+      "name": "YON Canon Q2 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q2_match_count",
+        "value": 7,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q2: ✓ (7/3 keywords: rate limit, 429, RATE_001, retry-after, 120, viewer, 0.5)"
+    },
+    {
+      "id": "horizon-yon_canon-q3-google",
+      "name": "YON Canon Q3 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q3_match_count",
+        "value": 5,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q3: ✓ (5/3 keywords: info, changed fields, admin, payment_method, not values)"
+    },
+    {
+      "id": "horizon-yon_canon-q4-google",
+      "name": "YON Canon Q4 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q4_match_count",
+        "value": 4,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q4: ✓ (4/3 keywords: manager, admin, cannot, prod)"
+    },
+    {
+      "id": "horizon-yon_canon-q5-google",
+      "name": "YON Canon Q5 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q5_match_count",
+        "value": 5,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q5: ✓ (5/3 keywords: VAL_002, 400, greater than zero, total, must be)"
+    },
+    {
+      "id": "horizon-yon_canon-q6-google",
+      "name": "YON Canon Q6 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q6_match_count",
+        "value": 5,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q6: ✓ (5/3 keywords: 99.99, Chen Wei, P1, 15 min, payments)"
+    },
+    {
+      "id": "horizon-yon_canon-q7-google",
+      "name": "YON Canon Q7 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q7_match_count",
+        "value": 7,
+        "unit": "/8"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q7: ✓ (7/3 keywords: not exposed, no, internally, append-only, create, update, status_change)"
+    },
+    {
+      "id": "horizon-yon_canon-q8-google",
+      "name": "YON Canon Q8 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q8_match_count",
+        "value": 5,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q8: ✓ (5/3 keywords: GET /invoices, own team, viewer, cannot, payments)"
+    },
+    {
+      "id": "horizon-yon_canon-q9-google",
+      "name": "YON Canon Q9 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q9_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q9: ✓ (6/4 keywords: email, full_name, phone, 3, redacted, PII)"
+    },
+    {
+      "id": "horizon-yon_canon-q10-google",
+      "name": "YON Canon Q10 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q10_match_count",
+        "value": 5,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q10: ✓ (5/3 keywords: USD, only, off, prod, new_payment_flow)"
+    },
+    {
+      "id": "horizon-yon_canon-google-agg",
+      "name": "YON Canon (fmt=full) [Gemini 2.5 Flash-Lite (budget)] — Aggregate",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_canon_accuracy",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 10,
+          "unit": "/10"
+        },
+        {
+          "name": "tokens",
+          "value": 5426,
+          "unit": "approx"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash-Lite (budget) × YON Canon (fmt=full): 10/10 (100%) @ ~5426 tokens"
+    },
+    {
+      "id": "horizon-yon_canon-q1-google",
+      "name": "YON Canon Q1 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q1_match_count",
+        "value": 7,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q1: ✓ (7/4 keywords: admin, allow, description, quantity, unit_price, at least 1, draft)"
+    },
+    {
+      "id": "horizon-yon_canon-q2-google",
+      "name": "YON Canon Q2 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q2_match_count",
+        "value": 7,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q2: ✓ (7/3 keywords: rate limit, 429, RATE_001, retry-after, 120, viewer, 0.5)"
+    },
+    {
+      "id": "horizon-yon_canon-q3-google",
+      "name": "YON Canon Q3 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q3_match_count",
+        "value": 2,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q3: ✗ (2/3 keywords: info, payment_method)"
+    },
+    {
+      "id": "horizon-yon_canon-q4-google",
+      "name": "YON Canon Q4 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q4_match_count",
+        "value": 4,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q4: ✓ (4/3 keywords: manager, admin, cannot, prod)"
+    },
+    {
+      "id": "horizon-yon_canon-q5-google",
+      "name": "YON Canon Q5 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q5_match_count",
+        "value": 5,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q5: ✓ (5/3 keywords: VAL_002, 400, greater than zero, total, must be)"
+    },
+    {
+      "id": "horizon-yon_canon-q6-google",
+      "name": "YON Canon Q6 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q6_match_count",
+        "value": 1,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q6: ✗ (1/3 keywords: payments)"
+    },
+    {
+      "id": "horizon-yon_canon-q7-google",
+      "name": "YON Canon Q7 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q7_match_count",
+        "value": 7,
+        "unit": "/8"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q7: ✓ (7/3 keywords: not exposed, no, internally, system, append-only, create, update)"
+    },
+    {
+      "id": "horizon-yon_canon-q8-google",
+      "name": "YON Canon Q8 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q8_match_count",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q8: ✓ (6/3 keywords: GET /invoices, own team, viewer, cannot, payments, deny)"
+    },
+    {
+      "id": "horizon-yon_canon-q9-google",
+      "name": "YON Canon Q9 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q9_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q9: ✓ (6/4 keywords: email, full_name, phone, 3, redacted, PII)"
+    },
+    {
+      "id": "horizon-yon_canon-q10-google",
+      "name": "YON Canon Q10 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q10_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q10: ✓ (6/3 keywords: USD, only, off, multi-currency, prod, new_payment_flow)"
+    },
+    {
+      "id": "horizon-yon_canon-google-agg",
+      "name": "YON Canon (fmt=full) [Gemini 2.5 Flash (standard)] — Aggregate",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_canon_accuracy",
+        "value": 80,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 8,
+          "unit": "/10"
+        },
+        {
+          "name": "tokens",
+          "value": 5426,
+          "unit": "approx"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash (standard) × YON Canon (fmt=full): 8/10 (80%) @ ~5426 tokens"
+    },
+    {
+      "id": "horizon-yon_canon-q1-anthropic",
+      "name": "YON Canon Q1 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q1_match_count",
+        "value": 7,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q1: ✓ (7/4 keywords: admin, allow, description, quantity, unit_price, at least 1, draft)"
+    },
+    {
+      "id": "horizon-yon_canon-q2-anthropic",
+      "name": "YON Canon Q2 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q2_match_count",
+        "value": 7,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q2: ✓ (7/3 keywords: rate limit, 429, RATE_001, retry-after, 120, viewer, 0.5)"
+    },
+    {
+      "id": "horizon-yon_canon-q3-anthropic",
+      "name": "YON Canon Q3 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q3_match_count",
+        "value": 4,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q3: ✓ (4/3 keywords: info, changed fields, admin, payment_method)"
+    },
+    {
+      "id": "horizon-yon_canon-q4-anthropic",
+      "name": "YON Canon Q4 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q4_match_count",
+        "value": 4,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q4: ✓ (4/3 keywords: manager, admin, cannot, prod)"
+    },
+    {
+      "id": "horizon-yon_canon-q5-anthropic",
+      "name": "YON Canon Q5 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q5_match_count",
+        "value": 5,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q5: ✓ (5/3 keywords: VAL_002, 400, greater than zero, total, must be)"
+    },
+    {
+      "id": "horizon-yon_canon-q6-anthropic",
+      "name": "YON Canon Q6 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q6_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q6: ✓ (6/3 keywords: 99.99, Chen Wei, P1, 15 min, payments, PagerDuty)"
+    },
+    {
+      "id": "horizon-yon_canon-q7-anthropic",
+      "name": "YON Canon Q7 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q7_match_count",
+        "value": 8,
+        "unit": "/8"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q7: ✓ (8/3 keywords: not exposed, no, internally, system, append-only, create, update, status_change)"
+    },
+    {
+      "id": "horizon-yon_canon-q8-anthropic",
+      "name": "YON Canon Q8 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q8_match_count",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q8: ✓ (6/3 keywords: GET /invoices, own team, viewer, cannot, payments, deny)"
+    },
+    {
+      "id": "horizon-yon_canon-q9-anthropic",
+      "name": "YON Canon Q9 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q9_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q9: ✓ (6/4 keywords: email, full_name, phone, 3, redacted, PII)"
+    },
+    {
+      "id": "horizon-yon_canon-q10-anthropic",
+      "name": "YON Canon Q10 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q10_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_canon"
+        }
+      ],
+      "detail": "Q10: ✓ (6/3 keywords: USD, only, off, multi-currency, prod, new_payment_flow)"
+    },
+    {
+      "id": "horizon-yon_canon-anthropic-agg",
+      "name": "YON Canon (fmt=full) [Claude Haiku 4.5 (standard)] — Aggregate",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_canon_accuracy",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 10,
+          "unit": "/10"
+        },
+        {
+          "name": "tokens",
+          "value": 5426,
+          "unit": "approx"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 (standard) × YON Canon (fmt=full): 10/10 (100%) @ ~5426 tokens"
+    },
+    {
+      "id": "horizon-yon_min-q1-openai",
+      "name": "YON Minimal Q1 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q1_match_count",
+        "value": 3,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q1: ✗ (3/4 keywords: admin, unit_price, draft)"
+    },
+    {
+      "id": "horizon-yon_min-q2-openai",
+      "name": "YON Minimal Q2 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q2_match_count",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q2: ✓ (6/3 keywords: rate limit, 429, RATE_001, retry-after, 120, viewer)"
+    },
+    {
+      "id": "horizon-yon_min-q3-openai",
+      "name": "YON Minimal Q3 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q3_match_count",
+        "value": 0,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q3: ✗ (0/3 keywords: none)"
+    },
+    {
+      "id": "horizon-yon_min-q4-openai",
+      "name": "YON Minimal Q4 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q4_match_count",
+        "value": 5,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q4: ✓ (5/3 keywords: manager, admin, cannot, prod, admin only)"
+    },
+    {
+      "id": "horizon-yon_min-q5-openai",
+      "name": "YON Minimal Q5 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q5_match_count",
+        "value": 4,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q5: ✓ (4/3 keywords: VAL_002, 400, total, must be)"
+    },
+    {
+      "id": "horizon-yon_min-q6-openai",
+      "name": "YON Minimal Q6 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q6_match_count",
+        "value": 3,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q6: ✓ (3/3 keywords: P1, 15 min, payments)"
+    },
+    {
+      "id": "horizon-yon_min-q7-openai",
+      "name": "YON Minimal Q7 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q7_match_count",
+        "value": 0,
+        "unit": "/8"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q7: ✗ (0/3 keywords: none)"
+    },
+    {
+      "id": "horizon-yon_min-q8-openai",
+      "name": "YON Minimal Q8 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q8_match_count",
+        "value": 0,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q8: ✗ (0/3 keywords: none)"
+    },
+    {
+      "id": "horizon-yon_min-q9-openai",
+      "name": "YON Minimal Q9 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q9_match_count",
+        "value": 0,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q9: ✗ (0/4 keywords: none)"
+    },
+    {
+      "id": "horizon-yon_min-q10-openai",
+      "name": "YON Minimal Q10 [GPT-5-nano (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q10_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q10: ✓ (6/3 keywords: USD, only, off, multi-currency, prod, new_payment_flow)"
+    },
+    {
+      "id": "horizon-yon_min-openai-agg",
+      "name": "YON Minimal (fmt=min) [GPT-5-nano (budget)] — Aggregate",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_min_accuracy",
+        "value": 50,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 5,
+          "unit": "/10"
+        },
+        {
+          "name": "tokens",
+          "value": 3524,
+          "unit": "approx"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-5-nano (budget)"
+        }
+      ],
+      "detail": "GPT-5-nano (budget) × YON Minimal (fmt=min): 5/10 (50%) @ ~3524 tokens"
+    },
+    {
+      "id": "horizon-yon_min-q1-openai",
+      "name": "YON Minimal Q1 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q1_match_count",
+        "value": 4,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q1: ✓ (4/4 keywords: admin, allow, unit_price, draft)"
+    },
+    {
+      "id": "horizon-yon_min-q2-openai",
+      "name": "YON Minimal Q2 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q2_match_count",
+        "value": 5,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q2: ✓ (5/3 keywords: rate limit, 429, RATE_001, 120, viewer)"
+    },
+    {
+      "id": "horizon-yon_min-q3-openai",
+      "name": "YON Minimal Q3 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q3_match_count",
+        "value": 3,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q3: ✓ (3/3 keywords: info, changed fields, payment_method)"
+    },
+    {
+      "id": "horizon-yon_min-q4-openai",
+      "name": "YON Minimal Q4 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q4_match_count",
+        "value": 5,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q4: ✓ (5/3 keywords: manager, admin, cannot, prod, admin only)"
+    },
+    {
+      "id": "horizon-yon_min-q5-openai",
+      "name": "YON Minimal Q5 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q5_match_count",
+        "value": 4,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q5: ✓ (4/3 keywords: VAL_002, 400, total, must be)"
+    },
+    {
+      "id": "horizon-yon_min-q6-openai",
+      "name": "YON Minimal Q6 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q6_match_count",
+        "value": 4,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q6: ✓ (4/3 keywords: Chen Wei, P1, 15 min, payments)"
+    },
+    {
+      "id": "horizon-yon_min-q7-openai",
+      "name": "YON Minimal Q7 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q7_match_count",
+        "value": 6,
+        "unit": "/8"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q7: ✓ (6/3 keywords: not exposed, no, append-only, create, update, status_change)"
+    },
+    {
+      "id": "horizon-yon_min-q8-openai",
+      "name": "YON Minimal Q8 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q8_match_count",
+        "value": 5,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q8: ✓ (5/3 keywords: GET /invoices, own team, viewer, cannot, payments)"
+    },
+    {
+      "id": "horizon-yon_min-q9-openai",
+      "name": "YON Minimal Q9 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q9_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q9: ✓ (6/4 keywords: email, full_name, phone, 3, redacted, PII)"
+    },
+    {
+      "id": "horizon-yon_min-q10-openai",
+      "name": "YON Minimal Q10 [GPT-4o-mini (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q10_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q10: ✓ (6/3 keywords: USD, only, off, multi-currency, prod, new_payment_flow)"
+    },
+    {
+      "id": "horizon-yon_min-openai-agg",
+      "name": "YON Minimal (fmt=min) [GPT-4o-mini (standard)] — Aggregate",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_min_accuracy",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 10,
+          "unit": "/10"
+        },
+        {
+          "name": "tokens",
+          "value": 3524,
+          "unit": "approx"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "GPT-4o-mini (standard)"
+        }
+      ],
+      "detail": "GPT-4o-mini (standard) × YON Minimal (fmt=min): 10/10 (100%) @ ~3524 tokens"
+    },
+    {
+      "id": "horizon-yon_min-q1-google",
+      "name": "YON Minimal Q1 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q1_match_count",
+        "value": 3,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q1: ✗ (3/4 keywords: admin, unit_price, draft)"
+    },
+    {
+      "id": "horizon-yon_min-q2-google",
+      "name": "YON Minimal Q2 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q2_match_count",
+        "value": 7,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q2: ✓ (7/3 keywords: rate limit, 429, RATE_001, retry-after, 120, viewer, 0.5)"
+    },
+    {
+      "id": "horizon-yon_min-q3-google",
+      "name": "YON Minimal Q3 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q3_match_count",
+        "value": 2,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q3: ✗ (2/3 keywords: info, payment_method)"
+    },
+    {
+      "id": "horizon-yon_min-q4-google",
+      "name": "YON Minimal Q4 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q4_match_count",
+        "value": 5,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q4: ✓ (5/3 keywords: manager, admin, cannot, prod, admin only)"
+    },
+    {
+      "id": "horizon-yon_min-q5-google",
+      "name": "YON Minimal Q5 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q5_match_count",
+        "value": 4,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q5: ✓ (4/3 keywords: VAL_002, 400, total, must be)"
+    },
+    {
+      "id": "horizon-yon_min-q6-google",
+      "name": "YON Minimal Q6 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q6_match_count",
+        "value": 1,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q6: ✗ (1/3 keywords: payments)"
+    },
+    {
+      "id": "horizon-yon_min-q7-google",
+      "name": "YON Minimal Q7 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q7_match_count",
+        "value": 7,
+        "unit": "/8"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q7: ✓ (7/3 keywords: not exposed, no, system, append-only, create, update, status_change)"
+    },
+    {
+      "id": "horizon-yon_min-q8-google",
+      "name": "YON Minimal Q8 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q8_match_count",
+        "value": 5,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q8: ✓ (5/3 keywords: GET /invoices, own team, viewer, cannot, payments)"
+    },
+    {
+      "id": "horizon-yon_min-q9-google",
+      "name": "YON Minimal Q9 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q9_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q9: ✓ (6/4 keywords: email, full_name, phone, 3, redacted, PII)"
+    },
+    {
+      "id": "horizon-yon_min-q10-google",
+      "name": "YON Minimal Q10 [Gemini 2.5 Flash-Lite (budget)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q10_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q10: ✓ (6/3 keywords: USD, only, off, multi-currency, prod, new_payment_flow)"
+    },
+    {
+      "id": "horizon-yon_min-google-agg",
+      "name": "YON Minimal (fmt=min) [Gemini 2.5 Flash-Lite (budget)] — Aggregate",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_min_accuracy",
+        "value": 70,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 7,
+          "unit": "/10"
+        },
+        {
+          "name": "tokens",
+          "value": 3524,
+          "unit": "approx"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash-Lite (budget)"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash-Lite (budget) × YON Minimal (fmt=min): 7/10 (70%) @ ~3524 tokens"
+    },
+    {
+      "id": "horizon-yon_min-q1-google",
+      "name": "YON Minimal Q1 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q1_match_count",
+        "value": 3,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q1: ✗ (3/4 keywords: admin, unit_price, draft)"
+    },
+    {
+      "id": "horizon-yon_min-q2-google",
+      "name": "YON Minimal Q2 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q2_match_count",
+        "value": 7,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q2: ✓ (7/3 keywords: rate limit, 429, RATE_001, retry-after, 120, viewer, 0.5)"
+    },
+    {
+      "id": "horizon-yon_min-q3-google",
+      "name": "YON Minimal Q3 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q3_match_count",
+        "value": 3,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q3: ✓ (3/3 keywords: info, changed fields, payment_method)"
+    },
+    {
+      "id": "horizon-yon_min-q4-google",
+      "name": "YON Minimal Q4 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q4_match_count",
+        "value": 5,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q4: ✓ (5/3 keywords: manager, admin, cannot, prod, admin only)"
+    },
+    {
+      "id": "horizon-yon_min-q5-google",
+      "name": "YON Minimal Q5 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q5_match_count",
+        "value": 5,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q5: ✓ (5/3 keywords: VAL_002, 400, greater than zero, total, must be)"
+    },
+    {
+      "id": "horizon-yon_min-q6-google",
+      "name": "YON Minimal Q6 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q6_match_count",
+        "value": 2,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 0,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q6: ✗ (2/3 keywords: payments, PagerDuty)"
+    },
+    {
+      "id": "horizon-yon_min-q7-google",
+      "name": "YON Minimal Q7 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q7_match_count",
+        "value": 5,
+        "unit": "/8"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q7: ✓ (5/3 keywords: not exposed, no, create, update, status_change)"
+    },
+    {
+      "id": "horizon-yon_min-q8-google",
+      "name": "YON Minimal Q8 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q8_match_count",
+        "value": 3,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q8: ✓ (3/3 keywords: GET /invoices, own team, viewer)"
+    },
+    {
+      "id": "horizon-yon_min-q9-google",
+      "name": "YON Minimal Q9 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q9_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q9: ✓ (6/4 keywords: email, full_name, phone, 3, redacted, PII)"
+    },
+    {
+      "id": "horizon-yon_min-q10-google",
+      "name": "YON Minimal Q10 [Gemini 2.5 Flash (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q10_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q10: ✓ (6/3 keywords: USD, only, off, multi-currency, prod, new_payment_flow)"
+    },
+    {
+      "id": "horizon-yon_min-google-agg",
+      "name": "YON Minimal (fmt=min) [Gemini 2.5 Flash (standard)] — Aggregate",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_min_accuracy",
+        "value": 80,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 8,
+          "unit": "/10"
+        },
+        {
+          "name": "tokens",
+          "value": 3524,
+          "unit": "approx"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Gemini 2.5 Flash (standard)"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash (standard) × YON Minimal (fmt=min): 8/10 (80%) @ ~3524 tokens"
+    },
+    {
+      "id": "horizon-yon_min-q1-anthropic",
+      "name": "YON Minimal Q1 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q1_match_count",
+        "value": 4,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q1: ✓ (4/4 keywords: admin, allow, unit_price, draft)"
+    },
+    {
+      "id": "horizon-yon_min-q2-anthropic",
+      "name": "YON Minimal Q2 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q2_match_count",
+        "value": 7,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q2: ✓ (7/3 keywords: rate limit, 429, RATE_001, retry-after, 120, viewer, 0.5)"
+    },
+    {
+      "id": "horizon-yon_min-q3-anthropic",
+      "name": "YON Minimal Q3 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q3_match_count",
+        "value": 3,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q3: ✓ (3/3 keywords: info, changed fields, payment_method)"
+    },
+    {
+      "id": "horizon-yon_min-q4-anthropic",
+      "name": "YON Minimal Q4 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q4_match_count",
+        "value": 5,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q4: ✓ (5/3 keywords: manager, admin, cannot, prod, admin only)"
+    },
+    {
+      "id": "horizon-yon_min-q5-anthropic",
+      "name": "YON Minimal Q5 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q5_match_count",
+        "value": 4,
+        "unit": "/5"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q5: ✓ (4/3 keywords: VAL_002, 400, total, must be)"
+    },
+    {
+      "id": "horizon-yon_min-q6-anthropic",
+      "name": "YON Minimal Q6 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q6_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q6: ✓ (6/3 keywords: 99.99, Chen Wei, P1, 15 min, payments, PagerDuty)"
+    },
+    {
+      "id": "horizon-yon_min-q7-anthropic",
+      "name": "YON Minimal Q7 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q7_match_count",
+        "value": 7,
+        "unit": "/8"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q7: ✓ (7/3 keywords: not exposed, no, system, append-only, create, update, status_change)"
+    },
+    {
+      "id": "horizon-yon_min-q8-anthropic",
+      "name": "YON Minimal Q8 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q8_match_count",
+        "value": 6,
+        "unit": "/7"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q8: ✓ (6/3 keywords: GET /invoices, own team, viewer, cannot, payments, read-only)"
+    },
+    {
+      "id": "horizon-yon_min-q9-anthropic",
+      "name": "YON Minimal Q9 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q9_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q9: ✓ (6/4 keywords: email, full_name, phone, 3, redacted, PII)"
+    },
+    {
+      "id": "horizon-yon_min-q10-anthropic",
+      "name": "YON Minimal Q10 [Claude Haiku 4.5 (standard)]",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "q10_match_count",
+        "value": 6,
+        "unit": "/6"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        },
+        {
+          "name": "density",
+          "value": 0,
+          "unit": "yon_min"
+        }
+      ],
+      "detail": "Q10: ✓ (6/3 keywords: USD, only, off, multi-currency, prod, new_payment_flow)"
+    },
+    {
+      "id": "horizon-yon_min-anthropic-agg",
+      "name": "YON Minimal (fmt=min) [Claude Haiku 4.5 (standard)] — Aggregate",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_min_accuracy",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 10,
+          "unit": "/10"
+        },
+        {
+          "name": "tokens",
+          "value": 3524,
+          "unit": "approx"
+        },
+        {
+          "name": "model",
+          "value": 0,
+          "unit": "Claude Haiku 4.5 (standard)"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 (standard) × YON Minimal (fmt=min): 10/10 (100%) @ ~3524 tokens"
+    },
+    {
+      "id": "horizon-markdown-overall",
+      "name": "Cognitive Horizon Aggregate: Markdown (verbose)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "markdown_avg_accuracy",
+        "value": 90,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 45,
+          "unit": "/50"
+        },
+        {
+          "name": "models",
+          "value": 5,
+          "unit": "models"
+        },
+        {
+          "name": "tokens",
+          "value": 4328,
+          "unit": "approx"
+        }
+      ],
+      "detail": "Aggregate across 5 models: 45/50 (90%) @ ~4328 tokens"
+    },
+    {
+      "id": "horizon-yon_canon-overall",
+      "name": "Cognitive Horizon Aggregate: YON Canon (fmt=full)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_canon_avg_accuracy",
+        "value": 88,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 44,
+          "unit": "/50"
+        },
+        {
+          "name": "models",
+          "value": 5,
+          "unit": "models"
+        },
+        {
+          "name": "tokens",
+          "value": 5426,
+          "unit": "approx"
+        }
+      ],
+      "detail": "Aggregate across 5 models: 44/50 (88%) @ ~5426 tokens"
+    },
+    {
+      "id": "horizon-yon_min-overall",
+      "name": "Cognitive Horizon Aggregate: YON Minimal (fmt=min)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_min_avg_accuracy",
+        "value": 80,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 40,
+          "unit": "/50"
+        },
+        {
+          "name": "models",
+          "value": 5,
+          "unit": "models"
+        },
+        {
+          "name": "tokens",
+          "value": 3524,
+          "unit": "approx"
+        }
+      ],
+      "detail": "Aggregate across 5 models: 40/50 (80%) @ ~3524 tokens"
+    },
+    {
+      "id": "horizon-density-advantage",
+      "name": "Cognitive Horizon: Density Advantage (min vs markdown)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "density_advantage",
+        "value": -10,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_min_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 90,
+          "unit": "%"
+        },
+        {
+          "name": "token_savings",
+          "value": 19,
+          "unit": "%"
+        }
+      ],
+      "detail": "YON min: 80% | MD: 90% | Δ: -10pp | Savings: 19%"
+    },
+    {
+      "id": "horizon-token-efficiency",
+      "name": "Cognitive Horizon: Token Efficiency",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_min_efficiency",
+        "value": 22.7,
+        "unit": "acc%/1k-tok"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "markdown_efficiency",
+          "value": 20.79,
+          "unit": "acc%/1k-tok"
+        },
+        {
+          "name": "yon_canon_efficiency",
+          "value": 16.22,
+          "unit": "acc%/1k-tok"
+        }
+      ],
+      "detail": "MD: 20.79 | Canon: 16.22 | Min: 22.70 acc%/1k-tok"
+    }
+  ],
+  "summary": {
+    "total": 170,
+    "passed": 170,
+    "failed": 0,
+    "durationMs": 478570.1988
+  },
+  "timestamp": "2026-03-22T14:18:10.199Z"
+}

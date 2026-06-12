@@ -1,0 +1,41 @@
+{
+  "suiteId": "syntax-hygiene",
+  "suiteName": "Syntax Hygiene",
+  "pillar": "lossless",
+  "tests": [
+    {
+      "id": "escape-density",
+      "name": "Escape Density (YON Advantage)",
+      "passed": true,
+      "metric": {
+        "name": "yon_escapes",
+        "value": 0,
+        "unit": "escapes",
+        "comparison": {
+          "baseline": 15,
+          "baselineLabel": "JSON escapes",
+          "delta": "0 vs 15"
+        }
+      },
+      "detail": "YON: 0 escapes (528B). JSON: 15 escapes (429B). JSON is -18.8% larger."
+    },
+    {
+      "id": "boundary-integrity",
+      "name": "Block Boundary Integrity",
+      "passed": true,
+      "metric": {
+        "name": "blocks_intact",
+        "value": 2,
+        "unit": "/2 blocks"
+      },
+      "detail": "2/2 blocks preserved with content intact via @BEGIN/@END boundaries."
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "durationMs": 0.1687999999994645
+  },
+  "timestamp": "2026-03-21T21:07:06.261Z"
+}

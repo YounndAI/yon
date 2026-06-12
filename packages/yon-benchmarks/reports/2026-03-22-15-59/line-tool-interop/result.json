@@ -1,0 +1,104 @@
+{
+  "suiteId": "line-tool-interop",
+  "suiteName": "Line-Tool Interoperability",
+  "pillar": "streaming",
+  "tests": [
+    {
+      "id": "tag-filtering",
+      "name": "Tag Filtering (grep @CFG equivalent)",
+      "passed": true,
+      "metric": {
+        "name": "lines_extracted",
+        "value": 25,
+        "unit": "lines",
+        "comparison": {
+          "baseline": 0,
+          "baselineLabel": "JSON (impossible — no line-level filtering)",
+          "delta": "25 lines filtered, 100% parse independently"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parseable",
+          "value": 25,
+          "unit": "lines"
+        },
+        {
+          "name": "correct_tag",
+          "value": 25,
+          "unit": "lines"
+        }
+      ],
+      "detail": "Filtered 25/102 lines by @CFG tag. 25/25 parse independently. 25/25 have correct tag."
+    },
+    {
+      "id": "random-access",
+      "name": "Random Line Access (10 random lines)",
+      "passed": true,
+      "metric": {
+        "name": "parse_success",
+        "value": 10,
+        "unit": "/10 lines"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "data_intact",
+          "value": 10,
+          "unit": "lines"
+        }
+      ],
+      "detail": "10/10 random lines parse independently with data intact. No document context needed — each line is self-contained."
+    },
+    {
+      "id": "split-merge",
+      "name": "Split & Merge (4-way parallel)",
+      "passed": true,
+      "metric": {
+        "name": "chunk_records",
+        "value": 101,
+        "unit": "records",
+        "comparison": {
+          "baseline": 101,
+          "baselineLabel": "Full parse records",
+          "delta": "exact match"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "chunks",
+          "value": 4,
+          "unit": "chunks"
+        },
+        {
+          "name": "lines_per_chunk",
+          "value": 26,
+          "unit": "lines"
+        }
+      ],
+      "detail": "Split 100-record doc into 4 chunks. Chunk parse: 101 records. Full parse: 101 records. Perfect match — parallel processing safe."
+    },
+    {
+      "id": "json-comparison",
+      "name": "Line Independence (YON Advantage)",
+      "passed": true,
+      "metric": {
+        "name": "yon_filtered_parseable",
+        "value": 25,
+        "unit": "lines",
+        "comparison": {
+          "baseline": 0,
+          "baselineLabel": "JSON filtered lines parseable",
+          "delta": "YON: 25 valid records, JSON: 0 (fragments)"
+        }
+      },
+      "detail": "Filter by \"cfg\": YON 25/25 lines are parseable records. JSON 0/25 filtered lines parse as valid JSON. JSON line filtering produces fragments, not valid data."
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "durationMs": 1.600800000000163
+  },
+  "timestamp": "2026-03-22T13:59:11.248Z"
+}

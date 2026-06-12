@@ -1,0 +1,69 @@
+{
+  "suiteId": "runner-assertions",
+  "suiteName": "Runner Assertions & Safety",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "check-abort-halts",
+      "name": "@CHECK fail=ABORT Halts Workflow",
+      "passed": true,
+      "metric": {
+        "name": "abort_enforced",
+        "value": 1,
+        "unit": "bool"
+      },
+      "detail": "@CHECK assert=\"block:nonexistent != null\" fail=ABORT. Aborted: true. E106: true. Step blocked: true. ABORT enforcement: VERIFIED."
+    },
+    {
+      "id": "check-skip-continues",
+      "name": "@CHECK fail=SKIP Skips Step",
+      "passed": true,
+      "metric": {
+        "name": "skip_correct",
+        "value": 1,
+        "unit": "bool"
+      },
+      "detail": "@CHECK fail=SKIP target=s2. s1 ran: true. s2 skipped: true. s3 ran: true. SKIP enforcement: VERIFIED."
+    },
+    {
+      "id": "check-warn-continues",
+      "name": "@CHECK fail=WARN Continues",
+      "passed": true,
+      "metric": {
+        "name": "warn_advisory_correct",
+        "value": 1,
+        "unit": "bool"
+      },
+      "detail": "@CHECK assert=\"false\" fail=WARN. Warning emitted: true. Step ran: true. WARN behavior: VERIFIED."
+    },
+    {
+      "id": "halt-abort-signal",
+      "name": "HALT via AbortSignal (E108)",
+      "passed": true,
+      "metric": {
+        "name": "halt_enforced",
+        "value": 1,
+        "unit": "bool"
+      },
+      "detail": "AbortSignal.abort() mid-execution. s1 started: true. s2 blocked: true. E108: true. cancelled stamp: true. HALT enforcement: VERIFIED."
+    },
+    {
+      "id": "input-contract-validation",
+      "name": "@INPUT Contract Enforcement",
+      "passed": true,
+      "metric": {
+        "name": "contract_enforced",
+        "value": 1,
+        "unit": "bool"
+      },
+      "detail": "@INPUT name=source_data (required by default). No value provided. Workflow rejected: true. Input error: true. Contract enforcement: VERIFIED."
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0,
+    "durationMs": 3.6639999999988504
+  },
+  "timestamp": "2026-03-21T21:07:02.984Z"
+}

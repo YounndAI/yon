@@ -1,0 +1,182 @@
+{
+  "suiteId": "generator-extended",
+  "suiteName": "Generator Extended Records",
+  "pillar": "emitter-faithfulness",
+  "tests": [
+    {
+      "id": "ext-session-management",
+      "name": "Session Management",
+      "passed": true,
+      "metric": {
+        "name": "valid",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "validate_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.21,
+          "unit": "ms"
+        }
+      ],
+      "detail": "@SESSION → @CHECKPOINT(includes[]) × 2 → @RECOVER. Session lifecycle validated."
+    },
+    {
+      "id": "ext-change-control",
+      "name": "Change Control",
+      "passed": true,
+      "metric": {
+        "name": "valid",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "validate_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.12,
+          "unit": "ms"
+        }
+      ],
+      "detail": "@RULE → @PATCH(set{}) → @VOID. Immutable audit trail validated."
+    },
+    {
+      "id": "ext-dialogue",
+      "name": "Dialogue",
+      "passed": true,
+      "metric": {
+        "name": "valid",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "validate_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.06,
+          "unit": "ms"
+        }
+      ],
+      "detail": "@TURN × 2 (user → assistant → user) → @ACK. Multi-turn conversation validated."
+    },
+    {
+      "id": "ext-privacy",
+      "name": "Privacy & GDPR",
+      "passed": true,
+      "metric": {
+        "name": "valid",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "validate_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.06,
+          "unit": "ms"
+        }
+      ],
+      "detail": "@CONSENT(grant) → @REDACTION → @CONSENT(revoke). Privacy lifecycle validated."
+    },
+    {
+      "id": "ext-cross-domain",
+      "name": "Cross-Domain",
+      "passed": true,
+      "metric": {
+        "name": "valid",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "validate_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.05,
+          "unit": "ms"
+        }
+      ],
+      "detail": "@IDENTITY → @LOCATION. Cross-domain actor and spatial references validated."
+    },
+    {
+      "id": "ext-domain-records",
+      "name": "Domain Records",
+      "passed": true,
+      "metric": {
+        "name": "valid",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "validate_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.07,
+          "unit": "ms"
+        }
+      ],
+      "detail": "@TXN(amount:int, currency) → @POSITION(price:float). Custom domain records with typed fields validated."
+    }
+  ],
+  "summary": {
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "durationMs": 0.7121000000001914
+  },
+  "timestamp": "2026-03-21T19:44:51.476Z"
+}

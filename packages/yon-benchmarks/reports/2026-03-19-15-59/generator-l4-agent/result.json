@@ -1,0 +1,182 @@
+{
+  "suiteId": "generator-l4-agent",
+  "suiteName": "Generator L4 Agent",
+  "pillar": "emitter-faithfulness",
+  "tests": [
+    {
+      "id": "l4-agent-lifecycle",
+      "name": "L4 Agent Lifecycle",
+      "passed": true,
+      "metric": {
+        "name": "valid",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "validate_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.22,
+          "unit": "ms"
+        }
+      ],
+      "detail": "@AGENT(caps[], streams[]) → @CAPS(ops[]) → @DEREGISTER. Array fields validated."
+    },
+    {
+      "id": "l4-inter-agent-comms",
+      "name": "L4 Inter-Agent Comms",
+      "passed": true,
+      "metric": {
+        "name": "valid",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "validate_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.13,
+          "unit": "ms"
+        }
+      ],
+      "detail": "@SIGNAL → @THROTTLE(recommended_delay_ms:int) → @STREAM → @SUBSCRIBE(streams[], topics[]) → @ROUTE → @MERGE(streams[]). Numeric suffix and array fields verified."
+    },
+    {
+      "id": "l4-workspace-composition",
+      "name": "L4 Workspace & Composition",
+      "passed": true,
+      "metric": {
+        "name": "valid",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "validate_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.06,
+          "unit": "ms"
+        }
+      ],
+      "detail": "@WORKSPACE(agents[]) → @EDIT → @CALL. Collaboration records validated."
+    },
+    {
+      "id": "l4-safety-governance",
+      "name": "L4 Safety & Governance",
+      "passed": true,
+      "metric": {
+        "name": "valid",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "validate_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.07,
+          "unit": "ms"
+        }
+      ],
+      "detail": "@TENET(L0 + L2, precedence, decay) → @ESCALATE → @HALT. Governance chain validated."
+    },
+    {
+      "id": "l4-reactive-execution",
+      "name": "L4 Reactive Execution",
+      "passed": true,
+      "metric": {
+        "name": "valid",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "validate_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.16,
+          "unit": "ms"
+        }
+      ],
+      "detail": "@ON → @EMIT → @LOOP(interval_ms:int). Reactive event system validated."
+    },
+    {
+      "id": "l4-temporal-context",
+      "name": "L4 Temporal Context",
+      "passed": true,
+      "metric": {
+        "name": "valid",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "parse_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "validate_ok",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.07,
+          "unit": "ms"
+        }
+      ],
+      "detail": "@TIMELINE → @EVENT × 2. Temporal tracking validated."
+    }
+  ],
+  "summary": {
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "durationMs": 0.860700000000179
+  },
+  "timestamp": "2026-03-19T13:59:12.988Z"
+}

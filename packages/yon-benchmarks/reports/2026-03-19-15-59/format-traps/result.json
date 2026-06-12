@@ -1,0 +1,164 @@
+{
+  "suiteId": "format-traps",
+  "suiteName": "Format Traps",
+  "pillar": "lossless",
+  "tests": [
+    {
+      "id": "traps-yon",
+      "name": "YON Trap Immunity (3 LLMs × 12 traps)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "avg_accuracy",
+        "value": 86,
+        "unit": "%",
+        "comparison": {
+          "baseline": 12,
+          "baselineLabel": "max traps",
+          "delta": "10.3/12 avg"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "gpt4o-mini_score",
+          "value": 11,
+          "unit": "/12"
+        },
+        {
+          "name": "claude-haiku_score",
+          "value": 12,
+          "unit": "/12"
+        },
+        {
+          "name": "gemini-flash_score",
+          "value": 8,
+          "unit": "/12"
+        },
+        {
+          "name": "duration",
+          "value": 28475,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o-mini: 11/12, Claude Haiku 4.5: 12/12, Gemini 2.5 Flash: 8/12. Per-trap: GPT-4o-mini: norway-country-code:✓ on-off-config:✓ yes-no-answers:✓ version-string:✓ octal-zipcode:✓ hex-color:✓ nested-quotes:✗(\"Can't find \\\"config) unicode-names:✓ high-precision-float:✓ leading-zero-phone:✓ scientific-notation:✓ rome-zipcode:✓ | Claude Haiku 4.5: norway-country-code:✓ on-off-config:✓ yes-no-answers:✓ version-string:✓ octal-zipcode:✓ hex-color:✓ nested-quotes:✓ unicode-names:✓ high-precision-float:✓ leading-zero-phone:✓ scientific-notation:✓ rome-zipcode:✓ | Gemini 2.5 Flash: norway-country-code:✓ on-off-config:✓ yes-no-answers:✓ version-string:✓ octal-zipcode:✓ hex-color:✓ nested-quotes:✗(\"Can't) unicode-names:✗(ol) high-precision-float:✓ leading-zero-phone:✗(00) scientific-notation:✓ rome-zipcode:✗(00)",
+      "outcome": "disadvantage"
+    },
+    {
+      "id": "traps-json",
+      "name": "JSON Trap Immunity (3 LLMs × 12 traps)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "avg_accuracy",
+        "value": 89,
+        "unit": "%",
+        "comparison": {
+          "baseline": 12,
+          "baselineLabel": "max traps",
+          "delta": "10.7/12 avg"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "gpt4o-mini_score",
+          "value": 11,
+          "unit": "/12"
+        },
+        {
+          "name": "claude-haiku_score",
+          "value": 12,
+          "unit": "/12"
+        },
+        {
+          "name": "gemini-flash_score",
+          "value": 9,
+          "unit": "/12"
+        },
+        {
+          "name": "duration",
+          "value": 17346,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o-mini: 11/12, Claude Haiku 4.5: 12/12, Gemini 2.5 Flash: 9/12. Per-trap: GPT-4o-mini: norway-country-code:✓ on-off-config:✓ yes-no-answers:✓ version-string:✓ octal-zipcode:✓ hex-color:✓ nested-quotes:✗(\"Can't find \\\"config) unicode-names:✓ high-precision-float:✓ leading-zero-phone:✓ scientific-notation:✓ rome-zipcode:✓ | Claude Haiku 4.5: norway-country-code:✓ on-off-config:✓ yes-no-answers:✓ version-string:✓ octal-zipcode:✓ hex-color:✓ nested-quotes:✓ unicode-names:✓ high-precision-float:✓ leading-zero-phone:✓ scientific-notation:✓ rome-zipcode:✓ | Gemini 2.5 Flash: norway-country-code:✓ on-off-config:✓ yes-no-answers:✓ version-string:✓ octal-zipcode:✓ hex-color:✓ nested-quotes:✓ unicode-names:✗(olof@) high-precision-float:✗(3.1415926535) leading-zero-phone:✓ scientific-notation:✗(6.022e) rome-zipcode:✓",
+      "outcome": "tied"
+    },
+    {
+      "id": "traps-yaml",
+      "name": "YAML Trap Immunity (3 LLMs × 12 traps)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "avg_accuracy",
+        "value": 92,
+        "unit": "%",
+        "comparison": {
+          "baseline": 12,
+          "baselineLabel": "max traps",
+          "delta": "11.0/12 avg"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "gpt4o-mini_score",
+          "value": 11,
+          "unit": "/12"
+        },
+        {
+          "name": "claude-haiku_score",
+          "value": 12,
+          "unit": "/12"
+        },
+        {
+          "name": "gemini-flash_score",
+          "value": 10,
+          "unit": "/12"
+        },
+        {
+          "name": "duration",
+          "value": 18832,
+          "unit": "ms"
+        }
+      ],
+      "detail": "GPT-4o-mini: 11/12, Claude Haiku 4.5: 12/12, Gemini 2.5 Flash: 10/12. Per-trap: GPT-4o-mini: norway-country-code:✓ on-off-config:✓ yes-no-answers:✓ version-string:✓ octal-zipcode:✓ hex-color:✓ nested-quotes:✗(\"Can't find \\\"config) unicode-names:✓ high-precision-float:✓ leading-zero-phone:✓ scientific-notation:✓ rome-zipcode:✓ | Claude Haiku 4.5: norway-country-code:✓ on-off-config:✓ yes-no-answers:✓ version-string:✓ octal-zipcode:✓ hex-color:✓ nested-quotes:✓ unicode-names:✓ high-precision-float:✓ leading-zero-phone:✓ scientific-notation:✓ rome-zipcode:✓ | Gemini 2.5 Flash: norway-country-code:✓ on-off-config:✓ yes-no-answers:✓ version-string:✓ octal-zipcode:✓ hex-color:✓ nested-quotes:✗(\"Can) unicode-names:✓ high-precision-float:✓ leading-zero-phone:✓ scientific-notation:✗(6.0) rome-zipcode:✓",
+      "outcome": "disadvantage"
+    },
+    {
+      "id": "parser-traps",
+      "name": "Parser-Level Data Integrity (Local)",
+      "passed": true,
+      "type": "comparative",
+      "outcome": "advantage",
+      "metric": {
+        "name": "yaml_corruptions",
+        "value": 6,
+        "unit": "/6 values corrupted",
+        "comparison": {
+          "baseline": 0,
+          "baselineLabel": "YON corruptions",
+          "delta": "YAML corrupts 6/6, YON: 0/6"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yaml_preserved",
+          "value": 0,
+          "unit": "/6"
+        },
+        {
+          "name": "yon_preserved",
+          "value": 6,
+          "unit": "/6"
+        }
+      ],
+      "detail": "Parser-level data integrity — the actual format trap claim. YAML parsers silently coerce string values (NO→false, ON→true, 1.0→1). YON treats all untyped values as text — no implicit coercion.\n\n**Results per trap case:**\n- norway: YAML coerces 'NO' → false ✗\n- on-val: YAML coerces 'ON' → true ✗\n- yes-val: YAML coerces 'YES' → true ✗\n- off-val: YAML coerces 'OFF' → false ✗\n- version: YAML coerces '1.0' → 1 ✗\n- octal: YAML coerces '0777' → 511 ✗\n\n**YAML:** 6 silent corruptions. **YON:** 0 corruptions. YON's text-first design eliminates parser-level data loss."
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "durationMs": 64654.056
+  },
+  "timestamp": "2026-03-19T14:01:33.868Z"
+}

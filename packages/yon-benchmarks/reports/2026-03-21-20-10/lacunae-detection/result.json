@@ -1,0 +1,885 @@
+{
+  "suiteId": "lacunae-detection",
+  "suiteName": "Lacunae Detection",
+  "pillar": "sapir-whorf",
+  "tests": [
+    {
+      "id": "concept-behavioral-contract",
+      "name": "Concept: Behavioral Contract (Lifecycle)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_best_other",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 80,
+          "unit": "%"
+        }
+      ],
+      "detail": "Behavioral Contract (Lifecycle): YON=80%, JSON=80%, Markdown=80%, YAML=80%. YON vs best other: 0pp"
+    },
+    {
+      "id": "concept-agent-router",
+      "name": "Concept: Agent Router",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_best_other",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 100,
+          "unit": "%"
+        }
+      ],
+      "detail": "Agent Router: YON=100%, JSON=100%, Markdown=100%, YAML=100%. YON vs best other: 0pp"
+    },
+    {
+      "id": "concept-rule-precedence",
+      "name": "Concept: Rule Precedence Resolution",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_best_other",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 100,
+          "unit": "%"
+        }
+      ],
+      "detail": "Rule Precedence Resolution: YON=100%, JSON=100%, Markdown=100%, YAML=100%. YON vs best other: 0pp"
+    },
+    {
+      "id": "concept-enforcement-gradient",
+      "name": "Concept: Enforcement Gradient",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_best_other",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 100,
+          "unit": "%"
+        }
+      ],
+      "detail": "Enforcement Gradient: YON=100%, JSON=100%, Markdown=100%, YAML=100%. YON vs best other: 0pp"
+    },
+    {
+      "id": "concept-patch-merge",
+      "name": "Concept: Patch Merge Semantics",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_best_other",
+        "value": 40,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 40,
+          "unit": "%"
+        }
+      ],
+      "detail": "Patch Merge Semantics: YON=80%, JSON=40%, Markdown=40%, YAML=40%. YON vs best other: +40pp"
+    },
+    {
+      "id": "concept-map-cfg-resolution",
+      "name": "Concept: Config Reference Chain",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_best_other",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 80,
+          "unit": "%"
+        }
+      ],
+      "detail": "Config Reference Chain: YON=100%, JSON=80%, Markdown=100%, YAML=80%. YON vs best other: 0pp"
+    },
+    {
+      "id": "concept-void-revocation",
+      "name": "Concept: Void Revocation Reasoning",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_best_other",
+        "value": 60,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 20,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 20,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 20,
+          "unit": "%"
+        }
+      ],
+      "detail": "Void Revocation Reasoning: YON=80%, JSON=20%, Markdown=20%, YAML=20%. YON vs best other: +60pp"
+    },
+    {
+      "id": "concept-audit-trail-chain",
+      "name": "Concept: Audit Trail Chain (STAMP+PATCH+VOID)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_best_other",
+        "value": -20,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 40,
+          "unit": "%"
+        }
+      ],
+      "detail": "Audit Trail Chain (STAMP+PATCH+VOID): YON=80%, JSON=100%, Markdown=80%, YAML=40%. YON vs best other: -20pp"
+    },
+    {
+      "id": "concept-complex-void",
+      "name": "Concept: Complex Void Revocation (6 rules, 2 voided)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_best_other",
+        "value": 20,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 60,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 60,
+          "unit": "%"
+        }
+      ],
+      "detail": "Complex Void Revocation (6 rules, 2 voided): YON=80%, JSON=60%, Markdown=40%, YAML=60%. YON vs best other: +20pp"
+    },
+    {
+      "id": "concept-contract-v2",
+      "name": "Concept: Parity Re-engineering (PATCH+VOID decorated)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_best_other",
+        "value": 80,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 0,
+          "unit": "%"
+        }
+      ],
+      "detail": "Parity Re-engineering (PATCH+VOID decorated): YON=80%, JSON=0%, Markdown=0%, YAML=0%. YON vs best other: +80pp"
+    },
+    {
+      "id": "concept-temporal-evolution",
+      "name": "Concept: Temporal Policy Evolution (PATCH+VOID lifecycle)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_best_other",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 80,
+          "unit": "%"
+        }
+      ],
+      "detail": "Temporal Policy Evolution (PATCH+VOID lifecycle): YON=80%, JSON=80%, Markdown=80%, YAML=80%. YON vs best other: 0pp"
+    },
+    {
+      "id": "concept-validation-schema",
+      "name": "Concept: Schema Constraint Validation",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_best_other",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 80,
+          "unit": "%"
+        }
+      ],
+      "detail": "Schema Constraint Validation: YON=80%, JSON=80%, Markdown=80%, YAML=80%. YON vs best other: 0pp"
+    },
+    {
+      "id": "concept-cascading-patch",
+      "name": "Concept: Cascading Patch Chain Resolution",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_best_other",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 80,
+          "unit": "%"
+        }
+      ],
+      "detail": "Cascading Patch Chain Resolution: YON=80%, JSON=80%, Markdown=80%, YAML=80%. YON vs best other: 0pp"
+    },
+    {
+      "id": "concept-selective-void",
+      "name": "Concept: Selective Void with Surviving Siblings",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_best_other",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 80,
+          "unit": "%"
+        }
+      ],
+      "detail": "Selective Void with Surviving Siblings: YON=80%, JSON=80%, Markdown=80%, YAML=80%. YON vs best other: 0pp"
+    },
+    {
+      "id": "concept-context-hoisting",
+      "name": "Concept: Context Hoisting (Section-Scoped Rules)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_best_other",
+        "value": -20,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 60,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 100,
+          "unit": "%"
+        }
+      ],
+      "detail": "Context Hoisting (Section-Scoped Rules): YON=80%, JSON=60%, Markdown=80%, YAML=100%. YON vs best other: -20pp"
+    },
+    {
+      "id": "concept-lifecycle-state-resolution",
+      "name": "Concept: Lifecycle State Resolution (Multi-hop PATCH+VOID)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_best_other",
+        "value": -20,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 60,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 80,
+          "unit": "%"
+        }
+      ],
+      "detail": "Lifecycle State Resolution (Multi-hop PATCH+VOID): YON=60%, JSON=80%, Markdown=80%, YAML=80%. YON vs best other: -20pp"
+    },
+    {
+      "id": "concept-cascading-patch-2hop",
+      "name": "Concept: Cascading Patch (2-hop: RULE → PATCH)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_best_other",
+        "value": -20,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 80,
+          "unit": "%"
+        }
+      ],
+      "detail": "Cascading Patch (2-hop: RULE → PATCH): YON=80%, JSON=100%, Markdown=80%, YAML=80%. YON vs best other: -20pp"
+    },
+    {
+      "id": "concept-lifecycle-state-resolution-2hop",
+      "name": "Concept: Lifecycle State Resolution (2-hop: RULE → PATCH)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_best_other",
+        "value": -20,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 100,
+          "unit": "%"
+        }
+      ],
+      "detail": "Lifecycle State Resolution (2-hop: RULE → PATCH): YON=80%, JSON=100%, Markdown=100%, YAML=100%. YON vs best other: -20pp"
+    },
+    {
+      "id": "format-yon-overall",
+      "name": "Format: YON Overall Accuracy",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "accuracy",
+        "value": 83,
+        "unit": "%"
+      },
+      "detail": "YON: 83% accuracy across all concepts"
+    },
+    {
+      "id": "format-json-overall",
+      "name": "Format: JSON Overall Accuracy",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "accuracy",
+        "value": 74,
+        "unit": "%"
+      },
+      "detail": "JSON: 74% accuracy across all concepts"
+    },
+    {
+      "id": "format-markdown-overall",
+      "name": "Format: Markdown Overall Accuracy",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "accuracy",
+        "value": 73,
+        "unit": "%"
+      },
+      "detail": "Markdown: 73% accuracy across all concepts"
+    },
+    {
+      "id": "format-yaml-overall",
+      "name": "Format: YAML Overall Accuracy",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "accuracy",
+        "value": 72,
+        "unit": "%"
+      },
+      "detail": "YAML: 72% accuracy across all concepts"
+    },
+    {
+      "id": "lacunae-count",
+      "name": "Lacunae Count: Concepts Where YON Uniquely Excels",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "lacunae_detected",
+        "value": 4,
+        "unit": "of 18"
+      },
+      "detail": "4/18 concepts show >15pp YON advantage over average of other formats"
+    },
+    {
+      "id": "dual-json-parity",
+      "name": "Dual JSON: YON vs History-JSON (Sandbagging Prevention)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_history_json",
+        "value": 20,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 80,
+          "unit": "%"
+        },
+        {
+          "name": "history_json_accuracy",
+          "value": 60,
+          "unit": "%"
+        },
+        {
+          "name": "current_json_accuracy",
+          "value": 0,
+          "unit": "%"
+        }
+      ],
+      "detail": "contract-v2: YON=80% vs History-JSON=60% vs Current-JSON=0%"
+    },
+    {
+      "id": "per-model-gpt5-nano(budget)",
+      "name": "Per-Model: GPT-5-nano (budget)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_vs_others",
+        "value": -11,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 22,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 44,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 28,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 28,
+          "unit": "%"
+        }
+      ],
+      "detail": "GPT-5-nano (budget): YON=22% vs others=33%"
+    },
+    {
+      "id": "per-model-gemini-flash-lite(budget)",
+      "name": "Per-Model: Gemini 2.5 Flash-Lite (budget)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_vs_others",
+        "value": 20,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 89,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 78,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 72,
+          "unit": "%"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash-Lite (budget): YON=100% vs others=80%"
+    },
+    {
+      "id": "per-model-gpt4o-mini(standard)",
+      "name": "Per-Model: GPT-4o-mini (standard)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_vs_others",
+        "value": 17,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 78,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 89,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 83,
+          "unit": "%"
+        }
+      ],
+      "detail": "GPT-4o-mini (standard): YON=100% vs others=83%"
+    },
+    {
+      "id": "per-model-claude-haiku(standard)",
+      "name": "Per-Model: Claude Haiku 4.5 (standard)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_vs_others",
+        "value": 7,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 100,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 94,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 94,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 89,
+          "unit": "%"
+        }
+      ],
+      "detail": "Claude Haiku 4.5 (standard): YON=100% vs others=93%"
+    },
+    {
+      "id": "per-model-gemini-flash(standard)",
+      "name": "Per-Model: Gemini 2.5 Flash (standard)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "yon_vs_others",
+        "value": 16,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 94,
+          "unit": "%"
+        },
+        {
+          "name": "json_accuracy",
+          "value": 67,
+          "unit": "%"
+        },
+        {
+          "name": "markdown_accuracy",
+          "value": 78,
+          "unit": "%"
+        },
+        {
+          "name": "yaml_accuracy",
+          "value": 89,
+          "unit": "%"
+        }
+      ],
+      "detail": "Gemini 2.5 Flash (standard): YON=94% vs others=78%"
+    }
+  ],
+  "summary": {
+    "total": 29,
+    "passed": 29,
+    "failed": 0,
+    "durationMs": 832573.2629999998
+  },
+  "timestamp": "2026-03-21T19:10:46.764Z"
+}

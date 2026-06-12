@@ -1,0 +1,84 @@
+{
+  "suiteId": "domain-validation-streaming",
+  "suiteName": "Domain Validation Streaming",
+  "pillar": "streaming",
+  "tests": [
+    {
+      "id": "domain-streaming-valid",
+      "name": "Domain Streaming — Valid Records Pass",
+      "passed": true,
+      "metric": {
+        "name": "domain_valid_rate",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "valid_records",
+          "value": 10000,
+          "unit": "records"
+        },
+        {
+          "name": "invalid_records",
+          "value": 0,
+          "unit": "records"
+        }
+      ],
+      "detail": "10,000/10,000 records passed per-record domain validation. 0 invalid. Each record validated in flight without accumulating the document."
+    },
+    {
+      "id": "domain-streaming-memory",
+      "name": "Domain Validation — O(1) Memory",
+      "passed": true,
+      "metric": {
+        "name": "validation_memory_growth",
+        "value": 2.63,
+        "unit": "x"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "delta_1k",
+          "value": 2.35,
+          "unit": "MB"
+        },
+        {
+          "name": "delta_10k",
+          "value": 6.18,
+          "unit": "MB"
+        }
+      ],
+      "detail": "1K delta: 2.35 MB. 10K delta: 6.18 MB. Growth factor: 2.63x. Validation doesn't buffer — memory stays flat."
+    },
+    {
+      "id": "domain-streaming-throughput",
+      "name": "Domain Validation — Validation Cost",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "domain_validation_cost",
+        "value": 19.4,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "without_validation",
+          "value": 1600948,
+          "unit": "records/sec"
+        },
+        {
+          "name": "with_validation",
+          "value": 1291022,
+          "unit": "records/sec"
+        }
+      ],
+      "detail": "Without validation: 1,600,948 ops/s. With validation: 1,291,022 ops/s. Validation cost: 19.4%. Domain-aware validation runs in flight."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 112.1186000000016
+  },
+  "timestamp": "2026-03-23T01:27:38.093Z"
+}

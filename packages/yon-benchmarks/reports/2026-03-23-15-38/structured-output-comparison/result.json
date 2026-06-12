@@ -1,0 +1,106 @@
+{
+  "suiteId": "structured-output-comparison",
+  "suiteName": "Structured Output Comparison",
+  "pillar": "cognitive-economy",
+  "tests": [
+    {
+      "id": "output-byte-comparison",
+      "name": "Structured Output — Byte Size Comparison",
+      "passed": true,
+      "metric": {
+        "name": "yon_vs_json_bytes",
+        "value": 69,
+        "unit": "%",
+        "comparison": {
+          "baseline": 100,
+          "baselineLabel": "JSON size",
+          "delta": "-31%"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_bytes",
+          "value": 821,
+          "unit": "bytes"
+        },
+        {
+          "name": "json_bytes",
+          "value": 1197,
+          "unit": "bytes"
+        }
+      ],
+      "outcome": "advantage",
+      "detail": "Equivalent structured output: YON 821 bytes vs JSON 1197 bytes (69%). YON includes embedded code without escaping; JSON requires escape sequences."
+    },
+    {
+      "id": "output-escape-burden",
+      "name": "Structured Output — Escape Burden",
+      "passed": true,
+      "metric": {
+        "name": "escape_delta",
+        "value": 10,
+        "unit": "escapes",
+        "comparison": {
+          "baseline": 10,
+          "baselineLabel": "JSON escapes",
+          "delta": "−10"
+        }
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_escapes",
+          "value": 0,
+          "unit": "escapes"
+        },
+        {
+          "name": "json_escapes",
+          "value": 10,
+          "unit": "escapes"
+        }
+      ],
+      "outcome": "advantage",
+      "detail": "JSON required 10 escape sequences for embedded code and quotes. YON required 0 — @BEGIN/@END blocks embed foreign content without transformation."
+    },
+    {
+      "id": "output-readability-ratio",
+      "name": "Structured Output — Readability (Lines vs Depth)",
+      "passed": true,
+      "metric": {
+        "name": "nesting_depth_delta",
+        "value": 4,
+        "unit": "levels"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_lines",
+          "value": 18,
+          "unit": "lines"
+        },
+        {
+          "name": "json_lines",
+          "value": 47,
+          "unit": "lines"
+        },
+        {
+          "name": "yon_max_depth",
+          "value": 1,
+          "unit": "levels"
+        },
+        {
+          "name": "json_max_depth",
+          "value": 5,
+          "unit": "levels"
+        }
+      ],
+      "outcome": "advantage",
+      "detail": "YON: 18 lines, max depth 1. JSON: 47 lines, max depth 5. Flat structure is easier to scan, grep, and stream."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 0.2724999999991269
+  },
+  "timestamp": "2026-03-23T13:38:40.312Z"
+}

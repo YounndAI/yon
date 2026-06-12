@@ -1,0 +1,465 @@
+{
+  "suiteId": "llm-rag-extraction",
+  "suiteName": "LLM RAG Extraction",
+  "pillar": "cognitive-economy",
+  "tests": [
+    {
+      "id": "rag-token-budget",
+      "name": "Token-Budget RAG (budget=163tok)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "min_coverable_accuracy",
+        "value": 0,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_coverable_accuracy",
+          "value": 25,
+          "unit": "%"
+        },
+        {
+          "name": "budget_tokens",
+          "value": 163,
+          "unit": "tokens"
+        },
+        {
+          "name": "nl_rules_fit",
+          "value": 4,
+          "unit": "/12"
+        },
+        {
+          "name": "min_rules_fit",
+          "value": 4,
+          "unit": "/12"
+        },
+        {
+          "name": "nl_accuracy",
+          "value": 25,
+          "unit": "%"
+        },
+        {
+          "name": "canon_accuracy",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "min_accuracy",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "ultra_accuracy",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "duration",
+          "value": 5888,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Budget: 163 tokens (4 NL paragraphs). NL: 1/4 (25%) at 163tok, 4 rules. Canon: 0/1 (0%) at 157tok, 1 rules. Min: 0/4 (0%) at 181tok, 4 rules. Ultra: 0/3 (0%) at 171tok, 3 rules",
+      "outcome": "disadvantage"
+    },
+    {
+      "id": "rag-format-ladder",
+      "name": "Format Ladder (canon/min/ultra, full content)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "min_accuracy_per_1k_tokens",
+        "value": 27,
+        "unit": "acc/1ktok"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "canon_accuracy",
+          "value": 25,
+          "unit": "%"
+        },
+        {
+          "name": "canon_tokens",
+          "value": 935,
+          "unit": "tokens"
+        },
+        {
+          "name": "canon_per_1k_tokens",
+          "value": 27,
+          "unit": "acc/1ktok"
+        },
+        {
+          "name": "min_accuracy",
+          "value": 13,
+          "unit": "%"
+        },
+        {
+          "name": "min_tokens",
+          "value": 474,
+          "unit": "tokens"
+        },
+        {
+          "name": "min_per_1k_tokens",
+          "value": 27,
+          "unit": "acc/1ktok"
+        },
+        {
+          "name": "ultra_accuracy",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "ultra_tokens",
+          "value": 594,
+          "unit": "tokens"
+        },
+        {
+          "name": "ultra_per_1k_tokens",
+          "value": 0,
+          "unit": "acc/1ktok"
+        },
+        {
+          "name": "duration",
+          "value": 5904,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Canon: 25% at 935tok (27 acc/1ktok). Min: 13% at 474tok (27 acc/1ktok). Ultra: 0% at 594tok (0 acc/1ktok)"
+    },
+    {
+      "id": "rag-equal-content",
+      "name": "NL vs YON Equal Content (5/12 rules)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_nl_delta",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_accuracy",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "nl_accuracy",
+          "value": 40,
+          "unit": "%"
+        },
+        {
+          "name": "yon_tokens",
+          "value": 443,
+          "unit": "tokens"
+        },
+        {
+          "name": "nl_tokens",
+          "value": 499,
+          "unit": "tokens"
+        },
+        {
+          "name": "duration",
+          "value": 3618,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Equal content (5/12 rules). YON: 2/5 (40%) at 443tok. NL: 2/5 (40%) at 499tok. Delta: +0pp.",
+      "outcome": "tied"
+    },
+    {
+      "id": "rag-yon-accuracy",
+      "name": "RAG YON Accuracy (5/12 rules as context)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "coverable_accuracy",
+        "value": 40,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "coverable_correct",
+          "value": 2,
+          "unit": "/5"
+        },
+        {
+          "name": "total_correct",
+          "value": 2,
+          "unit": "/8"
+        },
+        {
+          "name": "total_accuracy",
+          "value": 25,
+          "unit": "%"
+        },
+        {
+          "name": "context_rules",
+          "value": 5,
+          "unit": "/12 rules"
+        },
+        {
+          "name": "duration",
+          "value": 1583,
+          "unit": "ms"
+        }
+      ],
+      "detail": "5/12 YON rules as context. Coverable: 2/5 (40%). Total: 2/8 (25%). Q1: ✗, Q2: ✗, Q3: ✗, Q4: ✓, Q5: ✓, Q6: ✗, Q7: ✗, Q8: ✗",
+      "outcome": "tied"
+    },
+    {
+      "id": "rag-nl-accuracy",
+      "name": "RAG NL Accuracy (comparison)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "nl_accuracy",
+        "value": 38,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "correct",
+          "value": 3,
+          "unit": "/8"
+        },
+        {
+          "name": "duration",
+          "value": 2270,
+          "unit": "ms"
+        }
+      ],
+      "detail": "5/12 NL paragraphs as context. 3/8 correct (38%). Q1: ✗, Q2: ✗, Q3: ✗, Q4: ✓, Q5: ✓, Q6: ✓, Q7: ✗, Q8: ✗",
+      "outcome": "tied"
+    },
+    {
+      "id": "rag-hallucination-rate",
+      "name": "RAG Hallucination Rate — YON context (absent rules)",
+      "passed": true,
+      "type": "gate",
+      "metric": {
+        "name": "hallucination_rate",
+        "value": 0,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "hallucinations",
+          "value": 0,
+          "unit": "/6"
+        },
+        {
+          "name": "duration",
+          "value": 907,
+          "unit": "ms"
+        }
+      ],
+      "detail": "YON context: 0/6 absent-rule questions answered (0% hallucination). No hallucinations."
+    },
+    {
+      "id": "rag-nl-hallucination-rate",
+      "name": "RAG Hallucination Rate — NL context (absent rules)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "nl_hallucination_rate",
+        "value": 0,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "hallucinations",
+          "value": 0,
+          "unit": "/6"
+        },
+        {
+          "name": "duration",
+          "value": 859,
+          "unit": "ms"
+        }
+      ],
+      "detail": "NL context: 0/6 absent-rule questions answered (0% hallucination). No hallucinations."
+    },
+    {
+      "id": "hallucination-comparison",
+      "name": "Hallucination Comparison (NL vs YON)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "hallucination_delta",
+        "value": 0,
+        "unit": "pp"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_hallucination_rate",
+          "value": 0,
+          "unit": "%"
+        },
+        {
+          "name": "nl_hallucination_rate",
+          "value": 0,
+          "unit": "%"
+        }
+      ],
+      "detail": "YON hallucination: 0% vs NL hallucination: 0%. Delta: +0pp (positive = YON hallucinates less).",
+      "outcome": "tied"
+    },
+    {
+      "id": "rag-context-scaling",
+      "name": "RAG Context Scaling (3→5→8→12 rules)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "accuracy_at_12",
+        "value": 25,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "accuracy_at_3",
+          "value": 13,
+          "unit": "%"
+        },
+        {
+          "name": "accuracy_at_5",
+          "value": 25,
+          "unit": "%"
+        },
+        {
+          "name": "accuracy_at_8",
+          "value": 25,
+          "unit": "%"
+        },
+        {
+          "name": "monotonic_increase",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 7660,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Scaling: 3 rules=13%, 5=25%, 8=25%, 12=25%. Monotonic: YES."
+    },
+    {
+      "id": "cross-dataset-rag-api-design",
+      "name": "Cross-Dataset RAG (API Design Guidelines)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "min_accuracy",
+        "value": 83,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_accuracy",
+          "value": 75,
+          "unit": "%"
+        },
+        {
+          "name": "delta",
+          "value": 8,
+          "unit": "pp"
+        },
+        {
+          "name": "budget_tokens",
+          "value": 275,
+          "unit": "cl100k"
+        },
+        {
+          "name": "nl_tokens_used",
+          "value": 275,
+          "unit": "cl100k"
+        },
+        {
+          "name": "min_tokens_used",
+          "value": 297,
+          "unit": "cl100k"
+        },
+        {
+          "name": "nl_rules_fit",
+          "value": 4,
+          "unit": "paragraphs"
+        },
+        {
+          "name": "min_rules_fit",
+          "value": 6,
+          "unit": "sections"
+        },
+        {
+          "name": "duration",
+          "value": 3766,
+          "unit": "ms"
+        }
+      ],
+      "detail": "API Design Guidelines: min 83% (10/12) vs NL 75% (6/8). Min fit 6 sections vs NL 4 paragraphs at 275 tok budget. Delta: +8pp.",
+      "outcome": "advantage"
+    },
+    {
+      "id": "cross-dataset-rag-security",
+      "name": "Cross-Dataset RAG (Security Policy)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "min_accuracy",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "nl_accuracy",
+          "value": 75,
+          "unit": "%"
+        },
+        {
+          "name": "delta",
+          "value": 25,
+          "unit": "pp"
+        },
+        {
+          "name": "budget_tokens",
+          "value": 279,
+          "unit": "cl100k"
+        },
+        {
+          "name": "nl_tokens_used",
+          "value": 279,
+          "unit": "cl100k"
+        },
+        {
+          "name": "min_tokens_used",
+          "value": 274,
+          "unit": "cl100k"
+        },
+        {
+          "name": "nl_rules_fit",
+          "value": 4,
+          "unit": "paragraphs"
+        },
+        {
+          "name": "min_rules_fit",
+          "value": 4,
+          "unit": "sections"
+        },
+        {
+          "name": "duration",
+          "value": 4385,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Security Policy: min 100% (8/8) vs NL 75% (6/8). Min fit 4 sections vs NL 4 paragraphs at 279 tok budget. Delta: +25pp.",
+      "outcome": "advantage"
+    }
+  ],
+  "summary": {
+    "total": 11,
+    "passed": 11,
+    "failed": 0,
+    "durationMs": 8019.664699999994
+  },
+  "timestamp": "2026-03-21T21:09:23.073Z"
+}

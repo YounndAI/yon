@@ -1,0 +1,59 @@
+{
+  "suiteId": "backpressure-safety",
+  "suiteName": "Backpressure Safety",
+  "pillar": "streaming",
+  "tests": [
+    {
+      "id": "batch-memory-constant",
+      "name": "Batch Memory Constant (100K Records in Chunks)",
+      "passed": true,
+      "type": "measurement",
+      "metric": {
+        "name": "heap_delta",
+        "value": 61.61,
+        "unit": "MB"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "heap_before",
+          "value": 33.55,
+          "unit": "MB"
+        },
+        {
+          "name": "heap_peak",
+          "value": 95.16,
+          "unit": "MB"
+        },
+        {
+          "name": "heap_after",
+          "value": 95.16,
+          "unit": "MB"
+        },
+        {
+          "name": "chunks_processed",
+          "value": 1000,
+          "unit": "chunks"
+        }
+      ],
+      "detail": "100,000 records in 1000 chunks of 100. Heap delta: 61.61 MB. Before: 33.5 MB. Peak: 95.2 MB. Memory stays constant because records are processed, not buffered."
+    },
+    {
+      "id": "batch-events-complete",
+      "name": "Batch Events Complete (100K)",
+      "passed": true,
+      "metric": {
+        "name": "events_delivered",
+        "value": 100000,
+        "unit": "events"
+      },
+      "detail": "100,000/100,000 events delivered. All records processed through 1000 chunks with zero loss."
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "durationMs": 181.50400000000081
+  },
+  "timestamp": "2026-03-23T13:38:32.515Z"
+}

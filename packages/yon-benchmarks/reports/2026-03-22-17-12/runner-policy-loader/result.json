@@ -1,0 +1,108 @@
+{
+  "suiteId": "runner-policy-loader",
+  "suiteName": "Runner Policy Loader",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "policy-extract-rules",
+      "name": "Extract Policy Rules",
+      "passed": true,
+      "metric": {
+        "name": "extraction_ok",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "count",
+          "value": 3,
+          "unit": "rules"
+        },
+        {
+          "name": "has_allow",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "has_deny",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "has_prompt",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.09,
+          "unit": "ms"
+        }
+      ],
+      "detail": "3 rules extracted: ALLOW, DENY, PROMPT. All 3 actions verified."
+    },
+    {
+      "id": "policy-fail-closed",
+      "name": "Fail-Closed Default",
+      "passed": true,
+      "metric": {
+        "name": "fail_closed_ok",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "count",
+          "value": 2,
+          "unit": "rules"
+        },
+        {
+          "name": "all_deny",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.02,
+          "unit": "ms"
+        }
+      ],
+      "detail": "Unknown actions \"UNKNOWN_ACTION\" and \"allow_typo\" both resolved to DENY. Fail-closed verified."
+    },
+    {
+      "id": "policy-non-policy-ignored",
+      "name": "Non-Policy Rules Ignored",
+      "passed": true,
+      "metric": {
+        "name": "filter_ok",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "count",
+          "value": 1,
+          "unit": "rules"
+        },
+        {
+          "name": "only_policy",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "duration",
+          "value": 0.03,
+          "unit": "ms"
+        }
+      ],
+      "detail": "2 non-policy @RULE (lvl/when/then) ignored. Only @RULE with op= extracted. Filter verified."
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "durationMs": 0.27860000000009677
+  },
+  "timestamp": "2026-03-22T15:12:15.228Z"
+}

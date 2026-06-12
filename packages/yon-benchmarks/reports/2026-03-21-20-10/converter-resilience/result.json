@@ -1,0 +1,87 @@
+{
+  "suiteId": "converter-resilience",
+  "suiteName": "Converter Resilience",
+  "pillar": "lossless",
+  "tests": [
+    {
+      "id": "multi-format-roundtrip",
+      "name": "Multi-Format Roundtrip (TOML, CSV, XML)",
+      "passed": true,
+      "metric": {
+        "name": "formats_preserved",
+        "value": 6,
+        "unit": "/6 formats"
+      },
+      "detail": "JSON: PASS 3 records, data preserved. YAML: PASS 3 records, data preserved. TOML: PASS 3 records, data preserved. CSV: PASS 5 records, data preserved. XML: PASS 2 records, data preserved. INI: PASS 3 records, data preserved."
+    },
+    {
+      "id": "adversarial-strings",
+      "name": "Adversarial String Resilience",
+      "passed": true,
+      "metric": {
+        "name": "preservation_rate",
+        "value": 100,
+        "unit": "%"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "preserved_keys",
+          "value": 13,
+          "unit": "/13 keys"
+        }
+      ],
+      "detail": "13/13 adversarial strings survived YON→JSON roundtrip (100%). All content preserved."
+    },
+    {
+      "id": "real-world-fixtures",
+      "name": "Real-World Fixture Shapes",
+      "passed": true,
+      "metric": {
+        "name": "fixtures_passed",
+        "value": 3,
+        "unit": "/3 fixtures"
+      },
+      "detail": "package.json: PASS 5 records, 7/7 keys. GitHub API response: PASS 3 records, 12/12 keys. tsconfig.json: PASS 2 records, 3/3 keys."
+    },
+    {
+      "id": "streaming-equivalence",
+      "name": "Streaming vs Sync Equivalence",
+      "passed": true,
+      "metric": {
+        "name": "data_hits",
+        "value": 3,
+        "unit": "/4 values"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "sync_valid",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "stream_valid",
+          "value": 1,
+          "unit": "bool"
+        },
+        {
+          "name": "sync_data_hits",
+          "value": 3,
+          "unit": "/4"
+        },
+        {
+          "name": "stream_data_hits",
+          "value": 3,
+          "unit": "/4"
+        }
+      ],
+      "detail": "Both APIs produce valid JSON (sync: true, stream: true). Source data preservation: sync 3/4, stream 3/4. Data content is equivalent across both transport modes."
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "durationMs": 3.4547999999995227
+  },
+  "timestamp": "2026-03-21T18:10:53.205Z"
+}

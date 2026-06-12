@@ -1,0 +1,76 @@
+{
+  "suiteId": "token-efficiency",
+  "suiteName": "Token Efficiency",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "byte-economy",
+      "name": "Byte Economy (Multi-Format Prompt Comparison)",
+      "passed": true,
+      "type": "comparative",
+      "metric": {
+        "name": "yon_vs_json_prompt",
+        "value": 5,
+        "unit": "% structural baseline"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "prose_bytes",
+          "value": 649,
+          "unit": "bytes"
+        },
+        {
+          "name": "json_prompt_bytes",
+          "value": 821,
+          "unit": "bytes"
+        },
+        {
+          "name": "yon_bytes",
+          "value": 859,
+          "unit": "bytes"
+        },
+        {
+          "name": "yon_vs_prose",
+          "value": 32,
+          "unit": "% baseline vs prose"
+        }
+      ],
+      "detail": "Three-way prompt comparison (8 rules). Prose: 649B. Structured prompt: 821B. YON: 859B. YON structural baseline: +5%. YON baseline relative to prose: +32%. YON's line-oriented tags add structural baseline that buys typed records and fault isolation."
+    },
+    {
+      "id": "format-compression",
+      "name": "Format Compression (canon → min → ultra)",
+      "passed": true,
+      "metric": {
+        "name": "ultra_savings",
+        "value": 2,
+        "unit": "% reduction"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "canon_bytes",
+          "value": 540,
+          "unit": "bytes"
+        },
+        {
+          "name": "min_bytes",
+          "value": 540,
+          "unit": "bytes (−0%)"
+        },
+        {
+          "name": "ultra_bytes",
+          "value": 529,
+          "unit": "bytes (−2%)"
+        }
+      ],
+      "detail": "Canon: 540B. Min: 540B (−0%). Ultra: 529B (−2%). Three compression tiers trade readability for economy. Canon for humans, ultra for LLM pipelines."
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "durationMs": 0.41129999999975553
+  },
+  "timestamp": "2026-03-22T15:12:25.161Z"
+}

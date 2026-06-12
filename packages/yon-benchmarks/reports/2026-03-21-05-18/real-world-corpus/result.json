@@ -1,0 +1,206 @@
+{
+  "suiteId": "real-world-corpus",
+  "suiteName": "Real-World Corpus",
+  "pillar": "cross-cutting",
+  "tests": [
+    {
+      "id": "api-response",
+      "name": "GitHub API Response",
+      "passed": true,
+      "metric": {
+        "name": "roundtrip_fidelity",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_tokens",
+          "value": 329,
+          "unit": "tokens"
+        },
+        {
+          "name": "json_min_tokens",
+          "value": 213,
+          "unit": "tokens"
+        },
+        {
+          "name": "json_pretty_tokens",
+          "value": 310,
+          "unit": "tokens"
+        },
+        {
+          "name": "yon_bytes",
+          "value": 950,
+          "unit": "bytes"
+        },
+        {
+          "name": "json_min_bytes",
+          "value": 685,
+          "unit": "bytes"
+        },
+        {
+          "name": "structural_delta_vs_min",
+          "value": -54,
+          "unit": "%"
+        },
+        {
+          "name": "structural_delta_vs_pretty",
+          "value": -6,
+          "unit": "%"
+        }
+      ],
+      "detail": "GitHub API Response: Roundtrip OK. YON 329 tok (950B), JSON min 213 tok (685B). Structural density: -54% vs min, -6% vs pretty."
+    },
+    {
+      "id": "package-manifest",
+      "name": "npm Package Manifest",
+      "passed": true,
+      "metric": {
+        "name": "roundtrip_fidelity",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_tokens",
+          "value": 348,
+          "unit": "tokens"
+        },
+        {
+          "name": "json_min_tokens",
+          "value": 217,
+          "unit": "tokens"
+        },
+        {
+          "name": "json_pretty_tokens",
+          "value": 321,
+          "unit": "tokens"
+        },
+        {
+          "name": "yon_bytes",
+          "value": 1013,
+          "unit": "bytes"
+        },
+        {
+          "name": "json_min_bytes",
+          "value": 686,
+          "unit": "bytes"
+        },
+        {
+          "name": "structural_delta_vs_min",
+          "value": -60,
+          "unit": "%"
+        },
+        {
+          "name": "structural_delta_vs_pretty",
+          "value": -8,
+          "unit": "%"
+        }
+      ],
+      "detail": "npm Package Manifest: Roundtrip OK. YON 348 tok (1013B), JSON min 217 tok (686B). Structural density: -60% vs min, -8% vs pretty."
+    },
+    {
+      "id": "ci-config",
+      "name": "GitHub Actions Workflow",
+      "passed": true,
+      "metric": {
+        "name": "roundtrip_fidelity",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_tokens",
+          "value": 548,
+          "unit": "tokens"
+        },
+        {
+          "name": "json_min_tokens",
+          "value": 192,
+          "unit": "tokens"
+        },
+        {
+          "name": "json_pretty_tokens",
+          "value": 356,
+          "unit": "tokens"
+        },
+        {
+          "name": "yon_bytes",
+          "value": 1731,
+          "unit": "bytes"
+        },
+        {
+          "name": "json_min_bytes",
+          "value": 711,
+          "unit": "bytes"
+        },
+        {
+          "name": "structural_delta_vs_min",
+          "value": -185,
+          "unit": "%"
+        },
+        {
+          "name": "structural_delta_vs_pretty",
+          "value": -54,
+          "unit": "%"
+        }
+      ],
+      "detail": "GitHub Actions Workflow: Roundtrip OK. YON 548 tok (1731B), JSON min 192 tok (711B). Structural density: -185% vs min, -54% vs pretty."
+    },
+    {
+      "id": "db-schema",
+      "name": "Database Schema Definition",
+      "passed": true,
+      "metric": {
+        "name": "roundtrip_fidelity",
+        "value": 1,
+        "unit": "bool"
+      },
+      "secondaryMetrics": [
+        {
+          "name": "yon_tokens",
+          "value": 579,
+          "unit": "tokens"
+        },
+        {
+          "name": "json_min_tokens",
+          "value": 240,
+          "unit": "tokens"
+        },
+        {
+          "name": "json_pretty_tokens",
+          "value": 456,
+          "unit": "tokens"
+        },
+        {
+          "name": "yon_bytes",
+          "value": 1834,
+          "unit": "bytes"
+        },
+        {
+          "name": "json_min_bytes",
+          "value": 949,
+          "unit": "bytes"
+        },
+        {
+          "name": "structural_delta_vs_min",
+          "value": -141,
+          "unit": "%"
+        },
+        {
+          "name": "structural_delta_vs_pretty",
+          "value": -27,
+          "unit": "%"
+        }
+      ],
+      "detail": "Database Schema Definition: Roundtrip OK. YON 579 tok (1834B), JSON min 240 tok (949B). Structural density: -141% vs min, -27% vs pretty."
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "durationMs": 379.22929999999997
+  },
+  "timestamp": "2026-03-21T03:18:36.760Z"
+}
