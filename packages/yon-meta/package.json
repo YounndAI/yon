@@ -1,7 +1,7 @@
 {
   "name": "@younndai/yon",
-  "description": "The YON™ toolchain in one install — parser, generator, runner, converter, domain schemas, AI relay, examples, and benchmarks for the stream-first, token-efficient YON data format. By YounndAI.",
-  "version": "2.0.0",
+  "description": "The YON™ toolchain in one install — parser, generator, runner, converter, domain schemas, AI relay, examples, and benchmarks for the stream-first YON data format. By YounndAI.",
+  "version": "2.0.2",
   "author": {
     "name": "MARLINK TRADING SRL (YounndAI)",
     "url": "https://younndai.com"
@@ -13,14 +13,14 @@
     }
   ],
   "dependencies": {
-    "@younndai/ai-relay": "^3.0.0",
-    "@younndai/domains": "^2.0.0",
-    "@younndai/yon-benchmarks": "^2.0.0",
-    "@younndai/yon-converter": "^2.0.0",
-    "@younndai/yon-examples": "^2.0.0",
-    "@younndai/yon-generator": "^2.0.0",
-    "@younndai/yon-parser": "^2.0.0",
-    "@younndai/yon-runner": "^2.0.0"
+    "@younndai/ai-relay": "^3.0.1",
+    "@younndai/domains": "^2.0.2",
+    "@younndai/yon-benchmarks": "^2.0.2",
+    "@younndai/yon-converter": "^2.0.2",
+    "@younndai/yon-examples": "^2.0.2",
+    "@younndai/yon-generator": "^2.0.2",
+    "@younndai/yon-parser": "^2.0.2",
+    "@younndai/yon-runner": "^2.0.2"
   },
   "exports": {
     ".": {
@@ -53,8 +53,7 @@
     "llm",
     "agentic-ai",
     "serialization",
-    "structured-data",
-    "token-efficient"
+    "structured-data"
   ],
   "license": "Apache-2.0",
   "main": "./index.js",

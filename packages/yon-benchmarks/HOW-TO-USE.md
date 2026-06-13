@@ -13,7 +13,7 @@
 npm run bench:local
 ```
 
-Runs all 36 local suites. These test structural properties of the YON format itself — no external services needed.
+Runs all 58 local suites. These test structural properties of the YON format itself — no external services needed.
 
 ### LLM Suites
 
@@ -77,7 +77,7 @@ After a run, reports are generated in `reports/<timestamp>/`:
 ### Key Metrics
 
 - **Structural reliability** — parsing correctness, tag coverage, roundtrip fidelity
-- **Cognitive economy** — token efficiency vs JSON/YAML for equivalent content
+- **Cognitive economy** — token cost relative to prose and transport baselines for equivalent content
 - **Streaming properties** — incremental parse capability, partial validity
 - **Fault isolation** — error recovery, graceful degradation
 - **Emitter faithfulness** — generated YON vs spec conformance

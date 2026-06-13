@@ -1,7 +1,7 @@
 {
   "name": "@younndai/yon-generator",
   "description": "Fluent TypeScript builder for YON™ documents — construct valid stream-first YON for AI agent workflows from code.",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "author": {
     "name": "MARLINK TRADING SRL (YounndAI)",
     "url": "https://younndai.com"
@@ -14,7 +14,7 @@
   ],
   "homepage": "https://yon.younndai.com",
   "dependencies": {
-    "@younndai/yon-parser": "^2.0.0"
+    "@younndai/yon-parser": "^2.0.2"
   },
   "devDependencies": {
     "typescript": "^6.0.3",

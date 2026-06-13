@@ -18,8 +18,8 @@
  * Security Suite
  *
  * Pillar: Lossless
- * Validates: YON is secure against prompt injection attacks.
- *         Internal structure resists content breakout.
+ * Validates: structural injection containment — an @TAG inside a string
+ *         payload stays inert, never escaping into a parsed tag.
  *
  * Tests:
  * 1. Prompt Injection Resilience — verify @TAG in strings stays contained

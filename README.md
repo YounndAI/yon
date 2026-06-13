@@ -9,7 +9,7 @@
 <p align="center">
   <strong>YON Toolchain</strong><br />
   The official toolchain for YON — YounndAI Object Notation™<br />
-  <em>Data, intent, and instructions in a single stream.</em>
+  <em>Data, intent, provenance, and thought — in one stream.</em>
 </p>
 
 <p align="center">
@@ -20,7 +20,7 @@
 
 ## What is YON?
 
-YON is a line-oriented, stream-first data format designed for both human and AI consumption. Every record line is independently parseable — no global schema required, enter mid-stream and understand. The same format serves as a data container, a prompt, a configuration file, an execution plan, or a multi-agent controller.
+YON is not a JSON replacement — different category, different job. Transport formats move data between machines; YON fills the gap between prose and markdown — readable but unstructured — and those transport formats — structured but carrying data alone. It is structured and parseable, line-oriented, for both human and AI consumption, and it holds what neither was built for: data, intent, provenance, and thought, in one stream. Structure carries the meaning, not just the data. Every record line is independently parseable — no global schema required, enter mid-stream and understand. The same format serves as a data container, a prompt, a configuration file, an execution plan, or a multi-agent controller.
 
 This monorepo publishes the YON toolchain — 8 npm packages under the [`@younndai`](https://www.npmjs.com/org/younndai) scope: a reference parser and validator, a fluent document builder, a sandboxed workflow runner, deterministic format converters, a runnable example cookbook, a benchmark suite, domain schemas, and a provider-agnostic LLM gateway.
 

@@ -7,6 +7,13 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ---
 
+## [2.0.2] — 2026-06-13
+
+### Changed
+
+- **Benchmark report integrity.** Added a methodology-and-scope note to `reports/aggregate-reports.md` (five smaller models, single environment, no frontier model, no third-party evaluation; deterministic metrics reproducible, LLM-dependent metrics directional and self-reported). Reconciled the pillar and suite counts to the canonical registry — **Six Pillars**, **58 local + 12 LLM suites** — across the report, README, and HOW-TO. No measured value was changed.
+- **Wording.** Corrected the structural-injection-containment description to match what the test asserts (an `@TAG` inside a string payload stays inert). Removed the `token-efficient` marketing keyword.
+
 ## [2.0.1] — 2026-06-12
 
 ### Added

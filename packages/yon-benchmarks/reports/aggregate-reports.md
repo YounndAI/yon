@@ -4,6 +4,16 @@
 
 ---
 
+## Methodology and scope
+
+These results are self-run by YounndAI, on five smaller models (Gemini 2.5 Flash, Claude Haiku 4.5, GPT-4o-mini, GPT-5-nano, Gemini 2.5 Flash-Lite), in a single environment. No frontier model is included, and no third-party evaluation exists yet. Read them accordingly.
+
+- **Deterministic metrics** (parsing, recovery, fidelity, throughput) are reproducible and identical across runs.
+- **LLM-dependent metrics** (comprehension, value amplifier, alignment) are directional and self-reported, not independent.
+- **Tier scope.** The value-amplifier comparison covers budget and standard tiers only. Premium models are excluded by design: they already parse clean structure well, so structured input does not improve their accuracy. The benefit concentrates on cheaper models and fades as capability rises — on standard-tier models the value-amplifier delta runs negative (see the per-run table).
+
+---
+
 ## 6 Pillars
 
 | Pillar | Suites | Tests | Pass Rate |
@@ -200,7 +210,7 @@ YON preserves more concepts than it loses in every run (10/10).
 | Streaming throughput | ~820K records/sec |
 | Multi-doc streaming | ~1.6M records/sec |
 | Scale advantage | ~10× at scale |
-| Value amplifier | +6 to +40pp on budget models |
+| Value amplifier | budget +22pp avg (+6 to +40pp); standard −12pp; aggregate +1pp (premium excluded) |
 | Comprehension | 90% (zero training data) |
 | Concept preservation | 2.6:1 ratio |
 | Total test executions | 6,080 |

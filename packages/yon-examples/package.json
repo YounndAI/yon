@@ -1,7 +1,7 @@
 {
   "name": "@younndai/yon-examples",
-  "description": "Runnable YON™ cookbook — 59 examples across 13 categories covering all 72 YON v2.0 tags, with a browsing CLI.",
-  "version": "2.0.0",
+  "description": "Runnable cookbook for YON™, the stream-first data format — 59 examples across 13 categories covering all 72 YON v2.0 tags, with a browsing CLI.",
+  "version": "2.0.2",
   "author": {
     "name": "MARLINK TRADING SRL (YounndAI)",
     "url": "https://younndai.com"
@@ -17,7 +17,7 @@
     "yon-examples": "dist/cli.js"
   },
   "dependencies": {
-    "@younndai/yon-parser": "^2.0.0"
+    "@younndai/yon-parser": "^2.0.2"
   },
   "devDependencies": {
     "@types/node": "^25.9.1",

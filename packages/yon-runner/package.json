@@ -1,7 +1,7 @@
 {
   "name": "@younndai/yon-runner",
-  "description": "Sandboxed workflow runner for YON™ documents — parse, validate, and execute AI agent workflows fail-closed.",
-  "version": "2.0.0",
+  "description": "Sandboxed workflow runner for YON™, the stream-first data format for AI agent workflows — parse, validate, and execute fail-closed.",
+  "version": "2.0.2",
   "author": {
     "name": "MARLINK TRADING SRL (YounndAI)",
     "url": "https://younndai.com"
@@ -14,12 +14,12 @@
   ],
   "homepage": "https://yon.younndai.com",
   "dependencies": {
-    "@younndai/yon-parser": "^2.0.0",
+    "@younndai/yon-parser": "^2.0.2",
     "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "^25.9.1",
-    "@younndai/yon-spec": "^2.0.0",
+    "@younndai/yon-spec": "^2.0.2",
     "typescript": "^6.0.3",
     "vitest": "^4.0.18"
   },

@@ -1,7 +1,7 @@
 {
   "name": "@younndai/domains",
-  "description": "Fetch, validate, introspect, and classify YounndAI Domain schemas — industry-specific vocabularies for YON™, with JSON Schema export.",
-  "version": "2.0.0",
+  "description": "Fetch, validate, introspect, and classify YounndAI Domain schemas — industry-specific vocabularies for YON™, the stream-first data format, with JSON Schema export.",
+  "version": "2.0.2",
   "author": {
     "name": "MARLINK TRADING SRL (YounndAI)",
     "url": "https://younndai.com"
@@ -14,7 +14,7 @@
   ],
   "devDependencies": {
     "@types/node": "^25.9.1",
-    "@younndai/yon-parser": "^2.0.0",
+    "@younndai/yon-parser": "^2.0.2",
     "typescript": "^6.0.3",
     "vitest": "^4.0.18"
   },

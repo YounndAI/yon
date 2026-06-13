@@ -9,7 +9,8 @@
 <p align="center">
   <strong>@younndai/yon-parser</strong><br />
   YON v2.0 reference parser, validator, and formatter<br />
-  <em>Part of the YON™ toolchain — data, intent, and instructions in a single stream.</em>
+  Parses partial and malformed input line by line.<br />
+  <em>Part of the YON™ toolchain. Data, intent, provenance, and thought — in one stream.</em>
 </p>
 
 <p align="center">

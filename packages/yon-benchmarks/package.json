@@ -1,7 +1,7 @@
 {
   "name": "@younndai/yon-benchmarks",
-  "description": "Benchmark suite for the YON™ format — structural reliability, cognitive economy, token efficiency, and streaming properties.",
-  "version": "2.0.1",
+  "description": "Benchmark suite for YON™, the stream-first data format — structural reliability, cognitive economy, baseline-relative token cost, and streaming properties.",
+  "version": "2.0.2",
   "author": {
     "name": "MARLINK TRADING SRL (YounndAI)",
     "url": "https://younndai.com"
@@ -17,13 +17,13 @@
     "@ai-sdk/anthropic": "^3.0.0",
     "@ai-sdk/google": "^3.0.0",
     "@ai-sdk/openai": "^3.0.0",
-    "@younndai/ai-relay": "^3.0.0",
-    "@younndai/domains": "^2.0.0",
-    "@younndai/yon-converter": "^2.0.0",
-    "@younndai/yon-generator": "^2.0.0",
-    "@younndai/yon-parser": "^2.0.0",
-    "@younndai/yon-runner": "^2.0.0",
-    "@younndai/yon-spec": "^2.0.0",
+    "@younndai/ai-relay": "^3.0.1",
+    "@younndai/domains": "^2.0.2",
+    "@younndai/yon-converter": "^2.0.2",
+    "@younndai/yon-generator": "^2.0.2",
+    "@younndai/yon-parser": "^2.0.2",
+    "@younndai/yon-runner": "^2.0.2",
+    "@younndai/yon-spec": "^2.0.2",
     "ai": "^6.0.0",
     "dotenv": "^17.4.2",
     "tiktoken": "^1.0.22"
@@ -59,7 +59,6 @@
     "younndai",
     "benchmarks",
     "benchmark",
-    "token-efficient",
     "llm",
     "ai",
     "streaming",

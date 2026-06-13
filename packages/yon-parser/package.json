@@ -1,7 +1,7 @@
 {
   "name": "@younndai/yon-parser",
-  "description": "Reference parser, validator, and formatter for YON™ — the stream-first, token-efficient data format for AI agent workflows.",
-  "version": "2.0.0",
+  "description": "Reference parser, validator, and formatter for YON™ — the stream-first data format for AI agent workflows.",
+  "version": "2.0.2",
   "author": {
     "name": "MARLINK TRADING SRL (YounndAI)",
     "url": "https://younndai.com"
@@ -16,11 +16,11 @@
     "yon": "./dist/cli.js"
   },
   "dependencies": {
-    "@younndai/domains": "^2.0.0"
+    "@younndai/domains": "^2.0.2"
   },
   "devDependencies": {
     "@types/node": "^25.9.1",
-    "@younndai/yon-spec": "^2.0.0",
+    "@younndai/yon-spec": "^2.0.2",
     "typescript": "^6.0.3",
     "vitest": "^4.0.18"
   },
@@ -54,8 +54,7 @@
     "ai-agents",
     "llm",
     "serialization",
-    "structured-data",
-    "token-efficient"
+    "structured-data"
   ],
   "license": "Apache-2.0",
   "main": "./dist/index.js",

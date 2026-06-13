@@ -9,7 +9,7 @@
 <p align="center">
   <strong>@younndai/yon-benchmarks</strong><br />
   Quantitative evidence for the YON™ format — structural reliability, cognitive economy, streaming<br />
-  <em>Part of the YON™ toolchain — data, intent, and instructions in a single stream.</em>
+  <em>Part of the YON™ toolchain. Data, intent, provenance, and thought — in one stream.</em>
 </p>
 
 <p align="center">
@@ -21,7 +21,7 @@
 
 ## What is this?
 
-Quantitative evidence for the YON™ format. Measures structural reliability, cognitive economy, streaming properties, fault isolation, and emitter faithfulness across 52 local suites and 9 LLM suites.
+Quantitative evidence for the YON™ format. Measures structural reliability, cognitive economy, streaming properties, fault isolation, and emitter faithfulness across 58 local suites and 12 LLM suites.
 
 ## Install
 
@@ -121,7 +121,7 @@ npm run bench
 
 ## What It Measures
 
-### Five Pillars
+### Six Pillars
 
 | Pillar                   | What it validates                                                                | Example suites                             |
 | ------------------------ | -------------------------------------------------------------------------------- | ------------------------------------------ |
@@ -130,11 +130,12 @@ npm run bench
 | **Cognitive Economy**    | Token efficiency at compressed densities (min/ultra), context window utilization | Token Efficiency, Context Utilization      |
 | **Cross-cutting**        | Structural reliability, error recovery, throughput                               | Error Recovery, Comparative Throughput     |
 | **Emitter Faithfulness** | LLMs generate valid YON without fine-tuning                                      | Generation Quality, Multi-Model Validity   |
+| **Sapir-Whorf**          | Whether notation shapes model cognition — comprehension, salience, priming       | Notation Alignment, Profile Priming, Value Amplifier |
 
 ### Suite Breakdown
 
-- **52 local suites** — deterministic, no API keys needed
-- **9 LLM suites** — require API keys, measure AI comprehension and generation
+- **58 local suites** — deterministic, no API keys needed
+- **12 LLM suites** — require API keys, measure AI comprehension and generation
 
 ## Report Output
 

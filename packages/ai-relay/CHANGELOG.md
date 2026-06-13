@@ -7,6 +7,12 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ---
 
+## [3.0.1] — 2026-06-13
+
+### Changed
+
+- **Category-first positioning.** The README hero now carries the YON positioning refrain ("Data, intent, provenance, and thought — in one stream.").
+
 ## [3.0.0] — 2026-06-06
 
 Initial public release. Provider-agnostic LLM gateway: `createRelay(config)`

@@ -18,7 +18,7 @@
  * YON Runner — System Ops (std:sys.*)
  *
  * Implements YSL §7 (System & Shell) — 🟢 SAFE ops + env.
- * `std:sys.shell` (🔴 DANGEROUS) is intentionally excluded from the free tier.
+ * `std:sys.shell` (🔴 DANGEROUS) is intentionally not implemented in the reference runner.
  */
 
 import { arch, platform, totalmem, freemem } from "node:os";

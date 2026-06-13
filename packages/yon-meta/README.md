@@ -9,7 +9,7 @@
 <p align="center">
   <strong>@younndai/yon</strong><br />
   The YON™ toolchain in one install<br />
-  <em>Data, intent, and instructions in a single stream.</em>
+  <em>Data, intent, provenance, and thought — in one stream.</em>
 </p>
 
 ---
@@ -61,3 +61,5 @@ The normative specification lives separately in [`@younndai/yon-spec`](https://w
 ## License & Attribution
 
 Licensed under the [Apache License 2.0](./LICENSE). YON™ and YounndAI™ are trademarks of MARLINK TRADING SRL (YounndAI) — see [TRADEMARK.md](./TRADEMARK.md) and [NOTICE](./NOTICE). © 2026 MARLINK TRADING SRL (YounndAI) — [younndai.com](https://younndai.com).
+
+<p align="center"><em>Structure before scale. Harmony above all.</em></p>

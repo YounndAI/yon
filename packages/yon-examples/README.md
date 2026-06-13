@@ -9,7 +9,7 @@
 <p align="center">
   <strong>@younndai/yon-examples</strong><br />
   YON™ v2.0 cookbook — runnable examples for learning by reading<br />
-  <em>Part of the YON™ toolchain — data, intent, and instructions in a single stream.</em>
+  <em>Part of the YON™ toolchain. Data, intent, provenance, and thought — in one stream.</em>
 </p>
 
 <p align="center">

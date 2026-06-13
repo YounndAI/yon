@@ -1,7 +1,7 @@
 {
   "name": "@younndai/yon-converter",
-  "description": "Deterministic converters between YON™ and JSON, YAML, TOML, XML, CSV, INI — code-only, no AI, no inference.",
-  "version": "2.0.0",
+  "description": "Deterministic converters between YON™ — the stream-first data format — and JSON, YAML, TOML, XML, CSV, INI. Code-only, no AI, no inference.",
+  "version": "2.0.2",
   "author": {
     "name": "MARLINK TRADING SRL (YounndAI)",
     "url": "https://younndai.com"
@@ -17,7 +17,7 @@
     "yon-convert": "./dist/cli.js"
   },
   "dependencies": {
-    "@younndai/yon-parser": "^2.0.0",
+    "@younndai/yon-parser": "^2.0.2",
     "smol-toml": "^1.6.1",
     "yaml": "^2.9.0"
   },
