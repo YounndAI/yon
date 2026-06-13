@@ -7,6 +7,12 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ---
 
+## [2.0.3] — 2026-06-13
+
+### Fixed
+
+- **Declare the `js-yaml` runtime dependency.** `src/local/comparative-throughput.ts` imports `js-yaml` but it was never listed in `dependencies` — it resolved in the monorepo only via hoisting. For an isolated consumer install the package (and the `@younndai/yon` umbrella, which re-exports it) crashed at import with `Cannot find package 'js-yaml'`. Now declared (`^4.1.1`).
+
 ## [2.0.2] — 2026-06-13
 
 ### Changed
