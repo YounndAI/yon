@@ -202,10 +202,51 @@ for await (const chunk of stream({
   } else if (chunk.type === "complete") {
     console.log("\nUsage:", chunk.result!.usage);
   } else if (chunk.type === "error") {
-    console.error("Error:", chunk.error);
+    console.error(chunk.errorKind, chunk.error);
   }
 }
 ```
+
+### Caller Cancellation and Timeouts
+
+All generation entrypoints accept an optional caller-owned `abortSignal`:
+`generate`, `generateWithLogprobs`, `generateObject`, and `stream`. A signal
+aborted before dispatch starts no provider call. An active cancellation reaches
+the provider, stops retry backoff, and never starts another attempt.
+
+```typescript
+import {
+  GenerationTimeoutError,
+  generateObject,
+} from "@younndai/ai-relay";
+
+const controller = new AbortController();
+
+try {
+  const result = await generateObject({
+    system: "Return a structured proposal.",
+    prompt,
+    schema,
+    abortSignal: controller.signal,
+    timeoutMs: 30_000,
+  });
+  console.log(result.object);
+} catch (error) {
+  if (error === controller.signal.reason) {
+    // Caller cancellation preserves the signal reason by identity.
+  } else if (error instanceof GenerationTimeoutError) {
+    console.error(error.code, error.attempt, error.providerSettled);
+  } else {
+    throw error;
+  }
+}
+```
+
+When a caller abort has no reason, the relay rejects with a standard
+`AbortError`. A provider that ignores abort may continue its own operation until
+it settles, but the relay returns within its bounded grace window and never
+overlaps that work with a retry. Streaming retains error-chunk delivery;
+`errorKind` is optionally `"caller-abort"`, `"timeout"`, or `"provider"`.
 
 ### Cross-Provider Testing (All Models)
 
@@ -447,6 +488,8 @@ You can override by passing an explicit `temperature` value — the override alw
 - `maxAttempts` controls total attempts (default: 2 for `generate`, 3 for `askAllModels`)
 - Only transient errors are retried (5xx, 429 rate limits, timeouts)
 - Auth errors (401), bad requests (400), forbidden (403) fail immediately
+- Caller cancellation never retries and interrupts an active backoff
+- Timeout retries begin only after the previous provider attempt has settled
 - Retries use exponential backoff: 2s → 4s → 8s (`askAllModels`), 500ms → 1s → 2s → 4s (`generate`)
 
 ## Exported Types
@@ -459,6 +502,7 @@ import type {
   GenerateObjectOptions,
   GenerateObjectResult,
   StreamChunk,
+  StreamErrorKind,
   ModelPreset,
   // Embeddings
   EmbedOptions,
@@ -486,6 +530,9 @@ import type {
   AskAllModelsOptions,
 } from "@younndai/ai-relay";
 ```
+
+`GenerationTimeoutError` is a runtime value export from the same package
+entrypoint.
 
 ## Architecture
 

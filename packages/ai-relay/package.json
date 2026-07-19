@@ -1,7 +1,7 @@
 {
   "name": "@younndai/ai-relay",
   "description": "Provider-agnostic LLM gateway — single model registry, structured output, streaming, embeddings, and precise token counting across OpenAI, Anthropic, and Google.",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "author": {
     "name": "MARLINK TRADING SRL (YounndAI)",
     "url": "https://younndai.com"

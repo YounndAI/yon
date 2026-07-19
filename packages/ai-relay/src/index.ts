@@ -39,7 +39,7 @@ export type {
 export { createCostMiddleware } from './cost-middleware.js';
 
 // Core functions (free functions = the zero-config default-client path)
-export { generate, generateObject, generateWithLogprobs, stream } from './generator.js';
+export { GenerationTimeoutError, generate, generateObject, generateWithLogprobs, stream } from './generator.js';
 export { createBYOKModel, type BYOKProvider } from './byok.js';
 export { countTokens, estimateCost } from './tokenizer.js';
 export { embed, embedMany } from './embeddings.js';
@@ -115,6 +115,7 @@ export type {
   LogprobToken,
   LogprobResult,
   LogprobOptions,
+  StreamErrorKind,
 } from './generator.js';
 
 // Types — Embeddings
@@ -133,4 +134,3 @@ export type { ModelEntry, ModelCapabilities, ProviderName } from './model-regist
 
 // Types — Multi-model
 export type { MultiModelResponse, AskAllModelsOptions } from './multi-model.js';
-

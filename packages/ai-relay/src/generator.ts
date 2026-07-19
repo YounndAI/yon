@@ -43,6 +43,8 @@ import type {
   StreamChunk,
 } from './generator-core.js';
 
+export { GenerationTimeoutError } from './generator-core.js';
+
 // Re-export the full public type surface unchanged.
 export type {
   GenerateOptions,
@@ -54,6 +56,7 @@ export type {
   LogprobToken,
   LogprobResult,
   LogprobOptions,
+  StreamErrorKind,
 } from './generator-core.js';
 
 const deps = {

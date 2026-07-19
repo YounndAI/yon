@@ -371,6 +371,7 @@ async function callOneModel(
         model,
         ...(system ? { system } : {}),
         prompt,
+        maxRetries: 0,
         maxOutputTokens: maxTokens,
         temperature: effectiveTemp,
       });

@@ -7,6 +7,26 @@ Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ---
 
+## [3.1.0] — 2026-07-19
+
+### Added
+
+- **Caller-driven generation cancellation.** `generate`, `generateWithLogprobs`,
+  `generateObject`, and `stream` accept an optional `abortSignal`. A caller
+  cancellation reaches the active provider call, interrupts retry backoff, and
+  never starts a later attempt.
+- **Detectable timeouts.** Promise APIs now expose `GenerationTimeoutError`
+  with `code`, `attempt`, `timeoutMs`, and `providerSettled` fields. Streaming
+  error chunks carry an optional `errorKind` discriminator.
+
+### Changed
+
+- Promise APIs preserve the caller's abort reason by identity. Timeout retries
+  occur only after the prior provider attempt has settled, preventing
+  overlapping billable calls.
+- Streaming now bounds iterator advancement, terminal metadata, and best-effort
+  consumer close against one absolute attempt deadline.
+
 ## [3.0.1] — 2026-06-13
 
 ### Changed
